@@ -20,7 +20,7 @@ Note: We avoid using your full name as this repo will be public.
 
 3. You can edit directly in the browser (easiest if you are not very familiar with git). Otherwise, you can clone the forked repo locally on your machine and edit the markdown file in your favorite text editor (e.g., VSCode).
 
-4. Make a pull request to submit your work
+4. Make a pull request to submit your work. Use `week-X-y` as the pull request title, and you can add whatever details you like in the description.
 
 [TODO: make this more detailed / iron out the details]
 

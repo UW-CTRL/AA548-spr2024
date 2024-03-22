@@ -1,2 +1,5 @@
 ## new notes
-dslkfjsldkjfls
+
+Cats are cute.
+
+Boba is yummy.

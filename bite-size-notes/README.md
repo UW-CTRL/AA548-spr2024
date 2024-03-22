@@ -50,7 +50,7 @@ Then click `Request changes` and submit the review.
 
 ## Other notes
 
-You can always get the latest notes from `UW-CTRL/AA548-spr2024` on your own repo by clicking the `Sync` button. Since everyone should be making changes on their own on separate files, there (in theory) should not be any conflicts.
+You can always get the latest notes from `UW-CTRL/AA548-spr2024` on your own repo by clicking the `Sync fork` button. Since everyone should be making changes on their own on separate files, there (in theory) should not be any conflicts.
 
 
 ## Tips and tricks for markdown

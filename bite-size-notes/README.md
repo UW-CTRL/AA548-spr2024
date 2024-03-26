@@ -43,10 +43,11 @@ Then click `Request changes` and submit the review.
 
 ## Incorporating feedback from reviewers.
 
+0. Go to the pull requests tab on `UW-CTRL/AA548-spr2024` and click on your own pull request to see the comments the reviewer made.
 1. Back to your own forked repo `your-own-username/AA548-spr2024` go back to your file, and make the necessary edits. Commit your changes.
 2. Going back to `UW-CTRL/AA548-spr2024` and looking into your pull request, you can see that your changes are automatically synced in `Files changed`.
 3. Then you can go back to the comments left by the reviewer acknowledging you have addressed their comments.
-4. That's it! The grader will review and chack you have submitted your revised notes with the reviewer's comments addressed and then perform the merge.
+4. That's it! The grader will review and check you have submitted your revised notes with the reviewer's comments addressed and then perform the merge.
 
 ## Other notes
 

@@ -20,6 +20,22 @@ In constructing your notes, you should include the following aspects:
 - **Conclusion**: Summarize the key takeaways, and also mention what was not covered in these notes, and perhaps what are references the reader read to learn more.
 - **References**: Please include references to any material you cite, or used in creating these notes.
 
+## Role as a reviewer
+  
+As a reviewer, you should provide feedback on what you think the writer did well in and ways the notes can be improved. Things to think about:
+- Did you learn something new or gain new insight into something you thought you already knew?
+- Were there any parts where it wasn't clear? Or confusing? How could it be addressed?
+- Was a non-trivial statement made without justification?
+- Is the figure self-contained? Are labels provided?
+- Is it content technically correct? Are the equations correct? Typos?
+
+Please keep in mind that we are all here to learn, and develop our knowledge and skills. So please be polite and civil in your feedback.
+
+## Revising notes
+
+Read the reviewer's comments and see if you can address them in your revisions. It may not make sense to address everything but try your best given the scope and purpose of your notes. If the reviewer misinterpreted some aspects and therefore their feedback is not completely valid, try to understand how the misinterpretation could have happened and see if you can address that. 
+
+
 ## Naming convention guidelines
 To help keep all the filenames organized, please use the following naming convention. 
 On the sign-up spreadsheet, if you signed up for `week X` and `row y` then please use the following filename `week-X-y-short-topic-name.md`

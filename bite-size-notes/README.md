@@ -2,6 +2,24 @@
 
 You can write your "bite-size notes" using Markdown and all the nice formatting functionalities that Markdown provides.
 
+## What to include in your notes
+
+These notes are supposed to provide the reader with a quick deep dive into a particular topic or concept. To provide some guidelines on what topic/concept to choose, you can choose any topic that is related to that week's lecture. This can include something that was covered extensively during lectures or a passing reference that was made but was not deeply covered. Naturally, your choice of topic will depend on your level of familiarity. Diversity on topic choices is strongly encouraged. An anti-example is summarizing an entire lecture's worth of material that spans multiple topics/concepts.
+
+In constructing your notes, you should include the following aspects:
+- **Scope + objectives**: What should one expect to learn from reading these notes? Think about what is the purpose of these notes, what questions will be answered, and what will the reader gain from reading these notes.
+- **Introduction**: Introduce the topic. Include things like how it is relevant to controls, in what situation would a reader find this useful, is there some historical context that's important to know, is this related to other topics?
+- **Preliminaries**: Set up the mathematics needed to describe the topic/concept. Introduce definitions, notation, theorems, etc.
+- **Main body**: Describe the topic/concept at a suitable depth given your selected scope and objectives. Consider including:
+   - Figures and diagrams
+   - Code snippets
+   - Video/gif
+   - Derivations
+   - Concrete examples (e.g., with a specific system and with actual numbers)
+   - Anything else that you think will be helpful!
+- **Conclusion**: Summarize the key takeaways, and also mention what was not covered in these notes, and perhaps what are references the reader read to learn more.
+- **References**: Please include references to any material you cite, or used in creating these notes.
+
 ## Naming convention guidelines
 To help keep all the filenames organized, please use the following naming convention. 
 On the sign-up spreadsheet, if you signed up for `week X` and `row y` then please use the following filename `week-X-y-short-topic-name.md`

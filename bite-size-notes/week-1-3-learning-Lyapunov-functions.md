@@ -10,7 +10,7 @@ In the lecture we covered Lyapunov methods for analyzing stability, which are es
 
 ## Math Preliminaries
 Recall Lyapunov stability:
-  Given a system $\dot{x} = f(x)$ and some regioon $D \in \mathbb{R^n}$ and ${0} \in D$:
+  Given a system $\dot{x} = f(x)$ and some regioon $D \in \mathbb{R^n}$ and $\{0\} \in D$:
   If there exists a continuously differentiable function $V(x)$ such that:  
   1) $V(0) = 0$
   2) $V(x) > 0 \forall x \in D \setminus \{0\}$

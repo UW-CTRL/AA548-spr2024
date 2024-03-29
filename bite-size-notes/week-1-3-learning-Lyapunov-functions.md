@@ -14,11 +14,18 @@ Recall Lyapunov stability:
   If there exists a continuously differentiable function $V(x)$ such that:  
     1) $V(0) = 0$  
     2) $V(x) > 0 \quad \forall x \in D \setminus \{0\}$  
-    3) $\dot{V(x)} = \nabla V(x)^Tf(x) \leq 0 $
+    3) $\dot{V(x)} = \nabla V(x)^Tf(x) \leq 0 $  
   Then the system is Lyapunov stable.   
   If, further, $\dot{V(x)}< 0 \quad \forall x \in D \setminus \{0\}$, then the system is asymptotically stable.  
   If, further, $\dot{V(x)} \leq -\alpha V(x)$ for some $\alpha > 0 \quad \forall x \in D \setminus \{0\}$, then the system is exponentially stable  
-  
+
+## Modern approaches for finding Lyapunov functions
+### When an explicit form of the dynamical system (or a good enough simulator) is given:
+#### Model-based approaches
+#### Sampling-based approaches
+### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)
+#### Monte-Carlo based sampling
+#### (Placeholder) the prepreint
 
 ## References
 [1] [Robust data-driven Lyapunov analysis with fixed data by Yingzhao Lian](https://arxiv.org/pdf/2305.12813.pdf) by Matteo Tacchi and Colin Jones

@@ -14,7 +14,7 @@ Recall Lyapunov stability:
   If there exists a continuously differentiable function $V(x)$ such that:  
   1) $V(0) = 0$
   2) $V(x) > 0 \forall x \in D\\{0}$
-  3) $\dot{V(x)} = \nabla V(x)^T\f(x) \leq 0 
+  3) $\dot{V(x)} = \nabla V(x)^T\f(x) \leq 0 $
 
 ## References
 [1] [Robust data-driven Lyapunov analysis with fixed data by Yingzhao Lian](https://arxiv.org/pdf/2305.12813.pdf) by Matteo Tacchi and Colin Jones

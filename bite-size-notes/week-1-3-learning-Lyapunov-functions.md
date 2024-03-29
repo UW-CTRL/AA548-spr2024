@@ -13,7 +13,7 @@ Recall Lyapunov stability:
   Given a system $\dot{x} = f(x)$ and some regioon $D \in \mathbb{R^n}$ and ${0} \in D$:
   If there exists a continuously differentiable function $V(x)$ such that:  
   1) $V(0) = 0$
-  2) $V(x) > 0 \forall x \in D \setminus \{0\}$
+  2) $V(x) > 0 \forall x \in D \setminus \{0 \}$
   3) $\dot{V(x)} = \nabla V(x)^Tf(x) \leq 0 $
 
 ## References

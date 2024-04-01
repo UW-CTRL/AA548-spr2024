@@ -34,11 +34,13 @@ For this system, let us consider a potential candidate Lyapunov function $V(x) =
 ```math
 A = \begin{Bmatrix} 1\\x_1\\x_1^2\\x_1^3\\x_1^4 \end{Bmatrix}, B = \begin{Bmatrix} 1\\x_2\\x_2^2\\x_2^3\\x_2^4 \end{Bmatrix} and \quad P = \begin{Bmatrix} 0&0&c_{02}&c_{03}&c_{04}\\0&c_{11}&c_{12}&c_{13}&0\\c_{20}&c_{21}&c_{22}&0&0\\c_{30}&c_{31}&0&0&0\\c_{40}&0&0&0&0 \end{Bmatrix} \quad is the matrix consisting of coefficients for the polynomial
 ```
+*Note*: It is in general good to start with setting the candidate Lyapunov function to be one order higher than the original dynamics  
 This function can then be recast into a quadratic form as 
 ```math
-V(x) = 1/2 z^tQz, where \quad z = \begin{Bmatrix} x_1\\x_1^2\\x_1x_2\\x_2^2\\x_2 \end{Bmatrix} 
+V(x) = 1/2 z^tQz, \quad where z = \begin{Bmatrix} x_1\\x_1^2\\x_1x_2\\x_2^2\\x_2 \end{Bmatrix} 
 ```
-and $Q$ is a matrix consisting of terms in $P$ and some arbituary real numbers.
+and $Q$ is a matrix consisting of terms in $P$ and some arbituary real numbers. 
+Now the first condition for Lyapunov stability, $V(x) > 0 \quad \forall x \in D \setminus \{0\}$ can be achieved by solving a condition in which the coefficients satisfy $Q \meq 0$
 #### Sampling-based approaches
 ### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)
 #### Monte-Carlo based sampling

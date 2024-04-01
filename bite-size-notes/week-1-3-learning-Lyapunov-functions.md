@@ -6,7 +6,8 @@ We briefly mentioned in the lecture modern, data-driven approaches for developin
 Disclaimer: This will look more like a brief literature review of recent papers rather than actual notes from a lecture, per se. Most of the methods I will include in this note are summarized in [1].
 
 ## Introduction and motivations
-In the lecture we covered Lyapunov methods for analyzing stability, which are especially useful for non-linear systems (as opposed to linear systems in which it suffices to examine the eigenvalues of state matrices). However, one key factor for Lyapunov stability analysis is to actually find a candidate Lyapunov function. While there exist some heurictics, especially for physical systems (energy of the system, quadratic form, etc), it is in general a very hard task. Modern approaches for learning a Lyapunov function for non-linear systems have been proposed whether or not an explicit form of the dynamics is known (or a good enough simulator for the system is available). The methods for the former case mostly divided into model-based and sampling-based approaches and I will include 2 examples for each in this note. For the later case which involve exploiting a given dataset intead of the actual dynamics, I will include a Monte-Carlo sampling approach which ensures probabilitic stability and a novel data-driven approach that ensures strict mathematical stability within the given dataset.
+In the lecture we covered Lyapunov methods for analyzing stability, which are especially useful for non-linear systems (as opposed to linear systems in which it suffices to examine the eigenvalues of state matrices). However, one key factor for Lyapunov stability analysis is to actually find a candidate Lyapunov function. While there exist some heurictics, especially for physical systems (energy of the system, quadratic form, etc), it is in general a very hard task. Modern approaches for learning a Lyapunov function for non-linear systems have been proposed whether or not an explicit form of the dynamics is known (or a good enough simulator for the system is available). 
+The methods for the former case mostly divided into model-based and sampling-based approaches; typically, when the dynamical system is known explicity, we can further exploit its properties to simplifiy the process of obtaining a Lyapunov function. For the later case which involve exploiting a given dataset intead of the actual dynamics, I will include a Monte-Carlo sampling approach which ensures probabilitic stability and a novel data-driven approach that ensures strict mathematical stability within the given dataset.
 
 ## Math Preliminaries
 Recall Lyapunov stability:  
@@ -25,7 +26,10 @@ For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx, and th
 ### When an explicit form of the dynamical system (or a good enough simulator) is given:
 In this case, we can either estimate a form of the candidate Lyapunov function by exploiting properties of the known dynamics (model-based approaches) or propose a candidate Lyapunov function and penalize it by looking at samples of the dynamics that violate it (sampling-based approaches)
 #### Model-based approaches [2]  
-If the given non-linear dynamics are polynomial in the non-linearity, this property can be exploited by linear programming. Recall 
+If the given non-linear dynamics are polynomial in the non-linearity, this property can be exploited by linear programming. For such systems, we can typically propose a candidate Lyapunov function that is polynomial in the state variables, which is affine in the state variables. The derivative of this function will be equally affine in all the polynomical coefficients, which can then be solved for by establishing a LMI and solving using sum of squares (SOS). As an example proposed in [2]:  
+$Consider the following dynamical system:   
+\dot{x_1} = 
+$
 #### Sampling-based approaches
 ### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)
 #### Monte-Carlo based sampling

@@ -32,7 +32,7 @@ $$\dot{x_1} = -x_1 -2x_2^2$$
 $$\dot{x_2} = -x_2 -x_1x_2 - 2x_2^3$$  
 For this system, let us consider a potential candidate Lyapunov function $V(x) = A^TPB$ (analogus to that of linear systems), where
 ```math
-A = \begin{Bmatrix} 1\\x_1\\x_1^2\\x_1^3\\x_1^4 \end{Bmatrix}, B = \begin{Bmatrix} 1\\x_2\\x_2^2\\x_2^3\\x_2^4 \end{Bmatrix}
+A = \begin{Bmatrix} 1\\x_1\\x_1^2\\x_1^3\\x_1^4 \end{Bmatrix}, B = \begin{Bmatrix} 1\\x_2\\x_2^2\\x_2^3\\x_2^4 \end{Bmatrix} and P = \begin{Bmatrix} 0&0&c_02&c_03&c_04\\0&c_11&c_12&c_13&0\\c_20&c_21&c_22&0&0\\c_30&c_31&0&0&0\\c_40&0&0&0&0 \end{Bmatrix}
 ```
 
 #### Sampling-based approaches

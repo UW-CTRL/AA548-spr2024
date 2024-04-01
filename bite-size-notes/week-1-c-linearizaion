@@ -1,57 +1,47 @@
-# Linearization in Multi-Variable Calculus
+# Linearization and Discretization in Multi-Variable Control System: An Introduction
 
-## Scope + Objectives
+**Purpose:** 
+- To study the transformative process of linearizing complex continuous-time dynamics and their conversion into discrete-time models within multi-variable control systems. 
+- To study the significant role of automatic differentiation in streamlining the linearization process.
 
-This document offers an introduction to the concept of Linearization in the context of multi-variable calculus. By the end of this document, readers will understand:
-
-- What linearization is and why it is used.
-- The mathematical principles behind linearization, including the linear approximation formula.
-- Practical applications of linearization in various fields.
+**Objectives:**
+- Clarify linearization's role in control systems analysis.
+- Explore discretization techniques for adapting continuous-time dynamics to digital control applications.
+- Find how to use the automatic differentiation tools like JAX in control system linearization eifficiently.
 
 ## Introduction
 
-Linearization is a mathematical technique used to approximate complex functions with a linear function near a given point. This method is invaluable across disciplines like physics, engineering, and economics, simplifying the analysis of complex models by approximating them as linear in a local region.
+Linearization and discretization are foundational to control systems engineering, enabling simplified analysis and design of digital control systems from complex nonlinear dynamics. Automatic differentiation emerges as a key player in enhancing the efficiency and precision of this process.
 
 ## Preliminaries
 
-### Necessary Mathematics
+- **Linearization:** Approximation of nonlinear systems as linear around an equilibrium. It simplifies the system to `f(x) ≈ f(a) + f'(a) · (x-a)` for analysis and control.
 
-- **Differentiability:** Essential for applying linearization, indicating that the function has a derivative at the point of interest.
-- **Tangent Plane:** In the context of multi-variable calculus, the approximation is done using the tangent plane at a point.
-- **Gradient Vector:** Represents the direction of steepest ascent, crucial for defining the tangent plane.
+- **Discretization:** Conversion of continuous-time dynamics (differential equations) into discrete-time models (difference equations) essential for digital processing.
 
-### Definitions and Notation
-
-The linear approximation of a function \(f(x, y)\) at a point \((a, b)\) is:
-L(x, y) = f(a, b) + f_x(a, b)(x - a) + f_y(a, b)(y - b)
-
-
-Here, \(f_x\) and \(f_y\) represent the partial derivatives of \(f\) with respect to \(x\) and \(y\), respectively.
+- **Automatic Differentiation (Autodiff):** A computational technique for exact derivative calculation, crucial for linearization processes.
 
 ## Main Body
 
-### Example
+### Linearizing Continuous-Time Dynamics
 
-For a function \(f(x, y) = \sqrt{x^2 + y^2}\), to approximate it near \((1, 1)\), follow these steps:
+Consider a pendulum with dynamics `\(\ddot{\theta} + \frac{g}{L}\sin(\theta) = 0\)`. Linearizing around `\(\theta = 0\)` simplifies this to `\(\ddot{\theta} + \frac{g}{L}\theta ≈ 0\)`.
 
-1. Compute the partial derivatives \(f_x\) and \(f_y\) at the point \((1, 1)\).
-2. Use the linear approximation formula to derive \(L(x, y)\).
+### Discretizing Dynamics
 
-This example simplifies the original function into a more manageable linear form.
+**Euler Integration Method:** For state `\(x\)` with dynamics `\(\dot{x} = f(x)\)`, discretization with time step `\(\Delta t\)` is `\(x_{t+1} = x_t + \Delta t \cdot f(x_t)\)`.
 
-## Applications
+### Automatic Differentiation for Linearization
 
-Linearization finds utility in:
+**Using JAX:** Simplifies derivative calculation for linearization.
 
-- **Control Systems:** For controller design in nonlinear systems.
-- **Economics:** Modeling near-equilibrium behavior.
-- **Physics:** Approximating complex motions under specific conditions.
+```python
+import jax.numpy as jnp
+from jax import grad
 
+def f(x): return x**2
+df = grad(f)
+print(df(2.0))  # Outputs 4.0
+```
 ## Conclusion
-
-While linearization offers a streamlined approach to handling complex systems, its applicability is limited to regions where the function behaves nearly linearly. Further exploration into nonlinear dynamics and perturbation methods is encouraged for a deeper understanding.
-
-## References
-
-1. Stewart, James. *Calculus: Early Transcendentals*. Cengage Learning.
-2. Kreyszig, Erwin. *Advanced Engineering Mathematics*. John Wiley & Sons.
+Linearization, discretization, and automatic differentiation form a powerful trio for control systems design and analysis. This note covers the basics, setting a foundation for further exploration into control strategies and nonlinear dynamics.

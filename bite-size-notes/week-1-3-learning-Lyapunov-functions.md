@@ -31,7 +31,9 @@ Consider the following dynamical system:
 $$\dot{x_1} = -x_1 -2x_2^2$$  
 $$\dot{x_2} = -x_2 -x_1x_2 - 2x_2^3$$  
 For this system, let us consider a potential candidate Lyapunov function $V(x) = A^TPB$ (analogus to that of linear systems), where
-$$A = \begin{Bmatrix} 1\\\x_1\\\x_1^2\\\x_1^3\\\x_1^4 \end{Bmatrix} $$
+```math
+A = \begin{Bmatrix} 1\\\x_1\\\x_1^2\\\x_1^3\\\x_1^4 \end{Bmatrix} $$
+```
 
 #### Sampling-based approaches
 ### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)

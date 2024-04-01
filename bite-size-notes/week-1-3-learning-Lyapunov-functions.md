@@ -40,8 +40,12 @@ This function can then be recast into a quadratic form as
 V(x) = 1/2 z^tQz, \quad where z = \begin{Bmatrix} x_1\\x_1^2\\x_1x_2\\x_2^2\\x_2 \end{Bmatrix} 
 ```
 and $Q$ is a matrix consisting of terms in $P$ and some arbituary real numbers. 
-Now the first condition for Lyapunov stability, $V(x) > 0 \quad \forall x \in D \setminus \{0\}$ can be achieved by solving a condition in which the coefficients satisfy $Q \meq 0$
-#### Sampling-based approaches
+Now the first and second condition for Lyapunov stability, $V(0) = 0$ and $V(x) > 0 \quad \forall x \in D \setminus \{0\}$ can be achieved by solving a condition in which the coefficients satisfy $Q \geq 0$ (due to the quadratic form). Further, we can write the derivative of the candidate Lyapunov function in a similar manner into quadratic form, in which the third condition of for Lyapunov stability can be reformatted into a LMI as well. These LMIs can then be easily solved using any linear solver.  
+As it turns out, LMI-based methods can be applied for piecewise-affine functions (PWA) as well, which see frequent applications (for example, the commonly applied ReLU activation function in neural networs is PWA, so is the whole network made up by them).
+#### Sampling-based approaches [3]
+On the topic of ReLU functions being PWA (and piecewise linear (PWL) as well), this property has been exploited to "learn" Lyapunov functions for PWL dynamical systems. In [3], the authors built a feedforward neural network with leaky ReLU activation functions (also PWL) to learn a Lyapunov function for PWL systems.  
+This is first achieved by proving that if a PWA Lyapunov function exists for a PWL system, then that Lyapunov function can be represented by "a fully connected neural network with leaky ReLU activation functions and no bias terms". The learning process for generating this neural network is a data-driven, sampling-based method, where the authors used a mixed-integer linear program to solve for samples in the dynamical system which violates the current neural network output (the "current" candidate Lyapunov function) the most; this violation level of this counter-example is then used as the loss function for training the neural network.  
+This method is known as the  counter-example guided inductive synthesis (CEGIS) and exists in many variations. It should be noted that this method does not necessarily demand the explicit algebric form of the dynamical system, instead only relies on our ability to generate samples (at least with high fidelity) from the system.
 ### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)
 #### Monte-Carlo based sampling
 #### (Placeholder) the prepreint
@@ -49,3 +53,5 @@ Now the first condition for Lyapunov stability, $V(x) > 0 \quad \forall x \in D 
 ## References
 [1] [Robust data-driven Lyapunov analysis with fixed data by Yingzhao Lian](https://arxiv.org/pdf/2305.12813.pdf) by Matteo Tacchi and Colin Jones
 [2] [Structured Semidefinite Programs and Semialgebraic Geometry Methods in Robustness and Optimization (https://web.mit.edu/~a_a_a/Public/Publications/refs_for_seb_blog/Parrilo_thesis.pdf) - PhD thesis by Pablo A. Parrilo
+[3] [Counter-example guided synthesis of neural network Lyapunov functions for piecewise linear systems](https://ieeexplore.ieee.org/document/9304201) by Hongkai Dai, Benoit Landry, Marco Pavoneand Russ Tedrake
+

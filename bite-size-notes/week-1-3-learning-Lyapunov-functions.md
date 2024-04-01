@@ -27,9 +27,9 @@ For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx, and th
 In this case, we can either estimate a form of the candidate Lyapunov function by exploiting properties of the known dynamics (model-based approaches) or propose a candidate Lyapunov function and penalize it by looking at samples of the dynamics that violate it (sampling-based approaches)
 #### Model-based approaches [2]  
 If the given non-linear dynamics are polynomial in the non-linearity, this property can be exploited by linear programming. For such systems, we can typically propose a candidate Lyapunov function that is polynomial in the state variables, which is affine in the state variables. The derivative of this function will be equally affine in all the polynomical coefficients, which can then be solved for by establishing a LMI and solving using sum of squares (SOS). As an example proposed in [2]:  
-$Consider the following dynamical system:   
-\dot{x_1} = 
-$
+$Consider the following dynamical system:$   
+$$\dot{x_1} = -x_1 -2x_2^2$$
+
 #### Sampling-based approaches
 ### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)
 #### Monte-Carlo based sampling

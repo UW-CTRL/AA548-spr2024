@@ -19,10 +19,13 @@ Recall Lyapunov stability:
   If, further, $\dot{V(x)}< 0 \quad \forall x \in D \setminus \{0\}$, then the system is asymptotically stable.  
   If, further, $\dot{V(x)} \leq -\alpha V(x)$ for some $\alpha > 0 \quad \forall x \in D \setminus \{0\}$, then the system is exponentially stable  
 
+For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx, and the test for Lyapunov stability is equivalent to the existence of a $P>0 that satisfies the linear matrix inequality (LMI) $A^TP + PA<0$. (For linear systems, Lyapunov stability is equivalent to asymptotic, exponenital stability).
+
 ## Modern approaches for finding Lyapunov functions
 ### When an explicit form of the dynamical system (or a good enough simulator) is given:
 In this case, we can either estimate a form of the candidate Lyapunov function by exploiting properties of the known dynamics (model-based approaches) or propose a candidate Lyapunov function and penalize it by looking at samples of the dynamics that violate it (sampling-based approaches)
-#### Model-based approaches
+#### Model-based approaches [2]  
+If the given non-linear dynamics are polynomial in the non-linearity, this property can be exploited by linear programming. Recall 
 #### Sampling-based approaches
 ### When a dataset of observations from the dyanmical system is given (an explicit form of the dynamical system is not available)
 #### Monte-Carlo based sampling
@@ -30,3 +33,4 @@ In this case, we can either estimate a form of the candidate Lyapunov function b
 
 ## References
 [1] [Robust data-driven Lyapunov analysis with fixed data by Yingzhao Lian](https://arxiv.org/pdf/2305.12813.pdf) by Matteo Tacchi and Colin Jones
+[2] [Structured Semidefinite Programs and Semialgebraic Geometry Methods in Robustness and Optimization (https://web.mit.edu/~a_a_a/Public/Publications/refs_for_seb_blog/Parrilo_thesis.pdf) - PhD thesis by Pablo A. Parrilo

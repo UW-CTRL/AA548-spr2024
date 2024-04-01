@@ -1,5 +1,5 @@
 # Linearization and Discretization in Multi-Variable Control System: An Introduction
-
+ 
 **Purpose:** 
 - To study the transformative process of linearizing complex continuous-time dynamics and their conversion into discrete-time models within multi-variable control systems. 
 - To study the significant role of automatic differentiation in streamlining the linearization process.

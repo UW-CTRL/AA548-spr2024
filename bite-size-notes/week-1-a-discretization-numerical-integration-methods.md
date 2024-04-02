@@ -30,7 +30,9 @@ $$
 & A(\cdot) \text{ is the "state (or system) matrix", } dim[A(\cdot)] = n \times n;\\
 & B(\cdot) \text{ is the "input matrix", } dim[B(\cdot)] = n \times p;\\
 & C(\cdot) \text{ is the "output matrix", } dim[C(\cdot)] = q \times n;\\
-& D(\cdot) \text{ is the "feedthrough (or feedforward) matrix" (in cases where the}\\ & \text{  system model does not have a direct feedthrough, } D(\cdot) \text{ is the zero}\\ & \text{  matrix), } dim[D(\cdot)] = q \times p;\\
+& D(\cdot) \text{ is the "feedthrough (or feedforward) matrix" (in cases where the}\\ 
+& \text{  system model does not have a direct feedthrough, } D(\cdot) \text{ is the zero}\\ 
+& \text{  matrix), } dim[D(\cdot)] = q \times p;\\
 & \dot{x}(t) := \frac{d}{dt}x(t)
 \end{aligned}
 $$

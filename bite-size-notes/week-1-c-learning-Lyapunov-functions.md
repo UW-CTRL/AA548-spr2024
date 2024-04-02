@@ -26,7 +26,8 @@ For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx, and th
 ### When an explicit form of the dynamical system (or a good enough simulator) is given:
 In this case, we can either estimate a form of the candidate Lyapunov function by exploiting properties of the known dynamics (model-based approaches) or propose a candidate Lyapunov function and penalize it by looking at samples of the dynamics that violate it (sampling-based approaches)
 #### Model-based approaches [2]  
-One of the methods for generating a candidate Lyapunov function is to "guess" its form as linear polynomical of the state variables, which is affine in the state variables, with undetermined coefficients. The derivative of this function will be equally affine in all the polynomical coefficients, which can then be solved for by establishing a LMI and solving using sum of squares (SOS). As an example proposed in [2]:  
+One of the methods for generating a candidate Lyapunov function is to "guess" its form as linear polynomical of the state variables, which is affine in the state variables, with undetermined coefficients. The derivative of this function will be equally affine in all the polynomical coefficients, which can then be solved for by establishing a LMI and solving using sum of squares (SOS).   
+As an example proposed in [2]:  
 Consider the following dynamical system:  
 $$\dot{x_1} = -x_1 -2x_2^2$$  
 $$\dot{x_2} = -x_2 -x_1x_2 - 2x_2^3$$  

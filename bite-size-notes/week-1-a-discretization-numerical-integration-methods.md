@@ -34,6 +34,7 @@ $$
 & \dot{x}(t) := \frac{d}{dt}x(t)
 \end{aligned}
 $$
+
 *Reference: https://en.wikipedia.org/wiki/State-space_representation*
 
 ## Taylor Series Expansion

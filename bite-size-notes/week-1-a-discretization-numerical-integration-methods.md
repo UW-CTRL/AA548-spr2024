@@ -8,7 +8,7 @@ This process is important and is usually carried out as a first step towards mak
 
 At a high level, the process of making a continuous system discrete involves analytically taking the integral of a continous system over time or using numerical methods to estimate the integration. <ins> In these notes we will focus on two main numerical methods for discretization, Euler's method (first-order method) and Runge-Kutta method(fourth-order method).</ins> There are other numerical methods between Euler's first-order method and Runge-Kutta's fourth order method (and even higher order-methods) but these two methods are the most common building blocks to understand other order numerical methods.
 
-## State Space Model Review and Notation
+## Preliminaries: State Space Model Review and Notation
 
 | System type                      | State-space model |
 | -------------------------------- | ----------------- |
@@ -96,6 +96,9 @@ Euler's method can be used when the system does not grow too quickly.
 
 Euler's method is rarely used in real-world applications as the algorithm tends to have low accuracy and requires vast computation time.
 
+### Great Reference to Learn More
+
+- https://courses.lumenlearning.com/calculus2/chapter/eulers-method/
 
 ## Runge-Kutta
 
@@ -136,3 +139,7 @@ $$
 ### When is it used?:
 
 The Runge-Kutta method is best applied to systems that need medium to high accuracy requirements, smooth and non-stiff systems, and systems with continuous inputs.
+
+### Great Reference to Learn More
+
+- https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf

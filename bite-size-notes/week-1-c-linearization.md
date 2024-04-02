@@ -13,21 +13,20 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
 
 
 ## Preliminaries(100-150)
-- **Linearization**
-- **Nonlinear --> Linear control system**:
+- **Nonlinear vs Linear control system**:
+  |          category             |           Nolinear          |         Linear               |
+  |----------------------------   | ----------------------------| -----------------------------|
+  |       Characteristics         |   Complex, Curved graph     |  Simple, straight line graph |
+  |   In continous-time system    |      <i>ẋ = f(x, u)</i>     |      <i>ẋ = Ax + Bu</i>      |
+  |   In discrete-time system     |     <i>x<sub>k+1</sub> = f(x<sub>k</sub>, u<sub>k</sub>)</i> | <i>x<sub>k+1</sub> = Ax<sub>k</sub> + Bu<sub>k</sub></i> |
   
-  For the continous-time system: <i>ẋ = f(x, u)</i>  --> <i>ẋ = Ax + Bu</i>
-  
-  For the discrete-time system: <i>x<sub>k+1</sub> = f(x<sub>k</sub>, u<sub>k</sub>)</i> --> <i>x<sub>k+1</sub> = Ax<sub>k</sub> + Bu<sub>k</sub></i>
+- **Linearization(or linear approximation)** explains local behavior of a nonlinear system by a linear system. We can linearize a sytem by using 'Taylor series expansion'.
 
-
-- **Linearization**(diagrams)
-
+- **Talor series expansion**
+- 
 ## Main Body(200-250)
 
 ### Numerical Linearization(figure, diagrams or gif)
-- **Taylor Series Expansion**
-- **Jacobian Matrix**
 - **Application: Unicycle model**
 Consider a pendulum with dynamics `\(\ddot{\theta} + \frac{g}{L}\sin(\theta) = 0\)`. Linearizing around `\(\theta = 0\)` simplifies this to `\(\ddot{\theta} + \frac{g}{L}\theta ≈ 0\)`.
 

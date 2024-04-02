@@ -65,7 +65,7 @@ By truncating the Taylor series expansion at a certain order, one can obtain a p
 
 ## Euler's Method
 
-![Euler's Method Image](./euler_method.png "https://m0nads.wordpress.com/tag/euler-method/")
+![Euler's Method Image](figs/euler_method.png "https://m0nads.wordpress.com/tag/euler-method/")
 
 *image: https://m0nads.wordpress.com/tag/euler-method/*
 
@@ -99,7 +99,7 @@ Euler's method is rarely used in real-world applications as the algorithm tends 
 
 ## Runge-Kutta
 
-![Runge-Kutta Method Image](./Runge-Kutta_slopes.png "https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods")
+![Runge-Kutta Method Image](figs/Runge-Kutta_slopes.png "https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods")
 
 *image: https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods*
 

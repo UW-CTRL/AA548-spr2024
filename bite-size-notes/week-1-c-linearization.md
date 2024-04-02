@@ -4,8 +4,8 @@
 - Many control models in real world are mostly made up of multiple states and a inputs. Using one of familiar examples, unicycle model, which is often covered in our course, we will study how linearization can be applied in multivariable control system.
 
 **Objectives**
-- To understand the definition and the mathematical foundation of linearization.
-- To learn how to apply linearization in practical control system problem.
+- To review the definition and the mathematical foundation of linearization.
+- To refer how to apply linearization in practical control system problem.
 - To look over code snippets(JAX, auto_diff) for linearizing the control system.
 
 ## Introduction
@@ -13,16 +13,14 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
 
 
 ## Preliminaries(100-150)
-
-- **Nonlinear  Linear control system**
+- **Linearization**
+- **Nonlinear --> Linear control system**:
   
-  For the continous-time system: <i>ẋ = f(x, u)</i> / 
+  For the continous-time system: <i>ẋ = f(x, u)</i>  --> <i>ẋ = Ax + Bu</i>
   
-  For the discrete-time system: <i>x<sub>k+1</sub> = f(x<sub>k</sub>, u<sub>k</sub>)</i> / 
+  For the discrete-time system: <i>x<sub>k+1</sub> = f(x<sub>k</sub>, u<sub>k</sub>)</i> --> <i>x<sub>k+1</sub> = Ax<sub>k</sub> + Bu<sub>k</sub></i>
 
-- **linear control system**
 
-- **State Space Rrepresentation** 
 - **Linearization**(diagrams)
 
 ## Main Body(200-250)

@@ -14,7 +14,14 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
 
 ## Preliminaries(100-150)
 
-- **Nonlinear and Linear System**
+- **Nonlinear  Linear control system**
+  
+  For the continous-time system: <i>ẋ = f(x, u)</i> / 
+  
+  For the discrete-time system: <i>x<sub>k+1</sub> = f(x<sub>k</sub>, u<sub>k</sub>)</i> / 
+
+- **linear control system**
+
 - **State Space Rrepresentation** 
 - **Linearization**(diagrams)
 

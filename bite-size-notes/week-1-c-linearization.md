@@ -12,29 +12,23 @@
 Linearization simplifies nonlinear dynamics into linear models, making complex problems easier to analyze, understand and predict in fields like robotics, physics, economics, and ecology. It is key for dealing with real-world challenges, bridging theory with practice, and enhancing system stability and responsiveness, integrating well with various control strategies.
 
 
-## Preliminaries
+## Preliminaries(100-150)
 
-- **Nonlinear and Linear System** 
-  - 
-- **Linearization** is a method for assessing the local stability of an equilibrium point of a system of nonlinear differential equations or discrete dynamical systems. It simplifies the system to `f(x) ≈ f(a) + f'(a) · (x-a)` for analysis and control.
+- **Nonlinear and Linear System**
+- **State Space Rrepresentation** 
+- **Linearization**(diagrams)
 
-- **Discretization:** Conversion of continuous-time dynamics (differential equations) into discrete-time models (difference equations) essential for digital processing.
+## Main Body(200-250)
 
-- **Automatic Differentiation (Autodiff):** A computational technique for exact derivative calculation, crucial for linearization processes.
-
-## Main Body
-
-### Linearizing Continuous-Time Dynamics
-
+### Numerical Linearization(figure, diagrams or gif)
+- **Taylor Series Expansion**
+- **Jacobian Matrix**
+- **Application: Unicycle model**
 Consider a pendulum with dynamics `\(\ddot{\theta} + \frac{g}{L}\sin(\theta) = 0\)`. Linearizing around `\(\theta = 0\)` simplifies this to `\(\ddot{\theta} + \frac{g}{L}\theta ≈ 0\)`.
 
-### Discretizing Dynamics
+### Snippet codes for Linearization (code)
 
-**Euler Integration Method:** For state `\(x\)` with dynamics `\(\dot{x} = f(x)\)`, discretization with time step `\(\Delta t\)` is `\(x_{t+1} = x_t + \Delta t \cdot f(x_t)\)`.
-
-### Automatic Differentiation for Linearization
-
-**Using JAX:** Simplifies derivative calculation for linearization.
+- **Using JAX:** Simplifies derivative calculation for linearization.
 
 ```python
 import jax.numpy as jnp
@@ -44,5 +38,7 @@ def f(x): return x**2
 df = grad(f)
 print(df(2.0))  # Outputs 4.0
 ```
-## Conclusion
+## Conclusion(50-70)
 Linearization, discretization, and automatic differentiation form a powerful trio for control systems design and analysis. This note covers the basics, setting a foundation for further exploration into control strategies and nonlinear dynamics.
+
+## Reference

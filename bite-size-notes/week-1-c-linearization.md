@@ -1,21 +1,22 @@
-# Linearization and Discretization in Multi-Variable Control System: An Introduction
+# Linearization
  
-**Purpose:** 
-- To study the transformative process of linearizing complex continuous-time dynamics and their conversion into discrete-time models within multi-variable control systems. 
-- To study the significant role of automatic differentiation in streamlining the linearization process.
+**Scope: Linearization in Multivariable Control System** 
+- Many control models in real world are mostly made up of multiple states and a inputs. Using one of familiar examples, unicycle model, which is often covered in our course, we will study how linearization can be applied in multivariable control system.
 
-**Objectives:**
-- Clarify linearization's role in control systems analysis.
-- Explore discretization techniques for adapting continuous-time dynamics to digital control applications.
-- Find how to use the automatic differentiation tools like JAX in control system linearization eifficiently.
+**Objectives**
+- To understand the definition and the mathematical foundation of linearization.
+- To learn how to apply linearization in practical control system problem.
+- To look over code snippets(JAX, auto_diff) for linearizing the control system.
 
 ## Introduction
+Linearization simplifies nonlinear dynamics into linear models, making complex problems easier to analyze, understand and predict in fields like robotics, physics, economics, and ecology. It is key for dealing with real-world challenges, bridging theory with practice, and enhancing system stability and responsiveness, integrating well with various control strategies.
 
-Linearization and discretization are foundational to control systems engineering, enabling simplified analysis and design of digital control systems from complex nonlinear dynamics. Automatic differentiation emerges as a key player in enhancing the efficiency and precision of this process.
 
 ## Preliminaries
 
-- **Linearization:** Approximation of nonlinear systems as linear around an equilibrium. It simplifies the system to `f(x) ≈ f(a) + f'(a) · (x-a)` for analysis and control.
+- **Nonlinear and Linear System** 
+  - 
+- **Linearization** is a method for assessing the local stability of an equilibrium point of a system of nonlinear differential equations or discrete dynamical systems. It simplifies the system to `f(x) ≈ f(a) + f'(a) · (x-a)` for analysis and control.
 
 - **Discretization:** Conversion of continuous-time dynamics (differential equations) into discrete-time models (difference equations) essential for digital processing.
 

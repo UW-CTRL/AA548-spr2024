@@ -12,7 +12,7 @@
 Linearization simplifies nonlinear dynamics into linear models, making complex problems easier to analyze, understand and predict in fields like robotics, physics, economics, and ecology. It is key for dealing with real-world challenges, bridging theory with practice, and enhancing system stability and responsiveness, integrating well with various control strategies.
 
 
-## Preliminaries(100-150)
+## Preliminaries
 - **Nonlinear vs Linear control system**:
   |          category             |           Nolinear          |         Linear               |
   |----------------------------   | ----------------------------| -----------------------------|
@@ -30,34 +30,53 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
     Here,the red part is Higher order Term $\textcolor{red}{(H.O.T.) ≈ 0}$
   - For N-Dimension: $f(\vec{x}) = f(\vec{a}) + \nabla f(\vec{a})^{T} (\vec{x} - \vec{a})$
 
+The transpose of the gradient of \(f(x)\) can be represented as:
 
-<p>Jacobian jax = jacobian(…), where the first row is f<sub>1</sub> gradient.</p>
+$$
+\nabla f(x)^T = \left[ \begin{array}{cccc}
+\frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots & \frac{\partial f_2}{\partial x_n} \\
+\vdots & \vdots & \ddots & \vdots \\
+\frac{\partial f_n}{\partial x_1} & \frac{\partial f_n}{\partial x_2} & \cdots & \frac{\partial f_n}{\partial x_n}
+\end{array} \right]
+= \left[ \begin{array}{c}
+\nabla f_1(x)^T \\
+\nabla f_2(x)^T \\
+\vdots \\
+\nabla f_n(x)^T
+\end{array} \right]
+, where f(x) = \left[ \begin{array}{c}
+f_1(x)\\
+f_2(x)\\
+\vdots \\
+f_n(x)
+\end{array} \right]
+$$
 
-<p>f(x) as a vector function:</p>
-<p>[ f<sub>1</sub>(x) f<sub>2</sub>(x) ⋮ f<sub>n</sub>(x) ]</p>
-
-<p>Extended state vector x<sub>~</sub> = [ x u ]</p>
-
-<p>f(x,u) = f(x<sub>0</sub>,u<sub>0</sub>) + ∇<sub>x</sub>f(x<sub>0</sub>,u<sub>0</sub>)<sup>T</sup>(x-x<sub>0</sub>) + ∇<sub>u</sub>f(x<sub>0</sub>,u<sub>0</sub>)<sup>T</sup>(u-u<sub>0</sub>), where (x<sub>0</sub>,u<sub>0</sub>) is constant.</p>
-
-<p>After simplification, for equilibrium point linearization:</p>
-<p>f(x,u) = ∇<sub>x</sub>f(x<sub>0</sub>,u<sub>0</sub>)<sup>T</sup>x + ∇<sub>u</sub>f(x<sub>0</sub>,u<sub>0</sub>)<sup>T</sup>u - ∇<sub>x</sub>f(x<sub>0</sub>,u<sub>0</sub>)<sup>T</sup>x<sub>0</sub> - ∇<sub>u</sub>f(x<sub>0</sub>,u<sub>0</sub>)<sup>T</sup>u<sub>0</sub> + f(x<sub>0</sub>,u<sub>0</sub>)</p>
-
-<p>To remove C, consider shifted coordinates: x<sub>~</sub> = x - x<sub>0</sub>, u<sub>~</sub> = u - u<sub>0</sub>.</p>
 
 ## Main Body(200-250)
 
 ### Numerical Linearization(figure, diagrams or gif)
 - **Application: Unicycle model**
   - Given the unicycle model dynamics:
-     $$\dot{x} &= v \cos(\theta)$$
-     $$\dot{y} &= v \sin(\theta)$$
-     $$\dot{\theta} &= \omega$$
+$$\dot{x} = v \cos(\theta)$$
+$$\dot{y} = v \sin(\theta)$$
+$$\dot{\theta} = \omega$$
+
 
 The linearized model around the operating point $\((x_0, y_0, \theta_0, v_0, \omega_0)\)$ is given by:
-    $$\delta \dot{x} &= \delta v \cos(\theta_0) - v_0 \sin(\theta_0) \delta \theta \\$$
-    $$\delta \dot{y} &= \delta v \sin(\theta_0) + v_0 \cos(\theta_0) \delta \theta \\$$
-    $$\delta \dot{\theta} &= \delta \omega$$
+
+$$
+\delta \dot{x} = \delta v \cos(\theta_0) - v_0 \sin(\theta_0) \delta \theta
+$$
+
+$$
+\delta \dot{y} = \delta v \sin(\theta_0) + v_0 \cos(\theta_0) \delta \theta
+$$
+
+$$
+\delta \dot{\theta} = \delta \omega
+$$
 
 ### Snippet codes for Linearization (code)
 

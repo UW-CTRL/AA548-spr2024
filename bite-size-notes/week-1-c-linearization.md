@@ -24,20 +24,12 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
 
 - **Talor series expansion**
   - Pick a point 'a
- 
-   ![alt text](figs/eom_linearization.PNG "Title")
+  ![alt text](figs/eom_linearization.PNG "Title")
   - For 1-Dimension: $f(x) = f(a) + f'(a)(x-a) \textcolor{red}{\left( + \frac{1}{2!} f''(a)(x-a)^2 + \cdots + \frac{1}{n!} f^{(n)}(a)(x-a)^n + \cdots \right)}$
     
     Here,the red part is Higher order Term $\textcolor{red}{(H.O.T.) ≈ 0}$
   - For N-Dimension: $f(\vec{x}) = f(\vec{a}) + \nabla f(\vec{a})^{T} (\vec{x} - \vec{a})$
- 
 
-<p>Gradient ∇f(x)<sup>T</sup> is a matrix:</p>
-<p>[ (df<sub>1</sub>/dx<sub>1</sub>) (df<sub>1</sub>/dx<sub>2</sub>) ⋯ (df<sub>1</sub>/dx<sub>n</sub>)<br>
-   (df<sub>2</sub>/dx<sub>1</sub>) (df<sub>2</sub>/dx<sub>2</sub>) ⋯ (df<sub>2</sub>/dx<sub>n</sub>)<br>
-   ⋮ ⋮ ⋱ ⋮<br>
-   (df<sub>n</sub>/dx<sub>1</sub>) (df<sub>n</sub>/dx<sub>2</sub>) ⋯ (df<sub>n</sub>/dx<sub>n</sub>) ]<br>
-   = [ ∇f<sub>1</sub>(x)<sup>T</sup> ∇f<sub>2</sub>(x)<sup>T</sup> ⋮ ∇f<sub>n</sub>(x)<sup>T</sup> ]</p>
 
 <p>Jacobian jax = jacobian(…), where the first row is f<sub>1</sub> gradient.</p>
 
@@ -57,7 +49,15 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
 
 ### Numerical Linearization(figure, diagrams or gif)
 - **Application: Unicycle model**
-Consider a pendulum with dynamics `\(\ddot{\theta} + \frac{g}{L}\sin(\theta) = 0\)`. Linearizing around `\(\theta = 0\)` simplifies this to `\(\ddot{\theta} + \frac{g}{L}\theta ≈ 0\)`.
+  - Given the unicycle model dynamics:
+     $$\dot{x} &= v \cos(\theta)$$
+     $$\dot{y} &= v \sin(\theta)$$
+     $$\dot{\theta} &= \omega$$
+
+The linearized model around the operating point $\((x_0, y_0, \theta_0, v_0, \omega_0)\)$ is given by:
+    $$\delta \dot{x} &= \delta v \cos(\theta_0) - v_0 \sin(\theta_0) \delta \theta \\$$
+    $$\delta \dot{y} &= \delta v \sin(\theta_0) + v_0 \cos(\theta_0) \delta \theta \\$$
+    $$\delta \dot{\theta} &= \delta \omega$$
 
 ### Snippet codes for Linearization (code)
 

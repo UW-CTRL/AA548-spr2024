@@ -81,6 +81,9 @@ $$
 ## Main Body
 
 ### Let's apply Linearization to Pendulum example!
+
+![Example GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTgwa2NwaG15b2hremNxbTUzMjZmbm9rbXljZzZ4MDd4ZHZnY2NhdiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TGJCnaADJBLM22w76L/giphy.gif "Example GIF")
+
 The given pendulum equation is:
 
 $$

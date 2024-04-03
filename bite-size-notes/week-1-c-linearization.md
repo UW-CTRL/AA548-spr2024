@@ -24,7 +24,7 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
 
 - **Talor series expansion**
   - Pick a point 'a
-  ![alt text](figs/eom_linearization.PNG "Title")
+  ![alt text](figs/linearization.png "Title")
   - For 1-Dimension: $f(x) = f(a) + f'(a)(x-a) \textcolor{red}{\left( + \frac{1}{2!} f''(a)(x-a)^2 + \cdots + \frac{1}{n!} f^{(n)}(a)(x-a)^n + \cdots \right)}$
     
     Here, the red part is Higher order Term $\textcolor{red}{(H.O.T.) ≈ 0}$

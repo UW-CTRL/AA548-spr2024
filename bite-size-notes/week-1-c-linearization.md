@@ -168,6 +168,7 @@ f(x) ≈ \textcolor{green}{A} x + \textcolor{red}{C}
 $$
 
 - Now, we will use **codes** for the Pendulum example especially **JAX**
+  
 **JAX:** can automatically compute gradients of functions using forward-mode differentiation **('jax.jacfwd)** and reverse-mode differentiation **(jax.grad)**
 The code is as follows:
 ```python
@@ -232,4 +233,12 @@ A_auto_diff = auto_diff.compute_jacobian(pendulum_auto_diff, x0_auto_diff)
 Linearization simplifies complex systems into easier linear models, crucial for better understanding and control in many areas. This guide shows how to use linearization on a pendulum, with clear math explanations and code examples in JAX, TensorFlow, and PyTorch, showcasing how these tools make analyzing systems straightforward.
 
 ## Reference
-- *JAX 101: JAX Basics*. JAX Documentation. Available at: [https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html](https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html). Last accessed: 2024-04-03.
+[1] Nonliear Linear System(Third Edition) by Hassan K. Khalil.
+
+[2] [Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation](https://underactuated.csail.mit.edu/) by Russ Tedrake 
+
+[3] Optimal Control Theory: An Introduction by Donald E. Kirk.
+
+[4] [Linear Systems Theory](https://web.ece.ucsb.edu/~hespanha/linearsystems/) by Joao Hespanha
+
+[4] *JAX 101: JAX Basics*. JAX Documentation. Available at: [https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html](https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html). Last accessed: 2024-04-03.

@@ -48,7 +48,7 @@ V(x_1,x_2) = x_1^2 + 2x_2^2 \geq 0
 ```
 and
 ```math
-\dot{V(x_1,x_2)} = -4x_2^2 - 2(x_1+2x_2^2)_2 \leq 0
+\dot{V}(x_1,x_2) = -4x_2^2 - 2(x_1+2x_2^2)_2 \leq 0
 ```
 As shown by this example, even though we set up the function to be 4th order initially, we can always (either via optimization or by visual inspection) go down to lower order whenever possible.  
   

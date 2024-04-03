@@ -20,7 +20,7 @@ Recall Lyapunov stability:
   If, further, $\dot{V(x)}< 0 \quad \forall x \in D \setminus \{0\}$, then the system is asymptotically stable.  
   If, further, $\dot{V(x)} \leq -\alpha V(x)$ for some $\alpha > 0 \quad \forall x \in D \setminus \{0\}$, then the system is exponentially stable  
 
-For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx, and the test for Lyapunov stability is equivalent to the existence of a $P>0 that satisfies the linear matrix inequality (LMI) $A^TP + PA<0$. (For linear systems, Lyapunov stability is equivalent to asymptotic, exponenital stability).
+For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx$, and the test for Lyapunov stability is equivalent to the existence of a $P>0 that satisfies the linear matrix inequality (LMI) $A^TP + PA<0$. (For linear systems, Lyapunov stability is equivalent to asymptotic, exponenital stability).
 
 ## Modern approaches for finding Lyapunov functions
 ### When an explicit form of the dynamical system (or a good enough simulator) is given:
@@ -42,7 +42,12 @@ V(x) = \frac{1}{2} z^TQz, \quad where z = \begin{Bmatrix} x_1\\x_1^2\\x_1x_2\\x_
 ```
 and $Q$ is a matrix consisting of terms in $P$ and some arbituary real numbers. (For a detailed representation of Q see the following figure from [2]):  
 ![alt text](figs/Qmatrix.png?raw=true)  
-Now the first and second condition for Lyapunov stability, $V(0) = 0$ and $V(x) > 0 \quad \forall x \in D \setminus \{0\}$ can be achieved by solving a condition in which the coefficients satisfy $Q \geq 0$ (due to the quadratic form). Further, we can write the derivative of the candidate Lyapunov function in a similar manner into quadratic form, in which the third condition of for Lyapunov stability can be reformatted into a LMI as well. These LMIs can then be easily solved using any linear solver.  
+Now the first and second condition for Lyapunov stability, $V(0) = 0$ and $V(x) > 0 \quad \forall x \in D \setminus \{0\}$ can be achieved by solving a condition in which the coefficients satisfy $Q \geq 0$ (due to the quadratic form). Further, we can write the derivative of the candidate Lyapunov function in a similar manner into quadratic form, in which the third condition of for Lyapunov stability can be reformatted into a LMI as well. These LMIs can then be easily solved using any linear solver. For reference, this system can be solved to a very compact form as:
+```math
+V(x_1,x_2) = x_1^2 + 2x_2^2 /geq 0
+and
+dot{V(x_1,x_2)} = -4x_2^2 - 2(x_1+2x_2_2)_2 /leq 0
+``` 
   
 As it turns out, LMI-based methods can be applied for piecewise-affine functions (PWA) as well, which see frequent applications (for example, the commonly applied ReLU activation function in neural networs is PWA, so is the whole network made up by them).
 #### Sampling-based approaches [3]

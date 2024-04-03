@@ -1,11 +1,11 @@
 # Linearization
 
 **Scope: Linearization in Multivariable Control System** 
-- Many control models in real world are mostly made up of multiple states and a inputs. Using one of familiar examples, pendulum, which is often covered in our course, we will study how linearization can be applied in multivariable control system.
+- Many control models in real world are mostly made up of multiple states and a inputs. Using one of familiar examples, pendulum, which is often covered in our course, we will study how linearization can be applied in multivariable control system. hello 
 
 **Objectives**
 - To review the definition and the mathematical foundation of linearization.
-- To remind how to apply linearization in practical control system problem.
+- To remind how to apply linearization using the inverted pendulum example.
 - To look over code snippets(JAX, auto_diff) for linearizing the control system.
 
 ## Introduction
@@ -80,27 +80,31 @@ $$
 
 ## Main Body
 
-### Let's apply Linearization to Unicycle model
-- **Numerical Linearization(figure, diagrams or gif)**
-  - Given the unicycle model dynamics:
-$$\dot{x} = v \cos(\theta)$$
-$$\dot{y} = v \sin(\theta)$$
-$$\dot{\theta} = \omega$$
-
-
-The linearized model around the operating point $\((x_0, y_0, \theta_0, v_0, \omega_0)\)$ is given by:
+### Let's apply Linearization into Inverted Pendulum example!
+  - The given pendulum equation is:
 
 $$
-\delta \dot{x} = \delta v \cos(\theta_0) - v_0 \sin(\theta_0) \delta \theta
+\dot{x} = \left[ \begin{array}{c}
+\dot{x}_1 \\
+\dot{x}_2
+\end{array} \right]
+ = \left[ \begin{array}{c}
+x_2 \\
+ \-\omega^2 \sin(x_1) - r x_2 +u
+\end{array} \right]
 $$
 
-$$
-\delta \dot{y} = \delta v \sin(\theta_0) + v_0 \cos(\theta_0) \delta \theta
-$$
+The equilibrium points $f(x) = 0$ lead to 
 
 $$
-\delta \dot{\theta} = \delta \omega
+\bar{x} = \left[ \begin{array}{c}
+π \\
+0 
+\end{array} \right]
 $$
+
+Let's linearize around the equilibrium poins.
+
 
 ### Snippet codes for Linearization (code)
 

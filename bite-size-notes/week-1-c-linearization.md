@@ -1,11 +1,11 @@
 # Linearization
 
 **Scope: Linearization in Multivariable Control System** 
-- Many control models in real world are mostly made up of multiple states and a inputs. Using one of familiar examples, pendulum, which is often covered in our course, we will study how linearization can be applied in multivariable control system. hello 
+- Many control models in real world are mostly made up of multiple states and a inputs. Using simple examples, pendulum, which is often covered in classes, we will study how linearization can be applied in multivariable control system.
 
 **Objectives**
 - To review the definition and the mathematical foundation of linearization.
-- To remind how to apply linearization using the inverted pendulum example.
+- To remind how to apply linearization using the pendulum example.
 - To look over code snippets(JAX, auto_diff) for linearizing the control system.
 
 ## Introduction
@@ -75,13 +75,13 @@ f(x,u) = \textcolor{green}{\nabla_x f(x_0,u_0)^T} x + \textcolor{blue}{\nabla_u 
 $$
 
 $$
-f(x,u) = \textcolor{green}{A} x + \textcolor{blue}{B}u - \textcolor{red}{C}    \quad \text{($C$ is constant)}
+f(x,u) = \textcolor{green}{A} x + \textcolor{blue}{B}u + \textcolor{red}{C}    \quad \text{($C$ is constant)}
 $$
 
 ## Main Body
 
-### Let's apply Linearization into Inverted Pendulum example!
-  - The given pendulum equation is:
+### Let's apply Linearization to Pendulum example!
+The given pendulum equation is:
 
 $$
 \dot{x} = \left[ \begin{array}{c}
@@ -90,33 +90,123 @@ $$
 \end{array} \right]
  = \left[ \begin{array}{c}
 x_2 \\
- \-\omega^2 \sin(x_1) - r x_2 +u
+ \-\omega^2 \sin(x_1) - r x_2
 \end{array} \right]
 $$
+
+Here, the control input u is autonomous force, so we will consider u = [0, 0]ᵀ
 
 The equilibrium points $f(x) = 0$ lead to 
 
 $$
-\bar{x} = \left[ \begin{array}{c}
-π \\
+\bar{x} = x_0 = \left[ \begin{array}{c}
+0 \\
 0 
 \end{array} \right]
 $$
 
-Let's linearize around the equilibrium poins.
+Let's linearize around the equilibrium points. The linearization around an equilibrium point $x_0$ can be expressed using the Taylor series as follows:
 
+$$
+f(x) ≈ ∇_x f(x_0)^T (x - x_0) + f(x_0)
+$$
 
-### Snippet codes for Linearization (code)
+For the pendulum system, the Jacobian $∇_x f(x_0)^T$ around the equilibrium point $x_0 = [0, 0]^T$ is:
 
-- **Using JAX:** Simplifies derivative calculation for linearization.
+$$
+∇_x f(x_0) = \left[ \begin{array}{cc}
+\frac{\partial \dot{x}_1}{\partial x_1} & \frac{\partial \dot{x}_1}{\partial x_2} \\
+\frac{\partial \dot{x}_2}{\partial x_1} & \frac{\partial \dot{x}_2}{\partial x_2}
+\end{array} \right]
+ = \left[ \begin{array}{cc}
+0 & 1 \\
+-\omega^2 \cos(x_1) & -r
+\end{array} \right]
+ = \left[ \begin{array}{cc}
+0 & 1 \\
+-\omega^2 & -r
+\end{array} \right]
+$$
+
+Thus, the linear approximation of $f(x)$ near $x_0 = [0, 0]^T$ would be:
+
+$$
+f(x) ≈ ∇_x f(x_0)^Tx - ∇_x f(x_0)^T x_0 + f(x_0)
+$$
+
+$$
+f(x) ≈ \textcolor{green}{\left[ \begin{array}{cc}
+0 & 1 \\
+-\omega^2 & -r
+\end{array} \right]} * 
+\left[ \begin{array}{c}
+x_1 \\
+x_2
+\end{array} \right] - 
+\textcolor{red}{\left[ \begin{array}{cc}
+0 & 1 \\
+-\omega^2 & -r
+\end{array} \right] *
+\left[ \begin{array}{c}
+0\\
+0
+\end{array} \right] +
+\left[ \begin{array}{c}
+0\\
+0
+\end{array} \right]}
+$$
+
+$$
+f(x) ≈ \textcolor{green}{A} x + \textcolor{red}{C}
+$$
+
+### Snippet codes for Linearization
+
+- **JAX:** Simplifies derivative calculation for linearization.
 
 ```python
-import jax.numpy as jnp
-from jax import grad
+# Assume omega = 1.0 and r = 0.1 are defined elsewhere
 
-def f(x): return x**2
-df = grad(f)
-print(df(2.0))  # Outputs 4.0
+# JAX
+import jax.numpy as jnp
+from jax import jacfwd
+def pendulum_jax(x):
+    return jnp.array([x[1], -omega**2 * jnp.sin(x[0]) - r*x[1]])
+A_jax = jacfwd(pendulum_jax)(jnp.array([0.0, 0.0]))
+
+# TensorFlow
+import tensorflow as tf
+@tf.function
+def pendulum_tf(x):
+    x1, x2 = x[0], x[1]
+    return tf.stack([x2, -omega**2 * tf.sin(x1) - r * x2])
+x_tf = tf.Variable([0.0, 0.0])
+with tf.GradientTape() as tape:
+    tape.watch(x_tf)
+    y_tf = pendulum_tf(x_tf)
+A_tf = tape.jacobian(y_tf, x_tf)
+
+# PyTorch
+import torch
+def pendulum_torch(x):
+    x1, x2 = x.unbind()
+    return torch.stack([x2, -omega**2 * torch.sin(x1) - r * x2])
+x_torch = torch.tensor([0.0, 0.0], requires_grad=True)
+y_torch = pendulum_torch(x_torch)
+A_torch = torch.autograd.functional.jacobian(pendulum_torch, x_torch)
+
+# Auto_diff (Pseudocode for conceptual purposes)
+def pendulum_auto_diff(x, omega=1.0, r=0.1):
+    x1, x2 = x
+    return [x2, -omega**2 * auto_diff.sin(x1) - r*x2]
+x0_auto_diff = [0.0, 0.0]
+A_auto_diff = auto_diff.compute_jacobian(pendulum_auto_diff, x0_auto_diff)
+
+print("JAX Jacobian:", A_jax)
+print("TensorFlow Jacobian:", A_tf.numpy())
+print("PyTorch Jacobian:", A_torch)
+print("Auto_diff Jacobian (Pseudocode):", A_auto_diff)
 ```
 ## Conclusion(50-70)
 Linearization, discretization, and automatic differentiation form a powerful trio for control systems design and analysis. This note covers the basics, setting a foundation for further exploration into control strategies and nonlinear dynamics.

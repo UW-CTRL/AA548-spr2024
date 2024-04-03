@@ -167,6 +167,8 @@ $$
 f(x) ≈ \textcolor{green}{A} x + \textcolor{red}{C}
 $$
 
+ ![alt text](figs/Pendulum.PNG "Title")
+ 
 - Now, we will use **codes** for the Pendulum example especially **JAX**
   
 **JAX:** can automatically compute gradients of functions using forward-mode differentiation **('jax.jacfwd)** and reverse-mode differentiation **(jax.grad)**
@@ -233,12 +235,13 @@ A_auto_diff = auto_diff.compute_jacobian(pendulum_auto_diff, x0_auto_diff)
 Linearization simplifies complex systems into easier linear models, crucial for better understanding and control in many areas. This guide shows how to use linearization on a pendulum, with clear math explanations and code examples in JAX, TensorFlow, and PyTorch, showcasing how these tools make analyzing systems straightforward.
 
 ## Reference
-[1] Nonliear Linear System(Third Edition) by Hassan K. Khalil.
+[1] Leung, Karen. “Linear Multivariable Control” Lecture, University of Washington, Seattle, 2024-03-27.
 
-[2] [Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation](https://underactuated.csail.mit.edu/) by Russ Tedrake 
+[2] Taghvaei, Amir. “Nonlinear Control Systems” Lecture, University of Washington, Seattle, 2023-10-05.
 
-[3] Optimal Control Theory: An Introduction by Donald E. Kirk.
+[3]  D.Lazard. "Nonliear system." *Wikipedia*. Last Modification: 2024-03-08. Last Accessed:2024-04-03. [URL](https://en.wikipedia.org/w/index.php?title=Nonlinear_system&action=history).
 
-[4] [Linear Systems Theory](https://web.ece.ucsb.edu/~hespanha/linearsystems/) by Joao Hespanha
+[4] Nonliear Linear System by Hassan K. Khalil, 3rd Edition
 
-[4] *JAX 101: JAX Basics*. JAX Documentation. Available at: [https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html](https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html). Last accessed: 2024-04-03.
+[5] *JAX 101: JAX Basics*. JAX Documentation.[https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html](https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html). Last accessed: 2024-04-03.
+0303

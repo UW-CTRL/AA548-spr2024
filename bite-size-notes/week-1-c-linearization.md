@@ -22,9 +22,10 @@ Linearization simplifies nonlinear dynamics into linear models, making complex p
   | Equilibrium point | Many points | Only one point |
 - **Linearization(or linear approximation)** explains local behavior of a nonlinear system by a linear system. We can linearize a sytem by using 'Taylor series expansion'. The linear approximation of a function is the first order Taylor expansion around the point of interest.
 
+ ![alt text](figs/Linearization.png "Title")
+
 - **Talor series expansion**
   - Pick a point 'a
-  ![alt text](figs/Linearization.png "Title")
   - For 1-Dimension: $f(x) = f(a) + f'(a)(x-a) \textcolor{red}{\left( + \frac{1}{2!} f''(a)(x-a)^2 + \cdots + \frac{1}{n!} f^{(n)}(a)(x-a)^n + \cdots \right)}$
     
     Here, the red part is Higher order Term $\textcolor{red}{(H.O.T.) ≈ 0}$
@@ -165,18 +166,29 @@ f(x) ≈ \textcolor{green}{A} x + \textcolor{red}{C}
 $$
 
 ### Snippet codes for Linearization
-
-- **JAX:** Simplifies derivative calculation for linearization.
-
+Using the pendulum example, we we
+- **JAX:** can automatically compute gradients of functions using forward-mode differentiation **('jax.jacfwd)** and reverse-mode differentiation **(jax.grad)**
 ```python
-# Assume omega = 1.0 and r = 0.1 are defined elsewhere
-
 # JAX
 import jax.numpy as jnp
-from jax import jacfwd
-def pendulum_jax(x):
-    return jnp.array([x[1], -omega**2 * jnp.sin(x[0]) - r*x[1]])
-A_jax = jacfwd(pendulum_jax)(jnp.array([0.0, 0.0]))
+from jax import grad, jacfwd
+
+def pendulum_dynamics(x, omega=1.0, r=0.1):
+    x1, x2 = x
+    dx1dt = x2
+    dx2dt = -omega**2 * jnp.sin(x1) - r * x2
+    return jnp.array([dx1dt, dx2dt])
+
+def linearize_system(x, omega=1.0, r=0.1): 
+    jacobian_func = jacfwd(pendulum_dynamics, argnums=0)
+    jacobian_at_x = jacobian_func(x, omega, r)   
+    return jacobian_at_x
+
+x_example = jnp.array([0.0, 0.0]) 
+omega = 1.0  
+r = 0.1      
+jacobian_at_equilibrium = linearize_system(x_example, omega, r)
+print("Jacobian matrix at the equilibrium point:", jacobian_at_equilibrium)
 
 # TensorFlow
 import tensorflow as tf

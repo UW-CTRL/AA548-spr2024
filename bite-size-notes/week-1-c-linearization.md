@@ -6,7 +6,7 @@
 **Objectives**
 - To review the definition and the mathematical foundation of linearization.
 - To remind how to apply linearization using the pendulum example.
-- To look over code snippets(JAX, auto_diff) for linearizing the control system.
+- To look over code snippets such as JAX for linearizing the control system.
 
 ## Introduction
 Linearization simplifies nonlinear dynamics into linear models, making complex problems easier to analyze, understand and predict in fields like robotics, physics, economics, and ecology. It is key for dealing with real-world challenges, bridging theory with practice, and enhancing system stability and responsiveness, integrating well with various control strategies.
@@ -84,6 +84,8 @@ $$
 ### Let's apply Linearization to Pendulum example!
 
 ![Example GIF](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTgwa2NwaG15b2hremNxbTUzMjZmbm9rbXljZzZ4MDd4ZHZnY2NhdiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TGJCnaADJBLM22w76L/giphy.gif "Example GIF")
+
+- First, we will solve Pendulum problem in **mathematical way**, which we studied in Preliminary section.
 
 The given pendulum equation is:
 
@@ -165,9 +167,9 @@ $$
 f(x) ≈ \textcolor{green}{A} x + \textcolor{red}{C}
 $$
 
-### Snippet codes for Linearization
-Using the pendulum example, we we
-- **JAX:** can automatically compute gradients of functions using forward-mode differentiation **('jax.jacfwd)** and reverse-mode differentiation **(jax.grad)**
+- Now, we will use **codes** for the Pendulum example especially **JAX**
+**JAX:** can automatically compute gradients of functions using forward-mode differentiation **('jax.jacfwd)** and reverse-mode differentiation **(jax.grad)**
+The code is as follows:
 ```python
 # JAX
 import jax.numpy as jnp
@@ -184,12 +186,14 @@ def linearize_system(x, omega=1.0, r=0.1):
     jacobian_at_x = jacobian_func(x, omega, r)   
     return jacobian_at_x
 
-x_example = jnp.array([0.0, 0.0]) 
-omega = 1.0  
-r = 0.1      
+x_example = jnp.array([0.0, 0.0])  # Equilibrium point
+omega = 1.0  # Natural frequency
+r = 0.1      # Damping coefficient
 jacobian_at_equilibrium = linearize_system(x_example, omega, r)
 print("Jacobian matrix at the equilibrium point:", jacobian_at_equilibrium)
-
+```
+- Other **Snippet codes** you can use for **linearization**:
+```  
 # TensorFlow
 import tensorflow as tf
 @tf.function
@@ -211,19 +215,21 @@ x_torch = torch.tensor([0.0, 0.0], requires_grad=True)
 y_torch = pendulum_torch(x_torch)
 A_torch = torch.autograd.functional.jacobian(pendulum_torch, x_torch)
 
-# Auto_diff (Pseudocode for conceptual purposes)
+# Auto_diff (Pseudocode)
 def pendulum_auto_diff(x, omega=1.0, r=0.1):
     x1, x2 = x
     return [x2, -omega**2 * auto_diff.sin(x1) - r*x2]
 x0_auto_diff = [0.0, 0.0]
 A_auto_diff = auto_diff.compute_jacobian(pendulum_auto_diff, x0_auto_diff)
-
-print("JAX Jacobian:", A_jax)
-print("TensorFlow Jacobian:", A_tf.numpy())
-print("PyTorch Jacobian:", A_torch)
-print("Auto_diff Jacobian (Pseudocode):", A_auto_diff)
 ```
-## Conclusion(50-70)
-Linearization, discretization, and automatic differentiation form a powerful trio for control systems design and analysis. This note covers the basics, setting a foundation for further exploration into control strategies and nonlinear dynamics.
+**TensorFlow** excels in scalable deep learning, offering (tf.GradientTape) for eager automatic differentiation and optimizations via (tf.function). It uniquely integrates with tools like TensorBoard for visualization and TensorFlow Lite for mobile, standing out for deployment capabilities.
+
+**PyTorch** is useful for research with its dynamic computation graphs and intuitive, Pythonic syntax. It's particularly user-friendly for rapid prototyping and iteration, differentiating itself with a more accessible approach to graph construction and debugging.
+
+**Auto_diff (Pseudocode)** conceptualizes automatic differentiation, simplifying the understanding of gradient and Jacobian computation without tying to a specific API(Application Programming Interface), highlighting the core principles of auto differentiation technologies.
+
+## Conclusion
+Linearization simplifies complex systems into easier linear models, crucial for better understanding and control in many areas. This guide shows how to use linearization on a pendulum, with clear math explanations and code examples in JAX, TensorFlow, and PyTorch, showcasing how these tools make analyzing systems straightforward.
 
 ## Reference
+- *JAX 101: JAX Basics*. JAX Documentation. Available at: [https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html](https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html). Last accessed: 2024-04-03.

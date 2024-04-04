@@ -239,9 +239,12 @@ Linearization simplifies complex systems into easier linear models, crucial for 
 
 [2] Taghvaei, Amir. “Nonlinear Control Systems” Lecture, University of Washington, Seattle, 2023-10-05.
 
-[3]  D.Lazard. "Nonliear system." *Wikipedia*. Last Modification: 2024-03-08. Last Accessed:2024-04-03. [URL](https://en.wikipedia.org/w/index.php?title=Nonlinear_system&action=history).
+[3] D.Lazard. "Nonliear system." *Wikipedia*. Last Modification: 2024-03-08. Last Accessed:2024-04-03. [URL](https://en.wikipedia.org/w/index.php?title=Nonlinear_system&action=history).
 
 [4] Nonliear Linear System by Hassan K. Khalil, 3rd Edition
 
 [5] *JAX 101: JAX Basics*. JAX Documentation.[https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html](https://jax.readthedocs.io/en/latest/jax-101/01-jax-basics.html). Last accessed: 2024-04-03.
-0303
+
+[6] Introduction to gradients and automatic differentiation. https://www.tensorflow.org/guide/autodiff. Last accessed:2024-04-03.
+
+[7] JACOBIANS, HESSIANS, HVP, VHP, AND MORE: COMPOSING FUNCTORCH TRANSFORMS. https://pytorch.org/functorch/stable/notebooks/jacobians_hessians.html#jacobians-hessians-hvp-vhp-and-more-composing-functorch-transforms. Last accessed:2024-04-03.

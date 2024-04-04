@@ -1,9 +1,9 @@
-## Lyapunov Direct Method for Stability Analysis
+# Lyapunov Direct Method for Stability Analysis
 
-### Scope
+## Scope
 Through these notes, you will learn the importance of Lyapunov stability including its definition and application in assessing system stability. Furthermore, we will cover the conditions that these functions must satisfy for a system to be considered Lyapunov stable. An example will be provided to gain an understanding of how Lyapunov stability is applied in practice, illustrated through diagrams and code.
 
-### Motivation
+## Motivation
 In industrial processes, you have to control many variables such as a position of an object to the temperature of a process. Ideally, you want all process variables to acheive a stability at a desired level. There are many concepts of stability:
 * **Lyapunov stable**
 * Asymptotically stable
@@ -15,7 +15,7 @@ In industrial processes, you have to control many variables such as a position o
 
 Lyapunov is a powerful tool for assessing the stability of equilibrium points without solving the system's differential equations directly. It's widely used in control systems, robotics, and anywhere system stability is critical.
 
-### Definitions and Notation
+## Definitions and Notation
 __Lyapunov Stability__ - an equilibrium point is stable if all system trajectories starting at nearby points stay nearby
 
 Lyapunov functions must satisfy the following statements and conditions to be Lyapunov stable:
@@ -23,12 +23,12 @@ Lyapunov functions must satisfy the following statements and conditions to be Ly
 **Lyapunov Functions (no control input)** \
 &nbsp;&nbsp; Given a system $\dot{x} = f(x)$ and some region $D \subset R^n$ with $0 \in D$, then if there exists a continuous-differentiable function $V(x)$ such that:
 * $V(0) = 0 \rightarrow$ the function at the zero-state is zero
-* $V(x) > 0, \forall x \in D \backslash \ 0 \rightarrow$ the function must be greater than zero for all x in the domain except for the zero state
+* $V(x) > 0, \forall x \in D \ \backslash \ 0 \rightarrow$ the function must be greater than zero for all x in the domain except for the zero state
 * $\dot{V}(x(t)) = \nabla V(x)^T f(x) \leq 0 \rightarrow$ The time derivative of the Lyapunov function V, as a function of x must be less than or equal to zero
 
 Intuitively, the Lyapunov function " $V(x)$ " is similar to the "energy" of the system, this is nontrivial to find for arbitrary nonlinear systems
 
-### Example: Damped Pendulum
+## Example: Damped Pendulum
 Equation of motion of the damped simple pendulum:
 
 $$ \ddot{\theta} = -\frac {g}{l} \sin{\theta} - k \dot{\theta} $$
@@ -46,7 +46,7 @@ Lyapunov Function (total system energy, kinetic + potential):
 
 $$ V(x) = mgl(1 - \cos{\theta}) + \frac{1}{2} m l^2 \dot{\theta^2} $$
 
-Determine if $V(x)$ is a valid Lyapunov function from the conditions above:
+### Determine if $V(x)$ is a valid Lyapunov function from the conditions above:
 
 &nbsp;&nbsp; **1. $V(0) = 0$** \
 &nbsp;&nbsp; Set the state vector $x$ to 0:
@@ -70,7 +70,7 @@ $$ V (0) = 0 $$
 
 &nbsp;&nbsp; The first condition is **satisfied**
 
-&nbsp;&nbsp; **2. $V(x) > 0, \forall x \in D \backslash 0$**
+&nbsp;&nbsp; **2. $V(x) > 0, \forall x \in D \ \backslash \ 0$**
 
 &nbsp;&nbsp; $V(x) = mgl(1 - \cos{\theta}) + \frac{1}{2} m l^2 \dot{\theta^2}$
 
@@ -106,7 +106,7 @@ $$ \dot{V}(x) = - mkl^2 \dot{\theta^2} $$
 
 &nbsp;&nbsp; The third condition is **satisfied**
 
-### Code
+## Code
 The Python script below will output a phase plot of the above example demonstrating Lyapunov stability
 
 ```python
@@ -170,10 +170,10 @@ plt.show()
 
 The above chart demonstrates the phase plot of of a simple damped pendulum starting at different $\theta$ and $\dot{\theta}$ initial conditions. From this chart, you can observe that when the pendulum starts at small angles and low angular velocities, it will rest at its final state, 0 radians (straight down). When given a larger initial angular position and velocity, the pendulum swings over its vertical center of $\pm \pi$ radians. The pendulum always spiraling inwards towards equilibruim at $\pm 2\pi k$ radians (where k is an integer) demonstrates that regardless of the initial conditions within a certain vicinity of these points, the pendulum's motion will converge to one of these stable equilibria. The exception to this is when the pendulum starts at $\pm \pi k$ radians (vertical) with zero initial angular velocity which is an unstable equilibrium. When perturbed, it will converge to the stable equilibrium. This convergence is a key characteristic of Lyapunov stability, showing that small deviations from the equilibrium state result in motions that eventually decay back to equilibrium.
 
-### Conclusion
+## Conclusion
 Lyapunov stability is a fundamental concept in the theory of dynamical systems, providing a framework for understanding the behavior of systems in response to small perturbations. It focuses on the behavior of systems near their equilibrium points and offers methods to analyze stability without explicitly solving differential equations. Through these notes, we worked through a damped pendulum example which shows trajectories spiraling towards stable equilibrium points illustrating Lyapunbov stability and the reduction of total energy overtime. Other examples that can be analyzed using this method include spring-mass-damper and electrical circuit systems. By focusing on the system's behavior in the vicinity of equilibrium points and using Lyapunov functions to assess energy changes, the theory helps predict whether a system will remain stable, return to a stable state, or diverge when subjected to small disturbances.
 
-### References
+## References
 [1] [Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation](https://underactuated.mit.edu/lyapunov.html) by Russ Tedrake \
 [2] [NCS - 15 - Lyapunov stability - Definition and explanation](https://www.youtube.com/watch?app=desktop&v=7IporYelLU0) \
 [3] [Phase Plane Analysis and Stability](https://www.cds.caltech.edu/~murray/courses/cds101/fa02/precourse/leok-26sep02.pdf) by Melvin Leok \

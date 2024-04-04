@@ -50,7 +50,7 @@ and
 ```math
 \dot{V}(x_1,x_2) = -4x_2^2 - 2(x_1+2x_2^2)_2 \leq 0
 ```
-As shown by this example, even though we set up the function to be 4th order initially, we can always (either via optimization or by visual inspection) go down to lower order whenever possible. In this particular example, this means setting all $\lambda$ terms and most coefficient terms to zero.
+As shown by this example, even though we set up the function to be 4th order initially, we can always (either via optimization or by visual inspection) go down to lower order whenever possible. In this particular example, this means setting all $\lambda$ terms and most coefficient terms to zero, except $c_{20} = 1$ and $c_{02} = 2$.
   
 As it turns out, LMI-based methods can be applied for piecewise-affine functions (PWA) as well, which see frequent applications (for example, the commonly applied ReLU activation function in neural networs is PWA, so is the whole network made up by them).
 #### Sampling-based approaches [3]

@@ -80,4 +80,85 @@ $$ V (0) = 0 $$
 * Length of pendulum, $l$, is postitive
 * Anglular velocity, $\dot{\theta}$, is squared which will be positive
 
-&nbsp;&nbsp; The second condition is **satisfied** 
+&nbsp;&nbsp; The second condition is **satisfied**
+
+&nbsp;&nbsp; **3. $\dot{V}(x(t)) \leq 0$**
+
+$$ V(x) = mgl(1 - \cos{\theta}) + \frac{1}{2} m l^2 \dot{\theta^2} $$
+
+&nbsp;&nbsp; Take the derivative:
+
+$$ \dot{V}(x) = mgl \dot{\theta} \sin{\theta} + m l^2 \dot{\theta} \ddot{\theta} $$
+
+&nbsp;&nbsp; Plug in $\ddot{\theta}$:
+
+$$ \dot{V}(x) = mgl \dot{\theta} \sin{\theta} + m l^2 \dot{\theta} (-\frac {g}{l} \sin{\theta} - k \dot{\theta}) $$
+
+$$ \dot{V}(x) = mgl \dot{\theta} \sin{\theta} - mgl \dot{\theta} \sin{\theta} - mkl^2 \dot{\theta^2} $$
+
+$$ \dot{V}(x) = - mkl^2 \dot{\theta^2} $$
+
+* Mass of pendulum, $m$, is postitive
+* Damping term, $k$, is positive
+* Length of pendulum, $l$, is postitive
+* Anglular velocity, $\dot{\theta}$, is squared which will be positive
+* Thus the overall derivative will be negative
+
+&nbsp;&nbsp; The third condition is **satisfied**
+
+### Code
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Constants
+m = 1.0  # mass (kg)
+g = 9.81  # gravity (m/s^2)
+l = 1.0  # length (m)
+k = 0.5  # damping coefficient
+
+# Lyapunov function
+def V(theta, theta_dot):
+    return m*g*l*(1 - np.cos(theta)) + 0.5*m*(l**2)*(theta_dot**2)
+
+# Equation of motion for the damped pendulum
+def damped_pendulum(theta, theta_dot):
+    return -g/l * np.sin(theta) - k * theta_dot
+
+# Grid for theta and theta_dot
+theta = np.linspace(-np.pi, np.pi, 400)
+theta_dot = np.linspace(-10, 10, 400)
+Theta, Theta_dot = np.meshgrid(theta, theta_dot)
+
+# Figure setup
+plt.figure(figsize=(10, 7))
+
+first_pt = True  # variable to determine if the first point has been labeled to reduce the legend size
+
+# Simulate and plot trajectories with pendulum starting between -pi and pi radians
+for theta0 in np.linspace(-np.pi, np.pi, 5):
+    # Start pendulum between -10 and 10 rad/s and plot 
+    for theta_dot0 in np.linspace(-10, 10, 5):
+        if first_pt:
+            plt.plot(theta0, theta_dot0, 'ro', label='Initial Conditions')  # mark the initial theta and theta_dot in red and label it
+            first_pt = False
+        else:
+            plt.plot(theta0, theta_dot0, 'ro')  # mark the initial theta and theta_dot in red
+        theta_hist = [theta0] # initialize list of theta history
+        theta_dot_hist = [theta_dot0] # initialize list of theta_dot history
+        dt = 0.01
+        for _ in range(1000):
+            theta, theta_dot = theta_hist[-1], theta_dot_hist[-1]  # get last entry values for theta and theta_dot in the history list
+            theta_dot_next = theta_dot + damped_pendulum(theta, theta_dot) * dt  # calculate the next theta_dot value from the previous + dt
+            theta_next = theta + theta_dot * dt  # calculate the next theta value from the previous + dt
+            # Add theta_next and theta_dot_next to history
+            theta_hist.append(theta_next)
+            theta_dot_hist.append(theta_dot_next)
+        plt.plot(theta_hist, theta_dot_hist, color="blue", alpha=0.5)
+
+plt.xlabel(r'$\theta$')
+plt.ylabel(r'$\dot{\theta}$')
+plt.title('Lyapunov Function Phase Plot')
+plt.legend()
+plt.grid(True)
+plt.show()

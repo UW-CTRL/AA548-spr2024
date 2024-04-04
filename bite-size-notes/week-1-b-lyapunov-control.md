@@ -28,15 +28,56 @@ Lyapunov functions must satisfy the following statements and conditions to be Ly
 
 Intuitively, the Lyapunov function " $V(x)$ " is similar to the "energy" of the system, this is nontrivial to find for arbitrary nonlinear systems
 
-
 ### Example: Damped Pendulum
 Equation of motion of the damped simple pendulum:
+
 $$ \ddot{\theta} = -\frac {g}{l} \sin{\theta} - k \dot{\theta} $$
 
 State vector:
-$$
-x = \begin{bmatrix}
+
+$$ x = 
+\begin{bmatrix}
 \theta \\
 \dot{\theta}
 \end{bmatrix}
 $$
+
+Lyapunov Function (total system energy, kinetic + potential):
+
+$$ V(x) = mgl(1 - \cos{\theta}) + \frac{1}{2} m l^2 \dot{\theta^2} $$
+
+Determine if $V(x)$ is a valid Lyapunov function from the conditions above:
+
+&nbsp;&nbsp; **1. $V(0) = 0$** \
+&nbsp;&nbsp; Set the state vector $x$ to 0:
+
+$$ x = 
+\begin{bmatrix}
+\theta \\
+\dot{\theta}
+\end{bmatrix} =
+\begin{bmatrix}
+0 \\
+0
+\end{bmatrix}
+$$
+
+&nbsp;&nbsp; Plug into Lyapunov function $V(x)$:
+
+$$ V (0) = mgl(1 - \cos{0} ) + \frac{1}{2} m l^2 0^2 $$
+
+$$ V (0) = 0 $$
+
+&nbsp;&nbsp; The first condition is **satisfied**
+
+&nbsp;&nbsp; **2. $V(x) > 0, \forall x \in D \backslash 0$**
+
+&nbsp;&nbsp; $V(x) = mgl(1 - \cos{\theta}) + \frac{1}{2} m l^2 \dot{\theta^2}$
+
+* Cosine term is always $\leq 1$, thus $(1 - \cos{\theta}) \geq 0$
+* Mass of pendulum, $m$, is postitive
+* Acceleration due to gravity, $g$, is positive
+* Length of pendulum, $l$, is postitive
+* Anglular velocity, $\dot{\theta}$, is squared which will be positive
+
+&nbsp;&nbsp; The second condition is **satisfied** 

@@ -26,11 +26,24 @@ Now that we have defined the forward invariance of a set, we will formalize the 
 
 $$
 \begin{aligned}
-C = \{ x \in D \subset \mathbb R^n : h(x) \leq 0 \}, \\
+C = \{ x \in D \subset \mathbb R^n : h(x) \geq 0 \}, \\
 \partial C = \{x \in D \subset \mathbb R^n : h(x) = 0 \} \\
 \text{Int}(C) = \{x \in D \subset \mathbb R^n : h(x) > 0 \}. \\
 \end{aligned}
 $$
+
+We call $C$ the **safe set**. 
+
+Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requireing a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h$, renders our safe set $C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial C$). 
+
+We first define the extended class $\Kappa_{\infinity}$ function as $\alpha : \mathbb R \rightarrow \mathbb R$ that is strictly increasing and zero at zero, i.e., $\alpha (0) = 0$, so the *extended* function is defined on the entire real line: $\mathbb R = (-\infinity, \infinity)$. With this, we can now define control barrier functions as in [4], [5]: 
+
+**Definition (Controll Barrier Functions)** Let $C \in D \in \mathbb R^n$ be the superlevel set of a continuously differentiable function $h : D \rightarrow \mathbb R$, then $h$ is a *control barrier function (CBF) if there exists an extended class $\Kappa_{\ininity}$ function $\alpha$ such that for the control affine system: 
+
+$$
+\text{sup}_{u\in U} [L_f h(x) + L_g h(x) u] \geq - \alpha (h(x)) \hspace{0.2cm} \text{for all} x \in D
+$$
+where 
 
 
 
@@ -54,3 +67,7 @@ $$
 4. A. Ames, S. Coogan, M. Egerstedt, G. Notomista, K. Sreenath, P. Tabuada. "Control Barrier Functions: Theory and Applications," 2019. 
 
 5. AD Ames, X XU, JW Grizzle, P Tabuada. "Control barrier function based quadratic programs for safety crtiical systems," IEEE Transactions on Automatic Control, 62 (8), 3861-3876, 2017. 
+
+6. Wikipedia, "Class Kappa Function," https://en.wikipedia.org/wiki/Class_kappa_function. 
+
+7. 

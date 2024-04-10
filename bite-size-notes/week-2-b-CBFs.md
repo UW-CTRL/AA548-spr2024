@@ -27,8 +27,8 @@ Now that we have defined the forward invariance of a set, we will formalize the 
 $$
 \begin{aligned}
 C = \{ x \in D \subset \mathbb R^n : h(x) \leq 0 \}, \\
-& \partial C = \{x \in D \subset \mathbb R^n : h(x) = 0 \}
-& \text{Int}(C) = \{x \in D \subset \mathbb R^n : h(x) > 0 \}. 
+& \partial C = \{x \in D \subset \mathbb R^n : h(x) = 0 \} \\
+& \text{Int}(C) = \{x \in D \subset \mathbb R^n : h(x) > 0 \}. \\
 \end{aligned}
 $$
 

@@ -9,23 +9,34 @@ In the realm of optimal control, the Linear Quadratic Regulator(LQR) was typical
 
 ## Preliminaries
 ### Control Lyapunov Function(CLF)
+A CLF is a function $V: \mathcal{D} \to \mathbb{R}$ that is continuously differentiable and positive definite where $\exists u \in \mathcal{U}$ such that $\dot{V}(x) = \nabla V(x)^\top f(x,u) \leq 0$ for $\dot{x} = f(x,u)$ (asymptotically stable), or $\nabla V(x)^\top f(x,u) \leq -\alpha V(x)$ for some $\alpha > 0$ (exponentially stable). \
+Essentially, $\inf_{u \in \mathcal{U}} \nabla V(x)^\top f(x,u) \leq -\alpha V(x) \quad \forall x \in \mathcal{D}$
 
-A CLF is a function \( V: \mathcal{D} \to \mathbb{R} \) that is continuously differentiable and positive definite where there exists \( u \in \mathcal{U} \) such that \( \dot{V}(x) \leq 0 \) for \( \dot{x} = f(x,u) \).
-
-The derivative of \( V \) along trajectories \( \dot{V}(x) = \nabla V(x)^\top f(x,u) \) is less than or equal to zero, which implies **Lyapunov asymptotic stability**.
-
-If \( \nabla V(x)^\top f(x,u) \leq -\alpha V(x) \) for some \( \alpha > 0 \), this indicates **asymptotic stability** in the sense of Lyapunov and is sometimes annotated as **exponential**.
-
-Essentially, the infimum over \( u \in \mathcal{U} \) of \( \nabla V(x)^\top f(x,u) \) should be less than or equal to \(-\alpha V(x)\) for all \( x \in \mathcal{D} \).
 ### Control Invariant Set
+A set $\Omega$ is a Control invariant set with respect to $\dot{x} = f(x,u)$ if there exists $u \in \mathcal{U}$ (dynamic) such that if $x(0) \in \Omega$, then $x(t) \in \Omega$ for all $t \geq 0$.\
+There exists a control u that keeps the system inside $\Omega$.
 
+### Control Affine system
+A dynamic system of the following form is a control affine system: 
+$\dot{x} = f(x) + g(x)u$.\
+where
+$x \in \mathbb{R}^n$ is the state vector,
+$u \in \mathbb{R}^m$ is the control input vector,
+$f(x): \mathbb{R}^n \to \mathbb{R}^n$ is a continuously differentiable autonomous vector field, 
+$g(x): \mathbb{R}^n \to \mathbb{R}^{n\times m}$ is a continuously differentiable control matrix.
 
-### Control Affine
+### Relative Degree
+The relative degree $m$ of a sufficiently differentiable function $V: \mathbb{R}^n \to \mathbb{R}$ with respect to the dynamics $\dot{x} = f(x) + g(x)u$ such that
+$L_g L_f^{m-1} V \neq 0$ but $L_g L_f^{m-2} V = 0$.\
+Intuitively, the relative means how many times you need to differentiate input to get output
 
-### Def Relative Degree
-
+### Quadratic Program
+Minimize: $\frac{1}{2}x^\top Q x + P^\top x + C$\
+Subject to:\
+$Ax \leq b$, and $Ex = d$
 
 ## Main body
+
 
 ## Conclusion
 

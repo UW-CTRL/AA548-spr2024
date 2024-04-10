@@ -5,9 +5,11 @@ In recent years we have had a widespread deployment of autonomous systems, from 
 
 ## Preliminaries
 To first understand the theory behind control barrier functions (CBFs) we must first learn about control invariant sets. The first investigation into safety for dynamical systems was by Nagumo when he provded neccessary and sufficient conditions for set invariance. Lets define what it means to have a positivley invariant set (also called a forward invariant set). We consider a continuous dynamical system: 
+
 $$
  \dot(x)(t) = f(t,x), t \leq 0
  $$
+ 
 where $x(t) \in \mathbb R^n$ 
 
 

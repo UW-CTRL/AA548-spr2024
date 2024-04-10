@@ -1,4 +1,4 @@
-# Control Lyapunov Function (CLF) and Optimization
+# High Order Control Lyapunov Function (HOCLF)
 
 ## Scope and objectives
 The note will introduce how the control Lyapunov function could be used to enforce convergence of a system and can be used to reduce the optimal control problem to a sequence of quadratic programs
@@ -10,7 +10,11 @@ In the realm of optimal control, the Linear Quadratic Regulator(LQR) was typical
 ## Preliminaries
 ### Control Lyapunov Function(CLF)
 A CLF is a function $V: \mathcal{D} \to \mathbb{R}$ that is continuously differentiable and positive definite where $\exists u \in \mathcal{U}$ such that $\dot{V}(x) = \nabla V(x)^\top f(x,u) \leq 0$ for $\dot{x} = f(x,u)$ (asymptotically stable), or $\nabla V(x)^\top f(x,u) \leq -\alpha V(x)$ for some $\alpha > 0$ (exponentially stable). \
-Essentially, $\inf_{u \in \mathcal{U}} \nabla V(x)^\top f(x,u) \leq -\alpha V(x) \quad \forall x \in \mathcal{D}$
+Essentially, 
+
+$$
+\inf_{u \in \mathcal{U}} \nabla V(x)^\top f(x,u) \leq -\alpha V(x) \quad \forall x \in \mathcal{D}
+$$
 
 ### Control Invariant Set
 A set $\Omega$ is a Control invariant set with respect to $\dot{x} = f(x,u)$ if there exists $u \in \mathcal{U}$ (dynamic) such that if $x(0) \in \Omega$, then $x(t) \in \Omega$ for all $t \geq 0$.\
@@ -27,13 +31,30 @@ $g(x): \mathbb{R}^n \to \mathbb{R}^{n\times m}$ is a continuously differentiable
 
 ### Relative Degree
 The relative degree $m$ of a sufficiently differentiable function $V: \mathbb{R}^n \to \mathbb{R}$ with respect to the dynamics $\dot{x} = f(x) + g(x)u$ such that
-$L_g L_f^{m-1} V \neq 0$ but $L_g L_f^{m-2} V = 0$.\
+
+$$
+L_g L_f^{m-1} V \neq 0
+$$
+
+but
+
+$$
+L_g L_f^{m-2} V = 0.
+$$
+
+
 Intuitively, the relative means how many times you need to differentiate input to get output
 
 ### Quadratic Program
-Minimize: $\frac{1}{2}x^\top Q x + P^\top x + C$\
-Subject to:\
-$Ax \leq b$, and $Ex = d$
+$$
+Minimize: \frac{1}{2}x^\top Q x + P^\top x + C$\
+$$
+
+Subject to:
+
+$$
+Ax \leq b, and Ex = d
+$$
 
 ## Main body
 For a nonlinear system, the CLF could be used to track a desired trajectory. In a 2D plane, a robot tries to go to a destination at G(x_g, y_g), the problem could be formalized as QP problem: 
@@ -90,10 +111,21 @@ We can conclude that the relative degree of the system is 2.
 
 In this case, the conventional CLF will not work due to the high relative degree. We can borrow the ideas from [1] of the Higher Order Control Barrier Function (HOCBF) to devise a system of high-order Control Lyapunov Function (HOCLF) with a relative degree 1 in between each of those functions to make the system solvable. 
 
-Since the relative degree is 2, create an intermediate function $
+Since the relative degree is 2, create an intermediate function $\psi(x)$ such that its first derivative $\dot{\psi}(x)$ includes the control input explicitly. One example of $\psi(x)$ is as follows:
 
+$$
+\psi(x) = L_f V(x) + \alpha_1(\psi_0(x))
+$$
+
+For $\psi(x)$, define the control law such that $\dot{\psi}(x) \leq -\alpha(\psi(x))$ where $\alpha$ is a class $\mathcal{K}$ function to ensure that $\psi(x)$ decreases over time, leading to the stabilization of the system. The control law can be defined using the HOCLF condition for the control input $u$ to ensure that the derivative of the HOCLF is negative. Ensure that the designed HOCLF satisfies the Lyapunov stability criteria, which typically means that the HOCLF should be positive definite and its derivative along the system's trajectories should be negative definite.
 
 ## Conclusion
+Control Lyapunov Function could be used to ensure the convergence of the system to a goal location. In the case where the relative degree of the system is higher than 1, we could use the high-order control Lyapunov function to design a system of CLF equations with the relative degree being 1 to guarantee a control law that could influence the system effectively. In the case of tracking a trajectory while avoiding obstacles, we could use the CLF as one of the constraints to a QP problem. 
+
+CLF is a powerful technique to design controllers that ensure the stability of an equilibrium point of a system. The HOCLF method involves creating a sequence of intermediate functions, each with a relative degree of one, such that the control input appears in the first derivative of the final function in the sequence. HOCLF allows for the construction of a control law that can stabilize the system even when the output of interest does not immediately respond to the control input
 
 ## References
-
+[1] [High-Order Control Barrier Functions](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9516971) \ by Wei Xiao \
+[2] Leung, Karen. “Linear Multivariable Control” Lecture, University of Washington, Seattle, 2024-04-02.\
+[3] Taghvaei, Amir. “Linear Control Systems” Lecture, University of Washington, Seattle, 2024-02-23.\
+[4] [Control Barrier Functions for Systems with Multiple Control Inputs](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9867612) \ by Wei Xiao \

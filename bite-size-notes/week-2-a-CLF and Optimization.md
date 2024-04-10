@@ -36,6 +36,61 @@ Subject to:\
 $Ax \leq b$, and $Ex = d$
 
 ## Main body
+For a nonlinear system, the CLF could be used to track a desired trajectory. In a 2D plane, a robot tries to go to a destination at G(x_g, y_g), the problem could be formalized as QP problem: 
+$$\underset{u}{\text{min}}\|u - u_{\text{des}}\|_2$$
+
+subject to
+$$\text{Control boundary}: u_{\text{min}} \leq u \leq u_{\text{max}},$$
+$$\text{CLF constraint}: \nabla V(x)^T f(x,u) \leq -\alpha V(x).$$
+
+There are two caveats to solving this system, the relative order of the system cannot be greater than 1, and we need to carefully design the Lyapunov function to be convex for the finite time convergence of the system. In the case where the system has a relative order greater than 1, we could use the method mentioned in [1] to design a similar high-order control Lyapunov function to make the system solvable. 
+
+**Example of the Dubin car system**
+
+$$
+\dot{z} = \begin{bmatrix}
+V{\cos\theta} \\
+V{\sin\theta}\\
+0
+\end{bmatrix} + \begin{bmatrix}
+0 \\
+0 \\
+\omega
+\end{bmatrix}
+$$
+
+
+$$
+\text{Designed CLF: }
+V(z) = (x - x_g)^2 + (y - y_g)^2
+$$
+
+$$
+L_f V(z) = \nabla V(z)^T f(z)
+$$
+
+$$
+= \begin{bmatrix}
+2(x - x_g) & 2(y - y_g) & 0
+\end{bmatrix} 
+\begin{bmatrix}
+\frac{V}{\cos\theta} \\
+\frac{V}{\sin\theta}\\
+0
+\end{bmatrix}
+$$
+
+$$
+= 2V \cos\theta (x - x_g) + 2V \sin\theta (y - y_g)
+$$
+
+From the relative degree definition, when m = 1, $L_g L_f^{m-2} V = 0 \Rightarrow L_g V(z) = 0 \Rightarrow$ relative degree is higher than 1. \
+When the $m = 2, L_f^2 V(z) = L_f (L_g V(z)) = L_g (L_f V(z)) = -2V \sin\theta (x - x_g) + 2V \cos\theta (y - y_g) \neq 0$\
+We can conclude that the relative degree of the system is 2.
+
+In this case, the conventional CLF will not work due to the high relative degree. We can borrow the ideas from [1] of the Higher Order Control Barrier Function (HOCBF) to devise a system of high-order Control Lyapunov Function (HOCLF) with a relative degree 1 in between each of those functions to make the system solvable. 
+
+Since the relative degree is 2, create an intermediate function $
 
 
 ## Conclusion

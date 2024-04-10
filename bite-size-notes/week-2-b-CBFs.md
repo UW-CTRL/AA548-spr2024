@@ -7,10 +7,12 @@ In recent years we have had a widespread deployment of autonomous systems, from 
 To first understand the theory behind control barrier functions (CBFs) we must first learn about control invariant sets. The first investigation into safety for dynamical systems was by Nagumo when he provded neccessary and sufficient conditions for set invariance. Lets define what it means to have a positivley invariant set (also called a forward invariant set). We consider a continuous dynamical system: 
 
 $$
- \dot(x)(t) = f(t,x), t \leq 0
+ \dot{x}(t) = f(t,x), \hspace{0.2cm} t \leq 0
  $$
  
-where $x(t) \in \mathbb R^n$ 
+where $x(t) \in \mathbb R^n$ are the state variables, $t$ is the time variable, and $f$ is a continous function. We now provide the definition of the forward invariant set of a dynamical system. 
+
+** Definition (Forward Invariance) Assume $C$ is a set in $\mathbb R^n$. The set $C$ is called a forward invariant set of the aforementioned dynamical system if $x(0) \in C$ implies $x(t) \in C$ for all $t \leq 0.$ 
 
 
 

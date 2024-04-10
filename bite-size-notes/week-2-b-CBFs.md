@@ -13,7 +13,7 @@ To first understand the theory behind control barrier functions (CBFs) we must f
 
 $$
  \dot{x}(t) = f(x,t), \hspace{0.2cm} t \geq 0
- $$
+$$
  
 where $x(t) \in \mathbb R^n$ are the state variables, $t$ is the time variable, and $f$ is a continous function. We now provide the definition of the forward invariant set of a dynamical system. 
 
@@ -22,13 +22,13 @@ where $x(t) \in \mathbb R^n$ are the state variables, $t$ is the time variable, 
 In other words, a forward invariant set is a set that once a trajectory of a dynamical system enters the set it will never leave the set for all time. 
 
 ## Control Barrier Functions
-Now that we have defined the forward invariance of a set, we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the ***superlevel set*** of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
+Now that we have defined the forward invariance of a set, we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
 
 $$
 \begin{aligned}
-C = \{ x \in D \subset \mathbb R^n : h(x) \leq 0 \}, 
-
-
+C = \{ x \in D \subset \mathbb R^n : h(x) \leq 0 \}, \\
+& \partial C = \{x \in D \subset \mathbb R^n : h(x) = 0 \}
+& \text{Int}(C) = \{x \in D \subset \mathbb R^n : h(x) > 0 \}. 
 \end{aligned}
 $$
 

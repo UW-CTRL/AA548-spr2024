@@ -6,11 +6,73 @@ These notes will serve as a brief introduction to Convex Optimization within the
 ## Introduction to optimization
 Optimization is a topic that is used in mathematics, computer science, engineering, and economics. It is a method of finding the best or optimal solution to a defined problem or system. Optimization problems can occur on an incredibly broad scale, going from optimizing everyday things like coffee consumption based on your relaxed constraints in your everyday life to optimizing aircraft performance based on 500 strict mechanical, aerodynamic, and financial constraints. Almost any system can be made into an optimization problem, and due to advancements in mathematical computing, most problems can be solved using a standard method and code base.
 
-In controls, optimization allows us not just to choose a feasible control input for our system, or even just a good control for our system, but to actually find the best control input for our system based on our constraints, desired behavior, and current state. This can be a powerful tool. However, there are some limiting factors. While the mathematical framework for setting up an optimization problem can be used to define most problems, actually solving a problem can yield very crude solutions. The key to solving an optimization problem simply and convincingly is to    
+In controls, optimization allows us not just to choose a feasible control input for our system, or even just a good control for our system, but to actually find the best control input for our system based on our constraints, desired behavior, and current state. This can be a powerful tool. However, there are some limiting factors. While the mathematical framework for setting up an optimization problem can be used to define most problems, actually solving a problem can yield very crude solutions. The key to solving an optimization problem simply and convincingly is to frame the problem using a convex objective function and convex subset[3]. The rest of these notes will explain what convex functions, subsets, and optimizations are and how to recognize and build systems that fit within them.   
+
+#### Authors Note
+Convexity is often explained using a lot of math expressions that can sometimes be hard to interpret, especially if you are coming back to understand them after a while away. I personally am not yet fluent in math, but I do see the convenience of writing things like $\in$ instead of writing 'as a part of'. To bridge the gap between my own knowledge and the math heaviness of this topic, I will try to write descriptions of the math expressions that are not self explanatory.
+
 
 ## Preliminaries  
+
+### Convexity 
+Mathematics defines a function as convex if a line segment can be drawn between any two distinct points, and the rest of the function stays below that line.  
+
+<p align="center">
+  <img src="figs/Convex_vs._Not-convex.jpg" alt="drawing" width="500"/>
+</p> 
+[4]
+
+The function is usually visually shaped like a bowl or a U. 
+
+The significance of convexity in optimization is primarily due to the property of convex functions to have a single global minimum. Since a Convex function is bowl-shaped, everything is sloped to a single lowest point. This means there is only one optimal solution, and all paths lead towards it. You can imagine that for a function with many dips and valleys, it may be challenging to find the global minimum since there are so many local minimums. 
+
+**Convex Set:** Contains a line segment between any two points in the set 
+This statement in math is   
+
+$$x_1, x_2 \in C, 0\leq\theta\leq 1 \rightarrow \theta x_1 + (1 - \theta)x_2 \in C $$  
+Where x1 and x2 are the two points along a line segement contained by the convex set C 
+
+ex:   
+<p align="center">
+  <img src="figs/ConvexExamples.jpg" alt="drawing" width="500"/>
+</p>  
+[1]
+The first shape is a convex set, while the other two are not convex.  
+
+Other types of convex sets:
+
+* Convex Hull  
+* Convex Cone  
+* Hyperplanes and Halfspaces    
+* Euclidian balls and Ellipsoids  
+* Norm balls and norm cones  
+* Polyhedra  
+* Positive semidefinite cone  
+
+**Convex Functions:**  
+* $f: \pmb{R_n} \rightarrow \pmb{R}$ is convex if the domain of $f$ is a convex set and for all $x,y \in f, 0 \leq \theta\leq1$
+  
+<p align="center">
+  <img src="figs/ConvexFunc.jpg" alt="drawing" width="500"/>
+</p>   
+[1]  
+
+* $f$ is concave if -f is convex
+* $f$ is strictly convex if the domain of $f$ is convex and for $x,y \in$ domain of $f, x \neq, 0 <\theta< 1,$ 
+
+Example of convex functions: 
+
+* affine: ax+b on **R** for any $a,b \in \pmb{R}$
+* exponential: $e^{ax}$ for any $a \in \pmb{R}$
+* powers: $x^a$ on $\pmb{R_{++}}$ for $\alpha \geq 1,  \alpha \leq 0$
+* powers of absolute value: $|x|^p$ on $\pmb{R}$ for $p \geq 1$
+* positive part (relu): max {0,x} 
+
+
+
 ### Standard form of an optimization problem 
-minimize    $$f_0 (x)$$  
+minimize x  in  $$f_0 (x)$$    
+   
 subject to  $$f_i (x) \leq 0, i = 1, ...., m$$ 
              $$g_i (x) = 0, i = 1, ...., p$$
 * $x \in \pmb{R^n}$ is (vector) variable to be chosen (n scaler variables $x_1, ....., x_n$)
@@ -20,7 +82,8 @@ subject to  $$f_i (x) \leq 0, i = 1, ...., m$$
 [1]
 
 ### Standard form of convex optimization problem
-minimize    $$f_0 (x)$$  
+minimize x in  $$f_0 (x)$$    
+ 
 subject to  $$f_i (x) \leq 0, i = 1, ...., m$$ 
              $$Ax = b$$
 * $x \in \pmb{R^n}$
@@ -30,17 +93,11 @@ $$f_i(\theta x+ (1- \theta)y \leq \theta f_i(x) + (1-\theta)f_i(y))$$
 i.e., $f_i$ have nonnegative (upward) curvature
 [1]
 
-### Affine set
-
-
-### Convex Set
-
-### discrete vs. continuous
-
-
 
 ### example in python
 
 
-[1] https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf 
-[2] Convex Optimization Stephen Boyd Lieven Vandenberghe https://web.stanford.edu/~boyd/cvxbook/bv_cvxslides.pdf
+[1] https://web.stanford.edu/~boyd/cvxbook/bv_cvxslides.pdf  
+[2] 
+[3] https://en.wikipedia.org/wiki/Convex_optimization
+[4] By Varagk - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=124668501

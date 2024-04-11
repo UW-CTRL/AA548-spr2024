@@ -69,8 +69,9 @@ Suppose we are given a nominal feedback controller $\pi(x)$ for the control affi
 
 $$
 \begin{aligned}
-u(x) = \text{argmin}_{u \in U} \hspace{0.2cm} \frac{1}{2} || u - \pi(x) ||_2^2 \\
-\text{s.t.} L_f h(x) + L_g h(x) u \geq \alpha (h(x)) 
+u(x) = \text{argmin}_{u \in U} \hspace{0.3cm} \frac{1}{2} || u - \pi(x) ||_2^2 \\
+\\
+\hspace{0.5cm} \text{s.t.} \hspace{0.3cm} L_f h(x) + L_g h(x) u \geq \alpha (h(x)) 
 \end{aligned}
 $$
 

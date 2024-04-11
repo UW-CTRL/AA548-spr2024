@@ -17,7 +17,7 @@ $$
  
 where $x(t) \in \mathbb R^n$ are the state variables, $t$ is the time variable, and $f$ is a continous function. We now provide the definition of the forward invariant set of a dynamical system. 
 
-**Definition (Forward Invariance)** Assume $C$ is a set in $\mathbb R^n$. The set $C$ is called a forward invariant set of the aforementioned dynamical system if $x(0) \in C$ implies $x(t) \in C$ for all $t \geq 0.$ 
+**Definition (Forward Invariance)** Assume $\mathcal C$ is a set in $\mathbb R^n$. The set $\mathcal C$ is called a forward invariant set of the aforementioned dynamical system if $x(0) \in \mathcal C$ implies $x(t) \in \mathcal C$ for all $t \geq 0.$ 
 
 In other words, a forward invariant set is a set that once a trajectory of a dynamical system enters the set it will never leave the set for all time. 
 
@@ -30,23 +30,23 @@ $$
 
 with $f$ and $g$ locally Lipschitz, $x \in D \subset \mathbb R^n$ and $u \in U \subset \mathbb R^m$ is the set of admissible control inputs. 
 
-Previously we defined the forward invariance of a set, now we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
+Previously we defined the forward invariance of a set, now we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $\mathcal C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
 
 $$
 \begin{aligned}
-C = \{ x \in D \subset \mathbb R^n : h(x) \geq 0 \}, \\
-\partial C = \{x \in D \subset \mathbb R^n : h(x) = 0 \} \\
-\text{Int}(C) = \{x \in D \subset \mathbb R^n : h(x) > 0 \}. \\
+\mathcal C = \{ x \in D \subset \mathbb R^n : h(x) \geq 0 \}, \\
+\partial \mathcal C = \{x \in D \subset \mathbb R^n : h(x) = 0 \} \\
+\text{Int}(\mathcal C) = \{x \in D \subset \mathbb R^n : h(x) > 0 \}. \\
 \end{aligned}
 $$
 
-We call $C$ the **safe set**. 
+We call $\mathcal C$ the **safe set**. 
 
-Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial C$). 
+Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $\mathcal C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial \mathcal C$). 
 
 We first define the extended class $K_{\infty}$ function as $\alpha : \mathbb R \rightarrow \mathbb R$ that is strictly increasing and zero at zero, i.e., $\alpha (0) = 0$, so the *extended* function is defined on the entire real line: $\mathbb R = (-\infty, \infty)$. With this, we can now define control barrier functions as in [4], [5]: 
 
-**Definition (Controll Barrier Functions)** Let $C \in D \in \mathbb R^n$ be the superlevel set of a continuously differentiable function $h : D \rightarrow \mathbb R$, then $h$ is a *control barrier function (CBF) if there exists an extended class $K_{\infty}$ function $\alpha$ such that for the control affine system: 
+**Definition (Controll Barrier Functions)** Let $\mathcal C \in D \in \mathbb R^n$ be the superlevel set of a continuously differentiable function $h : D \rightarrow \mathbb R$, then $h$ is a *control barrier function (CBF) if there exists an extended class $K_{\infty}$ function $\alpha$ such that for the control affine system: 
 
 $$
 \text{sup}_{u\in U} [L_f h(x) + L_g h(x) u] \geq - \alpha (h(x)) \hspace{0.2cm}

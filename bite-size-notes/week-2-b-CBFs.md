@@ -56,6 +56,24 @@ for all $x \in D$ and where $L_f = \nabla h(x)^T f(x)$ and $L_g = \nabla h(x)^T 
 
 So therefore to **guarentee safety via CBFs** we consider the set consisting of all the control inputs that render the set $\mathcal C$ safe: 
 
+$$
+K_{cbf} (x) = \{u \in U : L_f h(x) + L_g h(x) u + \alpha (h(x)) \geq 0 \}.
+$$
+
+Therefore, we can clearly define the set of all control inputs at some $x \in D$ that keep the system safe. It follows that the existence of a control barrier function implies that the control system is safe. It's noted in [4] that CBFs do indeed provide the strongest possible conditions for safety since they are neccessary and sufficient given the assumptions we have on $\mathcal C$. 
+
+## Optimization-based Control with CBFs 
+Given that we have covered the theoretical definitions of control barrier functions and the fact that they provide the conditions to guarentee safety of our system, we can now explore how to incorporate CBFs into an optimization-based controller. This is called synthesizing controllers for **safety-critical control**. 
+
+Suppose we are given a nominal feedback controller $\pi(x)$ for the control affine system. This controller may not satisfy the CBF conditions for safety and thus generates control inputs $u$ that aren't in our safe set, i.e., $u \notin K$. We wish to devise a controller that modifies the nominal feedback controller in a minimally invasive fashion (as to still reach some goal state) in order to produce safe controls. Thus, we  consider a quadratic program (QP) formulation that finds a minimal perturbation on $u$:
+
+$$
+\being{aligned}
+u(x) = \text{argmin}_{u \in U} \hspace{0.2cm} \frac{1}{2} || u - \pi(x) ||_2^2 \\
+\text{s.t.} L_f h(x) + L_g h(x) u \geq \alpha (h(x)) 
+\end{aligned}
+$$
+
 
 
 

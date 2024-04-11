@@ -75,6 +75,18 @@ u(x) = \text{argmin}_{u \in U} \hspace{0.3cm} \frac{1}{2} || u - \pi(x) ||_2^2 \
 \end{aligned}
 $$
 
+This gives straightforward method to devleop a controller to guarentee a system be safe. Since the objective is a min-norm and the constraint is linear in $u$, this program is a convex quadratic program that can be solved efficiently online. In practice, this QP-based controller serves as a safety filter on the nominal controller to ensure safe control inputs into the dynamics, rendering the system safe.
+
+
+## Example 
+Below is an image of a high-order CBF, but it shows the basics of having an initial trajecotry from a nominal policy approaching an obstacle and the CBF controller modifying the control inputs to steer around the obsctacle. 
+
+![cbf image](figs/cbf_pic.png)
+
+*Image from HOCBF paper: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9516971*
+
+
+## Current Research 
 
 
 

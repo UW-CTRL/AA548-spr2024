@@ -9,7 +9,7 @@ In recent years we have had a widespread deployment of autonomous systems, from 
 Control Barrier Functions (CBFs) are motivated from the perspective of control Lyapunov functions (CLFs) which provide guarentees for the stabilization of (nonlinear) dynamical systems. This leads to the "dual" of stability which is safety of a dynamical systems via set invariance and further CBFs in the form of safety sets and enforcing safety through optimization-based controllers. This note will contain a discussion of the theoretical foundations to understand CBFs but will skip a review of Lyapounov Stabiltiy and CLFs (check [2], [3] for more information). 
 
 ### Forward Invariance
-To first understand the theory behind control barrier functions (CBFs) we must first learn about control invariant sets. The first investigation into safety for dynamical systems was by Nagumo when he provded neccessary and sufficient conditions for set invariance [1]. Lets define what it means to have a positivley invariant set (also called a forward invariant set). We consider a continuous dynamical system: 
+To first understand the theory behind control barrier functions (CBFs) we must first learn about control invariant sets. The first investigation into safety for dynamical systems was by Nagumo when he provded neccessary and sufficient conditions for set invariance [1]. Lets define what it means to have a forward invariant set (also called a positively invariant set). We consider a continuous dynamical system: 
 
 $$
  \dot{x}(t) = f(x,t), \hspace{0.2cm} t \geq 0

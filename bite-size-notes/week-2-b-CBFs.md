@@ -89,7 +89,7 @@ Additionally here is a video example from Caltech of them implementing a CBF on 
 
 
 ## Current Research 
-Control barrier funcitons (CBFs) are actually a recent and vibrant research field in safety-critical control of autonomous systems. The seminal paper by Dr. Aaron Ames from Caltech was published in only 2017! Since then there has been an explosion of new developments in the field. There is a need for a remark on the difficulties of CBFs. 
+Control barrier funcitons (CBFs) are actually a recent and vibrant research field in safety-critical control of autonomous systems. The seminal paper by Dr. Aaron Ames from Caltech was published in only 2017! Since then there has been an explosion of new developments in the field. To understand current research ares in CBFs, there is a need for a remark on the difficulties of CBFs. 
 
 **Devising a CBF is extremely hard**. Finding the barrier function, $h(x)$ is not easy. Handcrafting one is obviously difficult and most likely will lead to either an over-approximation which is too conservative, or an under-approximation rendering our system unsafe. In other cases, we have high-relative degree system, e.g., the simplest example being a doubel integrator system. Generating a valid CBF for a high-relative degree system is difficult although there are some methods in [7] and other papers that have methods to handle this. Another difficulty is handling input-constrained systems such as actuation limits. In those circumstances, we may not have a feasible set to pick a safe control input. 
 

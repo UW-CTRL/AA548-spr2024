@@ -1,7 +1,7 @@
 # Foundations of Control Barrier Functions 
 
 ## Introduction 
-In recent years we have had a widespread deployment of autonomous systems, from autonomous vehicles to surgical robots, these systems rely on their ability to perform complex tasks while providing safety assurances. There is a growing increasing number of complex applications with inherent real-world uncertainties using these systems requiring safety-critical autonomous systems... Control barrier functions (CBFs) have recently become a popular technique for **guarenteeing safety** of autonomous systems 
+In recent years we have had a widespread deployment of autonomous systems, from autonomous vehicles to surgical robots, these systems rely on their ability to perform complex tasks while providing safety assurances. There is an increasing number of complex applications with inherent real-world uncertainties using these systems requiring autonomous systems to perform tasks in a safety-critical scenario, meaning a mistake could be fatal. Control barrier functions (CBFs) have recently become a popular technique for **guarenteeing safety** of autonomous systems by ensuring a system remain in a safe set for the duration of its time horizon. In this note, we will discuss the theory behind CBFs and how to design safe controllers. 
 
 ## Preliminaries
 
@@ -85,21 +85,18 @@ Below is an image of a high-order CBF, but it shows the basics of having an init
 
 *Image from HOCBF paper: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9516971*
 
+Additionally here is a video example from Caltech of them implementing a CBF on a segway that shows its capabilities: https://www.youtube.com/watch?v=RYXcGTo8Chg 
+
 
 ## Current Research 
+Control barrier funcitons (CBFs) is actually a recent and vibrant research field in safety-critical control of autonomous systems. The seminal paper by Dr. Aaron Ames from Caltech was published in only 2017! Since then there has been an explosion of new developments in the field. There is a need for a remark on the difficulties of CBFs. 
 
+**Devising a CBF is extremely hard**. Finding the barrier function, $h(x)$ is not easy. Handcrafting one is obviously difficult and most likely will lead to either an over-approximation which is too conservative, or an under-approximation rendering our system unsafe. In other cases, we have high-relative degree system, e.g., the simplest example being a doubel integrator system. Generating a valid CBF for a high-relative degree system is difficult although there are some methods in [7] and other papers that have methods to handle this. Another difficulty is handling input-constrained systems such as actuation limits. In those circumstances, we may not have a feasible set to pick a safe control input. 
 
+Due to these difficulties, data-driven and learning-based methods (such as NN approximations) have been used to learn valid CBFs such as in [8]. Learning-based CBFs is an active field of research. 
 
-
-
-
-
-
-
-
-
-
-
+## Conclusion 
+In this note we briefly discussed the theoretical foundations of control barrier functions and how to perform controller synthesis with CBF-QPs. We discussed at a high-level why CBFs are useful in modern day autonomy and the difficulties in handcrafting or designing a CBF. We also mentioned that it is an active field of research with many top professors and instituions actively researching how to incorporate CBFs to enable safer autonomous systems and deploy them into real-world scenarios. 
 
 ## References
 1. F. Blanchini, "Set invariance in control," Automatica, vol. 35, no. 11, pp. 1747-1767, 1999. 
@@ -114,4 +111,6 @@ Below is an image of a high-order CBF, but it shows the basics of having an init
 
 6. Wikipedia, "Class Kappa Function," https://en.wikipedia.org/wiki/Class_kappa_function. 
 
-7. 
+7. Wei Xiao, Calin Belta. "High-Order Control Barrier Functions", 2022. 
+
+8. C. Dawson, S. Gao, C. Fan. "Safe contorl with learned certificates: A survey of neural lyapunov, barrier, and contraction methods for robotics and control, 2023. 

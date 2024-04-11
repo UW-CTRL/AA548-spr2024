@@ -30,7 +30,7 @@ $$
 
 with $f$ and $g$ locally Lipschitz, $x \in D \subset \mathbb R^n$ and $u \in U \subset \mathbb R^m$ is the set of admissible control inputs. 
 
-Previously we defined the forward invariance of a set, we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
+Previously we defined the forward invariance of a set, now we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
 
 $$
 \begin{aligned}
@@ -42,7 +42,7 @@ $$
 
 We call $C$ the **safe set**. 
 
-Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requireing a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h$, renders our safe set $C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial C$). 
+Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial C$). 
 
 We first define the extended class $K_{\infty}$ function as $\alpha : \mathbb R \rightarrow \mathbb R$ that is strictly increasing and zero at zero, i.e., $\alpha (0) = 0$, so the *extended* function is defined on the entire real line: $\mathbb R = (-\infty, \infty)$. With this, we can now define control barrier functions as in [4], [5]: 
 
@@ -53,6 +53,8 @@ $$
 $$
 
 for all $x \in D$ and where $L_f = \nabla h(x)^T f(x)$ and $L_g = \nabla h(x)^T g(x)$.
+
+So therefore to **guarentee safety via CBFs** we consider the set consisting of all the control inputs that render the set $\mathcal C$ safe: 
 
 
 

@@ -22,7 +22,15 @@ where $x(t) \in \mathbb R^n$ are the state variables, $t$ is the time variable, 
 In other words, a forward invariant set is a set that once a trajectory of a dynamical system enters the set it will never leave the set for all time. 
 
 ## Control Barrier Functions
-Now that we have defined the forward invariance of a set, we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
+We first consider the control affine system: 
+
+$$
+\dot{x} = f(x) + g(x) u 
+$$
+
+with $f$ and $g$ locally Lipschitz, $x \in D \subset \mathbb R^n$ and $u \in U \subset \mathbb R^m$ is the set of admissible control inputs. 
+
+Previously we defined the forward invariance of a set, we will formalize the function that gives guarentees for the trajectory of our dynamical system to remain safe for the entirity of its time horizon. If you recall, Lyapunov stability drives a system to a point (or a set) in a fashion similar to an energy function, there is a dissapation of the trajectory to that point. Safety, rather, can be framed in the context of enforcing invariance of a set, i.e., not learing a **safe set**. Particularily, we define a set $C$ as the *superlevel set* of a continuously differentiable function $h : D \subset \mathbb R^n \rightarrow \mathbb R$ giving the following, 
 
 $$
 \begin{aligned}
@@ -44,7 +52,9 @@ $$
 \text{sup}_{u\in U} [L_f h(x) + L_g h(x) u] \geq - \alpha (h(x)) \hspace{0.2cm}
 $$
 
-for all $x \in D$ and where 
+for all $x \in D$ and where $L_f = \nabla h(x)^T f(x)$ and $L_g = \nabla h(x)^T g(x)$.
+
+
 
 
 

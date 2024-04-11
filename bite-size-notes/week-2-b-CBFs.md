@@ -68,7 +68,7 @@ Given that we have covered the theoretical definitions of control barrier functi
 Suppose we are given a nominal feedback controller $\pi(x)$ for the control affine system. This controller may not satisfy the CBF conditions for safety and thus generates control inputs $u$ that aren't in our safe set, i.e., $u \notin K$. We wish to devise a controller that modifies the nominal feedback controller in a minimally invasive fashion (as to still reach some goal state) in order to produce safe controls. Thus, we  consider a quadratic program (QP) formulation that finds a minimal perturbation on $u$:
 
 $$
-\being{aligned}
+\begin{aligned}
 u(x) = \text{argmin}_{u \in U} \hspace{0.2cm} \frac{1}{2} || u - \pi(x) ||_2^2 \\
 \text{s.t.} L_f h(x) + L_g h(x) u \geq \alpha (h(x)) 
 \end{aligned}

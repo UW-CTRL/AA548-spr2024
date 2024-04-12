@@ -13,34 +13,34 @@ The methods for the former case mostly divided into model-based and sampling-bas
 Recall Lyapunov stability:  
   Given a system $\dot{x} = f(x)$ and some regioon $D \in \mathbb{R^n}$ and $\{0\} \in D$:
   If there exists a continuously differentiable function $V(x)$ such that:  
-    1) $V(0) = 0$  
-    2) $V(x) > 0 \quad \forall x \in D \setminus \{0\}$  
-    3) $\dot{V(x)} = \nabla V(x)^Tf(x) \leq 0 $  
+    1) $V(0) = 0$  (i.e., the function is zero when x is zero)
+    2) $V(x) > 0 \quad \forall x \in D \setminus \{0\}$  (i.e., the function is greater than zero for any x that isn't zero)
+    3) $\dot{V(x)} = \nabla V(x)^Tf(x) \leq 0 $  (i.e. the function is decreasing at all points except when x is zero)
   Then the system is Lyapunov stable.   
   If, further, $\dot{V(x)}< 0 \quad \forall x \in D \setminus \{0\}$, then the system is asymptotically stable.  
   If, further, $\dot{V(x)} \leq -\alpha V(x)$ for some $\alpha > 0 \quad \forall x \in D \setminus \{0\}$, then the system is exponentially stable  
 
-For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx$, and the test for Lyapunov stability is equivalent to the existence of a $P>0 that satisfies the linear matrix inequality (LMI) $A^TP + PA<0$. (For linear systems, Lyapunov stability is equivalent to asymptotic, exponenital stability).
+For a linear dynamical system $\dot{x} = Ax$, we can write $V(x) = x^TPx$, and the test for Lyapunov stability is equivalent to the existence of some matrix $P>0$ that satisfies the linear matrix inequality (LMI) $A^TP + PA<0$. (For linear systems, Lyapunov stability is equivalent to asymptotic, exponenital stability).
 
 ## Modern approaches for finding Lyapunov functions
 ### When an explicit form of the dynamical system (or a good enough simulator) is given:
 In this case, we can either estimate a form of the candidate Lyapunov function by exploiting properties of the known dynamics (model-based approaches) or propose a candidate Lyapunov function and penalize it by looking at samples of the dynamics that violate it (sampling-based approaches)
 #### Model-based approaches [2]  
-One of the methods for generating a candidate Lyapunov function is to "guess" its form as linear polynomical of the state variables, which is affine in the state variables, with undetermined coefficients. The derivative of this function will be equally affine in all the polynomical coefficients, which can then be solved for by establishing a LMI and solving using sum of squares (SOS).   
+One of the methods for generating a candidate Lyapunov function is to "guess" its form as linear polynomical of the state variables, which is affine in the state variables, with undetermined coefficients. The derivative of this function will be equally affine in all the polynomial coefficients, which can then be solved for by establishing a LMI and solving using sum of squares (SOS).   
 As an example proposed in [2]:  
 Consider the following dynamical system:  
 $$\dot{x_1} = -x_1 -2x_2^2$$  
 $$\dot{x_2} = -x_2 -x_1x_2 - 2x_2^3$$  
 For this system, let us consider a potential candidate Lyapunov function $V(x) = A^TPB$ (analogus to that of linear systems), where
 ```math
-A = \begin{Bmatrix} 1\\x_1\\x_1^2\\x_1^3\\x_1^4 \end{Bmatrix}, B = \begin{Bmatrix} 1\\x_2\\x_2^2\\x_2^3\\x_2^4 \end{Bmatrix} and \quad P = \begin{Bmatrix} 0&0&c_{02}&c_{03}&c_{04}\\0&c_{11}&c_{12}&c_{13}&0\\c_{20}&c_{21}&c_{22}&0&0\\c_{30}&c_{31}&0&0&0\\c_{40}&0&0&0&0 \end{Bmatrix} \quad is \quad the \quad matrix \quad consisting \quad of \quad coefficients \quad for \quad the \quad polynomial
+A = \begin{Bmatrix} 1\\x_1\\x_1^2\\x_1^3\\x_1^4 \end{Bmatrix}, B = \begin{Bmatrix} 1\\x_2\\x_2^2\\x_2^3\\x_2^4 \end{Bmatrix} and \quad P = \begin{Bmatrix} 0&0&c_{02}&c_{03}&c_{04}\\0&c_{11}&c_{12}&c_{13}&0\\c_{20}&c_{21}&c_{22}&0&0\\c_{30}&c_{31}&0&0&0\\c_{40}&0&0&0&0 \end{Bmatrix} \ is \ the \ matrix \ consisting \ of \coefficients \ for \quad the \ polynomial
 ```
 *Note*: It is in general good to start with setting the candidate Lyapunov function to be one order higher than the original dynamics  
 This function can then be recast into a quadratic form as 
 ```math
 V(x) = \frac{1}{2} z^TQz, \quad where z = \begin{Bmatrix} x_1\\x_1^2\\x_1x_2\\x_2^2\\x_2 \end{Bmatrix} 
 ```
-and $Q$ is a matrix consisting of terms in $P$ and some arbituary real numbers. (For a detailed representation of Q see the following figure from [2]):  
+and $Q$ is a matrix consisting of terms in $P$ and some arbituary real numbers. (The exact terms of Q are listed in the following figure from [2]):  
 ![alt text](figs/Qmatrix.png?raw=true)  
 Now the first and second condition for Lyapunov stability, $V(0) = 0$ and $V(x) > 0 \quad \forall x \in D \setminus \{0\}$ can be achieved by solving a condition in which the coefficients satisfy $Q \geq 0$ (due to the quadratic form). Further, we can write the derivative of the candidate Lyapunov function in a similar manner into quadratic form, in which the third condition of for Lyapunov stability can be reformatted into a LMI as well. These LMIs can then be easily solved using any linear solver. For reference, this system can be solved to a very compact form as:
 ```math
@@ -52,7 +52,7 @@ and
 ```
 As shown by this example, even though we set up the function to be 4th order initially, we can always (either via optimization or by visual inspection) go down to lower order whenever possible. In this particular example, this means setting all $\lambda$ terms and most coefficient terms to zero, except $c_{20} = 1$ and $c_{02} = 2$.
   
-As it turns out, LMI-based methods can be applied for piecewise-affine functions (PWA) as well, which see frequent applications (for example, the commonly applied ReLU activation function in neural networs is PWA, so is the whole network made up by them).
+As it turns out, LMI-based methods can be applied for piecewise-affine functions (PWA) as well, which see frequent applications (for example, the commonly applied ReLU activation function in neural networks is PWA, so is the whole network made up by them).
 #### Sampling-based approaches [3]
 On the topic of ReLU functions being PWA (and piecewise linear (PWL) as well), this property has been exploited to "learn" Lyapunov functions for PWL dynamical systems. 
   

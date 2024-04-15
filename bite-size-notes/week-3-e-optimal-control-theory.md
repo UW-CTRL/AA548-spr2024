@@ -32,6 +32,7 @@ $$
 \min_{u_0, u_1, ..., u_K} \quad 
 \begin{aligned}[t]
 &= \{x_0,x_1,...,x_{K+1}\} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
+\end{aligned}
 $$
 
 $$

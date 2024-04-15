@@ -29,11 +29,16 @@ The problem formulation of an optimal control problem requires:
 The general Setup of Optimal control Problem:
 
 $$
-\min_{u_0, u_1, ..., u_K} \quad 
-\begin{aligned}[t]
-&= \{x_0,x_1,...,x_{K+1}\} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
-\end{aligned}
+\min_{u_0, u_1, ..., u_K}
+{x_0,x_1,...,x_{K+1}} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
+
 $$
+\[
+\min_{\begin{aligned}[t]
+& u_0, u_1, \ldots, u_K \\
+& x_0, x_1, \ldots, x_{K+1}
+\end{aligned}} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
+\]
 
 $$
 \min_{u_0, u_1, ..., u_K} \quad

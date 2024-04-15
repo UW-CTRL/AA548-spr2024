@@ -15,6 +15,8 @@ The objective of optimal control Theory is _to determine the control signals tha
 #### Definitions
 
 Control System: A system governed by differential equations that describe its dynamics.
+which takes the form
+$\dot x = f(t,x,u)$, $x(t_0)=x_0$
 Control Input: The variable manipulated to influence the system's behavior.
 Objective Function: A measure of system performance to be optimized.
 
@@ -26,7 +28,7 @@ The problem formulation of an optimal control problem requires:
 
 The general Setup of Optimal control Problem:
 
-$min J_{term}(x_{K+1}) + \sum^{K}_{k=0} J(x_k,u_k,k)$
+$min_{u_0,u_1} J_{term}(x_{K+1}) + \sum^{K}_{k=0} J(x_k,u_k,k)$
 
 
 Optimal control problems can be classified into two main types: open-loop and closed-loop control.

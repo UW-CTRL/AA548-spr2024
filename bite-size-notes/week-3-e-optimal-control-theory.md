@@ -25,7 +25,10 @@ The problem formulation of an optimal control problem requires:
 3. Specifications of the performance criterion.
 
 The general Setup of Optimal control Problem:
-$min $
+
+$min J_term(x_{K+1} + \sum_{k=0}^{K} J(x_k,u_k,k)$
+
+
 Optimal control problems can be classified into two main types: open-loop and closed-loop control.
 
 Open-loop Control: Also known as trajectory optimization, it involves finding a control input sequence that optimally drives the system from an initial state to a desired final state without considering feedback.

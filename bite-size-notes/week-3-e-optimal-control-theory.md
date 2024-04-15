@@ -27,11 +27,6 @@ The problem formulation of an optimal control problem requires:
 3. Specifications of the performance criterion.
 
 The general Setup of Optimal control Problem:
-
-$$
-\min_{u_0, u_1, ..., u_K}
-{x_0,x_1,...,x_{K+1}} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
-$$
 $$
 \[
 \min_{\begin{aligned}[t]
@@ -39,14 +34,6 @@ $$
 & x_0, x_1, \ldots, x_{K+1}
 \end{aligned}} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
 \]
-$$
-$$
-\min_{u_0, u_1, ..., u_K} \quad
-\begin{aligned}
-&\text{subject to} \\
-&\quad x_0, x_1, ..., x_{K+1} \\
-\end{aligned}
-\quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
 $$
 
 Optimal control problems can be classified into two main types: open-loop and closed-loop control.

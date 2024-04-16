@@ -18,7 +18,7 @@ The objective of optimal control Theory is _to determine the control signals tha
 #### Definitions
 
 Control System: It generates possible behaviors. We will consider the control system to be described by ordinary differential equations (ODEs) that describe its dynamics, which take the form
-$$\dot x = f(t,x,u)$, $x(t_0)=x_0$$
+$$\dot x = f(t,x,u),\quad x(t_0)=x_0$$
 where $x$ is the _state_ taking values in \mathbb{R}^n, $u$ is the _control input_ taking values in some control set $U \subset \mathbb{R}^m$
 
 Control Input: The variable manipulated to influence the system's behavior.

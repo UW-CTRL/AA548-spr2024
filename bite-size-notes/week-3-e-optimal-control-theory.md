@@ -4,21 +4,29 @@
 
 In these notes, we aim to provide a brief introduction to optimal control, explaining its relevance to control theory and outlining its basic principles. By the end, readers should understand the fundamental concepts and motivations behind optimal control.
 
+### Objectives
+
+
 ### Introduction
 
 Optimal control is a cornerstone of control theory, focusing on finding control inputs that optimize a certain criterion, such as minimizing costs or maximizing performance. It finds applications in various fields, including engineering, economics, and biology.
 
 The objective of optimal control Theory is _to determine the control signals that will cause a process to satisfy the physical constraints and at the same time minimize (or maximize) some performance criterion._
 
-
 ### Preliminaries
+
 #### Definitions
 
-Control System: A system governed by differential equations that describe its dynamics.
-which takes the form
+Control System: It generates possible behaviors. We will consider the control system to be described by ordinary differential equations (ODEs) that describe its dynamics, which take the form
 $\dot x = f(t,x,u)$, $x(t_0)=x_0$
+where $x$ is the $state$ taking values in \mathbb{R}^n, $u$ is the $control input$ taking values in some control set $U \subset \mathbb{R}^m$
+
 Control Input: The variable manipulated to influence the system's behavior.
 Objective Function: A measure of system performance to be optimized.
+
+#### Notations 
+
+#### Theorems 
 
 ### Main Body
 The problem formulation of an optimal control problem requires:

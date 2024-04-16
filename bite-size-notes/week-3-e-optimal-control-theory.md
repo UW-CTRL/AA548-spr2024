@@ -118,7 +118,6 @@ Usually, Optimal Control solvers require that the cost functional is smooth, so 
    * Closed-loop solutions:
   find a solution for all states at all times
 
-![Alt text](figs/Closed-loop.jpg)
 <img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
 
 * Calculus of Variations (Pontryagin Maximum/Minimum Principle)
@@ -126,7 +125,7 @@ Usually, Optimal Control solvers require that the cost functional is smooth, so 
    * Open-loop solutions:
   find a solution for a given initial state
 
-![Alt text](figs/Open-loop.jpg)
+<img src="figs/Open-loop.jpg" alt="Alt text" width="300">
 
 
 ## Classification of optimal control

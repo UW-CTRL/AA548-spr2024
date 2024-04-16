@@ -79,7 +79,7 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 ##### Principle of Optimality 
 
-The principle of Optimality states that 
+The principle of Optimality states that:
 
 For every $(t,x) \in [t_0,t_1) \times \mathbb{R}$ and every $\Delta t \in (0, t_1 - t]$, the value function $V$ satisfies the relation
 $$V(t,x) = \inf_{u_{[t,t+\Delta t]}} \quad {\int_{t}^{t + \Delta t}} L(s,x(s),u(s))ds + V(t+\Delta t, x(t+\Delta t))$$
@@ -129,11 +129,15 @@ Usually, Optimal Control solvers require that the cost functional is smooth, so 
 
 #### Solution Methods 
 * Dynamic Programming (Principle of Optimality)
+The basic principle of dynamic programming is the continuous-time counterpart of the principle of optimality.
+It refers to simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner.
    * Compositionality of optimal paths
    * Closed-loop solutions:
   find a solution for all states at all times
 
 <img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
+
+
 
 * Calculus of Variations (Pontryagin Maximum/Minimum Principle)
    * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”

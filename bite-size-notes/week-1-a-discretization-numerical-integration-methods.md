@@ -79,7 +79,9 @@ The terms beyond the linear term $f'(a)(x-a)$ involve higher-order derivatives o
 
 By truncating the Taylor series expansion at a certain order, one can obtain a polynomial approximation of the function around the point $a$. This idea can be viewed in the Euler's method (truncating at the first-order) and Runge-Kutta method (truncating at the fourth-order). The accuracy of the approximation depends on the smoothness of the function and the distance from the point $a$.
 
-## Euler's Method
+## Numerical Methods for Discretization
+
+### 1 Euler's Method
 
 ![Euler's Method Image](figs/euler_method.png "https://m0nads.wordpress.com/tag/euler-method/")
 
@@ -95,7 +97,7 @@ where,
 
 $$\Delta t \text{ (or } h \text{) is a constant step size}$$
 
-### Advantages and Limitations:
+#### Advantages and Limitations:
 
 - **Advantages**
     - Simple and easy to implement
@@ -106,17 +108,17 @@ $$\Delta t \text{ (or } h \text{) is a constant step size}$$
     - May not provide accurate results for highly nonlinear or stiff ODEs.
     - Approximation error is proportional to the step size, $\Delta t$, chosen. Good approximation is obtained with very small $\Delta t$ but would require a large number of time discretixations leading to a large computation time.
 
-### When is it used?:
+#### When is it used?:
 
 Euler's method can be used when the system does not grow too quickly.
 
 Euler's method is rarely used in real-world applications as the algorithm tends to have low accuracy and requires vast computation time.
 
-### Great Reference to Learn More
+#### Great Reference to Learn More
 
 [4] https://courses.lumenlearning.com/calculus2/chapter/eulers-method/
 
-## Runge-Kutta
+### 2 Runge-Kutta
 
 ![Runge-Kutta Method Image](figs/Runge-Kutta_slopes.png "https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods")
 
@@ -141,7 +143,7 @@ $$
 \end{aligned}
 $$
 
-### Advantages and Limitations:
+#### Advantages and Limitations:
 
 - **Advantages**
     - Generally more accurate than simpler methods like Euler's method. They achieve this by using high-order Taylor series expansions to approximate the solution.
@@ -152,11 +154,11 @@ $$
     - Can suffer from error propagation, where errors accumulate over time and lead to inaccuracies in the solution. While higher-order methods reduce this effect, it still remains a concern, expecially for long integration intervals or highly sensitive systems.
     - Selecting a step size that balances accuracy and computational cost requires careful consideration and can be challanging.
 
-### When is it used?:
+#### When is it used?:
 
 The Runge-Kutta method is best applied to systems that need medium to high accuracy requirements, smooth and non-stiff systems, and systems with continuous inputs.
 
-### Great Reference to Learn More
+#### Great Reference to Learn More
 
 [6] https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf
 

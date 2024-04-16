@@ -10,7 +10,7 @@ Before talking about the definition of Control Barrier Function (CBF), it's esse
 
 #### Definition (Positively Invariant Set)
 In mathematical analysis, a positively (or positive) invariant set is a set with the following properties: 
-Suppose $'\dot{x} = f(x)'$ is a dynamical system, $x (t, x_0)$ is a trajectory, and $x_0$ is the initial point. Let $\mathbb{O} $ : = {$x \in \mathbb{R^n} |  \varphi (x) =0 $} where $\varphi$ is a real-valued function. [1]The set $\mathbb{O}$ s said to be positively invariant if $x_0 \in \mathbb{O}$ implies that $x(t, x_0) \in \mathbb{O}$ $\forall$ t $\geq 0$.   
+Suppose $\dot{x} = f(x)$ is a dynamical system, $x (t, x_0)$ is a trajectory, and $x_0$ is the initial point. Let $\mathbb{O} $ : = {$x \in \mathbb{R^n} |  \varphi (x) =0 $} where $\varphi$ is a real-valued function. [1]The set $\mathbb{O}$ s said to be positively invariant if $x_0 \in \mathbb{O}$ implies that $x(t, x_0) \in \mathbb{O}$ $\forall$ t $\geq 0$.   
 
 In other words, once a trajectory of the system enters $\mathbb{O}$, it will never leave it again.
 
@@ -88,4 +88,3 @@ To summarize, this note touched on the foundational aspects of Control Lyapunov 
 3. A. Ames, S. Coogan, M. Egerstedt, G. Notomista, K. Sreenath, P. Tabuada. "Control Barrier Functions: Theory and Applications," 2019.
 4. Karen Leung, "Last Year's Scribe Notes", 2023
 5. Wei Xiao, Calin Belta. "High-Order Control Barrier Functions", 2022. 
-

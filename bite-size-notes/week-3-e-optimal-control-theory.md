@@ -16,12 +16,9 @@ From an engineering point of view, optimality provides a very useful design prin
 
 Some examples of optimal control problems arising in applications include the following:
 • Send a rocket to the moon with minimal fuel consumption;
-• Produce a given amount of chemical in minimal time and/or with minimal amount of catalyst
-used (or maximize the amount produced in given time);
-• Bring sales of a new product to a desired level while minimizing the amount of money spent
-on the advertising campaign;
-• Maximize throughput or accuracy of information transmission over a communication channel
-with a given bandwidth/capacity.
+• Produce a given amount of chemical in minimal time and/or with a minimal amount of catalyst used (or maximize the amount produced in a given time);
+• Bring sales of a new product to a desired level while minimizing the amount of money spent on the advertising campaign;
+• Maximize throughput or accuracy of information transmission over a communication channel with a given bandwidth/capacity.
 ### Preliminaries
 
 #### Definitions

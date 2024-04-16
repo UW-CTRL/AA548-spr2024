@@ -185,8 +185,6 @@ $$
 
 #### Numerical Example: (taken from HW 1)
 
-#### Numerical Example: (taken from HW 1)
-
 Consider the following continuous-time dynamically-extended simple unicycle model,
 
 $$ 
@@ -207,7 +205,67 @@ where the control inputs are $u = (\omega, a)$.
 
 Write the discrete-time dynamics using Runge-Kutta integration with step size $\Delta t$.
 
+$$ 
+x_{t+1} = x_{t} + \frac{\Delta t}{6} (k_1 + 2k_2 + 2k_3 + k_4) 
+$$
 
+where,
+
+$$
+k_1 = \left[\begin{array}{cc}
+x_{k_1}\\
+y_{k_1}\\
+\theta_{k_1}\\
+v_{k_1}
+\end{array}\right] = \left[\begin{array}{cc}
+v cos \theta\\
+v sin \theta\\
+\omega\\
+a
+\end{array}\right]
+$$
+
+$$
+k_2 = \left[\begin{array}{cc}
+x_{k_2}\\
+y_{k_2}\\
+\theta_{k_2}\\
+v_{k_2}
+\end{array}\right] = \left[\begin{array}{cc}
+(v + \frac{v_{k_1} \Delta t}{2}) cos(\theta + \frac{\theta_{k_1} \Delta t}{2})\\
+(v + \frac{v_{k_1} \Delta t}{2}) sin(\theta + \frac{\theta_{k_1} \Delta t}{2})\\
+\omega\\
+a
+\end{array}\right]
+$$
+
+$$
+k_3 = \left[\begin{array}{cc}
+x_{k_3}\\
+y_{k_3}\\
+\theta_{k_3}\\
+v_{k_3}
+\end{array}\right] = \left[\begin{array}{cc}
+(v + \frac{v_{k_2} \Delta t}{2}) cos(\theta + \frac{\theta_{k_2} \Delta t}{2})\\
+(v + \frac{v_{k_2} \Delta t}{2}) sin(\theta + \frac{\theta_{k_2} \Delta t}{2})\\
+\omega\\
+a
+\end{array}\right]
+$$
+
+$$
+k_4 = \left[\begin{array}{cc}
+x_{k_4}\\
+y_{k_4}\\
+\theta_{k_4}\\
+v_{k_4}
+\end{array}\right] = \left[\begin{array}{cc}
+(v + v_k_3 \Delta t) cos(\theta + \theta_{k_3} \Delta t)\\
+(v + v_k_3 \Delta t) sin(\theta + \theta_{k_3} \Delta t)\\
+\omega\\
+a
+\end{array}\right]
+$$
 
 #### Advantages and Limitations:
 

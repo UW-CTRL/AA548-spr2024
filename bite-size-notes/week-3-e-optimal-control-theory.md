@@ -46,7 +46,7 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
       $x_{k+1} = f(x_k,u_k,k) \quad (k = 0,1,\ldots, K)$ is the dynamics of the system,
       $x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{current}}$ are the system constraints,
       $g_i(x_k,u_k) = 0$ is an equality constraint,
-      $h_i(x_k,u_k) \leq 0$ is an inequality constraint,
+      $h_i(x_k,u_k) \leq 0$ is an inequality constraint.
 
 
 

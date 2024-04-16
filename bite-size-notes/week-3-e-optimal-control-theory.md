@@ -119,6 +119,7 @@ Usually, Optimal Control solvers require that the cost functional is smooth, so 
   find a solution for all states at all times
 
 ![Alt text](figs/Closed-loop.jpg)
+<img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
 
 * Calculus of Variations (Pontryagin Maximum/Minimum Principle)
    * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”

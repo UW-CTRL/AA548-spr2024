@@ -44,7 +44,7 @@ h_i(x_k,u_k) <= 0 \quad j = 1, \ldots, H
 
 
 
-\[
+$$
 \begin{aligned}
 & \min_{\begin{aligned}[t]
 & u_0, u_1, \ldots, u_K \\
@@ -55,7 +55,7 @@ h_i(x_k,u_k) <= 0 \quad j = 1, \ldots, H
 &&& g_i(x_k,u_k) = 0 \quad (i = 1,\ldots, G) \\
 &&& h_i(x_k,u_k) \leq 0 \quad (i = 1, \ldots, H)
 \end{aligned}
-\]
+$$
 
 Optimal control problems can be classified into two main types: open-loop and closed-loop control.
 

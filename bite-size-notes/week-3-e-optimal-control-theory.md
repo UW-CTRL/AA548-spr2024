@@ -87,7 +87,7 @@ The problem formulation of an optimal control problem requires:
 3. Specifications of the performance criterion.
 
 
-An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$,
+An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
 
 $$
@@ -122,12 +122,6 @@ Classification of optimal control
    * inverse dynamics approach
       * Spline, or polynomial or Fourier series-based approximation
       * finite difference approach    
-
-
-Optimal control problems can be classified into two main types: open-loop and closed-loop control.
-
-Open-loop Control: Also known as trajectory optimization, it involves finding a control input sequence that optimally drives the system from an initial state to a desired final state without considering feedback.
-Closed-loop Control: Also known as feedback control, it adjusts the control input based on the system's state feedback to achieve optimal performance in real-time.
 
 ### Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 

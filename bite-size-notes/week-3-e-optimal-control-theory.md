@@ -123,7 +123,7 @@ Usually, Optimal Control solvers require that the cost functional is smooth, so 
    * Open-loop solutions:
   find a solution for a given initial state
 
-![alt text](figs/Closed-loop.jpg"Title")
+![Alt text](figs/Closed-loop.jpg)
 
 ## Classification of optimal control
 * Dynamic Programming

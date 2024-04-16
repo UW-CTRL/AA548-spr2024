@@ -1,14 +1,31 @@
 # Discretization: Numerical Integration Methods
 
+## Introduction
+
 Discrete-time systems are either inherently discrete (e.g. models of bank accounts, national economy growth models, population growth models, digital words) or they are obtained as a result of sampling (discretization) of continuous-time systems.
 
 **Discretization** of linear state space models is the process of transferring continuous differential equations into discrete difference equations, suitable for numerical computting.
 
 This process is important and is usually carried out as a first step towards making the model suitable for numerical evaluation and implementation on digital computers. 
 
-At a high level, the process of making a continuous system discrete involves analytically taking the integral of a continous system over time or using numerical methods to estimate the integration. <ins> In these notes we will focus on two main numerical methods for discretization, Euler's method (first-order method) and Runge-Kutta method(fourth-order method).</ins> There are other numerical methods between Euler's first-order method and Runge-Kutta's fourth order method (and even higher order-methods) but these two methods are the most common building blocks to understand other order numerical methods.
+At a high level, the process of making a continuous system discrete involves analytically taking the integral of a continous system over time or using numerical methods to estimate the integration. There are other numerical methods between Euler's first-order method and Runge-Kutta's fourth order method (and even higher order-methods) but these two methods are the most common building blocks to understand other order numerical methods.
 
-## Preliminaries: State Space Model Review and Notation
+## Objective 
+
+In these notes we will focus on two main numerical methods for discretization, (1) Euler's method (first-order method) and (2) Runge-Kutta method(fourth-order method).
+
+These notes will:
+
+1. Provide a review of state space models and its notation
+2. Introduce Taylor Series Expansion - a concept that is used to derive these methods
+3. Define the two main numerical methods for discretization
+4. Show the mathematical formulation for each of the methods
+5. Provide Pros and Cons for each of the methods
+6. Provide short examples for each of the methods
+
+## Preliminaries 
+
+### 1a. State Space Model Review and Notation
 
 | System type                      | State-space model |
 | -------------------------------- | ----------------- |
@@ -39,7 +56,7 @@ $$
 
 *Reference: https://en.wikipedia.org/wiki/State-space_representation*
 
-## Taylor Series Expansion
+### 1.b Taylor Series Expansion
 
 Numerical integration methods like the Runge-Kutta and Euler's method can be derived through use of Taylor series expansions. This section will provide a quick review on Taylor series expansion.
 
@@ -91,7 +108,7 @@ $$\Delta t \text{ (or } h \text{) is a constant step size}$$
 
 - **Disadvantages**
     - May not provide accurate results for highly nonlinear or stiff ODEs.
-    - Approximation eeor is proportional to the step size, $\Delta t$, chosen. Good approximation is obtained with very small $\Delta t$ but would require a large number of time discretixations leading to a large computation time.
+    - Approximation error is proportional to the step size, $\Delta t$, chosen. Good approximation is obtained with very small $\Delta t$ but would require a large number of time discretixations leading to a large computation time.
 
 ### When is it used?:
 

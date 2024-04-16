@@ -160,6 +160,10 @@ The Runge-Kutta method is best applied to systems that need medium to high accur
 
 [6] https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf
 
+## Conclusion
+
+Discretization of linear state space models is the process of transferring continuous differential equations into discrete difference equations, suitable for numerical computting. These notes discussed two main numerical methods for discretization, which are important as they are used as building blocks for most other numerical methods for discretization. These notes include preliminary information to help readers understand the contents of the notes, definitions, mathematical formulation, pros/cons, and short examples for each of the numerical methods. Since these notes serve as an introduction and quick reminder to these numerical methods for discretization, additional resources were included for readers to dig deeper into each of the numerical methods.
+
 ## References
 
 [1] https://en.wikipedia.org/wiki/State-space_representation

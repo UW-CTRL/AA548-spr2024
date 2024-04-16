@@ -70,6 +70,11 @@ $$L(x, u, t) =\begin{cases}
 0 & \text{otherwise}
 \end{cases}$$
 
+It is common to mix and match different types of cost functionals using a weighted cost functional:
+
+\[ J(x, u) = \sum_{i=1}^{N} w_i J_i(x, u) \]
+
+where each \( J_i(x, u) \) is some primitive cost functional and \( w_i \) scales its contribution to the final cost. By tuning these weights, a designer can encourage the optimized trajectories to emphasize some aspects of the trajectory over others.
 
 #### Notations 
 

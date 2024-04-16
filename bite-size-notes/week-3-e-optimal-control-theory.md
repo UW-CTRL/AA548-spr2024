@@ -48,35 +48,38 @@ Since u is a function of time, therefore J is called a _functional_ because it i
 
 A variety of behaviors can be specified in this framework by modifying the instantaneous cost. For example:
 
-1. **Trajectory tracking** for a trajectory \( x_D(t) \) can be implemented by penalizing squared error:
+1. **Trajectory tracking** for a trajectory $x_D(t)$ can be implemented by penalizing squared error:
+$$
+L(x, u, t) = \| x - x_D(t) \|^2
+$$
 
-   \[ L(x, u, t) = \| x - x_D(t) \|^2 \]
+3. **Minimizing effort** can be defined in terms of a control penalty:
+$$
+L(x, u, t) = \| u \|^2
+$$
 
-2. **Minimizing effort** can be defined in terms of a control penalty:
+5. **Minimum time to hit a target** $x_{\text{tgt}}$ could be implemented as an indicator function:
+$$
+I[x \neq x_{\text{tgt}}]
+$$
 
-   \[ L(x, u, t) = \| u \|^2 \]
+   where $I[z]$ is 1 if $z$ is true, and 0 otherwise.
 
-3. **Minimum time to hit a target** \( x_{\text{tgt}} \) could be implemented as an indicator function:
+7. **Obstacle avoidance** and other feasibility constraints can be implemented as indicator functions as well:
+$$
+\infty \cdot I[x \notin \mathcal{F}]
+$$
 
-   \[ I[x \neq x_{\text{tgt}}] \]
+   where $\mathcal{F}$ is the free space.
 
-   where \( I[z] \) is 1 if \( z \) is true, and 0 otherwise.
-
-4. **Obstacle avoidance** and other feasibility constraints can be implemented as indicator functions as well:
-
-   \[ \infty \cdot I[x \notin \mathcal{F}] \]
-
-   where \( \mathcal{F} \) is the free space.
-
-5. **Smoothed obstacle avoidance** can be implemented by a repulsive barrier that decreases to 0 when the distance to the closest obstacle \( d \) exceeds some minimum buffer distance \( d_{\text{min}} \) and increases to infinity as the distance shrinks to 0. One common form of this barrier is:
-
-   \[
+9. **Smoothed obstacle avoidance** can be implemented by a repulsive barrier that decreases to 0 when the distance to the closest obstacle $d$ exceeds some minimum buffer distance $d_{\text{min}}$ and increases to infinity as the distance shrinks to 0. One common form of this barrier is:
+$$
    L(x, u, t) =
    \begin{cases}
    \frac{1}{{d^2}} - \frac{1}{{d^2_{\text{min}}}} & \text{if } d < d_{\text{min}} \\
    0 & \text{otherwise}
    \end{cases}
-   \]
+$$
 
 #### Notations 
 

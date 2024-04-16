@@ -77,8 +77,11 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 #### Theorems 
 
-Maximum Principle 
-Principle of Optimality 
+##### Principle of Optimality 
+For every $(t,x) \in [t_0,t_1) \cross \mathbb{R}$
+##### Maximum Principle 
+
+
 
 ### Main Body
 The problem formulation of an optimal control problem requires:

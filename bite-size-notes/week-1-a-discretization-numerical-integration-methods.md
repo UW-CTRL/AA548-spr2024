@@ -97,6 +97,35 @@ where,
 
 $$\Delta t \text{ (or } h \text{) is a constant step size}$$
 
+#### Numerical Example: (taken from HW 1)
+
+Consider the following continuous-time dynamically-extended simple unicycle model,
+
+$$ \cdot{x} =  \left[ \begin{matrix} \cdot{x} \\ \cdot{y} \\ \cdot{\theta} \\ \cdot{v} \end{matrix} \right] = \left[ \begin{matrix} vcos(\theta) \\ vsin(\theta) \\ \omega \\ a \end{matrix} \right]$$
+
+where the control inputs are $$u = (\omega, a)$$.
+
+Write the discrete-time dynamics using Euler integration with step size $$\Delta t$$.
+
+$$ 
+        x_{t+1} &= x_{t} + \dot{x}_{t} \Delta t
+    
+        x_{t+1} &= \left[ \begin{matrix}
+        x_{t+1} \\
+        y_{t+1} \\
+        \theta_{t+1} \\
+        v_{t+1}
+        \end{matrix}
+        \right] = 
+        \left[ \begin{matrix}
+        x_{t} + v cos \theta \Delta t \\
+        y_{t} + v sin \theta \Delta t \\
+        \theta_{t} + \omega \Delta t\\
+        v_{t} + a \Delta t
+        \end{matrix}
+        \right]
+$$
+
 #### Advantages and Limitations:
 
 - **Advantages**
@@ -142,6 +171,18 @@ $$
 &m_4 = f\left(x + m_3\Delta t,u_k,t(k) + \Delta t\right)
 \end{aligned}
 $$
+
+#### Numerical Example: (taken from HW 1)
+
+Consider the following continuous-time dynamically-extended simple unicycle model,
+
+$$ \cdot{x} =  \left[ \begin{matrix} \cdot{x} \\ \cdot{y} \\ \cdot{\theta} \\ \cdot{v} \end{matrix} \right] = \left[ \begin{matrix} vcos(\theta) \\ vsin(\theta) \\ \omega \\ a \end{matrix} \right]$$
+
+where the control inputs are $$u = (\omega, a)$$.
+
+Write the discrete-time dynamics using Runge-Kutta integration with step size $$\Delta t$$.
+
+
 
 #### Advantages and Limitations:
 

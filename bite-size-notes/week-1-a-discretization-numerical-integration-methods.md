@@ -163,8 +163,13 @@ The Runge-Kutta method is best applied to systems that need medium to high accur
 ## References
 
 [1] https://en.wikipedia.org/wiki/State-space_representation
+
 [2] https://en.wikipedia.org/wiki/Taylor_series
+
 [3] https://m0nads.wordpress.com/tag/euler-method/
+
 [4] https://courses.lumenlearning.com/calculus2/chapter/eulers-method/
+
 [5] https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods
+
 [6] https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf

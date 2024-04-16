@@ -121,7 +121,9 @@ Write the discrete-time dynamics using Euler integration with step size $\Delta 
 
 $$ 
 x_{t+1} = x_{t} + \dot{x}_{t} \Delta t
-    
+$$
+
+$$
 x_{t+1} = \left[\begin{array}{cc}
 x_{t+1}\\
 y_{t+1}\\

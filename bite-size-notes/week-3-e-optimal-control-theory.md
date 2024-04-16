@@ -21,6 +21,10 @@ Control System: It generates possible behaviors. We will consider the control sy
 $$\dot x = f(t,x,u),\quad x(t_0)=x_0$$
 where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control input_ taking values in some control set $U \subset \mathbb{R}^m$, $t$ is _time_ , $t_0$ is the _initial time_ , and $x_0$ is the _initial state_, and both $x$ and $u$ are functions of time.
 
+Cost function: It associates a cost with each possible behavior. 
+
+
+
 
 Control Input: The variable manipulated to influence the system's behavior.
 Objective Function: A measure of system performance to be optimized.
@@ -28,7 +32,8 @@ Objective Function: A measure of system performance to be optimized.
 #### Notations 
 
 #### Theorems 
-
+Maximum Principle 
+Principle of Optimality 
 ### Main Body
 The problem formulation of an optimal control problem requires:
 1. A mathematical description (or model) of the process to be controlled.

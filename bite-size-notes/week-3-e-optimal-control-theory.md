@@ -123,6 +123,22 @@ Classification of optimal control
       * Spline, or polynomial or Fourier series-based approximation
       * finite difference approach    
 
+## Solution Techniques for Optimal Control Problems
+
+1. **Analytical Methods:**
+   - **Calculus of Variations:** This method involves finding the extrema of functionals by solving differential equations. It is particularly useful for problems with continuous time and smooth dynamics.
+   - **Pontryagin's Minimum Principle (PMP):** PMP provides necessary conditions for optimality of control trajectories. It is applicable to both continuous and discrete time problems and is widely used for analyzing optimal control problems.
+   - **Dynamic Programming:** Dynamic programming is a method for solving complex optimization problems by breaking them down into simpler subproblems through recursive equations. It is particularly useful for problems with discrete time and finite horizon.
+   - **Hamilton-Jacobi-Bellman (HJB) Equation:** The HJB equation is a partial differential equation that arises in the context of optimal control theory. It is used to solve optimal control problems by reformulating them as a boundary value problem for the HJB equation.
+
+2. **Numerical Methods:**
+   - **Shooting Methods:** Shooting methods solve optimal control problems by converting them into boundary value problems and solving them iteratively. They are often used for problems with smooth dynamics and constraints.
+   - **Collocation Methods:** Collocation methods discretize the state and control variables and approximate the differential equations using polynomial interpolants. They are particularly useful for problems with nonlinear dynamics and constraints.
+   - **Direct Methods:** Direct methods directly discretize the control and state trajectories and solve the resulting finite-dimensional optimization problem. They include approaches like multiple shooting and direct collocation.
+   - **Indirect Methods:** Indirect methods formulate optimal control problems as two-point boundary value problems and use optimization techniques to solve them. They include approaches like shooting and continuation.
+
+Each solution technique has its own advantages and limitations, and the choice of method depends on factors such as problem complexity, availability of analytical solutions, computational resources, and specific problem requirements. By understanding the principles and characteristics of each solution technique, one can effectively choose the most appropriate method for solving a given optimal control problem.
+
 ### Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 
 

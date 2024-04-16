@@ -79,9 +79,9 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 ##### Principle of Optimality 
 For every $(t,x) \in [t_0,t_1) \times \mathbb{R}$ and every $\Delta t \in (0, t_1 - t]$, the value function $V$ satisfies the relation
-$$V(t,x) = \inf_{u_[{t,t+\Delta t}]} \quad {\int_{t}^{t + \Delta t}} L(s,x(s),u(s))ds + V(t+\Delta t, x(t+\Delta t))
+$$V(t,x) = \inf_{u_{[t,t+\Delta t]}} \quad {\int_{t}^{t + \Delta t}} L(s,x(s),u(s))ds + V(t+\Delta t, x(t+\Delta t))
 $$
-where $x(.)$ on the right-hand side is the state trajectory corresponding to the control  $u_[{t,t+\Delta t}]$ and satisfying $x(t) = x$.
+where $x(.)$ on the right-hand side is the state trajectory corresponding to the control  $u_{[t,t+\Delta t]}$ and satisfying $x(t) = x$.
 ##### Maximum Principle 
 
 

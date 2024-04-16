@@ -27,9 +27,9 @@ $$
 
 where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control input_ taking values in some control set $U \subset \mathbb{R}^m$, $t$ is _time_ , $t_0$ is the _initial time_ , and $x_0$ is the _initial state_, and both $x$ and $u$ are functions of time.
 
-##### Cost function: 
+##### Cost functional: 
 
-It associates a cost with each possible behavior. For a given initial data $(t_0, x_0), the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functions by $J$, which take the form,
+It associates a cost with each possible behavior. For a given initial data $(t_0, x_0), the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functionals by $J$, which take the form,
 
 $$ 
 J(u) := \int_{t_0}^{t_f} L(t,x(t),u(t))dt + K(t_f,x_f)
@@ -37,7 +37,7 @@ $$
 
 where $L$ and $K$ are given functions (_running cost_ and _terminal cost_, respectively), $t_f$ is the _final(or terminal) time_, which is either free or fixed, and $x_f:= x(t_f)$ is the _final (or terminal) state_ which is either free or fixed or belongs to some given target set.
 
-
+Since u is a function of time, therefore J is called a _functional_ because it is a real-valued function on a space of functions.
 
 Control Input: The variable manipulated to influence the system's behavior.
 Objective Function: A measure of system performance to be optimized.

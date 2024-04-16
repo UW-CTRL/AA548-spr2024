@@ -12,7 +12,16 @@ In these notes, we aim to provide a brief introduction to optimal control, expla
 Optimal control is a cornerstone of control theory, focusing on finding control inputs that optimize a certain criterion, such as minimizing costs or maximizing performance. It finds applications in various fields, including engineering, economics, and biology.
 
 The objective of optimal control Theory is _to determine the control signals that will cause a process to satisfy the physical constraints and at the same time minimize (or maximize) some performance criterion._
+From an engineering point of view, optimality provides a very useful design principle, and the cost to be minimized (or the profit to be maximized) is often naturally contained in the problem itself.
 
+Some examples of optimal control problems arising in applications include the following:
+• Send a rocket to the moon with minimal fuel consumption;
+• Produce a given amount of chemical in minimal time and/or with minimal amount of catalyst
+used (or maximize the amount produced in given time);
+• Bring sales of a new product to a desired level while minimizing the amount of money spent
+on the advertising campaign;
+• Maximize throughput or accuracy of information transmission over a communication channel
+with a given bandwidth/capacity.
 ### Preliminaries
 
 #### Definitions

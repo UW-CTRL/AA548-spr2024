@@ -25,7 +25,7 @@ These notes will:
 
 ## Preliminaries 
 
-### 1a. State Space Model Review and Notation
+### 1a. State Space Model Review and Notation [1]
 
 | System type                      | State-space model |
 | -------------------------------- | ----------------- |
@@ -54,9 +54,7 @@ $$
 \end{aligned}
 $$
 
-*Reference: https://en.wikipedia.org/wiki/State-space_representation*
-
-### 1.b Taylor Series Expansion
+### 1.b Taylor Series Expansion [2]
 
 Numerical integration methods like the Runge-Kutta and Euler's method can be derived through use of Taylor series expansions. This section will provide a quick review on Taylor series expansion.
 
@@ -81,13 +79,11 @@ The terms beyond the linear term $f'(a)(x-a)$ involve higher-order derivatives o
 
 By truncating the Taylor series expansion at a certain order, one can obtain a polynomial approximation of the function around the point $a$. This idea can be viewed in the Euler's method (truncating at the first-order) and Runge-Kutta method (truncating at the fourth-order). The accuracy of the approximation depends on the smoothness of the function and the distance from the point $a$.
 
-*Reference: https://en.wikipedia.org/wiki/Taylor_series*
-
 ## Euler's Method
 
 ![Euler's Method Image](figs/euler_method.png "https://m0nads.wordpress.com/tag/euler-method/")
 
-*image: https://m0nads.wordpress.com/tag/euler-method/*
+*image: [3]*
 
 The Euler method is a first-order method for solving ODEs with a given value. It is the most basic explicit method for numerical intergration of ODEs and is simplest Runge-Kutta method
 
@@ -118,13 +114,13 @@ Euler's method is rarely used in real-world applications as the algorithm tends 
 
 ### Great Reference to Learn More
 
-- https://courses.lumenlearning.com/calculus2/chapter/eulers-method/
+[4] https://courses.lumenlearning.com/calculus2/chapter/eulers-method/
 
 ## Runge-Kutta
 
 ![Runge-Kutta Method Image](figs/Runge-Kutta_slopes.png "https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods")
 
-*image: https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods*
+*image: [5]*
 
 The Runge-Kutta method is a family of implicit and explicit iterative methods which include the Euler's method, which is looked at already.
 
@@ -162,4 +158,13 @@ The Runge-Kutta method is best applied to systems that need medium to high accur
 
 ### Great Reference to Learn More
 
-- https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf
+[6] https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf
+
+## References
+
+[1] https://en.wikipedia.org/wiki/State-space_representation
+[2] https://en.wikipedia.org/wiki/Taylor_series
+[3] https://m0nads.wordpress.com/tag/euler-method/
+[4] https://courses.lumenlearning.com/calculus2/chapter/eulers-method/
+[5] https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods
+[6] https://math.okstate.edu/people/yqwang/teaching/math4513_fall11/Notes/rungekutta.pdf

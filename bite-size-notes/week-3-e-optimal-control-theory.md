@@ -1,4 +1,4 @@
-# Introduction to Optimal Control
+# Introduction to Optimal Control Theory
 
 ### Scope + Objectives
 
@@ -110,7 +110,18 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
       $g_i(x_k,u_k) = 0$ is an equality constraint,
       $h_i(x_k,u_k) \leq 0$ is an inequality constraint.
 
-
+Classification of optimal control
+* Dynamic Programming
+* indirect methods
+* direct methods
+   * Forward dynamics approach
+      * Direct shooting
+         * Single Step
+         * Multiple Steps     
+      * Collocation
+   * inverse dynamics approach
+      * Spline, or polynomial or Fourier series-based approximation
+      * finite difference approach    
 
 
 Optimal control problems can be classified into two main types: open-loop and closed-loop control.

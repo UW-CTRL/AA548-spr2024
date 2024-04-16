@@ -54,9 +54,7 @@ L(x, u, t) = {|x - x_D(t)|}^2
 $$
 
 3. **Minimizing effort** can be defined in terms of a control penalty:
-$$
-L(x, u, t) = \| u \|^2
-$$
+$$L(x, u, t) = \| u \|^2$$
 
 5. **Minimum time to hit a target** $x_{\text{tgt}}$ could be implemented as an indicator function:
 $$

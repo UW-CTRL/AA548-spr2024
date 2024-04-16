@@ -26,23 +26,7 @@ The problem formulation of an optimal control problem requires:
 2. A statement of the physical constraints.
 3. Specifications of the performance criterion.
 
-The general Setup of Optimal control Problem:
-
-$$
-\min_{\begin{aligned}[t]
-& u_0, u_1, \ldots, u_K \\
-& x_0, x_1, \ldots, x_{K+1}
-\end{aligned}} \quad \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1})
-$$
-
-
-\text{s.t.} \quad x_{k+1} = f(x_k,u_k,k} \quad (k = 0,1,\ldots, K)\\
-x_k \in \mathcal{X} , u_k \in \mathcal{U}, X_0 = X_{current}\\
-g_i(x_k,u_k) = 0 \quad i = 1,\ldots, G\\
-h_i(x_k,u_k) <= 0 \quad j = 1, \ldots, H
-
-
-
+The general Setup of Optimal Control Problem, in discrete time and finite horizon:
 
 $$
 \begin{aligned}
@@ -56,6 +40,16 @@ $$
 &&& h_i(x_k,u_k) \leq 0 \quad (i = 1, \ldots, H)
 \end{aligned}
 $$
+
+where $J_{\text{term}}(x_{K+1} is the terminal cost$, 
+      $\sum_{k=0}^{K} J(x_k, u_k, k) is the running cost$
+      $x_{k+1} = f(x_k,u_k,k) \quad (k = 0,1,\ldots, K) is the dynamics of the system$
+      $x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{current}} are the system constraints $
+      $g_i(x_k,u_k) = 0 is an equality constraint$
+      $h_i(x_k,u_k) \leq 0 is an inequality constraint$
+
+
+
 
 Optimal control problems can be classified into two main types: open-loop and closed-loop control.
 

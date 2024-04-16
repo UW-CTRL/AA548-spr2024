@@ -60,6 +60,8 @@ The problem formulation of an optimal control problem requires:
 2. A statement of the physical constraints.
 3. Specifications of the performance criterion.
 
+
+An optimal control problem i defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$:
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
 
 $$
@@ -91,6 +93,8 @@ Open-loop Control: Also known as trajectory optimization, it involves finding a 
 Closed-loop Control: Also known as feedback control, it adjusts the control input based on the system's state feedback to achieve optimal performance in real-time.
 
 ### Conclusion
-In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. These notes provide a foundational understanding of optimal control principles. For further exploration, readers are encouraged to delve into advanced topics such as dynamic programming and the Hamilton-Jacobi-Bellman equation.
+In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 
+
+Optimal Control Theory has been used to obtain solutions to a variety of aerospace engineering problems and holds great promise for other problem areas as well, however, much remains to be accomplished. Hopefully, these notes provide a foundational understanding of optimal control principles. For further exploration, readers are encouraged to delve into advanced topics such as dynamic programming and the Hamilton-Jacobi-Bellman equation.
 
 ### References

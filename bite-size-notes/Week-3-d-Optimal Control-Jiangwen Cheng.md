@@ -1,14 +1,12 @@
 # A Quick Note of Control Barrier Function 
 ## Objectives
-1. To provide a foundational understanding of Control Barrier Functions, explaining how they are used to ensure system safety by preventing the state of a system from entering unsafe regions.
-2. To demonstrate the application of CBFs in real-world scenarios, such as in autonomous vehicle navigation or robotic motion control, where safety is paramount.
-3. To discuss the latest advancements and research findings related to CBFs, potentially including different variations or integrations with other control methods like Lyapunov functions.  
+1. To provide a foundational understanding of Control Barrier Functions
+2. To demonstrate the application of CBFs in real-world scenarios
 ## Introduction 
 Control Barrier Functions (CBFs) is a critical component in the design of safety-critical control systems. As the demand for autonomous technologies and intelligent control systems continues to rise, ensuring the safety of these systems becomes paramount. CBFs play an indispensable role in this context by providing a robust mathematical framework to enforce safety constraints dynamically, keeping the system states within safe operational boundaries. In this note, we will discuss the fundamentals of CBFs from their theoretical basis to practical applications.  
 ## Preliminary
 ### Theoretical Motivation
 Before talking about the definition of Control Barrier Function (CBF), it's essential to first grasp two foundational concepts that underpin the development of CBFs. The first one is the notion of a control invariance set. This concept is crucial as it pertains to the sets of states from which the control system can be maintained within desired limits through appropriate control actions. The second key concept is that of a Control Lyapunov Function (CLF), which provides a mathematical tool to assess the stability of a control system. 
-
 
 #### Definition (Positively Invariant Set)
 In mathematical analysis, a positively (or positive) invariant set is a set with the following properties: 
@@ -52,13 +50,41 @@ Common choice of $\alpha$ is to be $: \alpha(r) = \alpha_0(r)$
 
 To better understand the Control Barrier Function, we examine the following cases for the system as it moving to the undesirable set ${C}$. ${C}$ is unsafe region where $C = \{x \in D \mid b(x) \leq 0 \}$ and assume $\alpha_0 =1$. 
 
-1. System stays far away from unsafe region ${C}$: The system is relatively far from the undesired set so it can to move in any direction basically. Notice not all directions are allowed such as going directly toward C. 
+1. The system is relatively far from the undesired set so it can to move in any direction basically. Notice not all directions are allowed such as going directly toward C. 
 $$ L_f b(x) + L_g b(x) u   \geq - 3 $$
+
+2. As the system approaches the undesired set ${C}$, the range of available directions to take is reduced. 
+$$ L_f b(x) + L_g b(x) u   > - 1 $$
+
+3. When the system is on the boundary of the undesired set, the only possible set of actions are to move along the boundary of ${C}$ or to move away in any direction.
+$$ L_f b(x) + L_g b(x) u   \geq 0 $$
+
+4. When the system moves away from the undesired set, the possible range of actions in increased. 
+$$ L_f b(x) + L_g b(x) u   \geq -1 $$
+
+
+## Optimization Based Control 
+We already established that Control Barrier Functions promise a necessary and sufficient conditions on safety. More important is that we wish to do so in a minimally invasive fashion, like modifying an existing controller in a minimal way so as to guarantee safety. This naturally leads to optimization based controllers:   
+Suppose we have a feedback controller $u = k(x)$ for the control system, and to modify this controller in a minimal way so as to guarentee safety, we can consider the following Quadratic Program (QP) based controller that finds the minimum perturbation on $u$: [3]
+$$
+\begin{aligned}
+
+u(x) = \text{argmin}_{u \in {R^m}} \hspace{0.3cm} \frac{1}{2} || u - k(x) ||_2^2 \\
+\\
+\hspace{0.5cm} \text{s.t.} \hspace{0.3cm} L_f b(x) + L_g b(x)
+ u \geq \alpha (b(x)) 
+
+\end{aligned}
+$$  
+This approach combines control barrier functions (CBFs) with quadratic programming (QP) to compute control inputs that guarantee the invariance of a safe set defined by the CBFs. In practical applications, the QP-based controller acts as a safety filter over the nominal controller. It adjusts the control inputs to ensure they comply with the system's safety requirements. By doing so, it guarantees that the system remains within safe operational boundaries at all times. This setup is useful in dynamic environments that safety is extremely important, such as in autonomous vehicles and robotic systems. 
 
 
 ## Conclusion 
+To summarize, this note touched on the foundational aspects of Control Lyapunov Functions (CLFs) and the concept of invariant sets, which are crucial for the discussion of Control Barrier Functions (CBFs). Then, we has discussed the fundamental mathematical principles of Control Barrier Functions (CBFs) and their practical application through CBF-based controllers in various real-life scenarios. These two are important in maintaining system stability and safety. Finally, we talked about CBF-QP controllers that can effectively act as safety filters, adjusting control inputs to ensure control system stay within safe boundaries. This capability is especially vital in dynamic fields. 
+
 ## References 
 1. Wikipedia, "Positively Invariant Set", https://en.wikipedia.org/wiki/Positively_invariant_set
 2. Wikipedia,"Control Lyapunov Function", https://en.wikipedia.org/wiki/Control-Lyapunov_function
 3. A. Ames, S. Coogan, M. Egerstedt, G. Notomista, K. Sreenath, P. Tabuada. "Control Barrier Functions: Theory and Applications," 2019.
-4.     
+4. Karen Leung, "Last Year's Scribe Notes", 2023
+5. Wei Xiao, Calin Belta. "High-Order Control Barrier Functions", 2022. 

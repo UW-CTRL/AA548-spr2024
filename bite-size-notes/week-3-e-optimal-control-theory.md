@@ -1,18 +1,19 @@
 # Introduction to Optimal Control Theory
 
-### Scope + Objectives
+### Scope
 
-In these notes, we aim to provide a brief introduction to optimal control, explaining its relevance to control theory and outlining its basic principles. By the end, readers should understand the fundamental concepts and motivations behind optimal control.
-
+We have seen the use of myopic controllers like PID or operational space control, as well as some predictive controllers like trajectory generation. Predictive control allows the controller to make better decisions at the current time to account for future possibilities, particularly for complex and non-linear systems. However, they can be very restrictive to one class of systems. Optimal Control addresses these shortcomings in a highly general framework.                                                                                                                                                    
 ### Objectives
 
+In these notes, we aim to provide a brief introduction to optimal control, how to specify optimal control problems and how to implement and use optimal control techniques explaining its relevance to control theory and outlining its basic principles. By the end, readers should understand the fundamental concepts and motivations behind optimal control.
 
 ### Introduction
 
 Optimal control is a cornerstone of control theory, focusing on finding control inputs that optimize a certain criterion, such as minimizing costs or maximizing performance. It finds applications in various fields, including engineering, economics, and biology.
 
-The objective of optimal control Theory is _to determine the control signals that will cause a process to satisfy the physical constraints and at the same time minimize (or maximize) some performance criterion._
+The objective of optimal control theory is _to determine the control signals that will cause a process to satisfy the physical constraints and at the same time minimize (or maximize) some performance criterion._
 From an engineering point of view, optimality provides a very useful design principle, and the cost to be minimized (or the profit to be maximized) is often naturally contained in the problem itself.
+For example, a driver of a car would like to reach a desired location while achieving several other goals: e.g., avoiding obstacles, not driving erratically, and maintaining a comfortable level of acceleration for human passengers. Optimal control allows a control designer to specify the dynamic model and the desired outcomes, and the algorithm will compute an optimized control. 
 
 Some examples of optimal control problems arising in applications include the following:
 * Send a rocket to the moon with minimal fuel consumption;
@@ -44,7 +45,7 @@ $$
 
 where $L$ and $K$ are given functions (_running cost(or Instantaneous cost)_ and _terminal cost_, respectively), $t_f$ is the _final(or terminal) time_, which is either free or fixed, and $x_f:= x(t_f)$ is the _final (or terminal) state_ which is either free or fixed or belongs to some given target set.
 
-Since u is a function of time, therefore J is called a _functional_ because it is a real-valued function on a space of functions.
+Since $u$ is a function of time, therefore J is called a _functional_ because it is a function mapping a function to a real number. 
 
 A variety of behaviors can be specified in this framework by modifying the instantaneous cost. For example:
 
@@ -75,14 +76,15 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 #### Notations 
 
 #### Theorems 
+
 Maximum Principle 
 Principle of Optimality 
+
 ### Main Body
 The problem formulation of an optimal control problem requires:
 1. A mathematical description (or model) of the process to be controlled.
 2. A statement of the physical constraints.
 3. Specifications of the performance criterion.
-
 
 An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
@@ -107,7 +109,23 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
       $g_i(x_k,u_k) = 0$ is an equality constraint,
       $h_i(x_k,u_k) \leq 0$ is an inequality constraint.
 
-Classification of optimal control
+Usually, Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
+
+
+#### Solution Methods 
+* Dynamic Programming (Principle of Optimality)
+   * Compositionality of optimal paths
+   * Closed-loop solutions:
+  find a solution for all states at all times
+
+* Calculus of Variations (Pontryagin Maximum/Minimum Principle)
+   * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”
+   * Open-loop solutions:
+  find a solution for a given initial state
+
+![alt text](figs/leung_cat.jpg "Title")
+
+## Classification of optimal control
 * Dynamic Programming
 * indirect methods
 * direct methods
@@ -124,7 +142,7 @@ Classification of optimal control
 
 1. **Analytical Methods:**
    - **Calculus of Variations:** This method involves finding the extrema of functionals by solving differential equations. It is particularly useful for problems with continuous time and smooth dynamics.
-   - **Pontryagin's Minimum Principle (PMP):** PMP provides necessary conditions for optimality of control trajectories. It is applicable to both continuous and discrete time problems and is widely used for analyzing optimal control problems.
+   - **Pontryagin's Minimum Principle (PMP):** PMP provides necessary conditions for the optimality of control trajectories. It applies to both continuous and discrete time problems and is widely used for analyzing optimal control problems.
    - **Dynamic Programming:** Dynamic programming is a method for solving complex optimization problems by breaking them down into simpler subproblems through recursive equations. It is particularly useful for problems with discrete time and finite horizon.
    - **Hamilton-Jacobi-Bellman (HJB) Equation:** The HJB equation is a partial differential equation that arises in the context of optimal control theory. It is used to solve optimal control problems by reformulating them as a boundary value problem for the HJB equation.
 
@@ -142,3 +160,4 @@ In summary, optimal control is a powerful framework for designing control strate
 Optimal Control Theory has been used to obtain solutions to a variety of aerospace engineering problems and holds great promise for other problem areas as well, however, much remains to be accomplished. Hopefully, these notes provide a foundational understanding of optimal control principles. For further exploration, readers are encouraged to delve into advanced topics such as dynamic programming and the Hamilton-Jacobi-Bellman equation.
 
 ### References
+* https://motion.cs.illinois.edu/RoboticSystems/OptimalControl.html#Section-IV.-DYNAMICS-AND-CONTROL

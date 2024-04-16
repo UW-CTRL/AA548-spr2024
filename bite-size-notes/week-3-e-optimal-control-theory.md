@@ -164,3 +164,4 @@ Optimal Control Theory has been used to obtain solutions to a variety of aerospa
 
 ### References
 * https://motion.cs.illinois.edu/RoboticSystems/OptimalControl.html#Section-IV.-DYNAMICS-AND-CONTROL
+* https://www.princeton.edu/~aaa/Public/Teaching/ORF523/ORF523_S21_Guest_Lecture.pdf#page=16.00

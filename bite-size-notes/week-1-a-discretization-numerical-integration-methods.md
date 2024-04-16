@@ -206,17 +206,17 @@ where the control inputs are $u = (\omega, a)$.
 Write the discrete-time dynamics using Runge-Kutta integration with step size $\Delta t$.
 
 $$ 
-x_{t+1} = x_{t} + \frac{\Delta t}{6} (k_1 + 2k_2 + 2k_3 + k_4) 
+x_{t+1} = x_{t} + \frac{\Delta t}{6} (m_1 + 2m_2 + 2m_3 + m_4) 
 $$
 
 where,
 
 $$
-k_1 = \left[\begin{array}{cc}
-x_{k_1}\\
-y_{k_1}\\
-\theta_{k_1}\\
-v_{k_1}
+m_1 = \left[\begin{array}{cc}
+x_{m_1}\\
+y_{m_1}\\
+\theta_{m_1}\\
+v_{m_1}
 \end{array}\right] = \left[\begin{array}{cc}
 v cos \theta\\
 v sin \theta\\
@@ -226,42 +226,42 @@ a
 $$
 
 $$
-k_2 = \left[\begin{array}{cc}
-x_{k_2}\\
-y_{k_2}\\
-\theta_{k_2}\\
-v_{k_2}
+m_2 = \left[\begin{array}{cc}
+x_{m_2}\\
+y_{m_2}\\
+\theta_{m_2}\\
+v_{m_2}
 \end{array}\right] = \left[\begin{array}{cc}
-(v + \frac{v_{k_1} \Delta t}{2}) cos(\theta + \frac{\theta_{k_1} \Delta t}{2})\\
-(v + \frac{v_{k_1} \Delta t}{2}) sin(\theta + \frac{\theta_{k_1} \Delta t}{2})\\
+(v + \frac{v_{m_1} \Delta t}{2}) cos(\theta + \frac{\theta_{m_1} \Delta t}{2})\\
+(v + \frac{v_{m_1} \Delta t}{2}) sin(\theta + \frac{\theta_{m_1} \Delta t}{2})\\
 \omega\\
 a
 \end{array}\right]
 $$
 
 $$
-k_3 = \left[\begin{array}{cc}
-x_{k_3}\\
-y_{k_3}\\
-\theta_{k_3}\\
-v_{k_3}
+m_3 = \left[\begin{array}{cc}
+x_{m_3}\\
+y_{m_3}\\
+\theta_{m_3}\\
+v_{m_3}
 \end{array}\right] = \left[\begin{array}{cc}
-(v + \frac{v_{k_2} \Delta t}{2}) cos(\theta + \frac{\theta_{k_2} \Delta t}{2})\\
-(v + \frac{v_{k_2} \Delta t}{2}) sin(\theta + \frac{\theta_{k_2} \Delta t}{2})\\
+(v + \frac{v_{m_2} \Delta t}{2}) cos(\theta + \frac{\theta_{m_2} \Delta t}{2})\\
+(v + \frac{v_{m_2} \Delta t}{2}) sin(\theta + \frac{\theta_{m_2} \Delta t}{2})\\
 \omega\\
 a
 \end{array}\right]
 $$
 
 $$
-k_4 = \left[\begin{array}{cc}
-x_{k_4}\\
-y_{k_4}\\
-\theta_{k_4}\\
-v_{k_4}
+m_4 = \left[\begin{array}{cc}
+x_{m_4}\\
+y_{m_4}\\
+\theta_{m_4}\\
+v_{m_4}
 \end{array}\right] = \left[\begin{array}{cc}
-(v + v_k_3 \Delta t) cos(\theta + \theta_{k_3} \Delta t)\\
-(v + v_k_3 \Delta t) sin(\theta + \theta_{k_3} \Delta t)\\
+(v + v_{m_3} \Delta t) cos(\theta + \theta_{m_3} \Delta t)\\
+(v + v_{m_3} \Delta t) sin(\theta + \theta_{m_3} \Delta t)\\
 \omega\\
 a
 \end{array}\right]

@@ -115,26 +115,25 @@ a
 \end{array}\right]
 $$
 
-where the control inputs are $$u = (\omega, a)$$.
+where the control inputs are $u = (\omega, a)$.
 
-Write the discrete-time dynamics using Euler integration with step size $$\Delta t$$.
+Write the discrete-time dynamics using Euler integration with step size $\Delta t$.
 
-$$ x_{t+1} &= x_{t} + \dot{x}_{t} \Delta t $$
+$$ 
+x_{t+1} = x_{t} + \dot{x}_{t} \Delta t
     
-$$x_{t+1} &= \left[ \begin{matrix}
-        x_{t+1} \\
-        y_{t+1} \\
-        \theta_{t+1} \\
-        v_{t+1}
-        \end{matrix}
-        \right] = 
-        \left[ \begin{matrix}
-        x_{t} + v cos \theta \Delta t \\
-        y_{t} + v sin \theta \Delta t \\
-        \theta_{t} + \omega \Delta t\\
-        v_{t} + a \Delta t
-        \end{matrix}
-        \right]$$
+x_{t+1} = \left[\begin{array}{cc}
+x_{t+1}\\
+y_{t+1}\\
+\theta_{t+1}\\
+v_{t+1}
+\end{array}\right] = \left[\begin{array}{cc}
+x_{t} + v cos \theta \Delta t\\
+y_{t} + v sin \theta \Delta t\\
+\theta_{t} + \omega \Delta t\\
+v_{t} + a \Delta t
+\end{array}\right]
+$$
 
 #### Advantages and Limitations:
 
@@ -184,13 +183,27 @@ $$
 
 #### Numerical Example: (taken from HW 1)
 
+#### Numerical Example: (taken from HW 1)
+
 Consider the following continuous-time dynamically-extended simple unicycle model,
 
-$$ \cdot{x} =  \left[ \begin{matrix} \cdot{x} \\ \cdot{y} \\ \cdot{\theta} \\ \cdot{v} \end{matrix} \right] = \left[ \begin{matrix} vcos(\theta) \\ vsin(\theta) \\ \omega \\ a \end{matrix} \right]$$
+$$ 
+\dot{x} =  \left[\begin{array}{cc} 
+\dot{x}\\ 
+\dot{y}\\ 
+\dot{\theta}\\ 
+\dot{v} 
+\end{array}\right] = \left[\begin{array}{cc} 
+vcos(\theta)\\ 
+vsin(\theta)\\ 
+\omega\\ 
+a 
+\end{array}\right]
+$$
 
-where the control inputs are $$u = (\omega, a)$$.
+where the control inputs are $u = (\omega, a)$.
 
-Write the discrete-time dynamics using Runge-Kutta integration with step size $$\Delta t$$.
+Write the discrete-time dynamics using Runge-Kutta integration with step size $\Delta t$.
 
 
 

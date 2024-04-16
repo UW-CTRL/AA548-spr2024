@@ -84,9 +84,9 @@ $$V(t,x) = \inf_{u_{[t,t+\Delta t]}} \quad {\int_{t}^{t + \Delta t}} L(s,x(s),u(
 where $x(.)$ on the right-hand side is the state trajectory corresponding to the control  $u_{[t,t+\Delta t]}$ and satisfying $x(t) = x$. The intuition behind that statement is that to search for optimal control, we can search over a small time interval for control that minimizes the cost over this interval plus the subsequent optimal cost-to-go.
 Here $V(t,x)$ is called the value function, which is defined as
 $$V(t,x) := \inf_{u_{[t,t_1]}} \quad J(t,x,u)$$
-where the notation $u_{[t,t_1]}$ indicates that the control $u$ is restricted to the interval $[t,t_1]$. We can think of $V(t,x)$ as the optimal cost (cost-to-go) from (t,x). 
+where the notation $u_{[t,t_1]}$ indicates that the control $u$ is restricted to the interval $[t,t_1]$. We can think of $V(t,x)$ as the optimal cost (cost-to-go) from $(t,x)$. 
 It satisfies the boundary condition
-$$ V(t_1,x) = K(x) \quad \quad \forallx \in \mathbb{R}^n.$$ 
+$$V(t_1,x) = K(x) \quad \quad \forallx \in \mathbb{R}^n.$$ 
 The Boundary condition is a consequence of our specific problem formulation.
 
 ##### Maximum Principle 

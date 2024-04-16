@@ -17,7 +17,9 @@ The objective of optimal control Theory is _to determine the control signals tha
 
 #### Definitions
 
-Control System: It generates possible behaviors. We will consider the control system to be described by ordinary differential equations (ODEs) that describe its dynamics, which take the form
+##### Control System: 
+
+It generates possible behaviors. We will consider the control system to be described by ordinary differential equations (ODEs) that describe its dynamics, which take the form
 
 $$
 \dot x = f(t,x,u),\quad x(t_0)=x_0
@@ -25,7 +27,9 @@ $$
 
 where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control input_ taking values in some control set $U \subset \mathbb{R}^m$, $t$ is _time_ , $t_0$ is the _initial time_ , and $x_0$ is the _initial state_, and both $x$ and $u$ are functions of time.
 
-Cost function: It associates a cost with each possible behavior. For a given initial data $(t_0, x_0), the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functions by $J$, which take the form,
+##### Cost function: 
+
+It associates a cost with each possible behavior. For a given initial data $(t_0, x_0), the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functions by $J$, which take the form,
 
 $$ 
 J(u) := \int_{t_0}^{t_f} L(t,x(t),u(t))dt + K(t_f,x_f)

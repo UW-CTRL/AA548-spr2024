@@ -55,26 +55,22 @@ $$L(x, u, t) = {|x - x_D(t)|}^2$$
 $$L(x, u, t) = \| u \|^2$$
 
 5. **Minimum time to hit a target** $x_{\text{tgt}}$ could be implemented as an indicator function:
-$$
-I[x \neq x_{\text{tgt}}]
-$$
+$$I[x \neq x_{\text{tgt}}]$$
 
    where $I[z]$ is 1 if $z$ is true, and 0 otherwise.
 
 7. **Obstacle avoidance** and other feasibility constraints can be implemented as indicator functions as well:
-$$
-\infty \cdot I[x \notin \mathcal{F}]
-$$
+$$\infty \cdot I[x \notin \mathcal{F}]$$
 
    where $\mathcal{F}$ is the free space.
 
 9. **Smoothed obstacle avoidance** can be implemented by a repulsive barrier that decreases to 0 when the distance to the closest obstacle $d$ exceeds some minimum buffer distance $d_{\text{min}}$ and increases to infinity as the distance shrinks to 0. One common form of this barrier is:
 $$
-   L(x, u, t) =
-   \begin{cases}
-   \frac{1}{{d^2}} - \frac{1}{{d^2_{\text{min}}}} & \text{if } d < d_{\text{min}} \\
-   0 & \text{otherwise}
-   \end{cases}
+L(x, u, t) =
+\begin{cases}
+\frac{1}{{d^2}} - \frac{1}{{d^2_{\text{min}}}} & \text{if } d < d_{\text{min}} \\
+0 & \text{otherwise}
+\end{cases}
 $$
 
 #### Notations 

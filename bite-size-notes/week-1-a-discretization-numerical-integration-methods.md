@@ -101,16 +101,15 @@ $$\Delta t \text{ (or } h \text{) is a constant step size}$$
 
 Consider the following continuous-time dynamically-extended simple unicycle model,
 
-$$ \cdot{x} =  \left[ \begin{matrix} \cdot{x} \\ \cdot{y} \\ \cdot{\theta} \\ \cdot{v} \end{matrix} \right] = \left[ \begin{matrix} vcos(\theta) \\ vsin(\theta) \\ \omega \\ a \end{matrix} \right]$$
+$$ \dot{x} =  \left[ \begin{matrix} \dot{x} \\ \dot{y} \\ \dot{\theta} \\ \dot{v} \end{matrix} \right] = \left[ \begin{matrix} vcos(\theta) \\ vsin(\theta) \\ \omega \\ a \end{matrix} \right]$$
 
 where the control inputs are $$u = (\omega, a)$$.
 
 Write the discrete-time dynamics using Euler integration with step size $$\Delta t$$.
 
-$$ 
-        x_{t+1} &= x_{t} + \dot{x}_{t} \Delta t
+$$ x_{t+1} &= x_{t} + \dot{x}_{t} \Delta t $$
     
-        x_{t+1} &= \left[ \begin{matrix}
+$$x_{t+1} &= \left[ \begin{matrix}
         x_{t+1} \\
         y_{t+1} \\
         \theta_{t+1} \\
@@ -123,8 +122,7 @@ $$
         \theta_{t} + \omega \Delta t\\
         v_{t} + a \Delta t
         \end{matrix}
-        \right]
-$$
+        \right]$$
 
 #### Advantages and Limitations:
 

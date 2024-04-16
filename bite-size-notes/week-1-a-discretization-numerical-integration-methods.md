@@ -101,7 +101,19 @@ $$\Delta t \text{ (or } h \text{) is a constant step size}$$
 
 Consider the following continuous-time dynamically-extended simple unicycle model,
 
-$$ \dot{x} =  \left[ \begin{matrix} \dot{x} \\ \dot{y} \\ \dot{\theta} \\ \dot{v} \end{matrix} \right] = \left[ \begin{matrix} vcos(\theta) \\ vsin(\theta) \\ \omega \\ a \end{matrix} \right]$$
+$$ 
+\dot{x} =  \left[\begin{array}{cc} 
+\dot{x}\\ 
+\dot{y}\\ 
+\dot{\theta}\\ 
+\dot{v} 
+\end{array}\right] = \left[\begin{array}{cc} 
+vcos(\theta)\\ 
+vsin(\theta)\\ 
+\omega\\ 
+a 
+\end{array}\right]
+$$
 
 where the control inputs are $$u = (\omega, a)$$.
 

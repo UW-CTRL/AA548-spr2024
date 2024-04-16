@@ -39,15 +39,44 @@ where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control in
 It associates a cost with each possible behavior. For a given initial data $(t_0, x_0), the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functionals by $J$, which take the form,
 
 $$ 
-J(u) := \int_{t_0}^{t_f} L(t,x(t),u(t))dt + K(t_f,x_f)
+J(u) := \int_{t_0}^{t_f} L(x(t),u(t),t)dt + K(t_f,x_f)
 $$
 
-where $L$ and $K$ are given functions (_running cost_ and _terminal cost_, respectively), $t_f$ is the _final(or terminal) time_, which is either free or fixed, and $x_f:= x(t_f)$ is the _final (or terminal) state_ which is either free or fixed or belongs to some given target set.
+where $L$ and $K$ are given functions (_running cost(or Instantaneous cost)_ and _terminal cost_, respectively), $t_f$ is the _final(or terminal) time_, which is either free or fixed, and $x_f:= x(t_f)$ is the _final (or terminal) state_ which is either free or fixed or belongs to some given target set.
 
 Since u is a function of time, therefore J is called a _functional_ because it is a real-valued function on a space of functions.
 
-Control Input: The variable manipulated to influence the system's behavior.
-Objective Function: A measure of system performance to be optimized.
+A variety of behaviors can be specified in this framework by modifying the instantaneous cost. For example:
+
+1. **Trajectory tracking** for a trajectory \( x_D(t) \) can be implemented by penalizing squared error:
+
+   \[ L(x, u, t) = \| x - x_D(t) \|^2 \]
+
+2. **Minimizing effort** can be defined in terms of a control penalty:
+
+   \[ L(x, u, t) = \| u \|^2 \]
+
+3. **Minimum time to hit a target** \( x_{\text{tgt}} \) could be implemented as an indicator function:
+
+   \[ I[x \neq x_{\text{tgt}}] \]
+
+   where \( I[z] \) is 1 if \( z \) is true, and 0 otherwise.
+
+4. **Obstacle avoidance** and other feasibility constraints can be implemented as indicator functions as well:
+
+   \[ \infty \cdot I[x \notin \mathcal{F}] \]
+
+   where \( \mathcal{F} \) is the free space.
+
+5. **Smoothed obstacle avoidance** can be implemented by a repulsive barrier that decreases to 0 when the distance to the closest obstacle \( d \) exceeds some minimum buffer distance \( d_{\text{min}} \) and increases to infinity as the distance shrinks to 0. One common form of this barrier is:
+
+   \[
+   L(x, u, t) =
+   \begin{cases}
+   \frac{1}{{d^2}} - \frac{1}{{d^2_{\text{min}}}} & \text{if } d < d_{\text{min}} \\
+   0 & \text{otherwise}
+   \end{cases}
+   \]
 
 #### Notations 
 
@@ -61,7 +90,7 @@ The problem formulation of an optimal control problem requires:
 3. Specifications of the performance criterion.
 
 
-An optimal control problem i defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$:
+An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$,
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
 
 $$

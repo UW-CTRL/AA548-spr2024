@@ -118,12 +118,15 @@ Usually, Optimal Control solvers require that the cost functional is smooth, so 
    * Closed-loop solutions:
   find a solution for all states at all times
 
+![Alt text](figs/Closed-loop.jpg)
+
 * Calculus of Variations (Pontryagin Maximum/Minimum Principle)
    * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”
    * Open-loop solutions:
   find a solution for a given initial state
 
-![Alt text](figs/Closed-loop.jpg)
+![Alt text](figs/Open-loop.jpg)
+
 
 ## Classification of optimal control
 * Dynamic Programming

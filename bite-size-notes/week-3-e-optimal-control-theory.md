@@ -49,9 +49,7 @@ Since u is a function of time, therefore J is called a _functional_ because it i
 A variety of behaviors can be specified in this framework by modifying the instantaneous cost. For example:
 
 1. **Trajectory tracking** for a trajectory $x_D(t)$ can be implemented by penalizing squared error:
-$$
-L(x, u, t) = {|x - x_D(t)|}^2
-$$
+$$L(x, u, t) = {|x - x_D(t)|}^2$$
 
 3. **Minimizing effort** can be defined in terms of a control penalty:
 $$L(x, u, t) = \| u \|^2$$

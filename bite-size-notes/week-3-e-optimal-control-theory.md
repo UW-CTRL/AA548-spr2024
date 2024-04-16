@@ -41,7 +41,7 @@ $$
 \end{aligned}
 $$
 
-where $J_{\text{term}}(x_{K+1}$ is the terminal cost,
+where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
       $\sum_{k=0}^{K} J(x_k, u_k, k)$ is the running cost,
       $x_{k+1} = f(x_k,u_k,k) \quad (k = 0,1,\ldots, K)$ is the dynamics of the system,
       $x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{current}}$ are the system constraints,

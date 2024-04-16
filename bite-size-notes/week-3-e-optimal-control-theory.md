@@ -65,10 +65,8 @@ $$\infty \cdot I[x \notin \mathcal{F}]$$
    where $\mathcal{F}$ is the free space.
 
 9. **Smoothed obstacle avoidance** can be implemented by a repulsive barrier that decreases to 0 when the distance to the closest obstacle $d$ exceeds some minimum buffer distance $d_{\text{min}}$ and increases to infinity as the distance shrinks to 0. One common form of this barrier is:
-$L(x, u, t) =\begin{cases}
-\frac{1}{{d^2}} - \frac{1}{{d^2_{\text{min}}}} & \text{if } d < d_{\text{min}} \\
-0 & \text{otherwise}
-\end{cases}$
+$L(x, u, t) =\frac{1}{{d^2}} - \frac{1}{{d^2_{\text{min}}}} & \text{if } d < d_{\text{min}} \\
+0 & \text{otherwise}$
 
 It is common to mix and match different types of cost functionals using a weighted cost functional:
 $$J(x, u) = \sum_{i=1}^{N} w_i J_i(x, u)$$

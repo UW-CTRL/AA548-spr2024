@@ -15,10 +15,11 @@ The objective of optimal control Theory is _to determine the control signals tha
 From an engineering point of view, optimality provides a very useful design principle, and the cost to be minimized (or the profit to be maximized) is often naturally contained in the problem itself.
 
 Some examples of optimal control problems arising in applications include the following:
-• Send a rocket to the moon with minimal fuel consumption;
-• Produce a given amount of chemical in minimal time and/or with a minimal amount of catalyst used (or maximize the amount produced in a given time);
-• Bring sales of a new product to a desired level while minimizing the amount of money spent on the advertising campaign;
-• Maximize throughput or accuracy of information transmission over a communication channel with a given bandwidth/capacity.
+* Send a rocket to the moon with minimal fuel consumption;
+* Produce a given amount of chemical in minimal time and/or with a minimal amount of catalyst used (or maximize the amount produced in a given time);
+* Bring sales of a new product to a desired level while minimizing the amount of money spent on the advertising campaign;
+* Maximize throughput or accuracy of information transmission over a communication channel with a given bandwidth/capacity.
+
 ### Preliminaries
 
 #### Definitions

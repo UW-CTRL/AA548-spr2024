@@ -38,16 +38,13 @@ with $f$ and $g$ locally Lipschitz, $x \in D \subset \mathbb {R^n}$ and $u \in U
 Unlike Control Lyapunov Function that promises a **stability** which involves driving a system to a point (or a set) by dissapating energy of the trajectory. **Safety** can be framed in the context of enforcing invariance of a set, i.e., not leaving a safe set once entering the zone. In particular, we consider a set ${Q}$ defined as the superlevel set of a continuously differentiable function $b: {D} \subset \mathbb{R^n} \longrightarrow \mathbb{R}$, yielding: [3]
 
 $$
-\begin{aligned}
-
+\begin{align}
 Q = \{ x \in D \subset \mathbb {R^n} : b(x) \geq 0 \}, 
 \\
 \partial Q = \{x \in D \subset \mathbb {R^n} : b(x) = 0 \}, 
 \\
 \text{Int}(Q) = \{x \in D \subset \mathbb {R^n} : b(x) > 0 \}. 
-\\
-
-\end{aligned}
+\end{align}
 $$  
 
 We refer to ${Q}$ as the safe set.   
@@ -111,14 +108,12 @@ We already established that Control Barrier Functions promise a necessary and su
 Suppose we have a feedback controller $u = k(x)$ for the control system, and to modify this controller in a minimal way so as to guarentee safety, we can consider the following Quadratic Program (QP) based controller that finds the minimum perturbation on $u$: [3]
 
 $$
-\begin{aligned}
-
+\begin{align}
 u(x) = \text{argmin}_{u \in {R^m}} \hspace{0.3cm} \frac{1}{2} || u - k(x) ||_2^2 \\
 \\
 \hspace{0.5cm} \text{s.t.} \hspace{0.3cm} L_f b(x) + L_g b(x)
 u \geq \alpha (b(x)) 
-
-\end{aligned}
+\end{align}
 $$  
 
 This approach combines control barrier functions (CBFs) with quadratic programming (QP) to compute control inputs that guarantee the invariance of a safe set defined by the CBFs. In practical applications, the QP-based controller acts as a safety filter over the nominal controller. It adjusts the control inputs to ensure they comply with the system's safety requirements. By doing so, it guarantees that the system remains within safe operational boundaries at all times. This setup is useful in dynamic environments that safety is extremely important, such as in autonomous vehicles and robotic systems. 

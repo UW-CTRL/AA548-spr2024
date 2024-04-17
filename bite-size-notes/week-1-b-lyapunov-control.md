@@ -15,15 +15,26 @@ In industrial processes, you have to control many variables such as a position o
 Stability refers to the ability of a system to return to its desired state after experiencing a disturbance which ensures consistent operation, reliability and safety. Lyapunov is a powerful tool for assessing the stability of equilibrium points without solving the system's differential equations directly. It's widely used in control systems, robotics, and anywhere system stability is critical.
 
 ## Importance of Stability [5]
-1. **Safety:** unstable systems can lead to dangerous situations such as an unstable nuclear reactor might experience temperature fluctuations that could lead to an explosion.
-2. **Quality Control:** Variability in the manufacturing process can lead to defects, stability ensures the products consistently meet quality standards.
+1. **Safety:** unstable systems can lead to dangerous situations such as an unstable nuclear reactor experiencing temperature fluctuations leading to an explosion.
+2. **Quality Control:** Variability in the manufacturing process can lead to defects. Stability ensures the products consistently meet quality standards.
 3. **Predictability:** Stable systems behave predictably, which enables better resource allocation and is crucial for scaling operations.
 4. **Cost and Efficincy:** Stable systems require less intervention, reducing downtime and maintenance costs.
 
-<ins>Examples of Systems that Benefit from Stability</ins>
-* **Aircraft Dynamics:** The control system stability is important in the aerospace sector for ensuring the stability of the aircraft, and missiles which helps in maintaining the desired performance with accurate output and stability of the flight. [5]
-* **Automotive:** In the automobile industry the stability of the control system is important in the stability of the electricity control (ESC), the anti-lock braking, and the high-accuracy active suspension system. [5]
-* **Automated Assembly Lines:** In robotics, an unstable arm can lead to imprecise movements, causing improper assembly and product damage. Implementing control mechanisms stabilizes the robotic arm, enhancing precision
+<ins>Examples of systems that benefit from stability</ins>
+* **Aerospace:** The control system stability is important in the aerospace sector for ensuring the stability of the aircraft, and missiles which helps in maintaining the desired performance with accurate output and stability of the flight. [5]
+* **Automotive:** Stability of the electronic speed control (ESC), the anti-lock braking, and the high-accuracy active suspension system are important. [5]
+* **Automated Assembly Lines:** In robotics, an unstable arm can lead to imprecise movements, causing improper assembly and product damage. Implementing control mechanisms stabilizes the robotic arm, enhancing precision.
+
+## Tradeoffs of Lyapunov Stability
+<ins>Advantages</ins>
+* **Applicability:** Useful across a broad range of systems, including complex nonlinear and non-autonomous systems.
+* **Direct Method:** Enables us to determine the stability of a system without explicitly integrating the differential equation. [6]
+* **Energy Generalization:** Allows us to study the rate of change of the energy of a system to ascertain stability. [6]
+
+<ins>Disadvantages</ins>
+* **Deriving Lyapunov Functions:** May be difficult to construct appropriate Lyapunov functions for complex systems. [6]
+* **Rates of Convergence:** In general, there is no explicit rate of convergence of solutions to the equilibrium. This may be modified in the case of exponentially stable equilibria. [6]
+* **Local Information:** Primarily provides local stability information around an equilibrium point.
 
 ## Definitions and Notation
 __Lyapunov Stability__ - an equilibrium point is stable if all system trajectories starting at nearby points stay nearby [2]
@@ -188,4 +199,5 @@ Lyapunov stability is a fundamental concept in the theory of dynamical systems, 
 [2] [NCS - 15 - Lyapunov stability - Definition and explanation](https://www.youtube.com/watch?app=desktop&v=7IporYelLU0) \
 [3] [Phase Plane Analysis and Stability](https://www.cds.caltech.edu/~murray/courses/cds101/fa02/precourse/leok-26sep02.pdf) by Melvin Leok \
 [4] [Introduction to Dynamical Systems](https://www.epfl.ch/labs/lasa/wp-content/uploads/2022/04/Lect3_DS-Theory.pdf) \
-[5] [Control Systems – Stability](https://www.geeksforgeeks.org/control-systems-stability/#applications-of-control-systems-stability)
+[5] [Control Systems – Stability](https://www.geeksforgeeks.org/control-systems-stability/#applications-of-control-systems-stability) \
+[6] [Lyapunov Stability Theory](https://www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/mls93-lyap.pdf) by R. M. Murray, Z. Li and S. S. Sastry

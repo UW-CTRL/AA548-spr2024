@@ -57,15 +57,22 @@ $$ L_f b(x) + L_g b(x) u   \geq - 3 $$
 ![alt text](figs/1.png)
 
 2. As the system approaches the undesired set ${C}$, the range of available directions to take is reduced. 
-$$ L_f b(x) + L_g b(x) u   > - 1 $$
+$$ 
+L_f b(x) + L_g b(x) u   > - 1 
+$$
+
 ![alt text](figs/2.png)
 
 3. When the system is on the boundary of the undesired set, the only possible set of actions are to move along the boundary of ${C}$ or to move away in any direction.
-$$ L_f b(x) + L_g b(x) u   \geq 0 $$
+$$ 
+L_f b(x) + L_g b(x) u   \geq 0 
+$$
 ![alt text](figs/3.png)
 
 4. When the system moves away from the undesired set, the possible range of actions in increased. 
-$$ L_f b(x) + L_g b(x) u   \geq -1 $$
+$$
+ L_f b(x) + L_g b(x) u   \geq -1 
+$$
 ![alt text](figs/4.png)
 
 ## Optimization Based Control 

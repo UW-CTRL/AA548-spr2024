@@ -17,10 +17,13 @@ In other words, once a trajectory of the system enters $\mathbb{O}$, it will nev
 #### Definition (Control Lyapunov Function)
 Consider an autonomous dynamical system with inputs $\dot{x} = f(x, u)$ where x $\in \mathbb{R^n}$ is the state vector and  $u \in \mathbb{R^m}$ is the control vector. Suppose our goal is to drive the system to an equilibrium $x_* \in \mathbb{R^n}$ from every initial state in some domain. [2]  
 A control-Lyapunov function (CLF) is a function $V$ : $D \longrightarrow \mathbb{R}$ that is continuously differentiable, positive-definite, and such that for all $x \in \mathbb{R^n} (x \neq 0)$ , there exist u $\in \mathbb{R^m}$ such that   
+
 $$
 \dot{V}(x,u)  = \nabla V(X)^T f(x, u) = L_f V(x) + L_g V(x) u< 0
 $$
+
 where, $L_f V(x)$ is called lie derivative of $V(x)$ along f(x).   
+
 And a theorem follows: For the nonlinear control system if there exists a control Lyapunov function, then any continuous feedback controller $u(x)$ asymptotically stabilizes the system to $x_*$. 
 
 
@@ -106,6 +109,7 @@ $$
 ## Optimization Based Control 
 We already established that Control Barrier Functions promise a necessary and sufficient conditions on safety. More important is that we wish to do so in a minimally invasive fashion, like modifying an existing controller in a minimal way so as to guarantee safety. This naturally leads to optimization based controllers:   
 Suppose we have a feedback controller $u = k(x)$ for the control system, and to modify this controller in a minimal way so as to guarentee safety, we can consider the following Quadratic Program (QP) based controller that finds the minimum perturbation on $u$: [3]
+
 $$
 \begin{aligned}
 
@@ -116,6 +120,7 @@ u \geq \alpha (b(x))
 
 \end{aligned}
 $$  
+
 This approach combines control barrier functions (CBFs) with quadratic programming (QP) to compute control inputs that guarantee the invariance of a safe set defined by the CBFs. In practical applications, the QP-based controller acts as a safety filter over the nominal controller. It adjusts the control inputs to ensure they comply with the system's safety requirements. By doing so, it guarantees that the system remains within safe operational boundaries at all times. This setup is useful in dynamic environments that safety is extremely important, such as in autonomous vehicles and robotic systems. 
 
 

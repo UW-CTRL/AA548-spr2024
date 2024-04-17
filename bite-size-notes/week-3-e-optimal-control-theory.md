@@ -1,15 +1,15 @@
 # Introduction to Optimal Control Theory
 
-### Scope
+## Scope
 
 We have seen the use of myopic controllers like PID or operational space control, as well as some predictive controllers like trajectory generation. Predictive control allows the controller to make better decisions at the current time to account for future possibilities, particularly for complex and non-linear systems, but they can be very restrictive to one class of systems. Optimal Control addresses these shortcomings in a highly general framework.                                                                                                                                                    
-### Objectives
+## Objectives
 
 Optimal Control addresses these shortcomings by optimizing control inputs over time to achieve desired system behavior while considering constraints and minimizing costs. Unlike myopic controllers such as PID, which react to current error signals without considering future implications, optimal control methods anticipate future system states and adjust control inputs to optimize performance. Similarly, while predictive controllers like trajectory generation can improve performance by planning ahead, they may be restricted to one class of systems. Optimal control theory offers a comprehensive approach that can accommodate a wide range of system dynamics and constraints, making it a powerful tool for designing control strategies in diverse applications.
 
 In these notes, we aim to provide a brief introduction to optimal control, how to specify optimal control problems, and the different types of optimal control techniques explaining its relevance to control theory and outlining its basic principles. By the end, readers should understand the fundamental concepts and motivations behind optimal control.
 
-### Introduction
+## Introduction
 
 Optimal control is a cornerstone of control theory, focusing on finding control inputs that optimize a certain criterion, such as minimizing costs or maximizing performance. It finds applications in various fields, including engineering, economics, and biology.
 
@@ -23,11 +23,11 @@ Some examples of optimal control problems arising in applications include the fo
 * Bring sales of a new product to a desired level while minimizing the amount of money spent on the advertising campaign;
 * Maximize throughput or accuracy of information transmission over a communication channel with a given bandwidth/capacity.
 
-### Preliminaries
+## Preliminaries
 
-#### Definitions
+### Definitions
 
-##### Control System: 
+### Control System: 
 
 It generates possible behaviors. We will consider the control system to be described by ordinary differential equations (ODEs) that describe its dynamics, which take the form
 
@@ -37,7 +37,7 @@ $$
 
 where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control input_ taking values in some control set $U \subset \mathbb{R}^m$, $t$ is _time_ , $t_0$ is the _initial time_ , and $x_0$ is the _initial state_, and both $x$ and $u$ are functions of time.
 
-##### Cost functional: 
+### Cost functional: 
 
 It associates a cost with each possible behavior. For a given initial data $(t_0, x_0)$, the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functionals by $J$, which take the form,
 
@@ -75,11 +75,11 @@ $$J(x, u) = \sum_{i=1}^{N} w_i J_i(x, u)$$
 
 where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its contribution to the final cost. By tuning these weights, a designer can encourage the optimized trajectories to emphasize some aspects of the trajectory over others.
 
-#### Notations 
+### Notations 
 
-#### Theorems 
+### Theorems 
 
-##### Principle of Optimality 
+### Principle of Optimality 
 
 The principle of Optimality states that:
 
@@ -93,11 +93,11 @@ It satisfies the boundary condition
 $$V(t_1,x) = K(x) \quad \quad \forall x \in \mathbb{R}^n.$$ 
 The Boundary condition is a consequence of our specific problem formulation.
 
-##### Maximum Principle 
+### Maximum Principle 
 
 
 
-### Main Body
+## Main Body
 The problem formulation of an optimal control problem requires:
 1. A mathematical description (or model) of the process to be controlled.
 2. A statement of the physical constraints.
@@ -139,8 +139,6 @@ It refers to simplifying a complicated problem by breaking it down into simpler 
 
 <img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
 
-
-
 * Calculus of Variations (Pontryagin Maximum/Minimum Principle)
    * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”
    * Open-loop solutions:
@@ -148,21 +146,7 @@ It refers to simplifying a complicated problem by breaking it down into simpler 
 
 <img src="figs/Open-loop.jpg" alt="Alt text" width="300">
 
-
-## Classification of optimal control
-* Dynamic Programming
-* indirect methods
-* direct methods
-   * Forward dynamics approach
-      * Direct shooting
-         * Single Step
-         * Multiple Steps     
-      * Collocation
-   * inverse dynamics approach
-      * Spline, or polynomial or Fourier series-based approximation
-      * finite difference approach    
-
-## Solution Techniques for Optimal Control Problems
+### Solution Techniques for Optimal Control Problems
 
 1. **Analytical Methods:**
    - **Calculus of Variations:** This method involves finding the extrema of functionals by solving differential equations. It is particularly useful for problems with continuous time and smooth dynamics.
@@ -178,12 +162,12 @@ It refers to simplifying a complicated problem by breaking it down into simpler 
 
 Each solution technique has its own advantages and limitations, and the choice of method depends on factors such as problem complexity, availability of analytical solutions, computational resources, and specific problem requirements. By understanding the principles and characteristics of each solution technique, one can effectively choose the most appropriate method for solving a given optimal control problem.
 
-### Conclusion
+## Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 
 
 Optimal Control Theory has been used to obtain solutions to a variety of aerospace engineering problems and holds great promise for other problem areas as well, however, much remains to be accomplished. Hopefully, these notes provide a foundational understanding of optimal control principles. For further exploration, readers are encouraged to delve into advanced topics such as dynamic programming and the Hamilton-Jacobi-Bellman equation.
 
-### References
+## References
 * https://motion.cs.illinois.edu/RoboticSystems/OptimalControl.html#Section-IV.-DYNAMICS-AND-CONTROL
 * https://www.princeton.edu/~aaa/Public/Teaching/ORF523/ORF523_S21_Guest_Lecture.pdf#page=16.00
 * Liberzon, D. (2011). Thank you for your interest in this book!.

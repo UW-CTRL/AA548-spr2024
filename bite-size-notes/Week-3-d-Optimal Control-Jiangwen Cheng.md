@@ -44,20 +44,28 @@ We refer to ${Q}$ as the safe set.
 
 While inspired by and expanding upon Control Lyapunov Functions (CLFs), Control Barrier Functions (CBFs) differ by aiming to enforce set invariance without the strict requirement of a positive definite function. The continuously differentiable function defined for CBFs ensures the invariance of our designated safe set, but not its sublevel sets.
 This motivates the formulation of control barrier functions. Before defining these, we note that an extended class ${K_\infty}$ function is a function $\alpha : \mathbb{R} \longrightarrow \mathbb{R}$ that is strictly increasing and with $\alpha(0) =0$. Extended functions are defined on entire real line: $\mathbb R = (-\infty, \infty)$. Then, we can define the Control Barrier Functions now.   
+
 ### Definition (Control Barrier Function)
-Let $ \mathcal Q \subset D \subset \mathbb {R^n} $ be the superlevel set of a continuously differentiable function $b : D \longrightarrow \mathbb {R}$, then $b$ is a Control Barrier Function (CBF) if there exists an extended class $K_{\infty}$ function $\alpha$ such that for the control affine system: [3]
-$$\text{sup}_{u\in U} [L_f b(x) + L_g b(x) u] \geq - \alpha (b(x)) $$ 
 
-for all $ \mathcal x \in D $  
+Let $Q \subset D \subset \mathbb {R^n}$ be the superlevel set of a continuously differentiable function $b : D \longrightarrow \mathbb {R}$, then $b$ is a Control Barrier Function (CBF) if there exists an extended class $K_{\infty}$ function $\alpha$ such that for the control affine system: [3]
+
+$$
+\text{sup}_{u\in U} [L_f b(x) + L_g b(x) u] \geq - \alpha (b(x)) $$ 
+
+for all $x \in D$  
 Hence, we can quantify the set of all control inputs at a point $ x \in D$ that can guarantee the system's safety via CBFs. 
-$$K_{cbf}(x) = \{u \in U : L_f b(x) + L_g b(x) u + \alpha (b(x)) \geq 0 \}$$  
+$$
+K_{cbf}(x) = \{u \in U : L_f b(x) + L_g b(x) u + \alpha (b(x)) \geq 0 \}
+$$  
 
-Common choice of $\alpha$ is to be $: \alpha(r) = \alpha_0(r)$
+Common choice of $\alpha$ is to be $:\alpha(r) = \alpha_0(r)$
 
 To better understand the Control Barrier Function, we examine the following cases for the system as it moving to the undesirable set ${C}$. ${C}$ is unsafe region where $C = \{x \in D \mid b(x) \leq 0 \}$ and assume $\alpha_0 =1$. 
 
 1. The system is relatively far from the undesired set so it can to move in any direction basically. Notice not all directions are allowed such as going directly toward C. 
-$$ L_f b(x) + L_g b(x) u   \geq - 3 $$
+$$
+L_f b(x) + L_g b(x) u   \geq - 3
+$$
 
 
 ![alt text](figs/1.png)
@@ -73,12 +81,14 @@ $$
 $$ 
 L_f b(x) + L_g b(x) u   \geq 0 
 $$
+
 ![alt text](figs/3.png)
 
 4. When the system moves away from the undesired set, the possible range of actions in increased. 
 $$
- L_f b(x) + L_g b(x) u   \geq -1 
+L_f b(x) + L_g b(x) u   \geq -1 
 $$
+
 ![alt text](figs/4.png)
 
 ## Optimization Based Control 
@@ -90,7 +100,7 @@ $$
 u(x) = \text{argmin}_{u \in {R^m}} \hspace{0.3cm} \frac{1}{2} || u - k(x) ||_2^2 \\
 \\
 \hspace{0.5cm} \text{s.t.} \hspace{0.3cm} L_f b(x) + L_g b(x)
- u \geq \alpha (b(x)) 
+u \geq \alpha (b(x)) 
 
 \end{aligned}
 $$  

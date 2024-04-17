@@ -10,7 +10,7 @@ Before talking about the definition of Control Barrier Function (CBF), it's esse
 
 #### Definition (Positively Invariant Set)
 In mathematical analysis, a positively (or positive) invariant set is a set with the following properties: 
-Suppose $\dot{x} = f(x)$ is a dynamical system, $x (t, x_0)$ is a trajectory, and $x_0$ is the initial point. Let $\mathbb{O} $ : = {$x \in \mathbb{R^n} |  \varphi (x) =0 $} where $\varphi$ is a real-valued function. [1]The set $\mathbb{O}$ s said to be positively invariant if $x_0 \in \mathbb{O}$ implies that $x(t, x_0) \in \mathbb{O}$ $\forall$ t $\geq 0$.   
+Suppose $\dot{x} = f(x)$ is a dynamical system, $x(t, x_0)$ is a trajectory, and $x_0$ is the initial point. Let $\mathbb{O} $ : = {$x \in \mathbb{R^n} |  \varphi (x) =0 $} where $\varphi$ is a real-valued function. [1]The set $\mathbb{O}$ s said to be positively invariant if $x_0 \in \mathbb{O}$ implies that $x(t, x_0) \in \mathbb{O}$ $\forall$ t $\geq 0$.   
 
 In other words, once a trajectory of the system enters $\mathbb{O}$, it will never leave it again.
 
@@ -24,16 +24,22 @@ And a theorem follows: For the nonlinear control system if there exists a contro
 
 ## Control Barrier Function 
 Suppose that we have a nonlinear affine control system: 
-$$\dot{x} = f(x) + g(x) u $$   
-with $f$ and $g$ locally Lipschitz, $x \in D \subset \mathbb R^n$ and $u \in U \subset \mathbb R^m$ is the set of admissible control inputs.   
+
+$$
+\dot{x} = f(x) + g(x) u 
+$$   
+
+with $f$ and $g$ locally Lipschitz, $x \in D \subset \mathbb {R^n}$ and $u \in U \subset \mathbb {R^m}$ is the set of admissible control inputs.   
 Unlike Control Lyapunov Function that promises a **stability** which involves driving a system to a point (or a set) by dissapating energy of the trajectory. **Safety** can be framed in the context of enforcing invariance of a set, i.e., not leaving a safe set once entering the zone. In particular, we consider a set ${Q}$ defined as the superlevel set of a continuously differentiable function $b: {D} \subset \mathbb{R^n} \longrightarrow \mathbb{R}$, yielding: [3]
+
 $$
 \begin{aligned}
-\mathcal Q = \{ x \in D \subset \mathbb R^n : b(x) \geq 0 \}, \\
-\partial \mathcal Q = \{x \in D \subset \mathbb R^n : b(x) = 0 \} \\
-\text{Int}(\mathcal Q) = \{x \in D \subset \mathbb R^n : b(x) > 0 \}. \\
+\mathcal Q = \{ x \in D \subset \mathbb {R^n} : b(x) \geq 0 \}, \\
+\partial \mathcal Q = \{x \in D \subset \mathbb {R^n} : b(x) = 0 \} \\
+\text{Int}(\mathcal Q) = \{x \in D \subset \mathbb {R^n} : b(x) > 0 \}. \\
 \end{aligned}
 $$  
+
 We refer to ${Q}$ as the safe set.   
 
 While inspired by and expanding upon Control Lyapunov Functions (CLFs), Control Barrier Functions (CBFs) differ by aiming to enforce set invariance without the strict requirement of a positive definite function. The continuously differentiable function defined for CBFs ensures the invariance of our designated safe set, but not its sublevel sets.

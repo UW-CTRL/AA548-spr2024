@@ -27,7 +27,7 @@ Some examples of optimal control problems arising in applications include the fo
 
 ### Definitions
 
-### Control System: 
+#### Control System: 
 
 It generates possible behaviors. We will consider the control system to be described by ordinary differential equations (ODEs) that describe its dynamics, which take the form
 
@@ -37,7 +37,7 @@ $$
 
 where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control input_ taking values in some control set $U \subset \mathbb{R}^m$, $t$ is _time_ , $t_0$ is the _initial time_ , and $x_0$ is the _initial state_, and both $x$ and $u$ are functions of time.
 
-### Cost functional: 
+#### Cost functional: 
 
 It associates a cost with each possible behavior. For a given initial data $(t_0, x_0)$, the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functionals by $J$, which take the form,
 
@@ -79,7 +79,7 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 ### Theorems 
 
-### Principle of Optimality 
+#### Principle of Optimality 
 
 The principle of Optimality states that:
 
@@ -93,7 +93,7 @@ It satisfies the boundary condition
 $$V(t_1,x) = K(x) \quad \quad \forall x \in \mathbb{R}^n.$$ 
 The Boundary condition is a consequence of our specific problem formulation.
 
-### Maximum Principle 
+#### Maximum Principle 
 
 
 
@@ -129,7 +129,7 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
 Usually, Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
 
 
-#### Solution Methods 
+### Solution Methods 
 * Dynamic Programming (Principle of Optimality)
 The basic principle of dynamic programming is the continuous-time counterpart of the principle of optimality.
 It refers to simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner.

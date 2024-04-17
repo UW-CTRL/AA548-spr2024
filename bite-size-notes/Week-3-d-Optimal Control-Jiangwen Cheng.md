@@ -17,9 +17,11 @@ In other words, once a trajectory of the system enters $\mathbb{O}$, it will nev
 #### Definition (Control Lyapunov Function)
 Consider an autonomous dynamical system with inputs $\dot{x} = f(x, u)$ where x $\in \mathbb{R^n}$ is the state vector and  $u \in \mathbb{R^m}$ is the control vector. Suppose our goal is to drive the system to an equilibrium $x_* \in \mathbb{R^n}$ from every initial state in some domain. [2]  
 A control-Lyapunov function (CLF) is a function $V$ : $D \longrightarrow \mathbb{R}$ that is continuously differentiable, positive-definite, and such that for all $x \in \mathbb{R^n} (x \neq 0)$ , there exist u $\in \mathbb{R^m}$ such that   
-$$\dot{V}(x,u)  = \nabla V(X)^T f(x, u) = L_f V(x) + L_g V(x) u< 0 $$
+$$
+\dot{V}(x,u)  = \nabla V(X)^T f(x, u) = L_f V(x) + L_g V(x) u< 0
+$$
 where, $L_f V(x)$ is called lie derivative of $V(x)$ along f(x).   
-And a theorem follows: For the nonlinear control system if there exists a control Lyapunov function, then any continuous feedback controller $u(x) $ asymptotically stabilizes the system to $x_*$. 
+And a theorem follows: For the nonlinear control system if there exists a control Lyapunov function, then any continuous feedback controller $u(x)$ asymptotically stabilizes the system to $x_*$. 
 
 
 ## Control Barrier Function 
@@ -34,9 +36,14 @@ Unlike Control Lyapunov Function that promises a **stability** which involves dr
 
 $$
 \begin{aligned}
-\mathcal Q = \{ x \in D \subset \mathbb {R^n} : b(x) \geq 0 \}, \\
-\partial \mathcal Q = \{x \in D \subset \mathbb {R^n} : b(x) = 0 \} \\
-\text{Int}(\mathcal Q) = \{x \in D \subset \mathbb {R^n} : b(x) > 0 \}. \\
+
+Q = \{ x \in D \subset \mathbb {R^n} : b(x) \geq 0 \}, 
+\\
+\partial Q = \{x \in D \subset \mathbb {R^n} : b(x) = 0 \}, 
+\\
+\text{Int}(Q) = \{x \in D \subset \mathbb {R^n} : b(x) > 0 \}. 
+\\
+
 \end{aligned}
 $$  
 
@@ -53,7 +60,8 @@ $$
 \text{sup}_{u\in U} [L_f b(x) + L_g b(x) u] \geq - \alpha (b(x)) $$ 
 
 for all $x \in D$  
-Hence, we can quantify the set of all control inputs at a point $ x \in D$ that can guarantee the system's safety via CBFs. 
+Hence, we can quantify the set of all control inputs at a point $x \in D$ that can guarantee the system's safety via CBFs. 
+
 $$
 K_{cbf}(x) = \{u \in U : L_f b(x) + L_g b(x) u + \alpha (b(x)) \geq 0 \}
 $$  
@@ -63,6 +71,7 @@ Common choice of $\alpha$ is to be $:\alpha(r) = \alpha_0(r)$
 To better understand the Control Barrier Function, we examine the following cases for the system as it moving to the undesirable set ${C}$. ${C}$ is unsafe region where $C = \{x \in D \mid b(x) \leq 0 \}$ and assume $\alpha_0 =1$. 
 
 1. The system is relatively far from the undesired set so it can to move in any direction basically. Notice not all directions are allowed such as going directly toward C. 
+
 $$
 L_f b(x) + L_g b(x) u   \geq - 3
 $$
@@ -71,6 +80,7 @@ $$
 ![alt text](figs/1.png)
 
 2. As the system approaches the undesired set ${C}$, the range of available directions to take is reduced. 
+
 $$ 
 L_f b(x) + L_g b(x) u   > - 1 
 $$
@@ -78,6 +88,7 @@ $$
 ![alt text](figs/2.png)
 
 3. When the system is on the boundary of the undesired set, the only possible set of actions are to move along the boundary of ${C}$ or to move away in any direction.
+
 $$ 
 L_f b(x) + L_g b(x) u   \geq 0 
 $$
@@ -85,6 +96,7 @@ $$
 ![alt text](figs/3.png)
 
 4. When the system moves away from the undesired set, the possible range of actions in increased. 
+
 $$
 L_f b(x) + L_g b(x) u   \geq -1 
 $$

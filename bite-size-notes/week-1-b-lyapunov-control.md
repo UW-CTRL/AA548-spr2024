@@ -4,7 +4,7 @@
 Through these notes, you will learn the importance of Lyapunov stability including its definition and application in assessing system stability. Furthermore, we will cover the conditions that these functions must satisfy for a system to be considered Lyapunov stable. An example will be provided to gain an understanding of how Lyapunov stability is applied in practice, illustrated through diagrams and code.
 
 ## Motivation
-In industrial processes, you have to control many variables such as a position of an object to the temperature of a process. Ideally, you want all process variables to acheive a stability at a desired level. There are many concepts of stability:
+In industrial processes, you have to control many variables such as a position of an object to the temperature of a process. Ideally, you want all process variables to acheive a stability at a desired level. There are many concepts of stability [3]:
 * **Lyapunov stable**
 * Asymptotically stable
 * Exopnentially stable
@@ -12,15 +12,25 @@ In industrial processes, you have to control many variables such as a position o
 * Internally stable
 * etc.
 
+Stability refers to the ability of a system to return to its desired state after experiencing a disturbance which ensures consistent operation, reliability and safety. Lyapunov is a powerful tool for assessing the stability of equilibrium points without solving the system's differential equations directly. It's widely used in control systems, robotics, and anywhere system stability is critical.
 
-Lyapunov is a powerful tool for assessing the stability of equilibrium points without solving the system's differential equations directly. It's widely used in control systems, robotics, and anywhere system stability is critical.
+## Importance of Stability [5]
+1. **Safety:** unstable systems can lead to dangerous situations such as an unstable nuclear reactor might experience temperature fluctuations that could lead to an explosion.
+2. **Quality Control:** Variability in the manufacturing process can lead to defects, stability ensures the products consistently meet quality standards.
+3. **Predictability:** Stable systems behave predictably, which enables better resource allocation and is crucial for scaling operations.
+4. **Cost and Efficincy:** Stable systems require less intervention, reducing downtime and maintenance costs.
+
+<ins>Examples of Systems that Benefit from Stability</ins>
+* **Aircraft Dynamics:** The control system stability is important in the aerospace sector for ensuring the stability of the aircraft, and missiles which helps in maintaining the desired performance with accurate output and stability of the flight. [5]
+* **Automotive:** In the automobile industry the stability of the control system is important in the stability of the electricity control (ESC), the anti-lock braking, and the high-accuracy active suspension system. [5]
+* **Automated Assembly Lines:** In robotics, an unstable arm can lead to imprecise movements, causing improper assembly and product damage. Implementing control mechanisms stabilizes the robotic arm, enhancing precision
 
 ## Definitions and Notation
-__Lyapunov Stability__ - an equilibrium point is stable if all system trajectories starting at nearby points stay nearby
+__Lyapunov Stability__ - an equilibrium point is stable if all system trajectories starting at nearby points stay nearby [2]
 
 Lyapunov functions must satisfy the following statements and conditions to be Lyapunov stable:
 
-**Lyapunov Functions (no control input)** \
+**Conditions Lyapunov Functions Must Satisfy (no control input) [1]** \
 &nbsp;&nbsp; Given a system $\dot{x} = f(x)$ and some region $D \subset R^n$ with $0 \in D$, then if there exists a continuous-differentiable function $V(x)$ such that:
 * $V(0) = 0 \rightarrow$ the function at the zero-state is zero
 * $V(x) > 0, \forall x \in D \ \backslash \ 0 \rightarrow$ the function must be greater than zero for all x in the domain except for the zero state
@@ -28,7 +38,7 @@ Lyapunov functions must satisfy the following statements and conditions to be Ly
 
 Intuitively, the Lyapunov function " $V(x)$ " is similar to the "energy" of the system, this is nontrivial to find for arbitrary nonlinear systems
 
-## Example: Damped Pendulum
+## Example: Damped Pendulum [1]
 Equation of motion of the damped simple pendulum:
 
 $$ \ddot{\theta} = -\frac {g}{l} \sin{\theta} - k \dot{\theta} $$
@@ -168,7 +178,7 @@ plt.show()
 
 ![alt text](figs/phase_plot.png)
 
-The above chart demonstrates the phase plot of of a simple damped pendulum starting at different $\theta$ and $\dot{\theta}$ initial conditions. From this chart, you can observe that when the pendulum starts at small angles and low angular velocities, it will rest at its final state, 0 radians (straight down). When given a larger initial angular position and velocity, the pendulum swings over its vertical center of $\pm \pi$ radians. The pendulum always spiraling inwards towards equilibruim at $\pm 2\pi k$ radians (where k is an integer) demonstrates that regardless of the initial conditions within a certain vicinity of these points, the pendulum's motion will converge to one of these stable equilibria. The exception to this is when the pendulum starts at $\pm \pi k$ radians (vertical) with zero initial angular velocity which is an unstable equilibrium. When perturbed, it will converge to the stable equilibrium. This convergence is a key characteristic of Lyapunov stability, showing that small deviations from the equilibrium state result in motions that eventually decay back to equilibrium.
+The above chart demonstrates the phase plot of of a simple damped pendulum starting at different $\theta$ and $\dot{\theta}$ initial conditions [3][4]. From this chart, you can observe that when the pendulum starts at small angles and low angular velocities, it will rest at its final state, 0 radians (straight down). When given a larger initial angular position and velocity, the pendulum swings over its vertical center of $\pm \pi$ radians. The pendulum always spiraling inwards towards equilibruim at $\pm 2\pi k$ radians (where k is an integer) demonstrates that regardless of the initial conditions within a certain vicinity of these points, the pendulum's motion will converge to one of these stable equilibria. The exception to this is when the pendulum starts at $\pm \pi k$ radians (vertical) with zero initial angular velocity which is an unstable equilibrium. When perturbed, it will converge to the stable equilibrium. This convergence is a key characteristic of Lyapunov stability, showing that small deviations from the equilibrium state result in motions that eventually decay back to equilibrium.
 
 ## Conclusion
 Lyapunov stability is a fundamental concept in the theory of dynamical systems, providing a framework for understanding the behavior of systems in response to small perturbations. It focuses on the behavior of systems near their equilibrium points and offers methods to analyze stability without explicitly solving differential equations. Through these notes, we worked through a damped pendulum example which shows trajectories spiraling towards stable equilibrium points illustrating Lyapunbov stability and the reduction of total energy overtime. Other examples that can be analyzed using this method include spring-mass-damper and electrical circuit systems. By focusing on the system's behavior in the vicinity of equilibrium points and using Lyapunov functions to assess energy changes, the theory helps predict whether a system will remain stable, return to a stable state, or diverge when subjected to small disturbances.
@@ -177,4 +187,5 @@ Lyapunov stability is a fundamental concept in the theory of dynamical systems, 
 [1] [Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation](https://underactuated.mit.edu/lyapunov.html) by Russ Tedrake \
 [2] [NCS - 15 - Lyapunov stability - Definition and explanation](https://www.youtube.com/watch?app=desktop&v=7IporYelLU0) \
 [3] [Phase Plane Analysis and Stability](https://www.cds.caltech.edu/~murray/courses/cds101/fa02/precourse/leok-26sep02.pdf) by Melvin Leok \
-[4] [Introduction to Dynamical Systems](https://www.epfl.ch/labs/lasa/wp-content/uploads/2022/04/Lect3_DS-Theory.pdf)
+[4] [Introduction to Dynamical Systems](https://www.epfl.ch/labs/lasa/wp-content/uploads/2022/04/Lect3_DS-Theory.pdf) \
+[5] [Control Systems – Stability](https://www.geeksforgeeks.org/control-systems-stability/#applications-of-control-systems-stability)

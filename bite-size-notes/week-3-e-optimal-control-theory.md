@@ -94,8 +94,9 @@ $$V(t,x) := \inf_{u_{[t,t_1]}} \quad J(t,x,u)$$
 where the notation $u_{[t,t_1]}$ indicates that the control $u$ is restricted to the interval $[t,t_1]$. We can think of $V(t,x)$ as the optimal cost (cost-to-go) from a given state $x$ at time $t$, to the terminal time $t_1$. It is the minimum achievable cost over all possible control trajectories starting from $(t,x)$.
 
 The Value function satisfies the boundary condition
-$$V(t_1,x) = K(x) \quad \quad \forall x \in \mathbb{R}^n.$$ 
-The Boundary condition is a consequence of our specific problem formulation.
+$$V(t_1,x) = K(x) \quad \quad \forall x \in \mathbb{R}^n.$$
+
+where $K(x)$ is the terminal cost for all states $x$. The Boundary condition is a consequence of our specific problem formulation.
 
 In simpler terms, we can say that for a given time interval $[t_0,t_1)$ and state $x$, the optimal value function $V(t,x)$ satisfies a recursive relationship, that is, for  any time $t$ within the interval and any small time increment $\Delta t$, the value function $V(t,x)$ can be expressed as the sum of the cost incurred over the current interval and the optimal cost-to-go from the end of the interval.
 

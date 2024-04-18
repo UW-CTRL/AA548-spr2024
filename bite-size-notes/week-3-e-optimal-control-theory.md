@@ -113,11 +113,8 @@ An optimal control problem involves finding control inputs that optimize a certa
    - Additionally, equality constraints $g_i(x_k, u_k) = 0$ and inequality constraints $h_i(x_k, u_k) \leq 0$ may be imposed to further restrict the feasible space.
 3. ***Specifications of the performance criterion***
    - The goal of the optimal control problem is to optimize a performance criterion, which is typically represented by a cost functional. The cost functional $J(x_k, u_k, k)$ evaluates the quality of a control trajectory over a given time horizon.
-   - The objective is to minimize the total cost, which consists of both the running cost $\sum_{k=0}^{K} J(x_k, u_k, k)$ over the entire trajectory and the terminal cost $J_{\text{term}}(x_{K+1})$ at the final state.
-
-An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$
+   - The objective is to minimize the total cost, which consists of both the running cost $$\sum_{k=0}^{K} J(x_k, u_k, k)$$ over the entire trajectory and the terminal cost $J_{\text{term}}(x_{K+1})$ at the final state.
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
-
 $$
 \begin{aligned}
 & \min_{\begin{aligned}[t]

@@ -108,7 +108,10 @@ $$H({x^* }, {u^* }, {p^* }, {p_0^* }) \geq H({x^* }, u, {p^* }, {p_0^* })$$
 4. The vector ${p^* }(t_f)$ is orthogonal to the tangent space of $S_1$ at ${x^* }(t_f)$. In other words,
 $$\langle {p^* }(t_f), d \rangle = 0 \quad \forall d \in T_{{x^* }(t_f)} S_1$$.
 
-Equation number 2 is called the maximum principle, Pontryagin’s Maximum Principle, or PMP for short. Equation number 4 is a transversality condition. Equation number 1.a in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
+Equation (2) is called the maximum principle, Pontryagin’s Maximum Principle, or PMP for short. Equation (4) is a transversality condition. Equation (1.b) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
+
+This is a necessary condition for global optimality. 
+Pontryagin's maximum principle is a key concept in optimal control theory. It outlines necessary conditions for determining the optimal control strategy for a dynamical system, especially when there are constraints involved. This principle asserts that to find the best control along with the optimal state trajectory, one must solve the Hamiltonian system—a two-point boundary value problem—and satisfy the maximum condition of the control Hamiltonian. These conditions are crucial for identifying the optimal control strategy, particularly under certain convexity assumptions on the objective and constraint functions.
 
 #### Principle of Optimality 
 

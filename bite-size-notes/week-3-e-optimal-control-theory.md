@@ -81,6 +81,8 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 #### Principle of Optimality 
 
+The principle of optimality is a fundamental concept in optimal control theory that guides the search for optimal control strategies. At its core, it asserts that an optimal control strategy for a complex system can be decomposed into optimal control decisions at each smaller time interval.
+
 The principle of Optimality states that:
 
 For every $(t,x) \in [t_0,t_1) \times \mathbb{R}$ and every $\Delta t \in (0, t_1 - t]$, the value function $V$ satisfies the relation

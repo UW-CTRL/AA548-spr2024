@@ -137,52 +137,6 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
 
 An additional consideration is that Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
 
-### Solution Techniques for Optimal Control Problems
-
-There are many solution techniques available for optimal control, including, Calculus of Variations, Hamilton-Jacobi-Bellman(HJB) Equation, Direct shooting methods, etc. But we will discuss just one of these approaches in some detail, that is, Dynamic programming.
-
-#### Dynamic Programming
-The dynamic programming approach is quite general, but to fix ideas let's consider the purely discrete case. Consider a system of the form 
-$$x_{k+1} = f(x_k, u_k), \quad k = 0, 1, \ldots, T - 1$$
-
-where $x_k$ lives in a finite set $X$ consisting of $N$ elements, $u_k$ lives in a finite set $U$ consisting of $M$ elements, and $T$, $N$, $M$ are fixed positive integers. Suppose each possible transition from some $x_k$ to $x_{k+1}$ corresponding to some control value $u_k$ has a cost assigned to it, and there is also a terminal cost function on $X$. For each trajectory, the total cost accumulated at time $T$ is the sum of the transition costs at time steps $0, \ldots, T - 1$ plus the terminal cost at $x_T$. For a given initial state $x_0$, we want to minimize this total cost, the terminal state $x_T$ being free.
-
-The most naive approach to this problem is as follows: starting from x0, enumerate all possible trajectories going forward up to time T, calculate the cost for each one, then compare them and select the optimal one. It is easy to estimate the computational effort required to implement such a solution: there are $M^T$ possible trajectories and we need T additions to compute the cost for each one, which results in roughly $O(M^TT)$ algebraic operations.
-
-
-
-Solution techniques for optimal control problems can be classified in various ways based on different criteria. here is one of the common ways to classify these techniques:
-
-1. **Analytical Methods:**
-   - **Calculus of Variations:** This method involves finding the extrema of functionals by solving differential equations. It is particularly useful for problems with continuous time and smooth dynamics.
-   - **Pontryagin's Minimum Principle (PMP):** PMP provides necessary conditions for the optimality of control trajectories. It applies to both continuous and discrete time problems and is widely used for analyzing optimal control problems.
-   - **Dynamic Programming:** Dynamic programming is a method for solving complex optimization problems by breaking them down into simpler subproblems through recursive equations. It is particularly useful for problems with discrete time and finite horizon.
-   - **Hamilton-Jacobi-Bellman (HJB) Equation:** The HJB equation is a partial differential equation that arises in the context of optimal control theory. It is used to solve optimal control problems by reformulating them as a boundary value problem for the HJB equation.
-
-2. **Numerical Methods:**
-   - **Shooting Methods:** Shooting methods solve optimal control problems by converting them into boundary value problems and solving them iteratively. They are often used for problems with smooth dynamics and constraints.
-   - **Collocation Methods:** Collocation methods discretize the state and control variables and approximate the differential equations using polynomial interpolants. They are particularly useful for problems with nonlinear dynamics and constraints.
-   - **Direct Methods:** Direct methods directly discretize the control and state trajectories and solve the resulting finite-dimensional optimization problem. They include approaches like multiple shooting and direct collocation.
-   - **Indirect Methods:** Indirect methods formulate optimal control problems as two-point boundary value problems and use optimization techniques to solve them. They include approaches like shooting and continuation.
-
-Each solution technique has its advantages and limitations, and the choice of method depends on factors such as problem complexity, availability of analytical solutions, computational resources, and specific problem requirements. By understanding the principles and characteristics of each solution technique, one can effectively choose the most appropriate method for solving a given optimal control problem.
-
-### Solution Methods 
-* Dynamic Programming (Principle of Optimality)
-The basic principle of dynamic programming is the continuous-time counterpart of the principle of optimality.
-It refers to simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner.
-   * Compositionality of optimal paths
-   * Closed-loop solutions:
-  find a solution for all states at all times
-
-<img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
-
-* Calculus of Variations (Pontryagin Maximum/Minimum Principle)
-   * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”
-   * Open-loop solutions:
-  find a solution for a given initial state
-
-<img src="figs/Open-loop.jpg" alt="Alt text" width="300">
 
 ## Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 

@@ -107,8 +107,13 @@ In simpler terms, we can say that for a given time interval $[t_0,t_1)$ and stat
 ## Main Body
 An optimal control problem involves finding control inputs that optimize a certain criterion while satisfying system dynamics and constraints. The problem formulation of an optimal control problem typically requires:
 1. ***A mathematical description (or model) of the process to be controlled***
+   - This component involves defining the dynamics of the system to be controlled. The dynamics function $f(x_k, u_k, k)$ describes how the state of the system evolves over time in response to control inputs.
 2. ***A statement of the physical constraints***
+   - The physical constraints on the system, represented by sets $\mathcal{X}$ and $\mathcal{U}$, define the feasible state and control spaces, respectively. These constraints ensure that the system operates within permissible bounds.
+   - Additionally, equality constraints $g_i(x_k, u_k) = 0$ and inequality constraints $h_i(x_k, u_k) \leq 0$ may be imposed to further restrict the feasible space.
 3. ***Specifications of the performance criterion***
+   - The goal of the optimal control problem is to optimize a performance criterion, which is typically represented by a cost functional. The cost functional $J(x_k, u_k, k)$ evaluates the quality of a control trajectory over a given time horizon.
+   - The objective is to minimize the total cost, which consists of both the running cost $\sum_{k=0}^{K} J(x_k, u_k, k)$ over the entire trajectory and the terminal cost $J_{\text{term}}(x_{K+1})$ at the final state.
 
 An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:

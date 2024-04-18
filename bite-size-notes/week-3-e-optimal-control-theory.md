@@ -147,8 +147,6 @@ Dynamic programming is a versatile method, especially in discrete scenarios. Tak
 
 The basic approach is to enumerate all possible forward trajectories from $x_0$ up to time $T$, calculate their costs, and select the optimal one. This involves $M^T$ trajectories and approximately $O(M^TT)$ operations.
 
-<img src="figs/Discrete_case_going_forward.jpg" alt= "Discrete case going forward" width="300" >
-
 <figure>
   <img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300">
   <figcaption>Discrete case going forward</figcaption>
@@ -156,8 +154,10 @@ The basic approach is to enumerate all possible forward trajectories from $x_0$ 
 
 
 We now examine an alternative approach, which might initially appear counterintuitive: let us go backward in time. At $k = T$, terminal costs are known for each $x_k$. At $k = T - 1$, for each $x_k$ we find to which $x_{k+1}$ we should jump to have the smallest cost (the one-step running cost plus the terminal cost). Write this optimal “cost-to-go” next to each $x_k$ and mark the selected path. In case of more than one path giving the same cost, choose one of them at random. Repeat these steps for $k = T - 2, \ldots, 0$, working with the costs-to-go computed previously in place of the terminal costs.
-
-<img src="figs/Discrete_case_going_backward.jpg" alt="Alt text" width="300"> 
+<figure>
+   <img src="figs/Discrete_case_going_backward.jpg" alt="Alt text" width="300"> 
+   <figcaption>Discrete case going backward</figcaption>
+</figure>
 
 We claim that when we are done, we will generate an optimal trajectory from each $x_0$ to some $x_T$. The justification of this claim relies on the principle of optimality, an observation that we already made during the proof of the maximum principle. In the present context, this principle says that for each time step $k$, if $x_k$ is a point on an optimal trajectory then the remaining decisions (from time $k$ onward) must constitute an optimal policy for $x_k$ as the initial condition. What the principle of optimality does for us here is a guarantee that the paths we discard going backward cannot be portions of optimal trajectories. On the other hand, in the previous approach (going forward) we are not able to discard any paths until we reach the terminal time and finish the calculations.
 

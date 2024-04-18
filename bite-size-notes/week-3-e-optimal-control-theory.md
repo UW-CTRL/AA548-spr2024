@@ -77,8 +77,6 @@ $$J(x, u) = \sum_{i=1}^{N} w_i J_i(x, u)$$
 
 where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its contribution to the final cost. By tuning these weights, a designer can encourage the optimized trajectories to emphasize some aspects of the trajectory over others.
 
-### Notations 
-
 ### Theorems 
 
 #### Maximum Principle 

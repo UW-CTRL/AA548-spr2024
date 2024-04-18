@@ -88,7 +88,7 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 Consider the problem of minimizing
 $$J(u, t_f) = \int_{t_0}^{t_f} L(x, u) dt$$
 subject to $(t_f, x(t_f)) \in S = [t_0, \infty) \times S_1$ where $S_1$ is a $k$-dimensional manifold in $\mathbb{R}^n$
-$$S_1 = \{ x \in \mathbb{R}^n : h_1(x) = h_2(x) = \ldots = h_{n-k}(x) = 0 \}$$
+$$S_1 = { x \in \mathbb{R}^n : h_1(x) = h_2(x) = \ldots = h_{n-k}(x) = 0 }$$
 where $h_i$ are $C^1$ functions from $\mathbb{R}^n$ to $\mathbb{R}$ subject to
 $$\dot{x} = f(x, u), \quad x(t_0) = x_0$$
 for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ being $C^1$ functions.

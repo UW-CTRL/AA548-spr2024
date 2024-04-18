@@ -163,23 +163,18 @@ The backward scheme provides much more information: it finds the optimal policy 
 
 This recursive scheme serves as an example of the general method of dynamic programming.
 
-### Solution Methods 
-* Dynamic Programming (Principle of Optimality)
-The basic principle of dynamic programming is the continuous-time counterpart of the principle of optimality.
-It refers to simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner.
-   * Compositionality of optimal paths
-   * Closed-loop solutions:
-  find a solution for all states at all times
 
-<img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
 
-* Calculus of Variations (Pontryagin Maximum/Minimum Principle)
-   * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”
-   * Open-loop solutions:
-  find a solution for a given initial state
+### Solution Techniques for Optimal Control Problems
 
-<img src="figs/Open-loop.jpg" alt="Alt text" width="300">
+#### Dynamic Programming
+Dynamic programming is a general approach used to solve optimal control problems. In the discrete case, we aim to minimize the total cost over a finite time horizon, given system dynamics and terminal costs. 
 
+We consider two approaches: forward and backward schemes. The forward scheme enumerates all possible trajectories from the initial state, while the backward scheme starts from the terminal time and works backward. 
+
+The backward scheme is more efficient, requiring fewer operations (O(NMT)) compared to the forward scheme (O(MT^2)) for large T, with N and M fixed. It provides optimal policy information for every initial condition and yields a state feedback law.
+
+This recursive scheme exemplifies dynamic programming.
 
 ## Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 

@@ -105,6 +105,7 @@ In simpler terms, we can say that for a given time interval $[t_0,t_1)$ and stat
 
 
 ## Main Body
+
 An optimal control problem involves finding control inputs that optimize a certain criterion while satisfying system dynamics and constraints. The problem formulation of an optimal control problem typically requires:
 1. ***A mathematical description (or model) of the process to be controlled***
    - This component involves defining the dynamics of the system to be controlled. The dynamics function $f(x_k, u_k, k)$ describes how the state of the system evolves over time in response to control inputs.
@@ -114,6 +115,8 @@ An optimal control problem involves finding control inputs that optimize a certa
 3. ***Specifications of the performance criterion***
    - The goal of the optimal control problem is to optimize a performance criterion, which is typically represented by a cost functional. The cost functional $J(x_k, u_k, k)$ evaluates the quality of a control trajectory over a given time horizon.
    - The objective is to minimize the total cost, which consists of both the running cost $$\sum_{k=0}^{K} J(x_k, u_k, k)$$ over the entire trajectory and the terminal cost $J_{\text{term}}(x_{K+1})$ at the final state.
+  
+#### General Setup of Optimal Control Problem
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
 
 $$\begin{aligned}
@@ -134,7 +137,7 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
       $g_i(x_k,u_k) = 0$ is an equality constraint,
       $h_i(x_k,u_k) \leq 0$ is an inequality constraint.
 
-Usually, Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
+An additional consideration is that Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
 
 
 ### Solution Methods 

@@ -2,7 +2,17 @@
 
 ## Scope
 
-We have seen the use of myopic controllers like PID or operational space control, as well as some predictive controllers like trajectory generation. Predictive control allows the controller to make better decisions at the current time to account for future possibilities, particularly for complex and non-linear systems, but they can be very restrictive to one class of systems. Optimal Control addresses these shortcomings in a highly general framework.                                                                                                                                                    
+We have seen the use of myopic controllers like PID or operational space control, as well as some predictive controllers like trajectory generation. Predictive control allows the controller to make better decisions at the current time to account for future possibilities, particularly for complex and non-linear systems, but they can be very restrictive to one class of systems. Optimal Control addresses these shortcomings in a highly general framework.                  
+
+
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
+
 ## Objectives
 
 Optimal Control addresses these shortcomings by optimizing control inputs over time to achieve desired system behavior while considering constraints and minimizing costs. Unlike myopic controllers such as PID, which react to current error signals without considering future implications, optimal control methods anticipate future system states and adjust control inputs to optimize performance. Similarly, while predictive controllers like trajectory generation can improve performance by planning ahead, they may be restricted to one class of systems. Optimal control theory offers a comprehensive approach that can accommodate a wide range of system dynamics and constraints, making it a powerful tool for designing control strategies in diverse applications.

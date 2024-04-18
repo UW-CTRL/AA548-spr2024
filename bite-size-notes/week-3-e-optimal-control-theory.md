@@ -137,6 +137,49 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
 
 An additional consideration is that Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
 
+### Solution Techniques for Optimal Control Problems
+
+There are many solution techniques available for optimal control, including, Calculus of Variations, Hamilton-Jacobi-Bellman(HJB) Equation, Direct shooting methods, etc. But we will discuss just one of these approaches in some detail, that is, Dynamic programming.
+
+#### Dynamic Programming
+The dynamic programming approach is quite general, but to fix ideas let's consider the purely discrete case. Consider a system of the form 
+$$x_{k+1} = f(x_k, u_k), \quad k = 0, 1, \ldots, T - 1$$
+
+where $x_k$ lives in a finite set $X$ consisting of $N$ elements, $u_k$ lives in a finite set $U$ consisting of $M$ elements, and $T$, $N$, $M$ are fixed positive integers. Suppose each possible transition from some $x_k$ to $x_{k+1}$ corresponding to some control value $u_k$ has a cost assigned to it, and there is also a terminal cost function on $X$. For each trajectory, the total cost accumulated at time $T$ is the sum of the transition costs at time steps $0, \ldots, T - 1$ plus the terminal cost at $x_T$. For a given initial state $x_0$, we want to minimize this total cost, the terminal state $x_T$ being free.
+
+The most naive approach to this problem is as follows: starting from x0, enumerate all possible trajectories going forward up to time T, calculate the cost for each one, then compare them and select the optimal one. It is easy to estimate the computational effort required to implement such a solution: there are $M^T$ possible trajectories and we need T additions to compute the cost for each one, which results in roughly $O(M^TT)$ algebraic operations.
+
+<img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300">
+
+We now examine an alternative approach, which might initially appear counterintuitive: let us go backward in time. At $k = T$, terminal costs are known for each $x_k$. At $k = T - 1$, for each $x_k$ we find to which $x_{k+1}$ we should jump to have the smallest cost (the one-step running cost plus the terminal cost). Write this optimal “cost-to-go” next to each $x_k$ and mark the selected path. In case of more than one path giving the same cost, choose one of them at random. Repeat these steps for $k = T - 2, \ldots, 0$, working with the costs-to-go computed previously in place of the terminal costs.
+
+<img src="figs/Discrete_case_going_backward.jpg" alt="Alt text" width="300"> 
+
+We claim that when we are done, we will generate an optimal trajectory from each $x_0$ to some $x_T$. The justification of this claim relies on the principle of optimality, an observation that we already made during the proof of the maximum principle. In the present context, this principle says that for each time step $k$, if $x_k$ is a point on an optimal trajectory then the remaining decisions (from time $k$ onward) must constitute an optimal policy for $x_k$ as the initial condition. What the principle of optimality does for us here is a guarantee that the paths we discard going backward cannot be portions of optimal trajectories. On the other hand, in the previous approach (going forward) we are not able to discard any paths until we reach the terminal time and finish the calculations.
+
+Let us assess the computational effort associated with this backward scheme. At each time $k$, for each state $x_k$ and each control $u_k$ we need to add the cost of the corresponding transition to the cost-to-go already computed for the resulting $x_{k+1}$. Thus, the number of required operations is $O(NMT)$. Comparing this with the $O(MT^2)$ operations needed for the earlier forward scheme, we conclude that the backward computation is more efficient for large $T$, with $N$ and $M$ fixed. Of course, the number of operations will still be large if $N$ and $M$ are large (this is the “curse of dimensionality”).
+
+The backward scheme provides much more information: it finds the optimal policy for every initial condition $x_0$, and in fact it tells us what the optimal decision is at every $x_k$ for all $k$. We can restate this last property as follows: the backward scheme yields the optimal control policy in the form of a state feedback law. In the forward scheme, on the other hand, to handle all initial conditions we would need $O(NM T^2)$ operations, and we would still not cover all states $x_k$ for $k > 0$; hence, state feedback is not obtained.
+
+This recursive scheme serves as an example of the general method of dynamic programming.
+
+### Solution Methods 
+* Dynamic Programming (Principle of Optimality)
+The basic principle of dynamic programming is the continuous-time counterpart of the principle of optimality.
+It refers to simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner.
+   * Compositionality of optimal paths
+   * Closed-loop solutions:
+  find a solution for all states at all times
+
+<img src="figs/Closed-loop.jpg" alt="Alt text" width="300">
+
+* Calculus of Variations (Pontryagin Maximum/Minimum Principle)
+   * “Optimal curve should be such that neighboring curves don’t lead to smaller costs” → “Derivative = 0”
+   * Open-loop solutions:
+  find a solution for a given initial state
+
+<img src="figs/Open-loop.jpg" alt="Alt text" width="300">
+
 
 ## Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 

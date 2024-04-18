@@ -115,8 +115,8 @@ An optimal control problem involves finding control inputs that optimize a certa
    - The goal of the optimal control problem is to optimize a performance criterion, which is typically represented by a cost functional. The cost functional $J(x_k, u_k, k)$ evaluates the quality of a control trajectory over a given time horizon.
    - The objective is to minimize the total cost, which consists of both the running cost $$\sum_{k=0}^{K} J(x_k, u_k, k)$$ over the entire trajectory and the terminal cost $J_{\text{term}}(x_{K+1})$ at the final state.
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:
-$$
-\begin{aligned}
+
+$$\begin{aligned}
 & \min_{\begin{aligned}[t]
 & u_0, u_1, \ldots, u_K \\
 & x_0, x_1, \ldots, x_{K+1}
@@ -125,11 +125,10 @@ $$
 &&& x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{current}} \\
 &&& g_i(x_k,u_k) = 0 \quad (i = 1,\ldots, G) \\
 &&& h_i(x_k,u_k) \leq 0 \quad (i = 1, \ldots, H)
-\end{aligned}
-$$
+\end{aligned}$$
 
 where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
-      $\sum_{k=0}^{K} J(x_k, u_k, k)$ is the summation of the running cost,
+      $$\sum_{k=0}^{K} J(x_k, u_k, k)$$ is the summation of the running cost,
       $x_{k+1} = f(x_k,u_k,k) \quad (k = 0,1,\ldots, K)$ is the dynamics of the system,
       $x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{current}}$ are the system constraints,
       $g_i(x_k,u_k) = 0$ is an equality constraint,

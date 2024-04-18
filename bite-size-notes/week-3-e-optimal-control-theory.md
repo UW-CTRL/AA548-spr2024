@@ -83,28 +83,28 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 #### Maximum Principle 
 
-\textbf{Statement of Maximum Principle}
+*Statement of Maximum Principle*
 
 Consider the problem of minimizing
-$$J(u, tf) = \int_{t_0}^{tf} L(x, u) dt$$
-subject to $(tf, x(tf)) \in S = [t_0, \infty) \times S_1$ where $S_1$ is a $k$-dimensional manifold in $\mathbb{R}^n$
+$$J(u, t_f) = \int_{t_0}^{t_f} L(x, u) dt$$
+subject to $(t_f, x(t_f)) \in S = [t_0, \infty) \times S_1$ where $S_1$ is a $k$-dimensional manifold in $\mathbb{R}^n$
 $$S_1 = \{ x \in \mathbb{R}^n : h_1(x) = h_2(x) = \ldots = h_{n-k}(x) = 0 \}$$
 where $h_i$ are $C^1$ functions from $\mathbb{R}^n$ to $\mathbb{R}$ subject to
 $$\dot{x} = f(x, u), \quad x(t_0) = x_0$$
 for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ being $C^1$ functions.
 
-Let $u^* : [t_0, tf] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, tf] \rightarrow \mathbb{R}^n$ and a constant. Then
-there exists a function $p^* : [t_0, tf] \rightarrow \mathbb{R}^n$ and a constant $p^*_0 \leq 0$ (not both zero) for all $t \in [t_0, tf]$ such that
+Let $u^* : [t_0, t_f] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant. Then
+there exists a function $p^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant $p^*_0 \leq 0$ (not both zero) for all $t \in [t_0, t_f]$ such that
 \begin{enumerate}
     \item $x^*$ and $p^*$ satisfy Hamilton’s canonical equations,
     $$\dot{x}^* = H_p(x^*, u^*, p^*, p^*_0), \quad \dot{p}^* = -H_x(x^*, u^*, p^*, p^*_0)$$
-    with $x^*(t_0) = x_0$ and $x^*(tf) \in S_1$ where
+    with $x^*(t_0) = x_0$ and $x^*(t_f) \in S_1$ where
     $$H(x, u, p, p_0) = \langle p, f(x, u) \rangle + p_0 L(x, u)$$
-    \item For each $t \in [t_0, tf]$ and $u \in U$,
+    \item For each $t \in [t_0, t_f]$ and $u \in U$,
     $$H(x^*, u^*, p^*, p^*_0) \geq H(x^*, u, p^*, p^*_0)$$
-    \item $H(x^*(t), u^*(t), p^*(t), p^*_0) = 0$ for all $t \in [t_0, tf]$.
-    \item The vector $p^*(tf)$ is orthogonal to the tangent space of $S_1$ at $x^*(tf)$. In other words,
-    $$\langle p^*(tf), d \rangle = 0$$ for all $d \in T_{x^*(tf)} S_1$.
+    \item $H(x^*(t), u^*(t), p^*(t), p^*_0) = 0$ for all $t \in [t_0, t_f]$.
+    \item The vector $p^*(t_f)$ is orthogonal to the tangent space of $S_1$ at $x^*(t_f)$. In other words,
+    $$\langle p^*(t_f), d \rangle = 0$$ for all $d \in T_{x^*(t_f)} S_1$.
 \end{enumerate}
 Equation (4) is called the maximum principle, Pontryagin’s Maximum Principle or PMP for short. Equation (5) is a transversality condition. Equation (2) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
 

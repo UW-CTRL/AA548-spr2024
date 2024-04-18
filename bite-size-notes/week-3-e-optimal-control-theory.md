@@ -81,6 +81,33 @@ where each $J_i(x, u)$ is some primitive cost functional and $w_i$ scales its co
 
 ### Theorems 
 
+#### Maximum Principle 
+
+\textbf{Statement of Maximum Principle}
+
+Consider the problem of minimizing
+$$J(u, tf) = \int_{t_0}^{tf} L(x, u) dt$$
+subject to $(tf, x(tf)) \in S = [t_0, \infty) \times S_1$ where $S_1$ is a $k$-dimensional manifold in $\mathbb{R}^n$
+$$S_1 = \{ x \in \mathbb{R}^n : h_1(x) = h_2(x) = \ldots = h_{n-k}(x) = 0 \}$$
+where $h_i$ are $C^1$ functions from $\mathbb{R}^n$ to $\mathbb{R}$ subject to
+$$\dot{x} = f(x, u), \quad x(t_0) = x_0$$
+for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ being $C^1$ functions.
+
+Let $u^* : [t_0, tf] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, tf] \rightarrow \mathbb{R}^n$ and a constant. Then
+there exists a function $p^* : [t_0, tf] \rightarrow \mathbb{R}^n$ and a constant $p^*_0 \leq 0$ (not both zero) for all $t \in [t_0, tf]$ such that
+\begin{enumerate}
+    \item $x^*$ and $p^*$ satisfy Hamilton’s canonical equations,
+    $$\dot{x}^* = H_p(x^*, u^*, p^*, p^*_0), \quad \dot{p}^* = -H_x(x^*, u^*, p^*, p^*_0)$$
+    with $x^*(t_0) = x_0$ and $x^*(tf) \in S_1$ where
+    $$H(x, u, p, p_0) = \langle p, f(x, u) \rangle + p_0 L(x, u)$$
+    \item For each $t \in [t_0, tf]$ and $u \in U$,
+    $$H(x^*, u^*, p^*, p^*_0) \geq H(x^*, u, p^*, p^*_0)$$
+    \item $H(x^*(t), u^*(t), p^*(t), p^*_0) = 0$ for all $t \in [t_0, tf]$.
+    \item The vector $p^*(tf)$ is orthogonal to the tangent space of $S_1$ at $x^*(tf)$. In other words,
+    $$\langle p^*(tf), d \rangle = 0$$ for all $d \in T_{x^*(tf)} S_1$.
+\end{enumerate}
+Equation (4) is called the maximum principle, Pontryagin’s Maximum Principle or PMP for short. Equation (5) is a transversality condition. Equation (2) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
+
 #### Principle of Optimality 
 
 The principle of optimality is a fundamental concept in optimal control theory that guides the search for optimal control strategies. At its core, it asserts that an optimal control strategy for a complex system can be decomposed into optimal control decisions at each smaller time interval.
@@ -149,21 +176,21 @@ The basic approach is to enumerate all possible forward trajectories from $x_0$ 
 
 <figure>
   <img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300">
-  <figcaption>Discrete case going forward</figcaption>
+  <figcaption>Discrete case going forward</figcaption>\\
 </figure>
 
+Let's consider an alternative approach: moving backward in time. Initially, at $k = T$, we know the terminal costs for each $x_k$. Then, at $k = T - 1$, we determine, for each $x_k$, the transition to $x_{k+1}$ that minimizes the overall cost (the sum of the one-step running cost and the terminal cost). We label this optimal "cost-to-go" next to each $x_k$ and indicate the chosen path. If multiple paths yield the same cost, we randomly select one. We repeat this process for $k = T - 2, \ldots, 0$, using the previously computed costs-to-go instead of the terminal costs.
 
-We now examine an alternative approach, which might initially appear counterintuitive: let us go backward in time. At $k = T$, terminal costs are known for each $x_k$. At $k = T - 1$, for each $x_k$ we find to which $x_{k+1}$ we should jump to have the smallest cost (the one-step running cost plus the terminal cost). Write this optimal “cost-to-go” next to each $x_k$ and mark the selected path. In case of more than one path giving the same cost, choose one of them at random. Repeat these steps for $k = T - 2, \ldots, 0$, working with the costs-to-go computed previously in place of the terminal costs.
 <figure>
    <img src="figs/Discrete_case_going_backward.jpg" alt="Alt text" width="300"> 
-   <figcaption>Discrete case going backward</figcaption>
+   <figcaption>Discrete case going backward</figcaption>\\
 </figure>
 
-We claim that when we are done, we will generate an optimal trajectory from each $x_0$ to some $x_T$. The justification of this claim relies on the principle of optimality, an observation that we already made during the proof of the maximum principle. In the present context, this principle says that for each time step $k$, if $x_k$ is a point on an optimal trajectory then the remaining decisions (from time $k$ onward) must constitute an optimal policy for $x_k$ as the initial condition. What the principle of optimality does for us here is a guarantee that the paths we discard going backward cannot be portions of optimal trajectories. On the other hand, in the previous approach (going forward) we are not able to discard any paths until we reach the terminal time and finish the calculations.
+When completed, we obtain an optimal trajectory from each $x_0$ to some $x_T$ due to the principle of optimality. This principle ensures that the paths discarded during the backward approach cannot be segments of optimal trajectories, unlike the forward approach where paths cannot be discarded until reaching the terminal time.
 
-Let us assess the computational effort associated with this backward scheme. At each time $k$, for each state $x_k$ and each control $u_k$ we need to add the cost of the corresponding transition to the cost-to-go already computed for the resulting $x_{k+1}$. Thus, the number of required operations is $O(NMT)$. Comparing this with the $O(MT^2)$ operations needed for the earlier forward scheme, we conclude that the backward computation is more efficient for large $T$, with $N$ and $M$ fixed. Of course, the number of operations will still be large if $N$ and $M$ are large (this is the “curse of dimensionality”).
+Assessing the computational effort of the backward scheme, at each time $k$, we add the transition cost to the cost-to-go for $x_{k+1}$, requiring $O(NMT)$ operations. Comparing this with the $O(MT^2)$ operations for the forward scheme, the backward computation is more efficient for large $T$, with fixed $N$ and $M$. However, if $N$ and $M$ are large, the number of operations remains significant, known as the "curse of dimensionality."
 
-The backward scheme provides much more information: it finds the optimal policy for every initial condition $x_0$, and in fact it tells us what the optimal decision is at every $x_k$ for all $k$. We can restate this last property as follows: the backward scheme yields the optimal control policy in the form of a state feedback law. In the forward scheme, on the other hand, to handle all initial conditions we would need $O(NM T^2)$ operations, and we would still not cover all states $x_k$ for $k > 0$; hence, state feedback is not obtained.
+The backward scheme determines the optimal policy for every initial condition $x_0$, providing the optimal decision at every $x_k$ for all $k$. This method yields the optimal control policy as a state feedback law. In contrast, the forward scheme fails to provide state feedback as it cannot cover all states $x_k$ for $k > 0$ with $O(NM T^2)$ operations.
 
 This recursive scheme serves as an example of the general method of dynamic programming.
 
@@ -177,3 +204,4 @@ Optimal Control Theory has been used to obtain solutions to a variety of aerospa
 * https://www.princeton.edu/~aaa/Public/Teaching/ORF523/ORF523_S21_Guest_Lecture.pdf#page=16.00
 * Liberzon, D. (2011). Thank you for your interest in this book!.
 * Kirk, D. E. (2004). Optimal Control Theory: An Introduction. United States: Dover Publications.
+* https://www3.nd.edu/~lemmon/courses/ee565/lectures/module3.pdf

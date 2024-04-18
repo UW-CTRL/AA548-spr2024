@@ -200,9 +200,8 @@ The backward scheme determines the optimal policy for every initial condition $x
 This recursive scheme serves as an example of the general method of dynamic programming.
 
 ## Conclusion
-In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 
 
-Optimal Control Theory has been used to obtain solutions to a variety of aerospace engineering problems and holds great promise for other problem areas as well, however, much remains to be accomplished. Hopefully, these notes provide a foundational understanding of optimal control principles. For further exploration, readers are encouraged to delve into advanced topics such as dynamic programming and the Hamilton-Jacobi-Bellman equation.
+In summary, optimal control serves as a robust framework for crafting control strategies that effectively optimize system performance. These strategies play a vital role in diverse fields, including aerospace engineering, offering solutions to complex problems and paving the way for advancements in other domains. This note offers a comprehensive overview of optimal control theory, emphasizing its relevance, and practical applications. It explains fundamental concepts, solution techniques like dynamic programming, and the theory's capacity to address the limitations of alternative control methods. But, while providing valuable insights, this note does not delve into advanced topics such as stochastic optimal control and nonlinear programming, nor does it feature mathematical derivations or real-world case studies. Even so, it lays a solid foundation for further study, and readers are encouraged to delve deeper into these topics using recommended references like 'Optimal Control Theory: An Introduction' by Donald E. Kirk. By exploring these resources, readers can gain a more nuanced understanding of optimal control theory and its broader implications.
 
 ## References
 * https://motion.cs.illinois.edu/RoboticSystems/OptimalControl.html#Section-IV.-DYNAMICS-AND-CONTROL
@@ -210,3 +209,4 @@ Optimal Control Theory has been used to obtain solutions to a variety of aerospa
 * Liberzon, D. (2011). Thank you for your interest in this book!.
 * Kirk, D. E. (2004). Optimal Control Theory: An Introduction. United States: Dover Publications.
 * https://www3.nd.edu/~lemmon/courses/ee565/lectures/module3.pdf
+* https://en.wikipedia.org/wiki/Pontryagin%27s_maximum_principle#

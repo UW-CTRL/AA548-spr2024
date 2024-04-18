@@ -146,11 +146,10 @@ An additional consideration is that Optimal Control solvers require that the cos
 There are many solution techniques available for optimal control, including, Calculus of Variations, Hamilton-Jacobi-Bellman(HJB) Equation, Direct shooting methods, etc. But we will discuss just one of these approaches in some detail, that is, Dynamic programming.
 
 #### Dynamic Programming
-The dynamic programming approach is quite general, but to fix ideas we first present it for the purely discrete case. Consider a system of the form
+The dynamic programming approach is quite general, but to fix ideas we first present it for the purely discrete case. Consider a system of the form 
+$$x_{k+1} = f(x_k, u_k), \quad k = 0, 1, \ldots, T - 1$$
 
-\[ x_{k+1} = f(x_k, u_k), \quad k = 0, 1, \ldots, T - 1 \]
-
-where \( x_k \) lives in a finite set \( X \) consisting of \( N \) elements, \( u_k \) lives in a finite set \( U \) consisting of \( M \) elements, and \( T \), \( N \), \( M \) are fixed positive integers. We suppose that each possible transition from some \( x_k \) to \( x_{k+1} \) corresponding to some control value \( u_k \) has a cost assigned to it, and there is also a terminal cost function on \( X \). For each trajectory, the total cost accumulated at time \( T \) is the sum of the transition costs at time steps \( 0, \ldots, T - 1 \) plus the terminal cost at \( x_T \). For a given initial state \( x_0 \), we want to minimize this total cost, the terminal state \( x_T \) being free.
+where $x_k$ lives in a finite set $X$ consisting of $N$ elements, $u_k$ lives in a finite set $U$ consisting of $M$ elements, and $T$, $N$, $M$ are fixed positive integers. We suppose that each possible transition from some $x_k$ to $x_{k+1}$ corresponding to some control value $u_k$ has a cost assigned to it, and there is also a terminal cost function on $X$. For each trajectory, the total cost accumulated at time $T$ is the sum of the transition costs at time steps $0, \ldots, T - 1$ plus the terminal cost at $x_T$. For a given initial state $x_0$, we want to minimize this total cost, the terminal state $x_T$ being free.
 
 The most naive approach to this problem is as follows: starting from x0, enumerate all possible trajectories going forward up to time T, calculate the cost for each one, then compare them and select the optimal one. It is easy to estimate the computational effort required to implement such a solution: there are $M^T$ possible trajectories and we need T additions to compute the cost for each one, which results in roughly $O(M^TT)$ algebraic operations.
 

@@ -95,8 +95,8 @@ for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ bei
 
 Let $u^* : [t_0, t_f] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant. Then
 there exists a function $p^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant ${p}_0^* \leq 0$ (not both zero) for all $t \in [t_0, t_f]$ such that
-1. ${x^* }$ and $p^* $ satisfy Hamilton’s canonical equations,
-$$\dot{x}^* = H_p(x^*, u^*, p^*, p^* _0), \quad \dot{p}^* = -H_x({x}^* , {u}^* , {p}^* , {p}^* _0)$$
+1. ${x^* }$ and ${p^* }$ satisfy Hamilton’s canonical equations,
+$$\dot{x}^* = H_p({x^*}, {u^*}, {p^*}, {p_0^*} ), \quad \dot{p}^* = -H_x({x^*} , {u^*} , {p^*} , {p_0^*})$$
 with ${x}^*(t_0) = x_0$ and ${x}^*(t_f) \in S_1$ where
 $$H(x, u, p, p_0) = \langle p, f(x, u) \rangle + p_0 L(x, u)$$
 2. For each $t \in [t_0, t_f]$ and $u \in U$,

@@ -106,7 +106,7 @@ $$H({x^* }, {u^* }, {p^* }, {p_0^* }) \geq H({x^* }, u, {p^* }, {p_0^* })$$
 
 
 4. The vector ${p^* }(t_f)$ is orthogonal to the tangent space of $S_1$ at ${x^* }(t_f)$. In other words,
-$$\langle {p^* }(t_f), d \rangle = 0$$ for all $d \in T_{{x^ }*(t_f)} S_1$.
+$$\langle {p^* }(t_f), d \rangle = 0$$ for all $d \in T_{{x^* }(t_f)} S_1$.
 Equation (4) is called the maximum principle, Pontryagin’s Maximum Principle, or PMP for short. Equation (5) is a transversality condition. Equation (2) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
 
 #### Principle of Optimality 

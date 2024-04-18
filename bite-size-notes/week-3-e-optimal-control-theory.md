@@ -105,10 +105,10 @@ In simpler terms, we can say that for a given time interval $[t_0,t_1)$ and stat
 
 
 ## Main Body
-The problem formulation of an optimal control problem requires:
-1. A mathematical description (or model) of the process to be controlled.
-2. A statement of the physical constraints.
-3. Specifications of the performance criterion.
+An optimal control problem involves finding control inputs that optimize a certain criterion while satisfying system dynamics and constraints. The problem formulation of an optimal control problem typically requires:
+1. ***A mathematical description (or model) of the process to be controlled***
+2. ***A statement of the physical constraints***
+3. ***Specifications of the performance criterion***
 
 An optimal control problem is defined by the dynamics function $f$ and a cost functional over the entire trajectory $x$ and $u$
 The general Setup of Optimal Control Problem, in discrete time and finite horizon:

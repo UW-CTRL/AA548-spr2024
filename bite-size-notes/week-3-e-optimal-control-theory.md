@@ -149,7 +149,7 @@ where $x_k$ lives in a finite set $X$ consisting of $N$ elements, $u_k$ lives in
 
 The most naive approach to this problem is as follows: starting from x0, enumerate all possible trajectories going forward up to time T, calculate the cost for each one, then compare them and select the optimal one. It is easy to estimate the computational effort required to implement such a solution: there are $M^T$ possible trajectories and we need T additions to compute the cost for each one, which results in roughly $O(M^TT)$ algebraic operations.
 
-<img src="figs/Discrete_case_going_forward.jpg" alt="Discrete case - Going Forward" width="300">
+<img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300" caption="Discrete">
 
 Dynamic programming is a versatile method, especially in discrete scenarios. Take a system described by $x_{k+1} = f(x_k, u_k)$ for $k = 0, 1, \ldots, T - 1$, where $x_k$ ranges over a set $X$ of $N$ elements and $u_k$ over a set $U$ of $M$ elements. With fixed positive integers $T$, $N$, and $M$, each transition from $x_k$ to $x_{k+1}$ incurs a cost, along with a terminal cost on $X$. We aim to minimize the total cost for a trajectory up to time $T$, comprising the sum of transition costs and the terminal cost at $x_T$, given an initial state $x_0$. 
 

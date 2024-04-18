@@ -147,7 +147,7 @@ Dynamic programming is a versatile method, especially in discrete scenarios. Tak
 
 The basic approach is to enumerate all possible forward trajectories from $x_0$ up to time $T$, calculate their costs, and select the optimal one. This involves $M^T$ trajectories and approximately $O(M^TT)$ operations.
 
-<img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300" >
+<img src="figs/Discrete_case_going_forward.jpg" alt= "Discrete case going forward" width="300" >
 
 <figure>
   <img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300">

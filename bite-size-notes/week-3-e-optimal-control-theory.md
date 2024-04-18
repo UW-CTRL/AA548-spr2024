@@ -139,6 +139,29 @@ where $J_{\text{term}}(x_{K+1})$ is the terminal cost,
 
 An additional consideration is that Optimal Control solvers require that the cost functional is smooth, so non-differentiable constraints like minimum time and obstacle avoidance must be reformulated as hard constraints, external to the cost functional. As a result, the reformulation becomes essentially an infinite-dimensional constrained optimization problem.
 
+### Solution Techniques for Optimal Control Problems
+
+There are many solution techniques available for optimal control, including, Calculus of Variations, Hamilton-Jacobi-Bellman(HJB) Equation, Direct shooting methods, etc. But we will discuss just one of these approaches in some detail, that is, Dynamic programming.
+
+#### Dynamic Programming
+
+
+
+Solution techniques for optimal control problems can be classified in various ways based on different criteria. here is one of the common ways to classify these techniques:
+
+1. **Analytical Methods:**
+   - **Calculus of Variations:** This method involves finding the extrema of functionals by solving differential equations. It is particularly useful for problems with continuous time and smooth dynamics.
+   - **Pontryagin's Minimum Principle (PMP):** PMP provides necessary conditions for the optimality of control trajectories. It applies to both continuous and discrete time problems and is widely used for analyzing optimal control problems.
+   - **Dynamic Programming:** Dynamic programming is a method for solving complex optimization problems by breaking them down into simpler subproblems through recursive equations. It is particularly useful for problems with discrete time and finite horizon.
+   - **Hamilton-Jacobi-Bellman (HJB) Equation:** The HJB equation is a partial differential equation that arises in the context of optimal control theory. It is used to solve optimal control problems by reformulating them as a boundary value problem for the HJB equation.
+
+2. **Numerical Methods:**
+   - **Shooting Methods:** Shooting methods solve optimal control problems by converting them into boundary value problems and solving them iteratively. They are often used for problems with smooth dynamics and constraints.
+   - **Collocation Methods:** Collocation methods discretize the state and control variables and approximate the differential equations using polynomial interpolants. They are particularly useful for problems with nonlinear dynamics and constraints.
+   - **Direct Methods:** Direct methods directly discretize the control and state trajectories and solve the resulting finite-dimensional optimization problem. They include approaches like multiple shooting and direct collocation.
+   - **Indirect Methods:** Indirect methods formulate optimal control problems as two-point boundary value problems and use optimization techniques to solve them. They include approaches like shooting and continuation.
+
+Each solution technique has its advantages and limitations, and the choice of method depends on factors such as problem complexity, availability of analytical solutions, computational resources, and specific problem requirements. By understanding the principles and characteristics of each solution technique, one can effectively choose the most appropriate method for solving a given optimal control problem.
 
 ### Solution Methods 
 * Dynamic Programming (Principle of Optimality)
@@ -156,22 +179,6 @@ It refers to simplifying a complicated problem by breaking it down into simpler 
   find a solution for a given initial state
 
 <img src="figs/Open-loop.jpg" alt="Alt text" width="300">
-
-### Solution Techniques for Optimal Control Problems
-
-1. **Analytical Methods:**
-   - **Calculus of Variations:** This method involves finding the extrema of functionals by solving differential equations. It is particularly useful for problems with continuous time and smooth dynamics.
-   - **Pontryagin's Minimum Principle (PMP):** PMP provides necessary conditions for the optimality of control trajectories. It applies to both continuous and discrete time problems and is widely used for analyzing optimal control problems.
-   - **Dynamic Programming:** Dynamic programming is a method for solving complex optimization problems by breaking them down into simpler subproblems through recursive equations. It is particularly useful for problems with discrete time and finite horizon.
-   - **Hamilton-Jacobi-Bellman (HJB) Equation:** The HJB equation is a partial differential equation that arises in the context of optimal control theory. It is used to solve optimal control problems by reformulating them as a boundary value problem for the HJB equation.
-
-2. **Numerical Methods:**
-   - **Shooting Methods:** Shooting methods solve optimal control problems by converting them into boundary value problems and solving them iteratively. They are often used for problems with smooth dynamics and constraints.
-   - **Collocation Methods:** Collocation methods discretize the state and control variables and approximate the differential equations using polynomial interpolants. They are particularly useful for problems with nonlinear dynamics and constraints.
-   - **Direct Methods:** Direct methods directly discretize the control and state trajectories and solve the resulting finite-dimensional optimization problem. They include approaches like multiple shooting and direct collocation.
-   - **Indirect Methods:** Indirect methods formulate optimal control problems as two-point boundary value problems and use optimization techniques to solve them. They include approaches like shooting and continuation.
-
-Each solution technique has its own advantages and limitations, and the choice of method depends on factors such as problem complexity, availability of analytical solutions, computational resources, and specific problem requirements. By understanding the principles and characteristics of each solution technique, one can effectively choose the most appropriate method for solving a given optimal control problem.
 
 ## Conclusion
 In summary, optimal control is a powerful framework for designing control strategies that optimize system performance. 

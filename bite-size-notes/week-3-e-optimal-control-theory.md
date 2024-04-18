@@ -96,15 +96,15 @@ for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ bei
 Let $u^* : [t_0, t_f] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant. Then
 there exists a function $p^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant ${p}_0^* \leq 0$ (not both zero) for all $t \in [t_0, t_f]$ such that
 1. $x^*$ and $p^*$ satisfy Hamilton’s canonical equations,
-$$\dot{x}^* = H_p(x^*, u^*, p^*, p^*_0), \quad \dot{p}^* = -H_x(x^*, u^*, p^*, p^*_0)$$
-with $x^*(t_0) = x_0$ and $x^*(t_f) \in S_1$ where
+$$\dot{x}^* = H_p(x^*, u^*, p^*, p^*_0), \quad \dot{p}^* = -H_x({x}^*, {u}^*, {p}^*, {p}^*_0)$$
+with ${x}^*(t_0) = x_0$ and ${x}^*(t_f) \in S_1$ where
 $$H(x, u, p, p_0) = \langle p, f(x, u) \rangle + p_0 L(x, u)$$
 2. For each $t \in [t_0, t_f]$ and $u \in U$,
-$$H(x^*, u^*, p^*, p^*_0) \geq H(x^*, u, p^*, p^*_0)$$
-3. $H(x^*(t), u^*(t), p^*(t), p^*_0) = 0$ for all $t \in [t_0, t_f]$.
-4. The vector $p^*(t_f)$ is orthogonal to the tangent space of $S_1$ at $x^*(t_f)$. In other words,
-$$\langle p^*(t_f), d \rangle = 0$$ for all $d \in T_{x^*(t_f)} S_1$.
-Equation (4) is called the maximum principle, Pontryagin’s Maximum Principle or PMP for short. Equation (5) is a transversality condition. Equation (2) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
+$$H({x}^*, {u}^*, {p}^*, {p}^*_0) \geq H({x}^*, u, {p}^*, {p}^*_0)$$
+3. $H({x}^*(t), {u}^*(t), {p}^*(t), {p}^*_0) = 0$ for all $t \in [t_0, t_f]$.
+4. The vector ${p}^*(t_f)$ is orthogonal to the tangent space of $S_1$ at ${x}^*(t_f)$. In other words,
+$$\langle {p}^*(t_f), d \rangle = 0$$ for all $d \in T_{{x}^*(t_f)} S_1$.
+Equation (4) is called the maximum principle, Pontryagin’s Maximum Principle, or PMP for short. Equation (5) is a transversality condition. Equation (2) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
 
 #### Principle of Optimality 
 

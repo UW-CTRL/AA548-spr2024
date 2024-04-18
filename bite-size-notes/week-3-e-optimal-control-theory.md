@@ -87,13 +87,17 @@ The principle of Optimality states that:
 
 For every $(t,x) \in [t_0,t_1) \times \mathbb{R}$ and every $\Delta t \in (0, t_1 - t]$, the value function $V$ satisfies the relation
 $$V(t,x) = \inf_{u_{[t,t+\Delta t]}} \quad {\int_{t}^{t + \Delta t}} L(s,x(s),u(s))ds + V(t+\Delta t, x(t+\Delta t))$$
-where $x(.)$ on the right-hand side is the state trajectory corresponding to the control  $u_{[t,t+\Delta t]}$ and satisfying $x(t) = x$. The intuition behind that statement is that to search for optimal control, we can search over a small time interval for control that minimizes the cost over this interval plus the subsequent optimal cost-to-go.
+where $x(.)$ on the right-hand side is the state trajectory corresponding to the control  $u_{[t,t+\Delta t]}$ and satisfying $x(t) = x$. The intuition behind that statement is that to search for optimal control, we can search for control that minimizes the cost over a small time interval and then continue the search recursively over subsequent intervals.
+
 Here $V(t,x)$ is called the value function, which is defined as
 $$V(t,x) := \inf_{u_{[t,t_1]}} \quad J(t,x,u)$$
-where the notation $u_{[t,t_1]}$ indicates that the control $u$ is restricted to the interval $[t,t_1]$. We can think of $V(t,x)$ as the optimal cost (cost-to-go) from $(t,x)$. 
-It satisfies the boundary condition
+where the notation $u_{[t,t_1]}$ indicates that the control $u$ is restricted to the interval $[t,t_1]$. We can think of $V(t,x)$ as the optimal cost (cost-to-go) from a given state $x$ at time $t$, to the terminal time $t_1$. It is the minimum achievable cost over all possible control trajectories starting from $(t,x)$.
+
+The Value function satisfies the boundary condition
 $$V(t_1,x) = K(x) \quad \quad \forall x \in \mathbb{R}^n.$$ 
 The Boundary condition is a consequence of our specific problem formulation.
+
+In simpler terms, we can say that for a given time interval $[t_0,t_1)$ and state $x$, the optimal value function $V(t,x)$ satisfies a recursive relationship, that is, for  any time $t$ within the interval and any small time increment $\Delta t$, the value function $V(t,x)$ can be expressed as the sum of the cost incurred over the current interval and the optimal cost-to-go from the end of the interval.
 
 #### Maximum Principle 
 

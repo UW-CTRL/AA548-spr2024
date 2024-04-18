@@ -142,20 +142,13 @@ An additional consideration is that Optimal Control solvers require that the cos
 There are many solution techniques available for optimal control, including, Calculus of Variations, Hamilton-Jacobi-Bellman(HJB) Equation, Direct shooting methods, etc. But for now,  we will discuss just one of these approaches in some detail, that is, Dynamic programming.
 
 #### Dynamic Programming
-The dynamic programming approach is quite general, but to fix ideas let's consider the purely discrete case. Consider a system of the form 
-$$x_{k+1} = f(x_k, u_k), \quad k = 0, 1, \ldots, T - 1$$
 
-where $x_k$ lives in a finite set $X$ consisting of $N$ elements, $u_k$ lives in a finite set $U$ consisting of $M$ elements, and $T$, $N$, $M$ are fixed positive integers. Suppose each possible transition from some $x_k$ to $x_{k+1}$ corresponding to some control value $u_k$ has a cost assigned to it, and there is also a terminal cost function on $X$. For each trajectory, the total cost accumulated at time $T$ is the sum of the transition costs at time steps $0, \ldots, T - 1$ plus the terminal cost at $x_T$. For a given initial state $x_0$, we want to minimize this total cost, the terminal state $x_T$ being free.
+Dynamic programming is a versatile method, especially in discrete scenarios. Take a system described by $x_{k+1} = f(x_k, u_k)$ for $k = 0, 1, \ldots, T - 1$, where $x_k$ ranges over a set $X$ of $N$ elements and $u_k$ over a set $U$ of $M$ elements. With fixed positive integers $T$, $N$, and $M$, each transition from $x_k$ to $x_{k+1}$ incurs a cost, along with a terminal cost on $X$. We aim to minimize the total cost for a trajectory up to time $T$, comprising the sum of transition costs and the terminal cost at $x_T$, given an initial state $x_0$.(See Figure Below)  
 
-The most naive approach to this problem is as follows: starting from x0, enumerate all possible trajectories going forward up to time T, calculate the cost for each one, then compare them and select the optimal one. It is easy to estimate the computational effort required to implement such a solution: there are $M^T$ possible trajectories and we need T additions to compute the cost for each one, which results in roughly $O(M^TT)$ algebraic operations.
-
-<img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300" >
+The basic approach is to enumerate all possible forward trajectories from $x_0$ up to time $T$, calculate their costs, and select the optimal one. This involves $M^T$ trajectories and approximately $O(M^TT)$ operations.
 ![Alt text](figs/Discrete_case_going_forward.jpg "Caption: Discrete case going forward")
 
 
-Dynamic programming is a versatile method, especially in discrete scenarios. Take a system described by $x_{k+1} = f(x_k, u_k)$ for $k = 0, 1, \ldots, T - 1$, where $x_k$ ranges over a set $X$ of $N$ elements and $u_k$ over a set $U$ of $M$ elements. With fixed positive integers $T$, $N$, and $M$, each transition from $x_k$ to $x_{k+1}$ incurs a cost, along with a terminal cost on $X$. We aim to minimize the total cost for a trajectory up to time $T$, comprising the sum of transition costs and the terminal cost at $x_T$, given an initial state $x_0$. 
-
-The basic approach is to enumerate all possible forward trajectories from $x_0$ up to time $T$, calculate their costs, and select the optimal one. This involves $M^T$ trajectories and approximately $O(M^TT)$ operations.
 
 
 We now examine an alternative approach, which might initially appear counterintuitive: let us go backward in time. At $k = T$, terminal costs are known for each $x_k$. At $k = T - 1$, for each $x_k$ we find to which $x_{k+1}$ we should jump to have the smallest cost (the one-step running cost plus the terminal cost). Write this optimal “cost-to-go” next to each $x_k$ and mark the selected path. In case of more than one path giving the same cost, choose one of them at random. Repeat these steps for $k = T - 2, \ldots, 0$, working with the costs-to-go computed previously in place of the terminal costs.

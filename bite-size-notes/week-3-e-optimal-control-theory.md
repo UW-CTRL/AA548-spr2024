@@ -104,7 +104,7 @@ $$H({x^* }, {u^* }, {p^* }, {p_0^* }) \geq H({x^* }, u, {p^* }, {p_0^* })$$
 
 
 4. The vector ${p^* }(t_f)$ is orthogonal to the tangent space of $S_1$ at ${x^* }(t_f)$. In other words,
-$$\langle {p^* }(t_f), d \rangle = 0 \quad \forall d \in T_{{x^* }(t_f)} S_1$$.
+$$\langle {p^* }(t_f), d \rangle = 0 \quad \forall d \in T_{{x^* }(t_f)} S_1$$
 
 Equation (2) is called the maximum principle, Pontryagin’s Maximum Principle, or PMP for short. Equation (4) is a transversality condition. Equation (1.b) in the pair of Hamilton’s equations is often called the co-state or adjoint equation.
 
@@ -173,20 +173,20 @@ There are many solution techniques available for optimal control, including, Cal
 
 #### Dynamic Programming
 
-Dynamic programming is a versatile method, especially in discrete scenarios. Take a system described by $x_{k+1} = f(x_k, u_k)$ for $k = 0, 1, \ldots, T - 1$, where $x_k$ ranges over a set $X$ of $N$ elements and $u_k$ over a set $U$ of $M$ elements. With fixed positive integers $T$, $N$, and $M$, each transition from $x_k$ to $x_{k+1}$ incurs a cost, along with a terminal cost on $X$. We aim to minimize the total cost for a trajectory up to time $T$, comprising the sum of transition costs and the terminal cost at $x_T$, given an initial state $x_0$.(See Figure Below)  
+Dynamic programming is a versatile method, especially in discrete scenarios. Take a system described by $x_{k+1} = f(x_k, u_k)$ for $k = 0, 1, \ldots, T - 1$, where $x_k$ ranges over a set $X$ of $N$ elements and $u_k$ over a set $U$ of $M$ elements. With fixed positive integers $T$, $N$, and $M$, each transition from $x_k$ to $x_{k+1}$ incurs a cost, along with a terminal cost on $X$. We aim to minimize the total cost for a trajectory up to time $T$, comprising the sum of transition costs and the terminal cost at $x_T$, given an initial state $x_0$.(See Figure 1)  
 
-The basic approach is to enumerate all possible forward trajectories from $x_0$ up to time $T$, calculate their costs, and select the optimal one. This involves $M^T$ trajectories and approximately $O(M^TT)$ operations.
+The basic approach is to enumerate all possible forward trajectories from $x_0$ up to time $T$, calculate their costs, and select the optimal one. This involves $M^T$ trajectories and approximately $O(M^TT)$ operations.(See Figure 1)  
 
 <figure>
   <img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300">
-  <figcaption>Discrete case going forward</figcaption>\\
+  <figcaption>Figure 1: Discrete case going forward</figcaption>
 </figure>
 
-Let's consider an alternative approach: moving backward in time. Initially, at $k = T$, we know the terminal costs for each $x_k$. Then, at $k = T - 1$, we determine, for each $x_k$, the transition to $x_{k+1}$ that minimizes the overall cost (the sum of the one-step running cost and the terminal cost). We label this optimal "cost-to-go" next to each $x_k$ and indicate the chosen path. If multiple paths yield the same cost, we randomly select one. We repeat this process for $k = T - 2, \ldots, 0$, using the previously computed costs-to-go instead of the terminal costs.
+Let's consider an alternative approach: moving backward in time. Initially, at $k = T$, we know the terminal costs for each $x_k$. Then, at $k = T - 1$, we determine, for each $x_k$, the transition to $x_{k+1}$ that minimizes the overall cost (the sum of the one-step running cost and the terminal cost). We label this optimal "cost-to-go" next to each $x_k$ and indicate the chosen path. If multiple paths yield the same cost, we randomly select one. We repeat this process for $k = T - 2, \ldots, 0$, using the previously computed costs-to-go instead of the terminal costs.(See Figure 2) 
 
 <figure>
    <img src="figs/Discrete_case_going_backward.jpg" alt="Alt text" width="300"> 
-   <figcaption>Discrete case going backward</figcaption>\\
+   <figcaption>Figure 2: Discrete case going backward</figcaption>
 </figure>
 
 When completed, we obtain an optimal trajectory from each $x_0$ to some $x_T$ due to the principle of optimality. This principle ensures that the paths discarded during the backward approach cannot be segments of optimal trajectories, unlike the forward approach where paths cannot be discarded until reaching the terminal time.

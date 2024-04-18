@@ -94,7 +94,7 @@ $$\dot{x} = f(x, u), \quad x(t_0) = x_0$$
 for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ being $C^1$ functions.
 
 Let $u^* : [t_0, t_f] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant. Then
-there exists a function $p^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant $p^*_0 \leq 0$ (not both zero) for all $t \in [t_0, t_f]$ such that
+there exists a function $p^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant $p^{*}_{0} \leq 0$ (not both zero) for all $t \in [t_0, t_f]$ such that
 \begin{enumerate}
     \item $x^*$ and $p^*$ satisfy Hamilton’s canonical equations,
     $$\dot{x}^* = H_p(x^*, u^*, p^*, p^*_0), \quad \dot{p}^* = -H_x(x^*, u^*, p^*, p^*_0)$$

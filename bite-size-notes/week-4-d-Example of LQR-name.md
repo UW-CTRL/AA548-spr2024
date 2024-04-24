@@ -8,8 +8,22 @@ A standar full feedback controle has the block diagram.
  ![fullfeedback](https://github.com/p8410077/AA548-spr2024/assets/11802603/bea8ed3a-5062-4d60-93c9-b213d4d856d5)
 A classic fullstate feecback controller regulates the system to all 0 states, (There are deviation out of the scope) 
 ##what is pole placement ?
-The open loop of the state space system is:
-$$ \dot{x} $$
+The open loop state space representices of the system is:
+$$ 
+\dot{x}(t) = Ax(t)+ Bu(t) \\
+y(t) = Cx(t) +Du(t) \\
+u(t) = -Kx(t)
+$$
+
+By sustituting u(t) with -Kx(t), the closed loop state space representices of the system is:
+$$ 
+\dot{x}(t) = (A-BK)x(t) \\
+y(t) = (C-DK)x(t)
+$$
+We know that the eigenvalue of the matrix (A-BK) is the poles of the system. We can using K matrix to chage the location of the poles and therefore change the respose of the system. 
+$$ 
+x_{t+1} = x_{t} + \dot{x}_{t} \Delta t
+$$
 ##How to chose K ?  
 To understand how the LQR work 	
 # Preliminaries 

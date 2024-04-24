@@ -67,6 +67,8 @@ $$\text{CLF constraint}: \nabla V(x)^T f(x,u) \leq -\alpha V(x).$$
 There are two caveats to solving this system, the relative order of the system cannot be greater than 1, and we need to carefully design the Lyapunov function to be convex for the finite time convergence of the system. In the case where the system has a relative order greater than 1, we could use the method mentioned in [1] to design a similar high-order control Lyapunov function to make the system solvable. 
 
 **Example of the Dubin car system**
+A dynamical system for Dubin car model is shown in the fig:
+![alt text](figs/DynamicsforDubinscarmodel.png "Dynamics for Dubins car model")
 
 $$
 \dot{z} = \begin{bmatrix}

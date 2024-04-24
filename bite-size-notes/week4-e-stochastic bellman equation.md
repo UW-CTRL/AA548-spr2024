@@ -1,21 +1,9 @@
 ---
-# classic #gaia #uncover
-theme: classic
-paginate: true
-class:
- - lead
-size: 16:9
-
-marp: true
-footer: "ME 548 SPRING 2024, YOUNG_JAE_RYU" 
-
----
 # Stochastic Bellman Equation
 ## Preliminaries 
 ---
-![Transition Graph](C:/study/Spring24/ME548/Bite-Size-Note/1.png)
+For this bite size note,
 
-For this bite size note, 
 Also, be aware of the terminology for value function is quite different from where it uses from reinforcement learning. 
 ## Introduction 
 ---
@@ -26,8 +14,9 @@ Our overall task will be to determine what is the “optimal” control for our 
 However, this is the deterministic optimazation problem. 
 
 Consider the finite-horizon discrete-time system which forms:
+
 $$
-    x_{k+1} = f_k(x_k, u_k, \omega_k), \quad k=0,1,...,N-1
+x_{k+1} = f_k(x_k, u_k, \omega_k), \quad k=0,1,...,N-1
 $$
 
 where as $x_k$ is an element of some state space $S_k$, the control $u_k$ is an element of some control space. The cost per stage is denoted $g_k(x_k,u_k,\omega_k)$ and also depends on the random disturbance $\omega_k$. Then we can intepret transition graph as a Markov Decision Process. The control $u_k$ is constrained to take values in a given subset $U(x_k)$, which depends on the current state $x_k$.
@@ -39,15 +28,17 @@ The stochastic finite horizon optimal control problem differs from the determini
 
 ## Major Difference between deterministic and stochastic optimal control
 An important difference is that we optimize not over control sequences ${u_0,u_1,...u_{N-1}}$, but rather over policies (also called closed-loop control laws or feedback policies) that consist of a sequence of functions. 
+
 $$
     \pi = {\mu_0, \mu_1,...,\mu_{N-1}}
 $$
+
 where $\mu_k$ maps states $x_k$ into controls $u_k = \mu_k(x_k)$, and satisfies the control constraints, i,e is such that $\mu_k(x_k)\in U_k(x_k)$ for all $x_k \in S_k$. Such policies will be called __admissible__. Polices are more general objects than control sequences, and in the presence of stochastic uncertainty, they can result in improved cost, since they allow choices of controls $u_k$ that incorporate knowledge of the state $x_k$. Without this knowledge, the controller cannot adapt appropriately to unexpected values of the state, and as the result the cost can be adversely affected. This is a fundamental distinction between deterministic and stochastic optimal control problems.
 
 Another distinction between deterministic and stochastic problems is that the evaluation of various quatities such as cost function values involves forming expected values, and this may necessitate the use of Monte Carlo simulation. Monte Carlo simulation is a computational technique used to understand the impact of uncertainty and randomness in mathematical, engineering systems. In a Monte Carlo simulation, a model is run many times with random inputs, sampling from probability distributions that represent the uncertain parameters in the system. By repeating this process thousands or even millions of times, the simulation generates a range of possible outcomes and their probabilities.
 
 ---
-## Formation
+## Stochastic Bellman value function Formation
 As following the same process of the deterministic value function we learned from the lecture, given an initial state $x_0$ and a policy $\pi = {\mu_0,..\mu_{N-1}}$, the future states $x_k$ and disturbances $\omega_k$ are random variables with probability distributions(i.e Guassian Normal Distribution) defined through the system equation,
 
 $$
@@ -55,21 +46,26 @@ $$
 $$
 
 Thus, for given functions $g_k$, $k=0,1,..., N$, the expected cost of the policy $\pi$ starting $x_0$ is :
+
 $$
-    J_{\pi}(x_0) = \mathbb{E} \{g_N(x_N) + \sum^{N-1}_{k=0} g_k(x_k, \mu_k(x_k), \omega_k) \}
+   J_{\pi}(x_0) = \mathbb{E} \[ g_N(x_N) + \sum^{N-1}_{k=0} g_k(x_k, \mu_k(x_k), \omega_k) \]
 $$
+
 where the expected value operation  $\mathbb{E}\{\cdot\}$ is over all the random variables $\omega_k$ and $x_k$. An optimal policy $\pi^*$ is one that minimizes this cost; i.e,
 
 $$
     J_{\pi^*}(x_0) = \min_{\pi\in\Pi}J_\pi(x_0)
 $$
+
 where $\Pi$ is the set of all __admissible__ policies.
 
 The optimal cost depends on $x_0$ and is denoted by $J^*(x_0)$; 
+
 $$
     J^*(x_0) = \min_{\pi \in \Pi} J_{\pi}(x_0)
 $$
-It is useful to view $J^*$ as a function that assigns to each initial state $x_0$ the optimal cost $J^*(x_0)$, and call it the __optimal cost function or optimal value function__, particularly in problems of maximizing the reward.
+
+It is useful to view $J^\*$ as a function that assigns to each initial state $x_0$ the optimal cost $J^*(x_0)$, and call it the __optimal cost function or optimal value function__, particularly in problems of maximizing the reward.
 
 ---
 ## Finite Horizon Stochastic Dynamic Programming
@@ -78,25 +74,29 @@ Optimization problems such as the one stated above are efficiently solved via dy
 
 The DP algorithm for the stochastic finite horizon optimal control problem has a similar form to its deterministic version, and shares several of its major characteristics:
 - Using tail subproblems to break down the minimization over multiple stages to single stage minimizations.
-- Generating backwards for all $k$ and $x_k$ the values ${J^*}_k(x_k)$, which give the optimal cost-to-go starting at stage $k$ at state $x_k$
+- Generating backwards for all $k$ and $x_k$ the values ${J*}_k(x_k)$, which give the optimal cost-to-go starting at stage $k$ at state $x_k$
 - Obtaining an optimal policy by minimization in the DP equations.
-- A structure that is suitable for approximation in value space, whereby we replace $J_k^*$ by approximations $\bar{J}_k^*$, and obtain a suboptimal policy by the corresponding minimization.
+- A structure that is suitable for approximation in value space, whereby we replace $J_k^\*$ by approximations $\bar{J}_k^\*$, and obtain a suboptimal policy by the corresponding minimization.
 
 ### DP Algorithm for Stochastic Finite Horizon Problems
 - Start with
+
 $$
 J^*_N (x_N ) = g_N(x_N)
 $$
-- and for $k = 0, . . . , N−1$, let
+
+and for $k = 0, . . . , N−1$, let
+
 $$
-J^*_k(x_k) = \min_{u_k \in U_k (x_k)} \mathbb{E} \{g_k(x_k, u_k, w_k) + J^*_{k+1}(f_k(x_k, u_k, w_k)) \}
+  J_k^{\*} = \min_{u_k \in U_k (x_k)} \mathbb{E} \[ g_k(x_k, u_k, w_k) + J^*_{k+1}(f_k(x_k, u_k, w_k)) \]
 $$
-- If $u^∗_k = \mu^∗_k(x_k)$ minimizes the right side of this equation for each $x_k$ and $k$, the policy $\pi^∗ = {\mu^*_0, . . . , \mu^*_{N −1}}$ is optimal.
+
+- If $u^∗_k = \mu^∗_k(x_k)$ minimizes the right side of this equation for each $x_k$ and $k$, the policy ${\pi}^{∗} = {\mu_0^{\*}, . . . , \mu_{N-1}^\*}$ is optimal.
 
 
-The key fact is that for every initial state $x_0$, the optimal cost $J^*(x_0)$ is equal to the function $J^*_0(x_0)$, obtained at the __last step__ of the above DP algorithm.
+The key fact is that for every initial state $x_0$, the optimal cost $J^\*(x_0)$ is equal to the function $J_0^\*(x_0)$, obtained at the __last step__ of the above DP algorithm.
 
-As in deterministic problems, the DP algorithm can be very time-consuming, but more so since it involves the expected value operation. This motivates suboptimal control techniques, such as approximation in value space whereby we replace $J_k^*$ with easier obtainable approximation $\bar{J}_k$.
+As in deterministic problems, the DP algorithm can be very time-consuming, but more so since it involves the expected value operation. This motivates suboptimal control techniques, such as approximation in value space whereby we replace $J_k^\*$ with easier obtainable approximation $\bar{J}_k$.
 
 ## Conclusion
 During the execution of a controlled system, at any point in time the system trajectory may be split in two. 

@@ -1,39 +1,39 @@
 # Intro to Convex Optimization
 
-#### Authors note 
-I tried to focus on getting down the more formal definitions for optimization and the notation for writing up problems. Usually, when I go back and try to remember a topic the notation and an explanation of some of the basics I may have forgotten help me to brush of the dust so to speak. I am also quite new to this topic, so some of the insights might seem surface level, but I am open to diving deeper into areas in the revision since I can already tell I've learned a lot just by writing these notes. 
-
 ## Scope and Objective
 These notes will serve as a brief introduction to Convex Optimization within the field of Controls. Since this is also my introduction to optimization, it will cover more of the basics of convex optimization and what distinguishes it from other optimization problems.  
 
 ## Introduction to optimization
-Optimization is a topic that is used in mathematics, computer science, engineering, and economics. It is a method of finding the best or optimal solution to a defined problem or system. Optimization problems can occur on an incredibly broad scale, going from optimizing everyday things like coffee consumption based on your relaxed constraints in your everyday life to optimizing aircraft performance based on 500 strict mechanical, aerodynamic, and financial constraints. Almost any system can be made into an optimization problem, and due to advancements in mathematical computing, most problems can be solved using a standard method and code base.
+Optimization is a topic that is used in mathematics, computer science, engineering, and economics. It is a method of finding the best or optimal solution to a defined problem or system. Optimization problems can occur on an incredibly broad scale, from optimizing everyday things like coffee consumption based on your relaxed constraints in your everyday life to optimizing aircraft performance based on strict mechanical, aerodynamic, and financial constraints. Almost any system can be made into an optimization problem, and due to advancements in mathematical computing, most convex problems can be solved using a standard method and code base. Often, the difference between an easy-to-solve and a hard-to-solve optimization problem is not linear vs nonlinear but convex vs non-convex. 
 
-In controls, optimization allows us not just to choose a feasible control input for our system, or even just a good control for our system, but to actually find the best control input for our system based on our constraints, desired behavior, and current state. This can be a powerful tool. However, there are some limiting factors. While the mathematical framework for setting up an optimization problem can be used to define most problems, actually solving a problem can yield very crude solutions. The key to solving an optimization problem simply and convincingly is to frame the problem using a convex objective function and convex subset[3]. The rest of these notes will explain what convex functions, subsets, and optimizations are and how to recognize and build systems that fit within them.   
+In controls, optimization allows us not just to choose a feasible control input for our system, or even just a good control for our system, but to find the best control input based on our constraints, desired behavior, and current state. This can be a powerful tool. However, there are some limiting factors. While the mathematical framework for setting up an optimization problem can be used to define most problems, actually solving a problem can yield very crude solutions. The key to solving an optimization problem simply and convincingly is to frame the problem using a convex objective function and convex set[3]. The rest of these notes will explain how to recognize convex functions and sets as well as formulating and solving optimization problems.   
 
 
 ## Preliminaries  
 
 ### Convexity 
-Mathematics defines a function as convex if a line segment can be drawn between any two distinct points, and the rest of the function stays below that line.  
+Mathematics defines a function as convex if and only if a line segment can be drawn between any two distinct points, and the rest of the function stays below that line.  
 
 <p align="center">
   <img src="figs/Convex_vs._Not-convex.jpg" alt="drawing" width="500"/>
 </p> 
 [4]
 
-The function is usually visually shaped like a bowl or a U. 
+The function is usually visually shaped like a bowl or a U or in mathematical terms having positive curvature. 
 
 The significance of convexity in optimization is primarily due to the property of convex functions to have a single global minimum. Since a Convex function is bowl-shaped, everything is sloped to a single lowest point. This means there is only one optimal solution, and all paths lead towards it. You can imagine that for a function with many dips and valleys, it may be challenging to find the global minimum since there are so many local minimums. 
 
 **Convex Set:** Contains a line segment between any two points in the set.  
+
+
+
 
 ex:   
 <p align="center">
   <img src="figs/ConvexExamples.jpg" alt="drawing" width="500"/>
 </p>  
 [1]
-The first shape is a convex set, while the other two are not convex.  
+The first shape is a convex set, while the other two are not convex. The third shape cannot be convex because parts of the boundary are not included in the set meaning a line cannot be drawn across it.   
 
 Other types of convex sets:
 
@@ -48,7 +48,7 @@ Other types of convex sets:
 For more information on the above convex sets, take a look at [1]
 
 **Convex Functions:**  
-* $f: \pmb{R_n} \rightarrow \pmb{R}$ is convex if the domain of $f$ is a convex set and for all $x,y \in f, 0 \leq \theta\leq1$
+* $f: \pmb{R^n} \rightarrow \pmb{R}$ is convex if the domain of $f$ is a convex set and for all $x,y \in f, 0 \leq \theta\leq1$
   
 <p align="center">
   <img src="figs/ConvexFunc.jpg" alt="drawing" width="500"/>
@@ -69,10 +69,19 @@ Example of convex functions:
 ## Main Body 
 
 ### Standard form of an optimization problem 
-minimize x  in  $$f_0 (x)$$    
+$$
+\begin{aligned}
+\text{min}_x f_0 (x)
+\end{aligned}
+$$
    
-subject to  $$f_i (x) \leq 0, i = 1, ...., m$$ 
-             $$g_i (x) = 0, i = 1, ...., p$$
+$$  
+\begin{aligned} 
+\text{subject to }   f_i (x) \leq 0, i = 1, ...., m  \\
+g_i (x) = 0, i = 1, ...., p     
+\end{aligned}
+$$
+             
 * $x \in \pmb{R^n}$ is (vector) variable to be chosen (n scaler variables $x_1, ....., x_n$)
 * $f_0$ is the **objective function** to be minimized
 * $f_1, ..., f_m$ are the **inequality constraint functions**

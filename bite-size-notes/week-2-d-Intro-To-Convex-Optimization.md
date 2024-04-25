@@ -125,7 +125,7 @@ A visualization of a convex objective and constraints vs non convex objective an
 
 Two types of problems that we may come across in controls are: 
 
-#### Linear Programming  
+### Linear Programming  
 
 Simply put, if an optimization problem's requirements and objectives are linear relationships, then it is called linear programming.  
 
@@ -140,7 +140,7 @@ Standard form
   eg. $$x_1 \geq 0$$
   $$x_2 \geq 0$$ [4]
 
-#### Quadratic Programming  
+### Quadratic Programming  
 For quadratic programming problems, the objective function is a multivariate quadratic subject to linear constraints on its variables. 
 
 Standard form  
@@ -156,6 +156,19 @@ Standard form
 
 **note:**  
 Linear programming is a special case of quadratic programming where Q is zero [5]
+
+### CVXPY setup example  
+CVXPY is a Python library that allows you to solve convex optimization problems in a few lines of code below I will show an example of how to set up a simple optimization problem.  
+
+
+
+```
+import numpy as np
+
+def foo(x):
+    print(x)
+```
+
 
 
 ## Conclusion 

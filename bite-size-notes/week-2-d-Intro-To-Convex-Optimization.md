@@ -49,10 +49,13 @@ Other types of convex sets:
 For more information on the above convex sets, take a look at [1]
 
 **Convex Functions:**  
-* $f: \pmb{R^n} \rightarrow \pmb{R}$ is convex if the domain of $f$ is a convex set and for all $x,y \in f, 0 \leq \theta\leq1$
+* $f: \pmb{R^n} \rightarrow \pmb{R}$ is convex if the domain of $f$ is a convex set and for all $x,y \in f, 0 \leq \theta\leq1$ we have
+$$f(\theta x + (1-\theta)y) \leq \theta f(x) + (1-\theta)f(y)$$
+
+  
   
 <p align="center">
-  <img src="figs/ConvexFunc.jpg" alt="drawing" width="500"/>
+  <img src="figs/ConvexFunctrimmed.jpg" alt="drawing" width="500"/>
 </p>   
 [1]  
 
@@ -114,6 +117,12 @@ i.e., $f_i$ have nonnegative (upward) curvature
 
 The main difference that convex optimization introduces is that both the objective function and the feasible set must now be convex. [2] 
 
+A visualization of a convex objective and constraints vs non convex objective and constraints are see below [6]
+
+<p align="center">
+  <img src="figs/convex vs nonconvex.jpg" alt="drawing" width="1000"/>
+</p> 
+
 Two types of problems that we may come across in controls are: 
 
 #### Linear Programming  
@@ -149,9 +158,6 @@ Standard form
 Linear programming is a special case of quadratic programming where Q is zero [5]
 
 
-
-
-
 ## Conclusion 
 Convex Optimization is an important concept in the control field and makes solving optimization problems much cleaner and easier to work with. Understanding how to spot convex functions and sets can guide the next steps in solving an optimization problem or help you define a problem in a way that makes it convex. While options do exist to solve non-convex optimization problems, complexity and uncertainty can be cut out if you manage to convexify them. 
 
@@ -161,3 +167,4 @@ Convex Optimization is an important concept in the control field and makes solvi
 [3] By Varagk - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=124668501  
 [4] https://en.wikipedia.org/wiki/Linear_programming  
 [5] https://inst.eecs.berkeley.edu/~ee127/sp21/livebook/l_lqp_standard.html  
+[6] https://mathworks.com/discovery/convex-optimization.html

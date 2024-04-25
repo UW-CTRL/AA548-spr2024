@@ -19,7 +19,7 @@ Mathematics defines a function as convex if and only if a line segment can be dr
 </p> 
 [4]
 
-The function is usually visually shaped like a bowl or a U or in mathematical terms having positive curvature. 
+The function is usually visually shaped like a bowl or a U or in mathematical terms has positive curvature. 
 
 The significance of convexity in optimization is primarily due to the property of convex functions to have a single global minimum. Since a Convex function is bowl-shaped, everything is sloped to a single lowest point. This means there is only one optimal solution, and all paths lead towards it. You can imagine that for a function with many dips and valleys, it may be challenging to find the global minimum since there are so many local minimums. 
 
@@ -46,7 +46,7 @@ Other types of convex sets:
 * Polyhedra  
 * Positive semidefinite cone
 
-For more information on the above convex sets, take a look at [1]
+For more information on the above convex sets, take a look at [1] page 37.
 
 **Convex Functions:**  
 * $f: \pmb{R^n} \rightarrow \pmb{R}$ is convex if the domain of $f$ is a convex set and for all $x,y \in f, 0 \leq \theta\leq1$ we have
@@ -159,23 +159,52 @@ Linear programming is a special case of quadratic programming where Q is zero [5
 
 ### CVXPY setup example  
 CVXPY is a Python library that allows you to solve convex optimization problems in a few lines of code below I will show an example of how to set up a simple optimization problem.  
+#### Math:  
 
+$$
+\begin{aligned}
+\text{min}_x \lVert x \rVert _1
+\end{aligned}
+$$  
 
+   
+$$  
+\begin{aligned} 
+\text{subject to }   Ax = b\\
+   \lVert x \rVert _{\infty} \leq 1
+\end{aligned}
+$$  
+
+* x is the variable
+* A, b are given
+
+#### Code:
 
 ```
-import numpy as np
+import cxvpy as cp
 
-def foo(x):
-    print(x)
+A, b = ...
+
+x = cp.Variable(n)
+obj = cp.norm(x, 1)
+constr = [
+  A @ x == b,
+  cp.norm(x, 'inf') <= 1
+]
+prob = cp.Problem(cp.Minimize(obj), constr)
+prob.solve()
 ```
+Example from [1].  
 
+
+This example shows the setup for a general optimization problem with cvxpy, however it should be noted that it only solves the optimal control for the current state and would need to be computed in a loop to find a complete optimal trajectory or solution. 
 
 
 ## Conclusion 
 Convex Optimization is an important concept in the control field and makes solving optimization problems much cleaner and easier to work with. Understanding how to spot convex functions and sets can guide the next steps in solving an optimization problem or help you define a problem in a way that makes it convex. While options do exist to solve non-convex optimization problems, complexity and uncertainty can be cut out if you manage to convexify them. 
 
 
-[1] Convex Optimization, Stephen Boyd, Lieven Vandenberghe https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf 
+[1] Convex Optimization, Stephen Boyd, Lieven Vandenberghe https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf   
 [2] https://en.wikipedia.org/wiki/Convex_optimization  
 [3] By Varagk - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=124668501  
 [4] https://en.wikipedia.org/wiki/Linear_programming  

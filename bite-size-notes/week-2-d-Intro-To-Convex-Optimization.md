@@ -23,7 +23,8 @@ The function is usually visually shaped like a bowl or a U or in mathematical te
 
 The significance of convexity in optimization is primarily due to the property of convex functions to have a single global minimum. Since a Convex function is bowl-shaped, everything is sloped to a single lowest point. This means there is only one optimal solution, and all paths lead towards it. You can imagine that for a function with many dips and valleys, it may be challenging to find the global minimum since there are so many local minimums. 
 
-**Convex Set:** Contains a line segment between any two points in the set.  
+**Convex Set:** If C is a convex set then any line segments drawn between two points in C must also be in C, i.e. any $x_1, x_2 \in C$ and any $\theta$ with $0 \leq \theta \leq 1$ we have  
+$$\theta x_1 + (1+\theta)x_2 \in C$$
 
 
 
@@ -89,10 +90,21 @@ $$
 [1]
 
 ### Standard form of convex optimization problem
-minimize x in  $$f_0 (x)$$    
- 
-subject to  $$f_i (x) \leq 0, i = 1, ...., m$$ 
-             $$Ax = b$$
+$$
+\begin{aligned}
+\text{min}_x f_0 (x)
+\end{aligned}
+$$
+   
+$$  
+\begin{aligned} 
+\text{subject to }   f_i (x) \leq 0, i = 1, ...., m   
+\end{aligned}
+$$  
+
+$$Ax = b$$  
+
+
 * $x \in \pmb{R^n}$
 * equality constraints are linear
 * $f_1, ... f_m$ are **Convex**: for $\theta \in$ [0,1],  
@@ -138,14 +150,13 @@ Linear programming is a special case of quadratic programming where Q is zero [5
 
 
 
-### example in python
-work in progress... I wanted to include something visual and will probably have it figured it out by the time revisions are due. Sorry about the delay.
+
 
 ## Conclusion 
 Convex Optimization is an important concept in the control field and makes solving optimization problems much cleaner and easier to work with. Understanding how to spot convex functions and sets can guide the next steps in solving an optimization problem or help you define a problem in a way that makes it convex. While options do exist to solve non-convex optimization problems, complexity and uncertainty can be cut out if you manage to convexify them. 
 
 
-[1] https://web.stanford.edu/~boyd/cvxbook/bv_cvxslides.pdf  
+[1] Convex Optimization, Stephen Boyd, Lieven Vandenberghe https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf 
 [2] https://en.wikipedia.org/wiki/Convex_optimization  
 [3] By Varagk - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=124668501  
 [4] https://en.wikipedia.org/wiki/Linear_programming  

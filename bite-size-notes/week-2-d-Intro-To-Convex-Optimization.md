@@ -203,10 +203,13 @@ This example shows the setup for a general optimization problem with cvxpy, howe
 ## Conclusion 
 Convex Optimization is an important concept in the control field and makes solving optimization problems much cleaner and easier to work with. Understanding how to spot convex functions and sets can guide the next steps in solving an optimization problem or help you define a problem in a way that makes it convex. While options do exist to solve non-convex optimization problems, complexity and uncertainty can be cut out if you manage to convexify them. 
 
+## References  
 
-[1] Convex Optimization, Stephen Boyd, Lieven Vandenberghe https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf   
-[2] https://en.wikipedia.org/wiki/Convex_optimization  
+[1] [Convex Optimization] 
+(https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf) \ by Stephen Boyd, Lieven Vandenberghe \ 
+[2] [Convex Optimization] 
+(https://en.wikipedia.org/wiki/Convex_optimization)    
 [3] By Varagk - Own work, CC BY-SA 4.0, https://commons.wikimedia.org/w/index.php?curid=124668501  
-[4] https://en.wikipedia.org/wiki/Linear_programming  
-[5] https://inst.eecs.berkeley.edu/~ee127/sp21/livebook/l_lqp_standard.html  
-[6] https://mathworks.com/discovery/convex-optimization.html
+[4] [Linear Programming] (https://en.wikipedia.org/wiki/Linear_programming)  
+[5] [Standard Forms of Linear and Quadratic Programming] (https://inst.eecs.berkeley.edu/~ee127/sp21/livebook/l_lqp_standard.html)  
+[6] [convex-optimization] (https://mathworks.com/discovery/convex-optimization.html)

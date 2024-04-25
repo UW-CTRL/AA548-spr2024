@@ -2,7 +2,19 @@
 # Stochastic Bellman Equation
 ## Preliminaries 
 ---
-
+This bite-size notes discusses about the finite-horizon stochastic dynamical system.
+- Terminal stage : $N$
+- $x_k$ : Sampled state-estimate at time $k$
+- $u_k$ : Sampled from Control Policy $u_k = \mu_k(x_k)$
+- $\omega_k$ : Disturbance (sometimes observation)
+- $f(x_k, u_k, \omega_k)$ : System Dynamics
+- $\mu_k$ : Control Policy
+- $\pi$ : Control Policy Set
+- $\*$ : Optimal
+- $g_k(x_k, u_k, \omega_k)$ : Cost incurred at time $k$
+- $V_k$ : Overall Cost from the bellman equation 
+- $\bar{V}_k$ : Approximate of the cost
+- $\bar{\mu}_k$ : Suboptimal Policy
 Also, be aware of the terminology for value function is quite different from where it uses from reinforcement learning; Maximizing the value function (Reinforcement Learning) = Minimizing the cost function (Optimal control)
 ## Introduction 
 ---
@@ -145,4 +157,11 @@ schemes. From the looking ahead minimization of cost function, we obtain the sub
 During the execution of a controlled system, at any point in time the system trajectory may be split in two. 
 - The optimal future trajectory is independent of the past (Markov Assumption), as the system’s state captures the full history of what occurred, and thus each trajectory segment is itself optimal (Bellman's Optimality). 
 - Goal of Optimal Control in stocahstic horizon is to minimize expected value of the sum of costs, subject to dynamics and other constraints and disturbances.
-- Optimal control are not deterministic and the curse of dimensionality, approximation of value space and searching the suboptimal policy is the main objective of stochastic dynamic programming. 
+- Optimal control are not deterministic and the curse of dimensionality, approximation of value space and searching the suboptimal policy is the main objective of stochastic dynamic programming.
+
+## References
+1. Karen Leung, "Bellman Equation & LQR lecture", 2024 4/15~4/17
+2. Matanya B. Horowitz, "Efficient Methods for Stochastic Optimal Control", 2014.
+3. Dimitri P. Bertsekas, "Reinforcement Learning and Optimal Control", Athena Scientific, Belmont, Massachusetts, 2019.
+4. Dimitri P. Bertsekas, "Dynamic Programming and Suboptimal Control: A survey from ADP to MPC", European Journal of Control, 2005.
+

@@ -179,11 +179,19 @@ In conclusion, LQR can be an efficient and powerful tool when designing control 
 ## References
 
 [1] [Stanford EE363 Lecture Notes](https://stanford.edu/class/ee363/lectures/dlqr.pdf) by Prof. Stephen Boyd
+
 [2] [Wikipedia: Curse of dimensionality](https://en.wikipedia.org/wiki/Curse_of_dimensionality)
+
 [3] [SciPy DARE documentation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.linalg.solve_discrete_are.html)
+
 [4] [Lecture notes on LQR/LQG controller design](https://staff.uz.zgora.pl/wpaszke/materialy/kss/lqrnotes.pdf) by Prof. Joao P. Hespanha
+
 [5] [MATLAB Linear-Quadratic Regulator (LQR) design](https://www.mathworks.com/help/control/ref/lti.lqr.html)
+
 [6] E. V. Kumar, J. Jerome and K. Srikanth, "Algebraic approach for selecting the weighting matrices of linear quadratic regulator," 2014 International Conference on Green Computing Communication and Electrical Engineering (ICGCCEE), Coimbatore, India, 2014, pp. 1-6, doi: 10.1109/ICGCCEE.2014.6922382.
+
 [7] UBC ELEC441 Lecture Notes by Prof. Maryam Kamgarpour
+
 [8] [Wikipedia: Linear Quadratic Regulator](https://en.wikipedia.org/wiki/Linear%E2%80%93quadratic_regulator)
+
 [9] UW AA548 Spring 2024 Lecture Notes by Prof. Karen Leung

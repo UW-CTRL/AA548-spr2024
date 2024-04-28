@@ -12,18 +12,22 @@ The purpose of this section is to introduce Control Barrier Functions (CBFs), th
 ## Preliminaries
 #### Control Invariant Set
 A control invariant set is a subset of the state space within which the system can be kept by an appropriate choice of control inputs. Formally, a set $C$ is control invariant if for every state $x$ in $C$, there exists a control input $u$ such that the system dynamics $f(x,u)$ keep the state within $C$. This ensures that once the system enters the safe set $C$, it can remain there indefinitely by selecting appropriate control actions.
+
 #### Control Lyapunov Function
-A control Lyapunov function is a Lyapunov-like function that can be used to design stabilizing controllers for a dynamical system. A CLF $V(x)$ is a positive definite, radially unbounded function of the system state $x$, such that there exists a control input $u$ that makes the time derivative of $V(x)$ along the system dynamics $f(x,u)$ negative definite. This ensures that the system state will converge to the desired equilibrium point or origin asymptotically. The CLF framework allows for systematic synthesis of stabilizing controllers by solving optimization problems that incorporate the CLF condition.
+A control Lyapunov function is a Lyapunov-like function that can be used to design stabilizing controllers for a dynamical system. A CLF $V(x)$ is a positive definite, radially unbounded function of the system state $x$, such that there exists a control input $u$ that makes the time derivative of $V(x)$ along the system dynamics $f(x,u)$ negative definite. This ensures that the system state will converge to the desired equilibrium point or origin asymptotically. The CLF framework allows for systematic synthesis of stabilizing controllers by solving optimization problems that incorporate the CLF condition. Below image[^1] illustrates the geometric interpretation of a Control Lyapunov Function (CLF) $V(x)$ for a two-state system. The blue contours represent the level sets of the positive definite, radially unbounded CLF. The condition for stability is satisfied when the angle between the gradient of $V(x)$ (grad $V$) and the system velocity vector ($\frac{dx}{dt}$) is greater than 90 degrees, ensuring the time derivative of $V(x)$ decreases along the system trajectories. This geometric condition can be enforced by solving for a control input u that makes $\frac{dV}{dt}$ negative definite.
+<p align="center">
+  <img width="400" height="400" src=https://math24.net/images/systems-differential-equations-lyapunov-function1.svg>
+</p>
+
 ## Control Barrier Function Introduction
-[Barrier functions](https://en.wikipedia.org/wiki/Barrier_function) are Lynapunov-like functions, which have been used for optimization and multi-objective control[^1]. CBFs extend the concept of barrier functions, which enables controller synthesis for safety requirements specified by forward invarianse of a set using Lyapunov-like condition[^2]. 
+[Barrier functions](https://en.wikipedia.org/wiki/Barrier_function) are Lyapunov-like functions, which have been used for optimization and multi-objective control[^2]. CBFs extend the concept of barrier functions, which enables controller synthesis for safety requirements specified by forward invariance of a set using Lyapunov-like condition[^3]. 
 #### Motivation
 In safety-critical applications, it is imperative to guarantee that a dynamic system remains within a designated safe region, known as a [control invariant set](#control-invariant-set), throughout its operation. CBFs offer a robust mathematical framework for defining and enforcing these sets, playing a pivotal role in the design of controllers aimed at ensuring system safety.
 ![alt text](https://homes.cs.washington.edu/~mohnishi/images/pubs/TCST_1.png)
-*Illustration provided by Motoya Ohnishi[^3]
-The illustration above vividly captures the concepts of Limited-duration Safety and Safety (Forward Invariance) within the context of CBFs. In the left image, we observe a limited-duration safety region where the system is only obligated to remain safe for a finite duration. Conversely, the right image portrays a control invariant set, demanding the system to uphold forward invariance, thereby ensuring that the system state remains within the safe set for all time.
+The illustration[^4] above vividly captures the concepts of Limited-duration Safety and Safety (Forward Invariance) within the context of CBFs. In the left image, we observe a limited-duration safety region where the system is only obligated to remain safe for a finite duration. Conversely, the right image portrays a control invariant set, demanding the system to uphold forward invariance, thereby ensuring that the system state remains within the safe set for all time.
 These concepts serve as the cornerstone in defining the safety requirements that CBFs aim to enforce. By leveraging CBFs, engineers can develop controllers capable of robustly maintaining system safety, even in the face of uncertain environments and disturbances. The integration of such rigorous safety mechanisms is paramount in guaranteeing the reliability and stability of safety-critical systems across diverse domains.
-#### Definitaion
-Consider a dynamicical system described by $\dot{x} = f(x,u)$ where $x \in \mathbb{R}^n$ and $u \in \mathbb{R}^m$. Let $b$: $\mathbb{R}^n \rightarrow \mathbb{R}$ be a continuous differentialbe function. Define $C \in \mathbb{R}^n$ and $C=\lbrace x \in X | b(x) \le 0 \rbrace$, then $b$ is a valid CBF $\exists \alpha$ s.t. $\underset{u \in \mathcal{U}}\sup \nabla b(x)^Tf(x,u) \ge -\alpha(b(x))$.
+#### Definition
+Consider a dynamical system described by $\dot{x} = f(x,u)$ where state variable $x \in \mathbb{R}^n$ and control variable $u \in \mathbb{R}^m$. Let $b$: $\mathbb{R}^n \rightarrow \mathbb{R}$ be a continuous differentiable function. Define $C \in \mathbb{R}^n$ and $C=\lbrace x \in X | b(x) \le 0 \rbrace$, then $b$ is a valid CBF $\exists \alpha$ s.t. $\underset{u \in \mathcal{U}}\sup \nabla b(x)^Tf(x,u) \ge -\alpha(b(x))$.
 - Explanation
     1. The function $b(x)$ is a scalar-valued, continuous, and differentiable function that defines the safe set $C = \lbrace x \in X | b(x) \le 0\rbrace$.
     2. The CBF condition requires that there exists a class $\mathcal{K}$ function $\alpha$, which is a monotonically increasing function with $\alpha(0) = 0$, such that the rate of change of the barrier function $b(x)$ along the system dynamics $f(x,u)$ is always greater than or equal to $-\alpha(b(x))$.
@@ -46,7 +50,7 @@ CBFs find applications in a wide range of fields, from robotics and autonomous v
 ## Combine CBF Constraints with CLF Constraints
 #### Motivation
 In many practical scenarios, we may want to design a system that aims to reach a desired goal while simultaneously avoiding obstacles. This can be achieved by combining Control Lyapunov Function (CLF) constraints and Control Barrier Function (CBF) constraints.
-#### Stpes
+#### Steps
 To balance the objective of reaching a goal and avoiding obstacles, we can formulate an optimization problem with the following steps:
 1. Choose a desired control input $u^{dsr}$ that is as close as possible to the actual control input $u$. This can be achieved by minimizing the squared norm $\underset{u}\min \lVert u^{dsr}-u \rVert^2_2$, subject to the constraint $u \in \mathcal{U}$.
 2. Include the CLF constraint $\nabla V(x)^T f(x,u) \le -\beta V(x)$, where $V(x)$ is a Control Lyapunov Function and $\beta$ is a positive parameter. This ensures that the system is making progress towards the desired goal.
@@ -56,15 +60,16 @@ To balance the objective of reaching a goal and avoiding obstacles, we can formu
     - $u \in \mathcal{U}$
     - $\nabla V(x)^T f(x,u) \le \epsilon$
     - $\nabla b(x)^T f(x,u) \ge -\alpha(b(x))$
-#### Conclusion
+#### Result Analysis
 The resulting optimization problem is a Quadratic Program (QP) because the objective function is quadratic, and the constraints are linear in the control input $u$ and the slack variable $\epsilon$. This formulation allows the system to balance the competing objectives of reaching the desired goal and avoiding obstacles.
 - Additional Notes
     - If the system dynamics are control-affine, i.e., $f(x,u) = f_0(x) + f_1(x)u$, then the optimization problem becomes linear in the control input $u$.
 ## Conclusion
 Control Barrier Functions (CBFs) offer a robust framework for ensuring safety in dynamic systems, especially in safety-critical applications. By defining control invariant sets and enforcing forward invariance through Lyapunov-like conditions, CBFs enable the design of controllers that guarantee system safety.
 Throughout these notes, we explored the core concepts of CBFs, including their mathematical formulation, significance in safety-critical applications, and integration with Control Lyapunov Functions (CLFs) to balance safety and performance objectives. 
-These notes provide a foundational understanding of Control Barrier Functions, laied a foundation for further exploration and application in control theory and engineering. Continued research and refinement of CBF principles will lead to advancements in designing safe and robust control systems.
+These notes provide a foundational understanding of Control Barrier Functions, laid a foundation for further exploration and application in control theory and engineering. Continued research and refinement of CBF principles will lead to advancements in designing safe and robust control systems.
 
-[^1]: Xiao, Wei, and Calin Belta. "High-order control barrier functions." IEEE Transactions on Automatic Control 67, no. 7 (2021): 3655-3662.
-[^2]: Xu, Xiangru, Paulo Tabuada, Jessy W. Grizzle, and Aaron D. Ames. "Robustness of control barrier functions for safety critical control." IFAC-PapersOnLine 48, no. 27 (2015): 54-61.
-[^3]: Motoya Ohnishi, "Constraint Learning for Control Tasks with Limited Duration Barrier Functions," Accessed April 17th 2024, Available at: [[Link](https://homes.cs.washington.edu/~mohnishi/publication/TCST2019/)].
+[^1]: https://math24.net/method-lyapunov-functions.html
+[^2]: Xiao, Wei, and Calin Belta. "High-order control barrier functions." IEEE Transactions on Automatic Control 67, no. 7 (2021): 3655-3662.
+[^3]: Xu, Xiangru, Paulo Tabuada, Jessy W. Grizzle, and Aaron D. Ames. "Robustness of control barrier functions for safety critical control." IFAC-PapersOnLine 48, no. 27 (2015): 54-61.
+[^4]: Motoya Ohnishi, "Constraint Learning for Control Tasks with Limited Duration Barrier Functions," Accessed April 17th 2024, Available at: [[Link](https://homes.cs.washington.edu/~mohnishi/publication/TCST2019/)].

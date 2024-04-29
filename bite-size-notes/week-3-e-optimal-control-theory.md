@@ -87,9 +87,9 @@ Consider the problem of minimizing
 $$J(u, t_f) = \int_{t_0}^{t_f} L(x, u) dt$$
 subject to $(t_f, x(t_f)) \in S = [t_0, \infty) \times S_1$ where $S_1$ is a $k$-dimensional manifold in $\mathbb{R}^n$
 $$S_1 = {x \in \mathbb{R}^n : h_1(x) = h_2(x) = \ldots = h_{n-k}(x) = 0}$$
-where $h_i$ are $C^1$ functions from $\mathbb{R}^n$ to $\mathbb{R}$ subject to
+where $h_i$ are [$C^1$]({#c1-functions}) functions from $\mathbb{R}^n$ to $\mathbb{R}$ subject to
 $$\dot{x} = f(x, u), \quad x(t_0) = x_0$$
-for $u \in C[t_0, T]$ and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ being $C^1$ functions.
+for $u \in C[t_0, T]$ ( which implies that control input $u$ is continuous over the time interval $[t_0, T]$) and $u(t) \in U \subset \mathbb{R}^m$ with $f$ and $L$ being $C^1$ functions.
 
 Let $u^* : [t_0, t_f] \rightarrow \mathbb{R}$ be an optimal control with state trajectory $x^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant. Then
 there exists a function $p^* : [t_0, t_f] \rightarrow \mathbb{R}^n$ and a constant ${p}_0^* \leq 0$ (not both zero) for all $t \in [t_0, t_f]$ such that
@@ -110,8 +110,9 @@ Equation (2) is called the maximum principle, Pontryagin’s Maximum Principle, 
 This is a necessary condition for global optimality. 
 Pontryagin's maximum principle is a key concept in optimal control theory. It outlines necessary conditions for determining the optimal control strategy for a dynamical system, especially when there are constraints involved. This principle asserts that to find the best control along with the optimal state trajectory, one must solve the Hamiltonian system—a two-point boundary value problem—and satisfy the maximum condition of the control Hamiltonian. These conditions are crucial for identifying the optimal control strategy, particularly under certain convexity assumptions on the objective and constraint functions.
 
+___
 ##### Additional Notes
-1. **$C^1$ Functions:** A function belongs to the class $C^1$ if it is differentiable and its derivative is continuous. Functions in this class are known as continuously differentiable functions.
+1. **$C^1$ Functions:**{#c1-functions} A function belongs to the class $C^1$ if it is differentiable and its derivative is continuous. Functions in this class are known as continuously differentiable functions.
       * _Example:_ Consider the function $f(x) = x^2$. This function is differentiable everywhere since $f'(x) = 2x$ exists for all real numbers $x$, and its derivative $f'(x) = 2x$ is also continuous for all $x$, as it is a linear function. Therefore, $f(x) = x^2$ is an example of a $C^1$ function.
       * _Counterexample:_ The function $f(x) = x^2\sin(1/x)$ for $x \neq 0$ and $f(x) = 0$ for $x=0$ is everywhere continuous and differentiable, but its derivative $f'(x) = -\cos(1/x) + 2x\sin(1/x)$ for $x \neq 0$ and $f'(x) = 0$ for $x=0$, which is discontinuous at $x=0$, so it is not $C^1$.
 

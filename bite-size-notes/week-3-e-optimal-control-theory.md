@@ -44,7 +44,7 @@ where $x$ is the _state_ taking values in $\mathbb{R}^n$, $u$ is the _control in
 It associates a cost with each possible behavior. For a given initial data $(t_0, x_0)$, the behaviors are parametrized by control functions $u$. So, the cost function assigns a cost value to each admissible control. We will denote cost functionals by $J$, which take the form,
 
 $$ 
-J(u) := \int_{t_0}^{t_f} L(x(t),u(t),t)dt + K(t_f,x_f)
+J(x,u) := \int_{t_0}^{t_f} L(x(t),u(t),t)dt + K(t_f,x_f)
 $$
 
 where $L$ and $K$ are given functions (_running cost(or Instantaneous cost)_ and _terminal cost_, respectively), $t_f$ is the _final(or terminal) time_, which is either free or fixed, and $x_f:= x(t_f)$ is the _final (or terminal) state_ which is either free or fixed or belongs to some given target set.
@@ -102,7 +102,6 @@ $$H({x^* }, {u^* }, {p^* }, {p_0^* }) \geq H({x^* }, u, {p^* }, {p_0^* })$$
 
 3. $H({x^* }(t), {u^* }(t), {p^* }(t), {p_0^* }) = 0 \quad \forall t \in [t_0, t_f]$.
 
-
 4. The vector ${p^* }(t_f)$ is orthogonal to the tangent space of $S_1$ at ${x^* }(t_f)$. In other words,
 $$\langle {p^* }(t_f), d \rangle = 0 \quad \forall d \in T_{{x^* }(t_f)} S_1$$
 
@@ -110,6 +109,12 @@ Equation (2) is called the maximum principle, Pontryagin’s Maximum Principle, 
 
 This is a necessary condition for global optimality. 
 Pontryagin's maximum principle is a key concept in optimal control theory. It outlines necessary conditions for determining the optimal control strategy for a dynamical system, especially when there are constraints involved. This principle asserts that to find the best control along with the optimal state trajectory, one must solve the Hamiltonian system—a two-point boundary value problem—and satisfy the maximum condition of the control Hamiltonian. These conditions are crucial for identifying the optimal control strategy, particularly under certain convexity assumptions on the objective and constraint functions.
+
+##### Additional Notes
+1. **$C^1$ Functions:** A function belongs to the class $C^1$ if it is differentiable and its derivative is continuous. Functions in this class are known as continuously differentiable functions.
+      * _Example:_ Consider the function $f(x) = x^2$. This function is differentiable everywhere since $f'(x) = 2x$ exists for all real numbers $x$, and its derivative $f'(x) = 2x$ is also continuous for all $x$, as it is a linear function. Therefore, $f(x) = x^2$ is an example of a $C^1$ function.
+      * _Counterexample:_ The function $f(x) = x^2\sin(1/x)$ for $x \neq 0$ and $f(x) = 0$ for $x=0$ is everywhere continuous and differentiable, but its derivative $f'(x) = -\cos(1/x) + 2x\sin(1/x)$ for $x \neq 0$ and $f'(x) = 0$ for $x=0$, which is discontinuous at $x=0$, so it is not $C^1$.
+
 
 #### Principle of Optimality 
 

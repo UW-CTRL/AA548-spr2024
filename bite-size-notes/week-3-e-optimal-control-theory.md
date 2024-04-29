@@ -142,7 +142,7 @@ In simpler terms, we can say that for a given time interval $[t_0,t_1)$ and stat
 
 An optimal control problem involves finding control inputs that optimize a certain criterion while satisfying system dynamics and constraints. The problem formulation of an optimal control problem typically requires:
 1. ***A mathematical description (or model) of the process to be controlled***
-   - This component involves defining the dynamics of the system to be controlled. The dynamics function $f(x_k, u_k, k)$ describes how the state of the system evolves over time in response to control inputs.
+   - This component involves defining the dynamics of the system to be controlled. The dynamics function $f(x_k, u_k, k)$ describes how the state of the system evolves in response to control inputs.
 2. ***A statement of the physical constraints***
    - The physical constraints on the system, represented by sets $\mathcal{X}$ and $\mathcal{U}$, define the feasible state and control spaces, respectively. These constraints ensure that the system operates within permissible bounds.
    - Additionally, equality constraints $g_i(x_k, u_k) = 0$ and inequality constraints $h_i(x_k, u_k) \leq 0$ may be imposed to further restrict the feasible space.
@@ -159,7 +159,7 @@ $$\begin{aligned}
 & x_0, x_1, \ldots, x_{K+1}
 \end{aligned}} && \sum_{k=0}^{K} J(x_k, u_k, k) + J_{\text{term}}(x_{K+1}) \\
 & \text{s.t.} && x_{k+1} = f(x_k,u_k,k) \quad (k = 0,1,\ldots, K) \\
-&&& x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{current}} \\
+&&& x_k \in \mathcal{X}, \quad u_k \in \mathcal{U}, \quad x_0 = x_{\text{initial}} \\
 &&& g_i(x_k,u_k) = 0 \quad (i = 1,\ldots, G) \\
 &&& h_i(x_k,u_k) \leq 0 \quad (i = 1, \ldots, H)
 \end{aligned}$$
@@ -185,10 +185,10 @@ The basic approach is to enumerate all possible forward trajectories from $x_0$ 
 
 <figure>
   <img src="figs/Discrete_case_going_forward.jpg" alt="Alt text" width="300">
-  <figcaption>Figure 1: Discrete case going forward</figcaption>
+  <figcaption>Figure 1: Discrete case going forward </figcaption>
 </figure>
 
-Let's consider an alternative approach: moving backward in time. Initially, at $k = T$, we know the terminal costs for each $x_k$. Then, at $k = T - 1$, we determine, for each $x_k$, the transition to $x_{k+1}$ that minimizes the overall cost (the sum of the one-step running cost and the terminal cost). We label this optimal "cost-to-go" next to each $x_k$ and indicate the chosen path. If multiple paths yield the same cost, we randomly select one. We repeat this process for $k = T - 2, \ldots, 0$, using the previously computed costs-to-go instead of the terminal costs.(See Figure 2) 
+Let's consider an alternative approach: moving backward in time. Initially, at $k = T$, we know the terminal costs for each $x_k$. Then, at $k = T - 1$, we determine, for each $x_k$, the transition to $x_{k+1}$ that minimizes the overall cost (the sum of the one-step running cost and the terminal cost). We label this optimal "cost-to-go" next to each $x_k$ and indicate the chosen path. If multiple paths yield the same cost, we randomly select one. We repeat this process for $k = T - 2, \ldots, 0$, using the previously computed costs-to-go instead of the terminal costs. (See Figure 2) 
 
 <figure>
    <img src="figs/Discrete_case_going_backward.jpg" alt="Alt text" width="300"> 
@@ -199,7 +199,7 @@ When completed, we obtain an optimal trajectory from each $x_0$ to some $x_T$ du
 
 Assessing the computational effort of the backward scheme, at each time $k$, we add the transition cost to the cost-to-go for $x_{k+1}$, requiring $O(NMT)$ operations. Comparing this with the $O(MT^2)$ operations for the forward scheme, the backward computation is more efficient for large $T$, with fixed $N$ and $M$. However, if $N$ and $M$ are large, the number of operations remains significant, known as the "curse of dimensionality."
 
-The backward scheme determines the optimal policy for every initial condition $x_0$, providing the optimal decision at every $x_k$ for all $k$. This method yields the optimal control policy as a state feedback law. In contrast, the forward scheme fails to provide state feedback as it cannot cover all states $x_k$ for $k > 0$ with $O(NM T^2)$ operations.
+The backward scheme determines the optimal policy for every initial condition $x_0$, providing the optimal decision at every $x_k$ for all $k$. This method yields the optimal control policy as a state feedback law. In contrast, the forward scheme fails to provide state feedback as it cannot cover all states $x_k$ for $k > 0$ with $O(MT^2)$ operations.
 
 This recursive scheme serves as an example of the general method of dynamic programming.
 

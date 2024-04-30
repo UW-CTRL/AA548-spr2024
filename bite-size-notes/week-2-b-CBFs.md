@@ -96,6 +96,9 @@ The video above is based on the methods in [9]. The paper was an early approach 
 
 ![asif](figs/asif.png)
 
+<p align="center">
+  <img src=figs/asif.png/>
+</p>
 
 ## Current Research 
 Control barrier funcitons (CBFs) are actually a recent and vibrant research field in safety-critical control of autonomous systems. The seminal paper by Dr. Aaron Ames from Caltech was published in only 2017! Since then there has been an explosion of new developments in the field. To understand current research ares in CBFs, there is a need for a remark on the difficulties of CBFs. 

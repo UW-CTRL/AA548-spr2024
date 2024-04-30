@@ -40,7 +40,7 @@ $$
 \end{aligned}
 $$
 
-where $\partial C$ is the boundary of the $C$ and Int($C$) is the interior of the set (excluding the boundary). We call $\mathcal C$ the **safe set**. 
+where $\partial \mathcal C$ is the boundary of $C$ and $\text{Int} \mathcal{C}$ is the interior of the set (excluding the boundary). We call $\mathcal C$ the **safe set**. 
 
 Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $\mathcal C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial \mathcal C$). 
 
@@ -79,13 +79,22 @@ This gives straightforward method to devleop a controller to guarentee a system 
 
 
 ## Example 
+
+### Image Example
+
 Below is an image of a high-order CBF, but it shows the basics of having an initial trajecotry from a nominal policy approaching an obstacle and the CBF controller modifying the control inputs to steer around the obsctacle. 
 
 ![cbf image](figs/cbf_pic.png)
 
-*Image from HOCBF paper: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9516971*
+*Image from HOCBF paper [7].
 
-Additionally here is a video example from Caltech of them implementing a CBF on a segway that shows its capabilities: https://www.youtube.com/watch?v=RYXcGTo8Chg 
+### Video Example
+
+Additionally here is a video example from Caltech of them implementing a CBF on a segway that shows its capabilities: https://www.youtube.com/watch?v=RYXcGTo8Chg . 
+
+The video above is based on the methods in [9]. The paper was an early approach to using CBFs for safety critical controlled invariance of a cyber-physical system. Their approach uses the CBF constraint as a safety filter in a QP (as discussed earlier) which they coined ASIF (active set invariance filter), see the figure from the paper below for an intuitive understanding. They extend the CBF-QP to a robust formulation to allow for nonlinear disturbances and uncertatiny. See the paper for more details.
+
+![asif](figs/asif.png)
 
 
 ## Current Research 
@@ -114,3 +123,5 @@ In this note we briefly discussed the theoretical foundations of control barrier
 7. Wei Xiao, Calin Belta. "High-Order Control Barrier Functions", 2022. 
 
 8. C. Dawson, S. Gao, C. Fan. "Safe contorl with learned certificates: A survey of neural lyapunov, barrier, and contraction methods for robotics and control, 2023. 
+
+9. T. Gurriet, A. Singletary, J. Reher, L. Ciarletta, E. Feron, A. Ames. "Towards a Framework for Realizable Safety Critical Control through Active Set Invariance", IEEE International Conference on Cyber-Physical Systems (ICCPS), 2018. 

@@ -20,6 +20,9 @@ Backward reachability analysis identifies all possible initial states from which
 
 On the figure above you see T is the Target set. Inside target set h(x) is negative, and outside of the set h(x) is positive. Our starting point is $x(t_0)$ and any point on the trajectory is defined as $x(t)$. h function takes the state X and gives a single number R, it is a scalar valued function. We are trying to minimize the cost function h.
 
+<img width="864" alt="Screen Shot 2024-04-29 at 23 53 07" src="https://github.com/kutaydemiralay/AA548-spr2024/assets/160373451/ea162ed5-7012-4308-8910-1fa06eb89572">
+
+We may also care about entering Target set not on final time but any time between [0,T]
 ## Hamilton-Jacobi Reachability
 Hamilton-Jacobi Reachability is a specific method used in the context of reachability analysis. It uses the Hamilton-Jacobi-Bellman (HJB) or Hamilton-Jacobi- Isaacs (HJI) equations, which are partial differential equations that describe the evolution of the reachability boundary with time. 
 
@@ -122,35 +125,11 @@ $= 0$: The equation setting this expression to zero ensures that the change in t
 
 If we can solve this equation, we can get the value function for all the states. Which is basically our backward reachable set.
 
+If we are required to enter the Target set not on final time but on any time within the set [0,T], we can modify our reachability HJB equation as:  
 
-$$R_{\text{backward}}(t, T) = \{( x \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
+$$ \frac{dV}{dt} + \min_{u \in U} \left(0, \nabla V(x,t)^T f(x,u,t)\right) = 0 $$
 
-
-Given a target set $T$, $x \in R_{\text{backward}}(t, T)$ if it is possible to reach $T$ when starting at $x$ within $t$ seconds; i.e., there exists at least one control signal that can reach $T$ in $t$ seconds.
-
-$x \in X$: This states that $x$ is any state within the state space $X$.
-
-$\exists u(\cdot) \in U$: This means there exists a control input $u(\cdot)$, which is a function of time, belonging to the set of allowable controls $U$.
-
-Such that $\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$ holds: This specifies that $\tilde{x}$ is the state reached at time $t$, when starting from an initial state $x(t_0)$, under the influence of the control $u(\cdot)$ and following the dynamics of the system described by $f$. The function $\xi$ represents the state trajectory function that maps how states evolve over time.
-
-$\tilde{x} \in T$: Means that the state $\tilde{x}$, reached by applying the control $u(\cdot)$, must be a member of the target set $T$.
-We can also create the inverse of reachabile set, which is called Avoid set.
-
--Backward Avoid Set
-
-$$A_{\text{backward}}(t, T) = \{( x \in X \mid \forall u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
-
-Given a target set $T$, $x \in A_{\text{backward}}(t, T)$ if it is impossible to avoid $T$ when starting at $x$ within $t$ seconds. This means all possible control signals will lead the system into $T$.
-
-This part of the equation indicates that the condition must hold for all possible control inputs $u(\cdot)$ within the set of allowable controls $U$. This means it's not just that there exists one control function that can achieve the target, but every possible control must be able to reach the target from the initial state.
-
-$x \in X$: Indicates that $x$ represents any state within the state space $X$.
-
-$\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$: Specifies that $\tilde{x}$ is the state reached at time $t$ when the system evolves from the initial state $x(t_0)$ under the influence of any control $u(\cdot)$ and following the dynamics described by $f$.
-
-$\tilde{x} \in T$: States that the reached state $\tilde{x}$ must belong to the target set $T$, according to all control functions.
-
+What happens If there is disturbance in the system and we cannot use Hamilton Jacobi Bellman Equation, we can use Hamilton-Jacobi-Isaacs (HJI) Equation:
 
 -Hamilton-Jacobi-Isaacs (HJI) Equation
 
@@ -168,6 +147,43 @@ $$ \frac{dV}{dt} + \max_{u \in U} \min_{d \in D} \left(\nabla V(x,t)^T f(x,u,d,t
 The modified version of the Hamilton-Jacobi-Isaacs (HJI) equation shifts the focus from reachability to avoidance by swapping the positions of the  max and  min operators. This change tweaks the optimization strategy to prioritize evading certain outcomes, effectively transforming the problem into one of avoidance analysis
 
 This formulation is particularly relevant in scenarios where the system must avoid certain states or zones, which could be unsafe or non-permissible. 
+
+-Backward Reachable Set
+
+$$R_{\text{backward}}(t, T) = \{( x \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
+
+
+Given a target set $T$, $x \in R_{\text{backward}}(t, T)$ if it is possible to reach $T$ when starting at $x$ within $t$ seconds; i.e., there exists at least one control signal that can reach $T$ in $t$ seconds.
+
+$x \in X$: This states that $x$ is any state within the state space $X$.
+
+$\exists u(\cdot) \in U$: This means there exists a control input $u(\cdot)$, which is a function of time, belonging to the set of allowable controls $U$.
+
+Such that $\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$ holds: This specifies that $\tilde{x}$ is the state reached at time $t$, when starting from an initial state $x(t_0)$, under the influence of the control $u(\cdot)$ and following the dynamics of the system described by $f$. The function $\xi$ represents the state trajectory function that maps how states evolve over time.
+
+$\tilde{x} \in T$: Means that the state $\tilde{x}$, reached by applying the control $u(\cdot)$, must be a member of the target set $T$.
+
+
+
+
+
+
+We can also create the inverse of reachabile set, which is called Avoid set.
+
+-Backward Avoid Set
+
+$$A_{\text{backward}}(t, T) = \{( x \in X \mid \forall u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
+
+Given a target set $T$, $x \in A_{\text{backward}}(t, T)$ if it is impossible to avoid $T$ when starting at $x$ within $t$ seconds. This means all possible control signals will lead the system into $T$.
+
+This part of the equation indicates that the condition must hold for all possible control inputs $u(\cdot)$ within the set of allowable controls $U$. This means it's not just that there exists one control function that can achieve the target, but every possible control must be able to reach the target from the initial state.
+
+$x \in X$: Indicates that $x$ represents any state within the state space $X$.
+
+$\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$: Specifies that $\tilde{x}$ is the state reached at time $t$ when the system evolves from the initial state $x(t_0)$ under the influence of any control $u(\cdot)$ and following the dynamics described by $f$.
+
+$\tilde{x} \in T$: States that the reached state $\tilde{x}$ must belong to the target set $T$, according to all control functions.
+
 
 
 -Forward Reachable Set

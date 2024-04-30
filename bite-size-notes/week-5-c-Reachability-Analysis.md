@@ -21,21 +21,100 @@ Backward reachability analysis identifies all possible initial states from which
 On the figure above you see T is the Target set. Inside target set h(x) is negative, and outside of the set h(x) is positive. Our starting point is $x(t_0)$ and any point on the trajectory is defined as $x(t)$. h function takes the state X and gives a single number R, it is a scalar valued function. We are trying to minimize the cost function h.
 
 ## Hamilton-Jacobi Reachability
-Hamilton-Jacobi Reachability is a specific method used in the context of reachability analysis. It uses the Hamilton-Jacobi-Bellman (HJB) or Hamilton-Jacobi- Isaacs (HJI) equations, which are partial differential equations that describe the evolution of the reachability boundary with time. There is a HJ toolbox written for python available, and can be imported with the command: import hj_reachability
+Hamilton-Jacobi Reachability is a specific method used in the context of reachability analysis. It uses the Hamilton-Jacobi-Bellman (HJB) or Hamilton-Jacobi- Isaacs (HJI) equations, which are partial differential equations that describe the evolution of the reachability boundary with time. 
+
+There is a HJ toolbox written for python, and matlab available, and can be imported with the command: import hj_reachability in phython. It is a toolbow that allows us to solve reachability problems.
+
+-Example From HJ toolbox
+Example System:Air3d
+System Dynamics:
+
+$$
+\begin{aligned}
+\dot{x} & = v \cos(\theta), \\
+\dot{y} & = v \sin(\theta), \\
+\dot{\theta} & = \omega.
+\end{aligned}
+$$
+
+### Code:
+
+```python
+import hj # Assuming 'hj' is a hypothetical module for Hamilton-Jacobi analysis
+
+# Initialize the dynamics for a 3D air system
+dynamics = hj.systems.Air3d()
+
+# Create a grid with specific boundary conditions and lattice parameters
+grid = hj.Grid.from_lattice_parameters_and_boundary_conditions(
+    hj.sets.Box(np.array([-6., -10., 0.]), np.array([20., 10., 2 * np.pi])),
+    (51, 40, 50),
+    periodic_dims=2
+)
+
+# Compute the values as the norm of states, adjusted by a radius of 5 units
+values = jnp.linalg.norm(grid.states[..., :2], axis=-1) - 5
+
+# Define solver settings with very high accuracy and a specific postprocessor for reachability
+solver_settings = hj.SolverSettings.with_accuracy(
+    "very_high",
+    hamiltonian_postprocessor=hj.solver.backwards_reachable_tube
+)
+time = 0.
+target_time = -2.8
+target_values = hj.step(solver_settings, dynamics, grid, time, values, target_time)
+```
+
+-"dynamics" line helps setting up dynamics
+
+-"grid"  line specifiies mesh, the grid points we are solving the ODE over
+
+-"vaules" line specifies the terminal point (we need a termenial point to sole ODE backwards in time. And specifies the minimum distance allowable between 2 planes, which is 5, so we form a circle of 5.
+
+-"solver_setting" we set setting with very high precision, solving for the backward reachable tube.
+
+-"target_time" sets that we are gonna go backwards in time for 2.8 seconds.
+
+-"target_values" solver line.
 ## Preliminaries
 
--Forward Reachable Set
-$$R_{\text{forward}}(x(t_0), t) = \{ (\tilde{x} \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)) \}$$
-
-If $\tilde{x} \in R_{\text{forward}}(x(t_0), t)$, then there exists a control signal that can take the system from $x(t_0)$ to $\tilde{x}$ in $t - t_0$ seconds under the rules of control constraints and system dynamics. 
-
-$\tilde{x} \in X$: t $\tilde{x}$  which represents any state that can be reached, is an element of the state space X.
-
-$\exists u(\cdot) \in U$: This means there exists a control input $u(\cdot)$, which is a function of time, belonging to the set of allowable controls $U$.
-
-Such that $\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$: It says that $\tilde{x}$ is the state reached at time $t$ when the system evolves from $x(t_0)$ under the influence of the control $u(\cdot)$ and the system dynamics described by $f$. The function $\xi$ represents the state trajectory, which is determined by the initial state, the control inputs, and the system dynamics over time.
-
 -Backward Reachable Set
+
+
+Optimal Control Problem:
+
+
+$$ \min_{u \in U} \left( \int_0^T g(x,u,t) \, dt + g_T(x(T), T) \right), \text{s.t.} \quad \dot{x} = f(x,u,t), \quad x(0) = x_0, \quad u(t) \in U $$
+
+This is a simple control problem where we want to find the optimal control input u, with some constraints on u. In backward reachability, we don't care about running cost, we only look for terminal cost. So we can assume the second term of the above equation, our running cost is zero. 
+
+We are left with only our terminal cost for the optimality problem.  Value function represents cost to go, if there is no running cost,  then value function is just terminal cost which leads:
+
+$$V(x,t)=h(X(t))$$
+
+If $v(x, t) \leq 0$, then you will reach the target within $T - t$ seconds.
+
+If $v(x, t) > 0$, then you will not reach the target within $T - t$ seconds.
+
+We will have to do this for each initial state $x_0$. , instead we can use dynamic programming. For discrete cases we can use Bellman equations, however for our continious case we can use Jamilton Jacobi Bellman Equation.
+
+
+-Hamilton-Jacobi-Bellman (HJB) Equation
+
+$$ \frac{dV}{dt} + \min_{u \in U} \left( g(x, u, t) + \nabla V(x,t)^T f(x, u, t) \right) = 0 $$
+
+Since our g term, running term is zero:
+
+$$ \frac{dV}{dt} + \min_{u \in U} \left( \nabla V(x,t)^T f(x,u,t) \right) = 0 $$
+
+$\frac{dV}{dt}$: This term represents the partial derivative of the value function $V$ with respect to time $t$. The value function $V(x, t)$ typically measures the minimum cost from state $x$ at time $t$ to some terminal state under the optimal control policy.
+
+$\min_{u \in U} \left( \nabla V(x,t)^T f(x,u,t) \right)$: This expression captures the minimum cost of control action. Here, $u$ ranges over the control set $U$, $\nabla V(x,t)$ is the gradient of the value function $V$ with respect to the state $x$, and $f(x, u, t)$ is the system dynamics function which describes how the state $x$ changes over time under control $u$.
+
+$= 0$: The equation setting this expression to zero ensures that the change in the value function over time, plus the minimum control effort needed to follow the system dynamics optimally, equals zero. This balance implies that the value function correctly captures the minimum expected cost from any state $x$ at any time $t$ under the optimal control policy.
+
+If we can solve this equation, we can get the value function for all the states. Which is basically our backward reachable set.
+
 
 $$R_{\text{backward}}(t, T) = \{( x \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
 
@@ -65,15 +144,6 @@ $\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$: Specifies that $
 
 $\tilde{x} \in T$: States that the reached state $\tilde{x}$ must belong to the target set $T$, according to all control functions.
 
--Hamilton-Jacobi-Bellman (HJB) Equation
-
-$$ \frac{dV}{dt} + \min_{u \in U} \left( \nabla V(x,t)^T f(x,u,t) \right) = 0 $$
-
-$\frac{dV}{dt}$: This term represents the partial derivative of the value function $V$ with respect to time $t$. The value function $V(x, t)$ typically measures the minimum cost from state $x$ at time $t$ to some terminal state under the optimal control policy.
-
-$\min_{u \in U} \left( \nabla V(x,t)^T f(x,u,t) \right)$: This expression captures the minimum cost of control action. Here, $u$ ranges over the control set $U$, $\nabla V(x,t)$ is the gradient of the value function $V$ with respect to the state $x$, and $f(x, u, t)$ is the system dynamics function which describes how the state $x$ changes over time under control $u$.
-
-$= 0$: The equation setting this expression to zero ensures that the change in the value function over time, plus the minimum control effort needed to follow the system dynamics optimally, equals zero. This balance implies that the value function correctly captures the minimum expected cost from any state $x$ at any time $t$ under the optimal control policy.
 
 -Hamilton-Jacobi-Isaacs (HJI) Equation
 
@@ -91,6 +161,20 @@ $$ \frac{dV}{dt} + \max_{u \in U} \min_{d \in D} \left(\nabla V(x,t)^T f(x,u,d,t
 The modified version of the Hamilton-Jacobi-Isaacs (HJI) equation shifts the focus from reachability to avoidance by swapping the positions of the  max and  min operators. This change tweaks the optimization strategy to prioritize evading certain outcomes, effectively transforming the problem into one of avoidance analysis
 
 This formulation is particularly relevant in scenarios where the system must avoid certain states or zones, which could be unsafe or non-permissible. 
+
+
+-Forward Reachable Set
+$$R_{\text{forward}}(x(t_0), t) = \{ (\tilde{x} \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)) \}$$
+
+If $\tilde{x} \in R_{\text{forward}}(x(t_0), t)$, then there exists a control signal that can take the system from $x(t_0)$ to $\tilde{x}$ in $t - t_0$ seconds under the rules of control constraints and system dynamics. 
+
+$\tilde{x} \in X$: t $\tilde{x}$  which represents any state that can be reached, is an element of the state space X.
+
+$\exists u(\cdot) \in U$: This means there exists a control input $u(\cdot)$, which is a function of time, belonging to the set of allowable controls $U$.
+
+Such that $\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$: It says that $\tilde{x}$ is the state reached at time $t$ when the system evolves from $x(t_0)$ under the influence of the control $u(\cdot)$ and the system dynamics described by $f$. The function $\xi$ represents the state trajectory, which is determined by the initial state, the control inputs, and the system dynamics over time.
+
+
 ## Conclusion
 
 Reachability analysis helps engineers and designers determine whether a desired state or set of states can be reached or avoided from a given initial condition using available controls. This is foundational in control system design, where the goal is often to steer the system from any initial state to a desired final state efficiently and effectively.

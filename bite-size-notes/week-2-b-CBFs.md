@@ -94,8 +94,6 @@ Additionally here is a video example from Caltech of them implementing a CBF on 
 
 The video above is based on the methods in [9]. The paper was an early approach to using CBFs for safety critical controlled invariance of a cyber-physical system. Their approach uses the CBF constraint as a safety filter in a QP (as discussed earlier) which they coined ASIF (active set invariance filter), see the figure from the paper below for an intuitive understanding. They extend the CBF-QP to a robust formulation to allow for nonlinear disturbances and uncertatiny. See the paper for more details.
 
-![asif](figs/asif.png)
-
 <p align="center">
   <img src=figs/asif.png/>
 </p>

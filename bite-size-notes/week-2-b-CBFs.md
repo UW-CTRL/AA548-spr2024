@@ -40,7 +40,7 @@ $$
 \end{aligned}
 $$
 
-We call $\mathcal C$ the **safe set**. 
+where $\partial C$ is the boundary of the $C$ and Int($C$) is the interior of the set (excluding the boundary). We call $\mathcal C$ the **safe set**. 
 
 Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $\mathcal C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial \mathcal C$). 
 

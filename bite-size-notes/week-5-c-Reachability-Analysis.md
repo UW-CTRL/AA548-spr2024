@@ -23,11 +23,13 @@ On the figure above you see T is the Target set. Inside target set h(x) is negat
 ## Hamilton-Jacobi Reachability
 Hamilton-Jacobi Reachability is a specific method used in the context of reachability analysis. It uses the Hamilton-Jacobi-Bellman (HJB) or Hamilton-Jacobi- Isaacs (HJI) equations, which are partial differential equations that describe the evolution of the reachability boundary with time. 
 
-There is a HJ toolbox written for python, and matlab available, and can be imported with the command: import hj_reachability in phython. It is a toolbow that allows us to solve reachability problems.
+There is a HJ toolbox written in in stanford ASL written for python, and matlab available, and can be imported with the command: import hj_reachability in phython. It is a toolbow that allows us to solve reachability problems.
 
 -Example From HJ toolbox
-Example System:Air3d
-System Dynamics:
+
+-Example System:Air3d  (Pursuer trying to reach to an Evader)
+
+-System Dynamics:
 
 $$
 \begin{aligned}
@@ -76,6 +78,11 @@ target_values = hj.step(solver_settings, dynamics, grid, time, values, target_ti
 -"target_time" sets that we are gonna go backwards in time for 2.8 seconds.
 
 -"target_values" solver line.
+
+-Solution Set
+<img width="906" alt="Screen Shot 2024-04-29 at 22 32 19" src="https://github.com/kutaydemiralay/AA548-spr2024/assets/160373451/00e43353-7caf-4f4e-9e88-bc8990905ce0">
+
+Contours values show that within 2.8 seconds if the pursuer is in the negative contour set, it would catch the evader. When the pursuer is out of the negative set, within 2.8 seconds, it cannot reach the evader, no matter what. Considering (0,0) is your referance frame and you are the evader.
 ## Preliminaries
 
 -Backward Reachable Set
@@ -185,4 +192,5 @@ Reachability analysis helps engineers and designers determine whether a desired 
 -HJB equation is focused on optimizing a path to a desired outcome in a controlled setting, the HJI equation manages the complexities of different interactions, ensuring strategies are robust against disturbances. Both equations, therefore, enhance the framework of reachability analysis by not just assessing whether a state can be reached, but optimizing how it is reached or avoided under varying conditions
 
 
-
+## References
+Stanford ASL, hj Toolbox

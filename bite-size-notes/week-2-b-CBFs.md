@@ -42,11 +42,11 @@ $$
 
 where $\partial \mathcal C$ is the boundary of $C$ and $\text{Int} \mathcal{C}$ is the interior of the set (excluding the boundary). We call $\mathcal C$ the **safe set**. 
 
-Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $\mathcal C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to envolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial \mathcal C$). 
+Although motiviated by and a generalization of CLFs, CBFs are different in that fact that we wish to enforce set invariance without strictly requiring a positive definite function $V(x)$. The continuoulsy differentiable function we define with regards to CBFs, $h(x)$, renders our safe set $\mathcal C$ invariant but not its sublevel sets. This allows a trajectory inside the invariant set to evolve anywhere inside the set rather than dissipating to a certain point in the set (it can even move up to and along the boundary of the invariant set, $\partial \mathcal C$). 
 
 We first define the extended class $K_{\infty}$ function as $\alpha : \mathbb R \rightarrow \mathbb R$ that is strictly increasing and zero at zero, i.e., $\alpha (0) = 0$, so the *extended* function is defined on the entire real line: $\mathbb R = (-\infty, \infty)$. With this, we can now define control barrier functions as in [4], [5]: 
 
-**Definition (Controll Barrier Functions)** Let $\mathcal C \in D \in \mathbb R^n$ be the superlevel set of a continuously differentiable function $h : D \rightarrow \mathbb R$, then $h$ is a *control barrier function (CBF) if there exists an extended class $K_{\infty}$ function $\alpha$ such that for the control affine system: 
+**Definition (Controll Barrier Functions)** Let $\mathcal C \in D \in \mathbb R^n$ be the superlevel set of a continuously differentiable function $h : D \rightarrow \mathbb R$, then $h$ is a control barrier function (CBF) if there exists an extended class $K_{\infty}$ function $\alpha$ such that for the control affine system: 
 
 $$
 \text{sup}_{u\in U} [L_f h(x) + L_g h(x) u] \geq - \alpha (h(x)) \hspace{0.2cm}

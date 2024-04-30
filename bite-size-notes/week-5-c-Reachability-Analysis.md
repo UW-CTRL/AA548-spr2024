@@ -18,7 +18,7 @@ Backward reachability analysis identifies all possible initial states from which
 
 <img width="805" alt="Reachability" src="https://github.com/UW-CTRL/AA548-spr2024/assets/160373451/9a103a0b-d195-4cf0-bf9e-08ea850e22df">
 
-On the figure above you see T is the Target set. Inside target set h(x) is negative, and outside of the set h(x) is positive. Our starting point is $x(t_0)$ and any point on the trajectory is defined as $x(t)$ 
+On the figure above you see T is the Target set. Inside target set h(x) is negative, and outside of the set h(x) is positive. Our starting point is $x(t_0)$ and any point on the trajectory is defined as $x(t)$. h function takes the state X and gives a single number R, it is a scalar valued function. We are trying to minimize the cost function h.
 
 ## Hamilton-Jacobi Reachability
 Hamilton-Jacobi Reachability is a specific method used in the context of reachability analysis. It uses the Hamilton-Jacobi-Bellman (HJB) or Hamilton-Jacobi- Isaacs (HJI) equations, which are partial differential equations that describe the evolution of the reachability boundary with time. There is a HJ toolbox written for python available, and can be imported with the command: import hj_reachability

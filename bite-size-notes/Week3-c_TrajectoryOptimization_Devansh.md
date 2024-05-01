@@ -9,11 +9,15 @@
 
 ## Introduction
 
-Traditional approaches of acheiving optimal control with a feedback controller has a lot of limitations, such as they do not work well for systems with state dimensions above 4 or 5, effectiveness of the controller is limited to the specific region of state space where linearization is an approximation of non-linear dynamics and so on. Trajectory Optimization is an essential computational tool to formulate a simpler version of optimization problem by linearizing over a nominal operation point(tajectory), attempting to find optimal control solution which is valid only form a single initial condition rather than finding a solution for the entire state space fro a feedback controller. For this to happen, we represent this solution as a trajectory, x(t), u(t) , defined over a finite interval 'tf'. 
+Traditional approaches of achieving optimal control with a feedback controller have a lot of limitations, such as they do not work well for systems with state dimensions above 4 or 5, effectiveness of the controller is limited to the specific region of state space where linearization is an approximation of nonlinear dynamics and so on. Trajectory Optimization is an essential computational tool to formulate a simpler version of optimization problem by linearizing over a nominal operation point(trajectory), attempting to find optimal control solution which is valid only from a single initial condition rather than finding a solution for the entire state space for a feedback controller. For this to happen, we represent this solution as a trajectory, x(t), u(t) , defined over a finite interval 'tf'.
 
-## Prelimnaries
+## Preliminaries
 
 ### Control Lyapunov Functions (CLF) and Control Barrier Functions (CBF)
+
+To understand the fundamental concepts of CLF and CBF, we can start with watching this video which gives us an overview of the topic in general. 
+
+[Watch the video](https://www.youtube.com/watch?v=_Tkn_Hzo4AA) [4]
 
 **CLF:**
 A Control Lyapunov Function (CLF) is a function used to design controllers that ensure stability of a dynamical system. It measures the "distance" of the system's state from an equilibrium point and drives this distance to zero over time.
@@ -39,13 +43,16 @@ $$\min_{u} \lVert \mathbf{u^des - u} \rVert_2^2$$
 
 $$\text{subject to} \quad u \in U $$
 
-$$\text{CLF} \quad \nabla V(x)^T f(x, u) <= 0 or -\alpha V(x)$$ where $-\alpha V(x)$ has to be positive only.
+$$\text{CLF} \quad \nabla V(x)^T f(x, u) ≤ 0 \text{or}  ≤ -\alpha V(x)$$ 
 
-$$\text{CBF} \quad \nabla V(x)^T f(x, u) <= -\beta b(x)$$
+where $-\alpha V(x)$ has to be positive only.
 
-Sometimes, there could be conditions when the regions of CLF constraint and CBF constraint do not overlap each other. This is when one can encounter infeasible problem. 
-In such a case, we have to provide a slack or let loose on a constraint, so either of the one (CLF constraint or CBF constraint) can come together and form a feasible region. 
+Also, the RHS holds significance describing 2 conditions: ≤ 0 means asymptotically stable whereas ≤ $-\alpha V(x)$ means exponentially stable.
 
+$$\text{CBF} \quad \nabla V(x)^T f(x, u) ≥ -\beta b(x)$$
+
+Sometimes, there could be conditions when the regions of CLF constraint and CBF constraint do not overlap each other. This is when one can encounter infeasible problems. 
+In such a case, we have to provide a slack or let loose on a constraint, so either of the one (CLF constraint or CBF constraint) can come together and form a feasible region.
 
 For such a case: 
 
@@ -53,33 +60,41 @@ $$\min_{u} \lVert \mathbf{u^des - u} \rVert_2^2 + \gamma \epsilon^2$$ where $\ga
 
 $$\text{subject to} \quad u \in U $$
 
-$$\text{CLF} \quad \nabla V(x)^T f(x, u) <= \epsilon$$ where this is Linear in u and \epsilon.
+$$\text{CLF} \quad \nabla V(x)^T f(x, u) ≤ \epsilon$$ where this is Linear in u and $\epsilon$.
 
-$$\text{CBF} \quad \nabla V(x)^T f(x, u) <= -\alpha b(x)$$ where this is linear in u.
+$$\text{CBF} \quad \nabla V(x)^T f(x, u) ≤ -\alpha b(x)$$ where this is linear in u.
 
-And, $\epsilon >= 0$ , hence Linear in $\epsilon$ 
+And, $\epsilon$ ≥ 0 , hence Linear in $\epsilon$ 
 
 ## Problem Formulation
 The goal of trajectory optimization is to find the trajectory \( x(t) \) that minimizes (or maximizes) a certain cost function \( J \), subject to constraints. Mathematically, it can be formulated as:
 
 ### Discrete Time Dynamics
 
-$$\min_{x_(0)...x_k+1, u_(0)...u_(k)} J_termial(x_(k+1)) + \sum_{k=0}^K J(x_(k), u_(k), k)$$
+$$\min_{x_{(0)}...x_{k+1}, u_{(0)}...u_{(k)}} J_{terminal}(x_{(k+1)}) + \sum_{k=0}^K J(x_{(k)}, u_{(k)}, k)$$
 
-$$\text{subject to} \quad x_{k+1} = f(x_(k), u_(k), k), \quad k=0,...K$$
+$$\text{subject to} \quad x_{k+1} = f(x_{(k)}, u_{(k)}, k), \quad k=0,...K$$
 
-$$ \quad \quad \quad x_k \in X, \quad u_(k) \in U_(k), \quad x_(0) = x_current or u_(k) \in U_(k)(x_k)$$ 
+$\quad \quad \quad x_{k} \in X$ - describes the Feasible State, 
+
+$\quad \quad \quad u_{(k)} \in U_{(k)}$ - describes the Feasible Control, 
+
+$\quad \quad \quad x_{(0)} = x_{current}$ - states that we are solving only for the 'current state'
+
+$\text{or}$
+
+$\quad \quad \quad u_{(k)} \in U_{(k)}(x_k)$ - Function of state x
 
 Here,
 
-$$J_termial(x_(k+1)$$ is the control effort or the Terminal cost for reaching the point 'k'.  
+$$J_termial(x_{(k+1)}$$ is the control effort or the Terminal cost for reaching the point 'k'.  
 
-$$\sum_{k=0}^K J(x_(k), u_(k), k)$$ is the running cost or the cost-to-go 
+$$\sum_{k=0}^K J(x_{(k)}, u_{(k)}, k)$$ is the running cost or the cost-to-go 
 
-$$x_{k+1} = f(x_(k), u_(k), k)$$ also determines if the state is feasible and the control is feasible or not. 
+$$x_{k+1} = f(x_{(k)}, u_{(k)}, k)$$ also determines if the state is feasible and the control is feasible or not. 
 
 Here we understand that: 
-1. We are solving only for the current state $(x_0 = x_current)$.
+1. We are solving only for the current state $(x_0 = x_{current})$.
 2. One will have to re-solve the entire problem for every different state
 3. Sometimes, one will have to solve the problem over and over again.
 
@@ -122,12 +137,12 @@ This problem can be further solved using convex optimization techniques such as 
 
 ## CONCLUSION
 
-We understand the importance of CLF's and CBF's how they are used in Trajectroy optimization and also about the disjoint sets. Moreover, the problem of optimization stated above stands true only for Linear systems and also which are convex in nature. For non-convex problems, the system is first converted to convex-type and then solved further. 
-We have discussed the Direct Transcription method for Trajectory Optimization, but there are other methods such as shooting method which gives a general idea of reaching a goal within a given time interval and also tells us if the trajectory is dynamically feasible or not. We have not quite discussed the QP, quadratic programming part but its a part of Trajectory optimization which can be discussed further. 
+We understand the importance of CLF's and CBF's, how they are used in Trajectory optimization and also about the disjoint sets. Moreover, the problem of optimization stated above stands true only for Linear systems and also which are convex in nature. For non-convex problems, the system is first converted to convex-type and then solved further. 
+We have discussed the Direct Transcription method for Trajectory Optimization, but there are other methods such as shooting method which gives a general idea of reaching a goal within a given time interval and also tells us if the trajectory is dynamically feasible or not. We have not quite discussed the QP, quadratic programming part but it's a part of Trajectory optimization which can be discussed further. 
 
 ## References
 
 1. "Underactuated Robotics - Algorithms for Walking, Running, Swimming, Flying and Manipulation", Russ Tendrake. (https://underactuated.mit.edu/trajopt.html)
 2. https://www.matthewpeterkelly.com/tutorials/trajectoryOptimization/index.html
 3. https://youtu.be/wlkRYMVUZTs?si=iTx9BR0SJLFSp-WA
- 
+4. https://www.youtube.com/watch?v=_Tkn_Hzo4AA

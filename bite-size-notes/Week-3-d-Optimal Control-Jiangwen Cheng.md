@@ -14,6 +14,9 @@ Suppose $\dot{x} = f(x)$ is a dynamical system, $x(t, x_0)$ is a trajectory, and
 
 In other words, once a trajectory of the system enters $\mathbb{O}$, it will never leave it again.
 
+#### Definition (Control Invariant Set)
+ Fro a dynamic system $\dot{x} = f(x, u)$ where x is state of the system, u is the control input. $X$ is said to be a control invariant set if any every initial state $x_0$ in $X$, then there exists a control input $u(t)$ such that $x(t) \in X$  $\forall$ $t \geq 0$. In other words, any dynamic system enter the set, then there exists a controller that can promise the system states stay in the set forever when time greater than zero. 
+
 #### Definition (Control Lyapunov Function)
 Consider an autonomous dynamical system with inputs $\dot{x} = f(x, u)$ where x $\in \mathbb{R^n}$ is the state vector and  $u \in \mathbb{R^m}$ is the control vector. Suppose our goal is to drive the system to an equilibrium $x_* \in \mathbb{R^n}$ from every initial state in some domain. [2]  
 A control-Lyapunov function (CLF) is a function $V$ : $D \longrightarrow \mathbb{R}$ that is continuously differentiable, positive-definite, and such that for all $x \in \mathbb{R^n} (x \neq 0)$ , there exist u $\in \mathbb{R^m}$ such that   
@@ -28,7 +31,7 @@ And a theorem follows: For the nonlinear control system if there exists a contro
 
 
 ## Control Barrier Function 
-Suppose that we have a nonlinear affine control system: 
+Suppose that we have an affine control system: 
 
 $$
 \dot{x} = f(x) + g(x) u 

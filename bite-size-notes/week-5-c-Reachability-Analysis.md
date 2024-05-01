@@ -129,6 +129,8 @@ If we are required to enter the Target set not on final time but on any time wit
 
 $$ \frac{dV}{dt} + \min_{u \in U} \left(0, \nabla V(x,t)^T f(x,u,t)\right) = 0 $$
 
+This is called Backward Reachable Tube.
+
 What happens If there is disturbance in the system and we cannot use Hamilton Jacobi Bellman Equation, we can use Hamilton-Jacobi-Isaacs (HJI) Equation:
 
 -Hamilton-Jacobi-Isaacs (HJI) Equation

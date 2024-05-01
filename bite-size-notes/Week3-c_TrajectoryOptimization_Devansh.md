@@ -64,7 +64,7 @@ $$\text{CLF} \quad \nabla V(x)^T f(x, u) ≤ \epsilon$$ where this is Linear in 
 
 $$\text{CBF} \quad \nabla V(x)^T f(x, u) ≤ -\alpha b(x)$$ where this is linear in u.
 
-And, $\epsilon$ ≥ 0 , hence Linear in $\epsilon$ 
+And, $\epsilon$ ≥ 0 , hence linear in $\epsilon$ 
 
 ## Problem Formulation
 The goal of trajectory optimization is to find the trajectory \( x(t) \) that minimizes (or maximizes) a certain cost function \( J \), subject to constraints. Mathematically, it can be formulated as:
@@ -87,7 +87,7 @@ $\quad \quad \quad u_{(k)} \in U_{(k)}(x_k)$ - Function of state x
 
 Here,
 
-$$J_termial(x_{(k+1)}$$ is the control effort or the Terminal cost for reaching the point 'k'.  
+$$J_{terminal}(x_{(k+1)})$$ is the control effort or the Terminal cost for reaching the point 'k'.  
 
 $$\sum_{k=0}^K J(x_{(k)}, u_{(k)}, k)$$ is the running cost or the cost-to-go 
 
@@ -100,11 +100,19 @@ Here we understand that:
 
 ### Continuous Time Dynamics
 
-$\min_{x_(0)...x_t+1, u_(0)...u_(t)} J_termial(x_(t+1)) + \int_{t=0}^{T_f} J(x_(t), u_(t), t)$$
+$$\min_{x_{(0)}...x_{t+1}, u_{(0)}...u_{(t)}} J_{termial}(x_{(t+1)}) + \int_{t=0}^{T_f} J(x_{(t)}, u_{(t)}, t)$$
 
-$$\text{subject to} \quad x_{k+1} = f(x_(t), u_(t), t), \quad k=0,...K$$
+$$\text{subject to} \quad x_{k+1} = f(x_{(t)}, u_{(t)}, t), \quad k=0,...K$$
 
-$$ \quad \quad \quad x_t \in X, \quad u_(t) \in U_(t), \quad x_(0) = x_current or u_(t) \in U_(t)(t_k)$$ 
+$\quad \quad \quad x_{(t)} \in X$,
+
+$\quad \quad \quad u_{(t)} \in U_{(t)}$, 
+
+$\quad \quad \quad x_{(0)}$ = $x_{current}$ 
+
+$\text{or}$ 
+
+$\quad \quad \quad u_{(t)} \in U_{(t)}(t_k)$ 
 
 ## Convex Formulation for Linear Systems
 
@@ -127,10 +135,10 @@ This problem can be further solved using convex optimization techniques such as 
 
 ## Detailed Example: Discrete-Time Dynamics
 Consider the same linear system with discrete-time dynamics:
-$$x_{k+1} = Ax_k + Bu_k$$
+$$x_{k+1} = Ax_{k} + Bu_{k}$$
 
 We want to minimize the cost function:
-$$J = \sum_{k=0}^{N-1} \left( x_k^T Q x_k + u_k^T R u_k \right) + x_N^T Q_f x_N$$
+$$J = \sum_{k=0}^{N-1} \left( x_{k^T} Q x_{k} + u_{k^T} R u_{k} \right) + x_{N}^T Q_f x_N$$
 
 Where (Q), (R) and $(Q_f)$ are positive definite weighting matrices.
 This problem can be further solved using convex optimization techniques such as QP or other solvers capable of handling convex problems. 

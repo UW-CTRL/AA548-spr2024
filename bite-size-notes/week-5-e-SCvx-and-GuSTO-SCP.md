@@ -98,20 +98,28 @@ Artificial Unboundedness can be solved by adding the following trust region cons
 |$$\delta x(t) = x(t) - \bar{x}(t),$$
 $$\delta u(t) = u(t) - \bar{u}(t),$$
 $$\delta p = p - \bar{p},$$
-$$\alpha_{x}\parallel \delta x(t) \parallel_{q} + \parallel \delta u(t) \parallel| (7)|
+$$\alpha_{x}\parallel \delta x(t) \parallel_{q} + \alpha_{u}\parallel \delta u(t) \parallel \leq \eta, for t \in [0,1],$$| (7)|
+for some choice of $q \in {1,2,2^{+}, \inf}$ and constants $\alpha_{x}, \alpha_{u}, \alpha_{p} \in {0,1}. Use $q = 2^{+} to denote the ability to impose the trust region as the quadratic two-norm squared. The trust region radius $\eta$ is a fixed scalar that is updated between SCP iterations.
 
-It also introduces **Artificial Infeasibility** where the linearized constraints produce no solution or a feasible solution is outside the trust region so the SCP cannot find a solution because the trust region is too small.
+Linearization also introduces **Artificial Infeasibility** where the linearized constraints produce no solution or a feasible solution is outside the trust region so the SCP cannot find a solution because the trust region is too small. There are two approaches to remedy this; Add an unconstrained **virtual controller** slack variable that is penalized or penalize constraint violations by augmenting the cost function (6a) with **soft penalty** terms.
 
-
-
-
-
+This is the reason why SCP can produce an infeasible solution which is referred to as a "soft" failure because usually, a few virtual control terms are nonzero. A feasible solution can be converged through the tuning of the parameters and this leads to the creation of different SCP algorithms such as the SCvx and GuSTO algorithms.
 
 ## Main Body
+**SCvx Algorithm**
+The SCvx algorithm follows three things:
+> 1. The terminal and running cost is assumed to be convex by offloading nonconvex terms into the constraints.
+> 2. The constraint (7) is enforced as a hard constraint and $\eta$ is adjusted through the SCvx update rule.
+> 3. Artificial infeasibility is handled using virtual control terms.
 
+**GuSTO Algorithm**
+The GuSTO algorithm follows two things:
+> 1. Artificial unboundedness is handled through the augmentation of the cost function with a soft penalty on the violation of (7) and $\alpha_{u} = 0$ since (1) is convex in the control variables.
+> 2. Artificial infeasibility is handled through the augmentation of the cost function with a soft penalty on nonconvex path constraint violation and as the algorithm progresses, the penalty weight increases.
 
+## Conclusion
+You will notice that the Main Body only contains the key factors of how the SCvx and GuSTO works without much more detail and that is because I ran out of time to complete the note. The revised note shall include more detail information such as the addition and modification of constraints, the update rule for each algorithm, and the convergence guarantee for each.
 
-  
 ## References
 [1]: Malyuta, D., Reynolds, T. P., Szmuk, M., Lew, T., Bonalli, R., Pavone, M., and Açıkmeşe, B., “Convex Optimization for Trajectory
 Generation: A Tutorial on Generating Dynamically Feasible Trajectories Reliably and Efficiently,” IEEE Control Systems,

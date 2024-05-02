@@ -56,7 +56,7 @@ As for the initial input trajectory, choose inputs based on insight from the phy
 The initial guess for $\bar{p}$ can significantly impact the number of SCP iterations to obtain a solution. There is no ideal rule of thumb for initial guesses for $\bar{p}$, however, the run time of SCP is usually in the order of a few seconds or shorter so the user can experiment with different values and develop a good initialization strategy. SCvx and GuSTO will always converge on a solution but do not guarantee a feasible solution that satisfies (1) so it is important to provide a good guess to reduce time, increase solution optimality, and encourage converging to a feasible solution.
 
 **Approximation / Linearization**
-Most of the convexification of (1) is done through the first-order approximation at the reference trajectory by computing the following jacobian matrices
+Most of the convexification of (1) is done through the first-order approximation at the reference trajectory by computing the following jacobian matrices:
 
 |Equation | #|
 |-----|----|
@@ -75,8 +75,40 @@ Most of the convexification of (1) is done through the first-order approximation
 |$$K_{f} \triangleq \nabla_{p}g_{tc}(\bar{x}(1), \bar{p}),$$| (5m)|
 |$$l_{f} \triangleq g_{tc}(\bar{x}(1), \bar{p}) - H_{f}\bar{x}(1) - K_{f}\bar{p}.$$| (5n)|
 
+and the linearized (1) becomes:
+
+|Equation | #|
+|-----|----|
+|$$\min_{u,p} J(x, u, p),| (6a)|
+|$$s.t. \quad \dot{x}(t) = A(t)x(t) + B(t)u(t) + F(t)p(t) + r(t),$$| (6b)|
+|$$(x(t), p) \in \mathcal{X}(t),$$| (6c)|
+|$$(u(t), p) \in \mathcal{U}(t),$$| (6d)|
+|$$C(t)x(t) + D(t)u(t) + G(t)p + r'(t) \leq 0,$$| (6e)|
+|$$H_{0}x(0) + K_{0}p + l_{0},$$| (6f)|
+|$$H_{f}x(1) + K_{f}p + l_{f} = 0.$$| (6g)|
+
+Notice that the cost is not convexified while everything else is convex in (6). The cost function will be convexified through SCvx and GuSTO algorithm to be discussed. The control trajectory $u(.)$ is an infinite-dimensional vector space of continuous-time functions and needs to be discretized through temporal discretization and direct colocation so it can be solved numerically.
+
+Linearization guarantees that constraints in (6) are convex but it introduces **Artificial Unboundedness** where the subproblem solution must be kept close to the linearization point and sometimes the convex cost can go to negative infinity.
+
+Artificial Unboundedness can be solved by adding the following trust region constraint:
+
+|Equation | #|
+|-----|----|
+|$$\delta x(t) = x(t) - \bar{x}(t),$$
+$$\delta u(t) = u(t) - \bar{u}(t),$$
+$$\delta p = p - \bar{p},$$
+$$\alpha_{x}\parallel \delta x(t) \parallel_{q} + \parallel \delta u(t) \parallel| (7)|
+
+It also introduces **Artificial Infeasibility** where the linearized constraints produce no solution or a feasible solution is outside the trust region so the SCP cannot find a solution because the trust region is too small.
+
+
+
+
+
 
 ## Main Body
+
 
 
   

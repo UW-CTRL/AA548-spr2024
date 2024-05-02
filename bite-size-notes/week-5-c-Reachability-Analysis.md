@@ -212,3 +212,4 @@ Reachability analysis helps engineers and designers determine whether a desired 
 
 ## References
 Stanford ASL, hj Toolbox
+Karen Leung, "Reachability Lecture" week 5

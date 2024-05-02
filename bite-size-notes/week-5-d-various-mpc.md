@@ -14,7 +14,8 @@ Subsequently, it explores variants of MPC such as Nonlinear MPC, Robust MPC, and
 
 ## Overview of MPC
 
-Model Predictive Control (MPC) is a method that solves optimization problems sequentially over a finite time horizon. It has found applications in various fields and has garnered significant interest in recent years.
+Model Predictive Control (MPC) is a method that solves optimization problems sequentially over a finite time horizon. 
+It has found applications in various fields and has gained significant interest in recent years.
 
 Key characteristics of MPC include:
 - Finite horizon makes it computationally easier compared to infinite horizon optimization.

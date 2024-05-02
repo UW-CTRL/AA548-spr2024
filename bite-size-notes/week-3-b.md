@@ -11,6 +11,30 @@ An example in aerospace applications is the planetary landing problem. Here, non
 Past work has been done to show that non-convexity arising from control constraints, state constraints and nonlinear dynamics can be posed as convex via convexification. Below describes a strategy to tackle non-convexity arising from nonlinear dynamics from *"Successive Convexification of Non-Convex Optimal Control Problems and Its Convergence Properties".*
 
 ## Preliminaries
+### Linearization
+Linearization involves determining the linear approximation of a nonlinear function at a specific point. This approximation is derived from the first-order Taylor expansion centered around that point. In the realm of dynamical systems analysis, linearization serves as a technique to evaluate the local stability of an equilibrium point within a system of nonlinear differential equations.
+
+Given a nonlinear system, $\dot{x} = f(x,u)$ we can obtain the linearized dynamics by taking the Jacobian.
+
+$$
+
+A = \frac{Df}{Dx}=\left(\begin{array}{cc} 
+\frac{\partial f_{1}}{\partial x_{1}} & \frac{\partial f_{1}}{\partial x_{2}} & .&.& \frac{\partial f_{1}}{\partial x_{n}}\\\\
+\frac{\partial f_{2}}{\partial x_{1}} & \frac{\partial f_{2}}{\partial x_{2}} & .&.& \frac{\partial f_{2}}{\partial x_{n}}\\
+. & . & . & . & .\\
+. & . & . & . & .\\
+\frac{\partial f_{n}}{\partial x_{1}} & \frac{\partial f_{n}}{\partial x_{2}} & .&.& \frac{\partial f_{n}}{\partial x_{n}}\\
+\end{array}\right)
+, \quad
+B = \frac{Df}{Du}=\left(\begin{array}{cc} 
+\frac{\partial f_{1}}{\partial u_{1}} & \frac{\partial f_{1}}{\partial u_{2}} & .&.& \frac{\partial f_{1}}{\partial u_{m}}\\\\
+\frac{\partial f_{2}}{\partial u_{1}} & \frac{\partial f_{2}}{\partial u_{2}} & .&.& \frac{\partial f_{2}}{\partial u_{m}}\\
+. & . & . & . & .\\
+. & . & . & . & .\\
+\frac{\partial f_{n}}{\partial u_{1}} & \frac{\partial f_{n}}{\partial u_{2}} & .&.& \frac{\partial f_{n}}{\partial u_{m}}\\
+\end{array}\right)
+$$
+
 
 ## Main Body
 This approach to convexify a non-convex problem caused by nonlinear dynamics involves successively linearize the dynamic equations and solve a sequence of convex subproblems continuously until convergence is achieved.
@@ -19,7 +43,7 @@ This approach to convexify a non-convex problem caused by nonlinear dynamics inv
 Assuming control and state constraints as well as the cost function are convex, the following NonConvex Optimal Control Problem (NCOCP) is considered:
 
 *Determine Determine a control function $u^∗ ∈ L_∞[0,T]^m$, and a state trajectory $x^∗ ∈ W_1,∞[0,T]^n$
-, which minimizes*
+, which minimizes the cost function*
 
 $C(x,u) := ϕ(x(T),T) +\int_0^TL(x(t),u(t),t) dt,$
 
@@ -50,7 +74,7 @@ First order Taylor expansion about that solution will be
 
 $\dot d(t) = A(t)d(t) + B(t)w(t) + D(t) + H.O.T...$
 
-$d(t)$ and $w(t)$ are the new states and control respectively. The linearization gives convexity but introduces *artificial infeasibility* and *approximation error*. To address these respectively, *virtual control* and *trust regions* are introduced in the convexification scheme.
+where $d(t)$ and $w(t)$ are the new states and control respectively. The linearization gives convexity but introduces *artificial infeasibility* and *approximation error*. To address these respectively, *virtual control* and *trust regions* are introduced in the convexification scheme.
 
 #### Virtual Control
 An infeasible problem can arise at various points in the solution space using linearization, even if the nonlinear solution is feasible. This infeasibility is said to be artificial and is undesireable as it obstructs the iteration process, preventing convergence. To prevent this, an additional control input, $v(t)$ called *virtual control* is introduced to the linear dynamics:
@@ -79,7 +103,7 @@ thus the new state will be restricted within the trust region as well due to the
 Considering the *virtual control* and *trust regions*, a Convex Optimal Control Problem is solved at $k^{th}$ succession:
 
 *Determine $w^∗ ∈ L_∞[0,T]^m$, and $d^∗ ∈ W_1,∞[0,T]^n$
-, which minimizes*
+, which minimizes the cost function*
  
 $L(d,w) := C(x,u) + \lambda \gamma (Ev)$,
 

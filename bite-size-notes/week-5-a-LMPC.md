@@ -5,6 +5,9 @@ Model Predictive Control (MPC) is a control strategy that uses an optimization a
 
 ## Theory
 Linear MPC uses the linear model of the system to predict future outputs over a certain prediction horizon, based on a sequence of future inputs. The controller optimizes these inputs to achieve the best system performance according to a defined cost function. The cost function typically includes terms for error minimization and control effort. After computing the optimal control inputs, only the first control input is applied. The process repeats at the next time step, incorporating new measurements.
+<p align="center">
+<img src="figs/mpc.png" width="600">
+</p>
 
 Here is a step-by-step breakdown of the MPC algorithm:
 
@@ -53,7 +56,7 @@ Solve the optimization problem to find the optimal control sequence $u^*|k = [u(
 At the next time step $k+1$, update the system state $x_{k+1}$, shift the prediction horizon forward, and repeat the process. This shifting or "receding" of the horizon after each time step gives the control strategy its name.
 
 ## Example
-
+### 1. From scratch:
 Given the system dynamics in a linear state-space representation:
 ```math
 x_{k+1} = A x_k + B y_k,
@@ -116,7 +119,7 @@ def mpc_constraints(U, x0, N, A, B, u_min, u_max, x_min, x_max):
         constraints.append({'type': 'ineq', 'fun': lambda x=x: x - x_min})
     return constraints
 ```
-The main controling loop is:
+The main controlling loop is:
 ```python
 x = np.copy(x0)
 states = [x]
@@ -138,5 +141,103 @@ for step in range(T):
     x = A @ x + B @ optimal_u
     states.append(x)
 ```
+<p align="center">
+<img src="figs/mpcresult.png" width="500">
+</p>
 
+### 2. Using ['do-mpc' python library](https://www.do-mpc.com/en/v4.1.0/index.html):
 
+1. First, install the do-mpc toolbox if you haven't already:
+```bash
+pip install do-mpc
+```
+
+2. Initialize do-mpc model and define model variables:
+```python
+# Initialize do-mpc model
+model_type = 'discrete'
+model = do_mpc.model.Model(model_type)
+
+# Define model variables
+x1 = model.set_variable(var_type='_x', var_name='x1', shape=(1, 1))
+x2 = model.set_variable(var_type='_x', var_name='x2', shape=(1, 1))
+u = model.set_variable(var_type='_u', var_name='u', shape=(1, 1))
+```
+
+3. Define system dynamics:
+```python
+x_next = A @ vertcat(x1, x2) + B @ u
+model.set_rhs('x1', x_next[0])
+model.set_rhs('x2', x_next[1])
+
+model.setup()
+```
+
+4. Setup MPC:
+```python
+# Initialize MPC
+mpc = do_mpc.controller.MPC(model)
+setup_mpc = {
+    'n_horizon': N,
+    't_step': 1.0,
+    'state_discretization': 'discrete',
+    'store_full_solution': True
+}
+mpc.set_param(**setup_mpc)
+
+# Define the objective function
+mterm = (vertcat(x1, x2) - x_ref).T @ Q @ (vertcat(x1, x2) - x_ref)
+lterm = mterm + u.T @ R @ u
+mpc.set_objective(mterm=mterm, lterm=lterm)
+mpc.set_rterm(u=1e-2)  # Penalty on control effort
+
+# Set constraints
+mpc.bounds['lower', '_u', 'u'] = u_min
+mpc.bounds['upper', '_u', 'u'] = u_max
+
+mpc.bounds['lower', '_x', 'x1'] = x_min
+mpc.bounds['upper', '_x', 'x1'] = x_max
+mpc.bounds['lower', '_x', 'x2'] = x_min
+mpc.bounds['upper', '_x', 'x2'] = x_max
+
+# SET UP
+mpc.setup()
+```
+
+5. Setup Simulation:
+```python
+# Initialize simulator
+simulator = do_mpc.simulator.Simulator(model)
+simulator.set_param(t_step=1.0)
+simulator.setup()
+
+# Set initial conditions
+mpc.x0 = x0
+simulator.x0 = x0
+mpc.set_initial_guess()
+
+# Simulation loop
+states = [x0.reshape(-1)]  # Ensure the state has the correct shape
+for _ in range(T):
+    u0 = mpc.make_step(states[-1].reshape(-1, 1))  # Ensure the input has the correct shape
+    x_next = simulator.make_step(u0)
+    states.append(np.array(x_next).reshape(-1))  # Ensure the state has the correct shape
+```
+6. Plot the results:
+```python
+# Plotting the results
+states = np.array(states)
+time_steps = np.arange(states.shape[0])
+
+plt.figure(figsize=(10, 6))
+plt.plot(time_steps, states[:, 0], label='State 1 (x1)')
+plt.plot(time_steps, states[:, 1], label='State 2 (x2)')
+plt.axhline(y=x_ref[0], color='r', linestyle='--', label='Reference (x1)')
+plt.axhline(y=x_ref[1], color='g', linestyle='--', label='Reference (x2)')
+plt.xlabel('Time Steps')
+plt.ylabel('State Values')
+plt.title('State Trajectories Using do-mpc')
+plt.legend()
+plt.grid(True)
+plt.show()
+```

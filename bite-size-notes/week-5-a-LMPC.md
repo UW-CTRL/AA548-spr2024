@@ -56,6 +56,17 @@ Solve the optimization problem to find the optimal control sequence $u^*|k = [u(
 At the next time step $k+1$, update the system state $x_{k+1}$, shift the prediction horizon forward, and repeat the process. This shifting or "receding" of the horizon after each time step gives the control strategy its name.
 
 ## Example
+Consider a [mass-damper-spring system](https://ctms.engin.umich.edu/CTMS/index.php?example=Introduction&section=SystemModeling) consisting of a mass ($m$), a damper with a coefficient of $c$, and a spring with constant $k$.
+
+The system can be represented in state-space form by defining the state vector:
+```math
+\mathbf{x} = \begin{bmatrix}
+x(t) \\ \dot{x}(t)
+\end{bmatrix} = \begin{bmatrix}
+\text{position of the mass} \\
+\text{velocity of the mass}
+\end{bmatrix}
+```
 ### 1. From scratch:
 Given the system dynamics in a linear state-space representation:
 ```math
@@ -350,3 +361,6 @@ legend('x1', 'x2', 'Reference x1', 'Reference x2');
 title('State Trajectories');
 grid on;
 ```
+<p align="center">
+<img src="figs/mpcresult3.png" width="500">
+</p>

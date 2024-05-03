@@ -72,6 +72,14 @@ A = \begin{bmatrix}
 \end{bmatrix}, R=0.01
 ```
 and the total time $T=60$, the horiozn time $N=15$, $x_{\text{ref}} = [1, -0.5]^T$, $x_o = [0, 0]^T$, $-5 \leq u \leq 5$, and $-15 \leq x \leq 15$.
+
+1. First, import the libraries that you'll need:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import minimize
+```
+2. Define the system and MPC parameters:
 ```python
 # System parameters
 A = np.array([[1.1, 0], [0, 0.9]])
@@ -92,7 +100,7 @@ x_ref = np.array([1, -0.5])
 x0 = np.array([0, 0])
 ```
 
-The cost function and constraints in MPC:
+3. Define the cost function and constraints in MPC:
 ```python
 def mpc_cost(U, x0, N, A, B, Q, R, x_ref):
     x = np.copy(x0)
@@ -119,7 +127,7 @@ def mpc_constraints(U, x0, N, A, B, u_min, u_max, x_min, x_max):
         constraints.append({'type': 'ineq', 'fun': lambda x=x: x - x_min})
     return constraints
 ```
-The main controlling loop is:
+4. Define the main controlling loop:
 ```python
 x = np.copy(x0)
 states = [x]
@@ -141,6 +149,27 @@ for step in range(T):
     x = A @ x + B @ optimal_u
     states.append(x)
 ```
+5. Plot the results:
+```python
+# Plotting the state trajectories
+
+states = np.array(states)
+time_steps = np.arange(states.shape[0])
+
+plt.figure(figsize=(10, 6))
+plt.plot(time_steps, states[:, 0], label='State 1 (x1)')
+plt.plot(time_steps, states[:, 1], label='State 2 (x2)')
+plt.axhline(y=x_ref[0], color='r', linestyle='--', label='Reference (x1)')
+plt.axhline(y=x_ref[1], color='g', linestyle='--', label='Reference (x2)')
+plt.scatter(control_indices, states[control_indices, 0], color='blue', marker='o')
+plt.scatter(control_indices, states[control_indices, 1], color='orange', marker='o')
+plt.xlabel('Time Steps')
+plt.ylabel('State Values')
+plt.title('Enhanced State Trajectories Over Time T')
+plt.legend()
+plt.grid(True
+```
+
 <p align="center">
 <img src="figs/mpcresult.png" width="500">
 </p>
@@ -240,4 +269,84 @@ plt.title('State Trajectories Using do-mpc')
 plt.legend()
 plt.grid(True)
 plt.show()
+```
+<p align="center">
+<img src="figs/mpcresult2.png" width="500">
+</p>
+
+### 3. [MPC controller toolbox in MATLAB](https://www.mathworks.com/products/model-predictive-control.html):
+MATLAB also has a powerful toolbox for Model Predictive Control (MPC) that provides a user-friendly way to implement and simulate MPC controllers. The toolbox includes predefined functions and Simulink blocks, making designing and tuning MPC controllers convenient.
+
+1. Define system and MPC parameters:
+```matlab
+% System Matrices
+A = [1.1 0; 0 0.9];
+B = [0.1; 0.05];
+C = eye(2);
+D = zeros(2, 1);
+
+% State-space system definition
+sys = ss(A, B, C, D, 1);  % Sampling time = 1
+
+% MPC parameters
+predictionHorizon = 15;  % Prediction horizon
+controlHorizon = 3;  % Control horizon
+
+% Constraints
+u_min = -5;
+u_max = 5;
+x_min = -15;
+x_max = 15;
+
+% Reference state
+x_ref = [1; -0.5];
+```
+2. MPC Controller Setup:
+```matlab
+% Create the MPC controller
+mpcController = mpc(sys, 1);  % Sampling time = 1
+
+% Set horizons
+mpcController.PredictionHorizon = predictionHorizon;
+mpcController.ControlHorizon = controlHorizon;
+
+% Set weights for the cost function
+mpcController.Weights.OutputVariables = [1 1];  % Weight for each state
+mpcController.Weights.ManipulatedVariablesRate = 0.1;  % Weight for control effort
+
+% Set input and output constraints
+mpcController.MV.Min = u_min;
+mpcController.MV.Max = u_max;
+mpcController.OV(1).Min = x_min;
+mpcController.OV(1).Max = x_max;
+mpcController.OV(2).Min = x_min;
+mpcController.OV(2).Max = x_max;
+```
+
+3. Simulation step:
+```matlab
+% Simulation parameters
+T = 60;  % Total simulation time
+x0 = [0; 0];  % Initial state
+
+% Reference signal
+r = repmat(x_ref', T, 1);
+
+% Simulate the system with the MPC controller
+simOptions = mpcsimopt();
+simOptions.PlantInitialState = x0;
+[y, t, u] = sim(mpcController, T, r, simOptions);
+```
+4. Plot the results:
+```matlab
+figure;
+
+plot(t, y);
+hold on;
+plot(t, r, '--');
+xlabel('Time (s)');
+ylabel('State Values');
+legend('x1', 'x2', 'Reference x1', 'Reference x2');
+title('State Trajectories');
+grid on;
 ```

@@ -56,33 +56,61 @@ Solve the optimization problem to find the optimal control sequence $u^*|k = [u(
 At the next time step $k+1$, update the system state $x_{k+1}$, shift the prediction horizon forward, and repeat the process. This shifting or "receding" of the horizon after each time step gives the control strategy its name.
 
 ## Example
-Consider a [mass-damper-spring system](https://ctms.engin.umich.edu/CTMS/index.php?example=Introduction&section=SystemModeling) consisting of a mass ($m$), a damper with a coefficient of $c$, and a spring with constant $k$.
+Consider a [aircraft pitch system](https://ctms.engin.umich.edu/CTMS/index.php?example=AircraftPitch&section=SystemModeling).
 
-The system can be represented in state-space form by defining the state vector:
+### System Description
+- **State Vector ($\mathbf{x}$):** 
+  The state vector $\mathbf{x}$ represents the state of the system:
 ```math
-\mathbf{x} = \begin{bmatrix}
-x(t) \\ \dot{x}(t)
-\end{bmatrix} = \begin{bmatrix}
-\text{position of the mass} \\
-\text{velocity of the mass}
-\end{bmatrix}
+  \mathbf{x} = \begin{bmatrix}
+  \alpha \\
+  q \\
+  \theta
+  \end{bmatrix}
 ```
-### 1. From scratch:
-Given the system dynamics in a linear state-space representation:
+  where:
+  - $\alpha$: Angle of attack
+  - $q$: Pitch rate
+  - $\theta$: Pitch angle
+  - **Input ($u$)**: 
+  The control input ($u$) is represented by $\delta$, which affects the state dynamics.
+
+#### System Dynamics
+The system dynamics are described by the state-space equations:
 ```math
-x_{k+1} = A x_k + B y_k,
+\mathbf{\dot{x}} = A \mathbf{x} + B u
 ```
-where 
+where:
+
+##### System Matrices
+- **$A$ Matrix**:
 ```math
 A = \begin{bmatrix}
-1.1 & 0\\ 0 & 0.9
-\end{bmatrix}, \quad B = \begin{bmatrix}
-0.1 \\ 0.05
-\end{bmatrix}, Q = \begin{bmatrix}
-1 & 0\\ 0 & 1
-\end{bmatrix}, R=0.01
+-0.313 & 56.7 & 0 \\
+-0.0139 & -0.426 & 0 \\
+0 & 56.7 & 0
+\end{bmatrix}
 ```
-and the total time $T=60$, the horiozn time $N=15$, $x_{\text{ref}} = [1, -0.5]^T$, $x_o = [0, 0]^T$, $-5 \leq u \leq 5$, and $-15 \leq x \leq 15$.
+
+- **$B$ Matrix**:
+```math
+B = \begin{bmatrix}
+0.232 \\
+0.0203 \\
+0
+\end{bmatrix}
+```
+
+#### Constraints
+- **Control Input Constraints ($u$)**:
+  
+  The input $\delta$ has the following constraints: $-1 \leq \delta \leq 1$
+
+
+- **State Constraints**:
+  
+  The states $\alpha$, $q$, and $\theta$ have the following constraints: $-1 \leq \alpha, q, \theta \leq 1$
+### 1. From scratch:
 
 1. First, import the libraries that you'll need:
 ```python
@@ -92,34 +120,43 @@ from scipy.optimize import minimize
 ```
 2. Define the system and MPC parameters:
 ```python
-# System parameters
-A = np.array([[1.1, 0], [0, 0.9]])
-B = np.array([[0.1], [0.05]])
-Q = np.eye(2)
-R = np.array([[0.01]])
+# State Space
+A = np.array([[-0.313,56.7, 0], [-0.0139, -0.426, 0], [0, 56.7, 0]])
+B = np.array([[0.232], [0.0203], [0]])
+
+# Weight Matrices
+Q = 40*np.eye(3)
+Q_f = 100*np.eye(3)
+R = np.array([[1]])
 
 # MPC parameters
 N = 15 # Prediction horizon
-T = 60  # Total simulation time
-u_min, u_max = -5, 5 # Input constraints 
-x_min, x_max = -15, 15 # State constraints
+T = 30 # Total simulation time
+
+# Constraints on inputs and states
+u_min, u_max = -1, 1
+x_min, x_max = -1, 1
 
 # Reference state
-x_ref = np.array([1, -0.5])
+x_ref = np.array([0.5, 0, 0.5])
 
 # Initial state
-x0 = np.array([0, 0])
+x0 = np.array([0, 0.1, 0])
 ```
 
 3. Define the cost function and constraints in MPC:
 ```python
+# Cost function
 def mpc_cost(U, x0, N, A, B, Q, R, x_ref):
     x = np.copy(x0)
     cost = 0
     for i in range(N):
         u = U[i]
         u = np.array([u])
-        cost += (x - x_ref).T @ Q @ (x - x_ref) + u.T @ R @ u # Cost function
+        if i == N - 1:
+            cost += (x - x_ref).T @ Q_f @ (x - x_ref) + u.T @ R @ u
+        else:
+            cost += (x - x_ref).T @ Q @ (x - x_ref) + u.T @ R @ u
         x = A @ x + B @ u
     return cost
 
@@ -130,8 +167,7 @@ def mpc_constraints(U, x0, N, A, B, u_min, u_max, x_min, x_max):
     for i in range(N):
         u = U[i]
         u = np.array([u])
-        x = A @ x + B @ u # System dynamics as equality constraints
-        # Inequality constraints in inputs and states
+        x = A @ x + B @ u
         constraints.append({'type': 'ineq', 'fun': lambda u=u: u_max - u})
         constraints.append({'type': 'ineq', 'fun': lambda u=u: u - u_min})
         constraints.append({'type': 'ineq', 'fun': lambda x=x: x_max - x})
@@ -154,7 +190,7 @@ for step in range(T):
     optimal_u = res.x[0]  # Only take the first control input
     optimal_controls.append(optimal_u)
     control_indices.append(step)
-    
+
     # Apply the first control input and update the state
     optimal_u = np.array([optimal_u])
     x = A @ x + B @ optimal_u
@@ -162,23 +198,34 @@ for step in range(T):
 ```
 5. Plot the results:
 ```python
-# Plotting the state trajectories
-
+# Plotting
 states = np.array(states)
 time_steps = np.arange(states.shape[0])
 
-plt.figure(figsize=(10, 6))
-plt.plot(time_steps, states[:, 0], label='State 1 (x1)')
-plt.plot(time_steps, states[:, 1], label='State 2 (x2)')
-plt.axhline(y=x_ref[0], color='r', linestyle='--', label='Reference (x1)')
-plt.axhline(y=x_ref[1], color='g', linestyle='--', label='Reference (x2)')
-plt.scatter(control_indices, states[control_indices, 0], color='blue', marker='o')
-plt.scatter(control_indices, states[control_indices, 1], color='orange', marker='o')
-plt.xlabel('Time Steps')
-plt.ylabel('State Values')
-plt.title('Enhanced State Trajectories Over Time T')
-plt.legend()
-plt.grid(True
+fig, axs = plt.subplots(3, 1, figsize=(10, 12))
+axs[0].plot(time_steps, states[:, 0], color='r')
+axs[0].axhline(y=x_ref[0], color='r', linestyle='--')
+axs[0].set_xlabel('Time Steps')
+axs[0].set_ylabel('State 1 (x1)')
+axs[0].set_title('MPC - State 1 Trajectory')
+axs[0].grid(True)
+
+axs[1].plot(time_steps, states[:, 1], color='g')
+axs[1].axhline(y=x_ref[1], color='g', linestyle='--')
+axs[1].set_xlabel('Time Steps')
+axs[1].set_ylabel('State 2 (x2)')
+axs[1].set_title('MPC - State 2 Trajectory')
+axs[1].grid(True)
+
+axs[2].plot(time_steps, states[:, 2], color='b')
+axs[2].axhline(y=x_ref[2], color='b', linestyle='--')
+axs[2].set_xlabel('Time Steps')
+axs[2].set_ylabel('State 3 (x3)')
+axs[2].set_title('MPC - State 3 Trajectory')
+axs[2].grid(True)
+
+plt.tight_layout()
+plt.show()
 ```
 
 <p align="center">
@@ -191,6 +238,13 @@ plt.grid(True
 ```bash
 pip install do-mpc
 ```
+and import the libraries that you're gonna need:
+```python
+import do_mpc
+import numpy as np
+import matplotlib.pyplot as plt
+from casadi import vertcat, DM
+```
 
 2. Initialize do-mpc model and define model variables:
 ```python
@@ -201,14 +255,17 @@ model = do_mpc.model.Model(model_type)
 # Define model variables
 x1 = model.set_variable(var_type='_x', var_name='x1', shape=(1, 1))
 x2 = model.set_variable(var_type='_x', var_name='x2', shape=(1, 1))
+x3 = model.set_variable(var_type='_x', var_name='x3', shape=(1, 1))
 u = model.set_variable(var_type='_u', var_name='u', shape=(1, 1))
 ```
 
 3. Define system dynamics:
 ```python
-x_next = A @ vertcat(x1, x2) + B @ u
+# Define system dynamics
+x_next = A @ vertcat(x1, x2, x3) + B @ u
 model.set_rhs('x1', x_next[0])
 model.set_rhs('x2', x_next[1])
+model.set_rhs('x3', x_next[2])
 
 model.setup()
 ```
@@ -225,10 +282,10 @@ setup_mpc = {
 }
 mpc.set_param(**setup_mpc)
 
-# Define the objective function
-mterm = (vertcat(x1, x2) - x_ref).T @ Q @ (vertcat(x1, x2) - x_ref)
-lterm = mterm + u.T @ R @ u
-mpc.set_objective(mterm=mterm, lterm=lterm)
+# Define objective function
+x_vec = vertcat(x1, x2, x3)
+lterm = (x_vec - x_ref).T @ Q @ (x_vec - x_ref) + u.T @ R @ u
+mpc.set_objective(mterm=(x_vec - x_ref).T @ Q_f @ (x_vec - x_ref), lterm=lterm)
 mpc.set_rterm(u=1e-2)  # Penalty on control effort
 
 # Set constraints
@@ -239,8 +296,9 @@ mpc.bounds['lower', '_x', 'x1'] = x_min
 mpc.bounds['upper', '_x', 'x1'] = x_max
 mpc.bounds['lower', '_x', 'x2'] = x_min
 mpc.bounds['upper', '_x', 'x2'] = x_max
+mpc.bounds['lower', '_x', 'x3'] = x_min
+mpc.bounds['upper', '_x', 'x3'] = x_max
 
-# SET UP
 mpc.setup()
 ```
 
@@ -265,20 +323,33 @@ for _ in range(T):
 ```
 6. Plot the results:
 ```python
-# Plotting the results
+# Plotting
 states = np.array(states)
 time_steps = np.arange(states.shape[0])
 
-plt.figure(figsize=(10, 6))
-plt.plot(time_steps, states[:, 0], label='State 1 (x1)')
-plt.plot(time_steps, states[:, 1], label='State 2 (x2)')
-plt.axhline(y=x_ref[0], color='r', linestyle='--', label='Reference (x1)')
-plt.axhline(y=x_ref[1], color='g', linestyle='--', label='Reference (x2)')
-plt.xlabel('Time Steps')
-plt.ylabel('State Values')
-plt.title('State Trajectories Using do-mpc')
-plt.legend()
-plt.grid(True)
+fig, axs = plt.subplots(3, 1, figsize=(10, 12))
+axs[0].plot(time_steps, states[:, 0], color='r')
+axs[0].axhline(y=x_ref[0], color='r', linestyle='--')
+axs[0].set_xlabel('Time Steps')
+axs[0].set_ylabel('State 1 (x1)')
+axs[0].set_title('MPC - State 1 Trajectory')
+axs[0].grid(True)
+
+axs[1].plot(time_steps, states[:, 1], color='g')
+axs[1].axhline(y=x_ref[1], color='g', linestyle='--')
+axs[1].set_xlabel('Time Steps')
+axs[1].set_ylabel('State 2 (x2)')
+axs[1].set_title('MPC - State 2 Trajectory')
+axs[1].grid(True)
+
+axs[2].plot(time_steps, states[:, 2], color='b')
+axs[2].axhline(y=x_ref[2], color='b', linestyle='--')
+axs[2].set_xlabel('Time Steps')
+axs[2].set_ylabel('State 3 (x3)')
+axs[2].set_title('MPC - State 3 Trajectory')
+axs[2].grid(True)
+
+plt.tight_layout()
 plt.show()
 ```
 <p align="center">
@@ -291,10 +362,10 @@ MATLAB also has a powerful toolbox for Model Predictive Control (MPC) that provi
 1. Define system and MPC parameters:
 ```matlab
 % System Matrices
-A = [1.1 0; 0 0.9];
-B = [0.1; 0.05];
-C = eye(2);
-D = zeros(2, 1);
+A = [-0.313 56.7 0; -0.0139 -0.426 0; 0 56.7 0];
+B = [0.232; 0.0203; 0];
+C = eye(3);
+D = zeros(3, 1);
 
 % State-space system definition
 sys = ss(A, B, C, D, 1);  % Sampling time = 1
@@ -304,13 +375,14 @@ predictionHorizon = 15;  % Prediction horizon
 controlHorizon = 3;  % Control horizon
 
 % Constraints
-u_min = -5;
-u_max = 5;
-x_min = -15;
-x_max = 15;
+% Constraints
+u_min = -1;
+u_max = 1;
+x_min = -1;
+x_max = 1;
 
 % Reference state
-x_ref = [1; -0.5];
+x_ref = [0.5; 0; 0.5];
 ```
 2. MPC Controller Setup:
 ```matlab
@@ -322,8 +394,8 @@ mpcController.PredictionHorizon = predictionHorizon;
 mpcController.ControlHorizon = controlHorizon;
 
 % Set weights for the cost function
-mpcController.Weights.OutputVariables = [1 1];  % Weight for each state
-mpcController.Weights.ManipulatedVariablesRate = 0.1;  % Weight for control effort
+mpcController.Weights.OutputVariables = [40 40 40];  % Weight for each state
+mpcController.Weights.ManipulatedVariablesRate = 1;  % Weight for control effort
 
 % Set input and output constraints
 mpcController.MV.Min = u_min;
@@ -332,13 +404,15 @@ mpcController.OV(1).Min = x_min;
 mpcController.OV(1).Max = x_max;
 mpcController.OV(2).Min = x_min;
 mpcController.OV(2).Max = x_max;
+mpcController.OV(3).Min = x_min;
+mpcController.OV(3).Max = x_max;
 ```
 
 3. Simulation step:
 ```matlab
 % Simulation parameters
-T = 60;  % Total simulation time
-x0 = [0; 0];  % Initial state
+T = 30;  % Total simulation time
+x0 = [0; 0.1; 0];  % Initial state
 
 % Reference signal
 r = repmat(x_ref', T, 1);
@@ -350,15 +424,31 @@ simOptions.PlantInitialState = x0;
 ```
 4. Plot the results:
 ```matlab
+% Plotting the results in subplots
 figure;
 
-plot(t, y);
-hold on;
-plot(t, r, '--');
+subplot(3,1,1);
+plot(t, y(:,1), 'r', t, r(:,1), 'r--');
 xlabel('Time (s)');
-ylabel('State Values');
-legend('x1', 'x2', 'Reference x1', 'Reference x2');
-title('State Trajectories');
+ylabel('State 1 (x1)');
+legend('x1', 'Reference x1');
+title('MPC - State 1 Trajectory');
+grid on;
+
+subplot(3,1,2);
+plot(t, y(:,2), 'g', t, r(:,2), 'g--');
+xlabel('Time (s)');
+ylabel('State 2 (x2)');
+legend('x2', 'Reference x2');
+title('MPC - State 2 Trajectory');
+grid on;
+
+subplot(3,1,3);
+plot(t, y(:,3), 'b', t, r(:,3), 'b--');
+xlabel('Time (s)');
+ylabel('State 3 (x3)');
+legend('x3', 'Reference x3');
+title('MPC - State 3 Trajectory');
 grid on;
 ```
 <p align="center">

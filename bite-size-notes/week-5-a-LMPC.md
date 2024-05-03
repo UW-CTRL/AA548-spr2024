@@ -54,4 +54,89 @@ At the next time step $k+1$, update the system state $x_{k+1}$, shift the predic
 
 ## Example
 
+Given the system dynamics in a linear state-space representation:
+```math
+x_{k+1} = A x_k + B y_k,
+```
+where 
+```math
+A = \begin{bmatrix}
+1.1 & 0\\ 0 & 0.9
+\end{bmatrix}, \quad B = \begin{bmatrix}
+0.1 \\ 0.05
+\end{bmatrix}, Q = \begin{bmatrix}
+1 & 0\\ 0 & 1
+\end{bmatrix}, R=0.01
+```
+and the total time $T=60$, the horiozn time $N=15$, $x_{\text{ref}} = [1, -0.5]^T$, $x_o = [0, 0]^T$, $-5 \leq u \leq 5$, and $-15 \leq x \leq 15$.
+```python
+# System parameters
+A = np.array([[1.1, 0], [0, 0.9]])
+B = np.array([[0.1], [0.05]])
+Q = np.eye(2)
+R = np.array([[0.01]])
+
+# MPC parameters
+N = 15 # Prediction horizon
+T = 60  # Total simulation time
+u_min, u_max = -5, 5 # Input constraints 
+x_min, x_max = -15, 15 # State constraints
+
+# Reference state
+x_ref = np.array([1, -0.5])
+
+# Initial state
+x0 = np.array([0, 0])
+```
+
+The cost function and constraints in MPC:
+```python
+def mpc_cost(U, x0, N, A, B, Q, R, x_ref):
+    x = np.copy(x0)
+    cost = 0
+    for i in range(N):
+        u = U[i]
+        u = np.array([u])
+        cost += (x - x_ref).T @ Q @ (x - x_ref) + u.T @ R @ u # Cost function
+        x = A @ x + B @ u
+    return cost
+
+# Constraints function
+def mpc_constraints(U, x0, N, A, B, u_min, u_max, x_min, x_max):
+    x = np.copy(x0)
+    constraints = []
+    for i in range(N):
+        u = U[i]
+        u = np.array([u])
+        x = A @ x + B @ u # System dynamics as equality constraints
+        # Inequality constraints in inputs and states
+        constraints.append({'type': 'ineq', 'fun': lambda u=u: u_max - u})
+        constraints.append({'type': 'ineq', 'fun': lambda u=u: u - u_min})
+        constraints.append({'type': 'ineq', 'fun': lambda x=x: x_max - x})
+        constraints.append({'type': 'ineq', 'fun': lambda x=x: x - x_min})
+    return constraints
+```
+The main controling loop is:
+```python
+x = np.copy(x0)
+states = [x]
+optimal_controls = []
+control_indices = []
+
+# Simulate the system with MPC over time T
+for step in range(T):
+    res = minimize(mpc_cost, np.zeros(N), args=(x, N, A, B, Q, R, x_ref),
+                   constraints=mpc_constraints(np.zeros(N), x, N, A, B, u_min, u_max, x_min, x_max),
+                   method='SLSQP')
+
+    optimal_u = res.x[0]  # Only take the first control input
+    optimal_controls.append(optimal_u)
+    control_indices.append(step)
+    
+    # Apply the first control input and update the state
+    optimal_u = np.array([optimal_u])
+    x = A @ x + B @ optimal_u
+    states.append(x)
+```
+
 

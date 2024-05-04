@@ -33,12 +33,15 @@ Challenges of MPC include:
 Consider the following dynamical system:
 
 $$
+\begin{aligned}
 x_{k+1} = Ax_k + Bu_k + Dw_k\\
 y_k = Cx_k\\
 x_k\in R^n, u_k\in R^m, w_k \in R^n.
 $$
 By repeatedly applying this equation, we can calculate the state at $k$ steps ahead. Given an initial state of $x_0$, $u_0$, and $w_0$,
+\end{aligned}
 $$
+
 \begin{aligned}
 x_{1} &= Ax_0 + Bu_0 + Dw_0\\
 x_{2} &= Ax_1 + Bu_1 + Dw_1\\
@@ -176,8 +179,8 @@ Stochastic MPC can analytically find solutions in special cases. We make the fol
 
 $$
 \begin{aligned}
-x_0, w_0, \ldots, w_{T-1}\ \mathrm{are\ independent}\\
-\mathbb{E}(x_0) = 0,\ \mathbb{E}(w_k) = 0,\ \mathbb{E}(x_0x_0^T) = \Sigma,\ \mathbb{E}(w_kw_k^T) = W_k 
+&x_0, w_0, \ldots, w_{T-1}\ \mathrm{are\ independent}\\
+&\mathbb{E}(x_0) = 0,\ \mathbb{E}(w_k) = 0,\ \mathbb{E}(x_0x_0^T) = \Sigma,\ \mathbb{E}(w_kw_k^T) = W_k 
 \end{aligned}
 $$
 

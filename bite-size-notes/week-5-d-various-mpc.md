@@ -37,11 +37,12 @@ $$
 x_{k+1} = Ax_k + Bu_k + Dw_k\\
 y_k = Cx_k\\
 x_k\in R^n, u_k\in R^m, w_k \in R^n.
-$$
-By repeatedly applying this equation, we can calculate the state at $k$ steps ahead. Given an initial state of $x_0$, $u_0$, and $w_0$,
 \end{aligned}
 $$
 
+By repeatedly applying this equation, we can calculate the state at $k$ steps ahead. Given an initial state of $x_0$, $u_0$, and $w_0$,
+
+$$
 \begin{aligned}
 x_{1} &= Ax_0 + Bu_0 + Dw_0\\
 x_{2} &= Ax_1 + Bu_1 + Dw_1\\

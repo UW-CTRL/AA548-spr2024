@@ -175,8 +175,10 @@ Since the variable is a function $\phi_k$, this problem is an infinite-dimension
 Stochastic MPC can analytically find solutions in special cases. We make the following assumptions:
 
 $$
+\begin{aligned}
 x_0, w_0, \ldots, w_{T-1}\ \mathrm{are\ independent}\\
 \mathbb{E}(x_0) = 0,\ \mathbb{E}(w_k) = 0,\ \mathbb{E}(x_0x_0^T) = \Sigma,\ \mathbb{E}(w_kw_k^T) = W_k 
+\end{aligned}
 $$
 
 And suppose the objective function is as follows:

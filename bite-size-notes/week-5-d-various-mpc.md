@@ -54,13 +54,37 @@ x_{2} &= Ax_1 + Bu_1 + Dw_1\\
 \left[ 
     \begin{array}{c} u_0 \\
      u_1\end{array} 
-\right] + \left[ \begin{array}{cc} A & D\end{array} \right] \left[ \begin{array}{c} w_0 \\ w_1\end{array} \right]\\
+\right] + 
+\left[ \begin{array}{cc} A & D\end{array} \right]
+\left[ 
+    \begin{array}{c} w_0 \\
+     w_1\end{array} 
+\right]\\
 x_{3} &= Ax_3 + Bu_3 + Dw_3\\
 &=A(A^2x_0 + ABu_0 + Aw_0 + Bu_1 + Dw_1) + Bu_2 + Dw_2\\
-&= A^3x_0 + \left[ \begin{array}{ccc} A^2B&AB & B\end{array} \right] \left[ \begin{array}{c} u_0 \\ u_1\\u_2\end{array} \right] + \left[ \begin{array}{cc} A^2D & AD & D\end{array} \right] \left[ \begin{array}{c} w_0 \\ w_1\\w_2\end{array} \right]\\
+&= A^3x_0 + 
+\left[ \begin{array}{ccc} A^2B&AB & B\end{array} \right]
+\left[ \begin{array}{c} u_0 \\
+ u_1\\ 
+ u_2 \end{array} 
+\right] + 
+\left[ \begin{array}{cc} A^2D & AD & D\end{array} \right] 
+\left[ \begin{array}{c} w_0 \\
+ w_1\\
+ w_2 \end{array} \right]\\
 \vdots\\
 x_{k} &= Ax_{k-1} + Bu_{k-1} + Dw_{k-1}\\
-&= A^nx_0 + \left[ \begin{array}{cccc} A^{n-1}B&A^{n-2}B & \cdots& B\end{array} \right] \left[ \begin{array}{c} u_0 \\ u_1\\ \vdots\\u_{n-1}\end{array} \right] + \left[ \begin{array}{cc} A^{n-1}D & A^{n-2}D & \cdots & D\end{array} \right] \left[ \begin{array}{c} w_0 \\ w_1\\ \vdots \\w_{n-1}\end{array} \right]\
+&= A^nx_0 + 
+\left[ \begin{array}{cccc} A^{n-1}B&A^{n-2}B & \cdots& B\end{array} \right] 
+\left[ \begin{array}{c} u_0 \\
+ u_1\\
+\vdots\\
+u_{n-1}\end{array} \right] + 
+\left[ \begin{array}{cc} A^{n-1}D & A^{n-2}D & \cdots & D\end{array} \right] 
+\left[ \begin{array}{c} w_0 \\
+ w_1\\
+\vdots \\
+w_{n-1}\end{array} \right]
 \end{aligned}
 $$
 
@@ -68,8 +92,14 @@ These can be summarized into the following matrix equation:
 
 $$
 \begin{aligned}
-X = \left[ \begin{array}{c} x_1 \\ x_2\\ \vdots \\ x_n\end{array} \right]
-&= \left[ \begin{array}{c} A \\ A^2\\ \vdots \\ A^n\end{array} \right]x_0
+X = \left[ \begin{array}{c} x_1 \\ 
+x_2\\ 
+\vdots \\
+ x_n\end{array} \right]
+&= \left[ \begin{array}{c} A \\
+ A^2\\
+  \vdots \\
+   A^n\end{array} \right]x_0
 +
 \left[ \begin{array}{cccc}
 B & 0 & \cdots & 0 \\
@@ -77,7 +107,10 @@ AB & B & \cdots & 0 \\
 \vdots & & \ddots & \vdots\\
 A^{n-1}B & A^{n-2}B & \cdots & B
 \end{array} \right]
-\left[ \begin{array}{c} u_0 \\ u_1\\ \vdots\\u_{n-1}\end{array} \right]
+\left[ \begin{array}{c} u_0 \\
+ u_1\\ 
+ \vdots\\
+ u_{n-1}\end{array} \right]
 +
 \left[ \begin{array}{cccc}
 D & 0 & \cdots & 0 \\
@@ -85,7 +118,10 @@ AD & D & \cdots & 0 \\
 \vdots & & \ddots & \vdots\\
 A^{n-1}D & A^{n-2}D & \cdots & D
 \end{array} \right]
-\left[ \begin{array}{c} w_0 \\ w_1\\ \vdots\\ w_{n-1}\end{array} \right]\\
+\left[ \begin{array}{c} w_0 \\
+ w_1\\ 
+ \vdots\\ 
+ w_{n-1}\end{array} \right]\\
 
 &=\tilde{A}x_0 + \tilde{B}U + \tilde{D}W\\
 \end{aligned}
@@ -93,7 +129,10 @@ $$
 
 $$
 \begin{aligned}
-Y = \left[ \begin{array}{c} y_1 \\ y_2\\ \vdots \\ y_n\end{array} \right]
+Y = \left[ \begin{array}{c} y_1 \\
+ y_2\\ 
+ \vdots \\
+  y_n\end{array} \right]
 &= 
 \left[ \begin{array}{cccc}
 C & 0 & \cdots & 0 \\
@@ -101,7 +140,10 @@ C & 0 & \cdots & 0 \\
 \vdots & & \ddots & \vdots\\
 0 & 0 & \cdots & C
 \end{array} \right]
-\left[ \begin{array}{c} x_1 \\ x_2\\ \vdots\\ x_n\end{array} \right]\\
+\left[ \begin{array}{c} x_1 \\ 
+x_2\\ 
+\vdots\\ 
+x_n\end{array} \right]\\
 &= \tilde{C}X
 \end{aligned}
 $$

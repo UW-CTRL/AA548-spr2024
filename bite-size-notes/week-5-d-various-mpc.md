@@ -122,7 +122,6 @@ A^{n-1}D & A^{n-2}D & \cdots & D
  w_1\\ 
  \vdots\\ 
  w_{n-1}\end{array} \right]\\
-
 &=\tilde{A}x_0 + \tilde{B}U + \tilde{D}W\\
 \end{aligned}
 $$

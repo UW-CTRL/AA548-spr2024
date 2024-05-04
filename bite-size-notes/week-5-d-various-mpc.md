@@ -47,7 +47,14 @@ $$
 x_{1} &= Ax_0 + Bu_0 + Dw_0\\
 x_{2} &= Ax_1 + Bu_1 + Dw_1\\
 &=A(Ax_0 + Bu_0 + Dw_0) + + Bu_1 + Dw_1\\
-&= A^2x_0 + \left[ \begin{array}{cc} AB & B\end{array} \right] \left[ \begin{array}{c} u_0 \\ u_1\end{array} \right] + \left[ \begin{array}{cc} A & D\end{array} \right] \left[ \begin{array}{c} w_0 \\ w_1\end{array} \right]\\
+&= A^2x_0 + 
+\left[ 
+    \begin{array}{cc} AB & B\end{array} 
+\right] 
+\left[ 
+    \begin{array}{c} u_0 \\
+     u_1\end{array} 
+\right] + \left[ \begin{array}{cc} A & D\end{array} \right] \left[ \begin{array}{c} w_0 \\ w_1\end{array} \right]\\
 x_{3} &= Ax_3 + Bu_3 + Dw_3\\
 &=A(A^2x_0 + ABu_0 + Aw_0 + Bu_1 + Dw_1) + Bu_2 + Dw_2\\
 &= A^3x_0 + \left[ \begin{array}{ccc} A^2B&AB & B\end{array} \right] \left[ \begin{array}{c} u_0 \\ u_1\\u_2\end{array} \right] + \left[ \begin{array}{cc} A^2D & AD & D\end{array} \right] \left[ \begin{array}{c} w_0 \\ w_1\\w_2\end{array} \right]\\

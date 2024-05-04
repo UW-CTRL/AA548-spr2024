@@ -229,7 +229,7 @@ plt.show()
 ```
 
 <p align="center">
-<img src="figs/mpcresult.png" width="500">
+<img src="figs/mpcr1.png" width="500">
 </p>
 
 ### 2. Using ['do-mpc' python library](https://www.do-mpc.com/en/v4.1.0/index.html):
@@ -353,7 +353,7 @@ plt.tight_layout()
 plt.show()
 ```
 <p align="center">
-<img src="figs/mpcresult2.png" width="500">
+<img src="figs/mpcr2.png" width="500">
 </p>
 
 ### 3. [MPC controller toolbox in MATLAB](https://www.mathworks.com/products/model-predictive-control.html):
@@ -452,5 +452,21 @@ title('MPC - State 3 Trajectory');
 grid on;
 ```
 <p align="center">
-<img src="figs/mpcresult3.png" width="500">
+<img src="figs/mpcr3.png" width="500">
 </p>
+
+
+**NOTE:** The time taken by each method to simulate the algorithm is shown in the table below.
+
+| Method | Time |
+| :---: | :---: |
+| `Python` from scratch | 24 seconds |
+| `Python` do-mpc library | 1 seconds |
+| `MATLAB` 'MPC' toolbox | 0.08 seconds |
+
+# References
+1. [Steve Brunton MPC video](https://www.youtube.com/watch?v=YwodGM2eoy4)
+2. [Model Predictive Control (MPC) for Autonomous Vehicles](https://amitp-ai.medium.com/model-predictive-control-mpc-for-autonomous-vehicles-e0fdf75a9661)
+3. [Model predictive control: Theory and practice](https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667088X73407/1-s2.0-B9780080357355500061/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjECgaCXVzLWVhc3QtMSJHMEUCIQC24O2Mxgq36BYDe7bXh75HZsvpWb4BgXXj0Z3AyJL%2FbAIgRCScvCjf1tCGUy4eTJQv9zqg0oLO7Wi5bcvGZSVeVzkquwUIgf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgwwNTkwMDM1NDY4NjUiDANYiC3H14yEPdF8zCqPBWGvj%2B%2BfF9%2FZejbXvmVwvEqB8TA6CekYh80QYptbaaN8tOZ6pCcKEiF2zj%2Bs7ibMOhS%2Fc9fGsMbyfV%2F1GV9ciYIJPGYshcnXT1r3iE6YLmloIAb%2BoaCUBhtGXiNOddBSP%2FX4R4D6q8V9ZBn73fM1n6RYspDalELXljO8o0D0BPEtn6cyIz1zvQ0SVU9shi%2FsoWP6Vs9XFRZPCXywQRIfK6NX%2BoWTZS9Qr5OTutHqJ%2FQGMOBm9kLOz1YGRKe74fYrgAfvtzMyJOPtYS0jZrBHLFOn8JGuL%2FLicB5KNA84Ie%2FhAUHGeccD%2BnHN0i4rWpt6Kf2iVYsoWWxeu%2BOADii9BCgJaU1FN2Vm04txEXNfN66amE%2BHrIRI1EARiB8SjNxGl6Qr5K%2FcBxlBybMHSh%2FmGLTx9KB7g5DTeIqjmvU8PGVYph8AJCjZbQHJUjHsNDTdYwuPu%2Bh5R4qauWcll0IH2oer2OxSB12Gs58VJ%2B8eIkbwfMPgbQUMzv3qDQzlAjWGGeeX%2BXXrJQVYZx%2Fu28YQIBrcaVeINqQqqSA6N%2Fai2xTh2yJlVEuVb0V%2FZdY4ii10zfXnE%2FxtpJlZVWgHrOQ2Gn2xDT6JUThLpxBx6MOyoDu%2F6T2ODDi39RKSF2FSzyhCzibttKgZ2TpiFeUQXSWOKBZSEGhTFhNmpUM0VVlp7D5HDVrm18LM4deUvTNf4q9SgID3lHj3IFvvTuvgPj2vzZXnvWEayKoNEbeObg0MN4%2BdNGDqlFQIlYLr492l90BkSkid8YZIbJ2tq%2B7Xm%2F2US5b5y89XrIFFs3ZEZ6HRq0nRe4ixV93aJfU5j2953uw%2B4VvR%2FZiodda1ArfC46Bxug7YeWgjbkceqd0REzjrg9kw1%2BXVsQY6sQGG%2F5%2Bgk2euGLVCxoECDoDrOLHffyAVuFZVq8fmR7nYYeqkdL6boZ%2BrzXgioeTLVm3PEIU4mbexkDPmlPToFudYwJfhZl9GwXqaYjwY5O2Xdfq%2FGQp8qEOd6Iz8YzdyxV45YnJDIWMysCoVEKGPLmVJ3Xo9XUTJYKrukBZdSbUHvCNsXckmnBalTZlZf02YRrhHcLL1uim%2FUxWD5bX73xmXIn9XQ7AHmxC2y6S0kmdppvo%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240504T000741Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6W3ZE7HD%2F20240504%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=895b3f39b4e6c7077ae7524226c54ee463d01c6926e49f569c7a0aecafeae8da&hash=49028be39943e9d7015647722341ca3d956d645d5238334c76dd8b2483a4a8b7&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=B9780080357355500061&tid=spdf-fcf55da0-f1f0-4d98-81a3-a38862f620b2&sid=f6ff2daf4f57b3461c3a8d647c146ed3dc15gxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=171c5d550353525057&rr=87e440816c0e0943&cc=us)
+4. [Model Predictive Control from Scratch: Derivation and Python Implementation-Optimal Control Tutorial](https://www.youtube.com/watch?app=desktop&v=8BHMsKXlRq0)
+5. [Basics of model predictive control](https://www.do-mpc.com/en/latest/theory_mpc.html)

@@ -31,6 +31,7 @@ Challenges of MPC include:
 
 ## Linear MPC
 Consider the following dynamical system:
+
 $$
 x_{k+1} = Ax_k + Bu_k + Dw_k\\
 y_k = Cx_k\\
@@ -51,7 +52,9 @@ x_{k} &= Ax_{k-1} + Bu_{k-1} + Dw_{k-1}\\
 &= A^nx_0 + \left[\begin{array}{cccc} A^{n-1}B&A^{n-2}B & \cdots& B\end{array}\right] \left[\begin{array}{c} u_0 \\ u_1\\ \vdots\\u_{n-1}\end{array}\right] + \left[\begin{array}{cc} A^{n-1}D & A^{n-2}D & \cdots & D\end{array}\right] \left[\begin{array}{c} w_0 \\ w_1\\ \vdots \\w_{n-1}\end{array}\right]\
 \end{aligned}
 $$
-These can be summarized into the following matrix equation.
+
+These can be summarized into the following matrix equation:
+
 $$
 \begin{aligned}
 X = \left[\begin{array}{c} x_1 \\ x_2\\ \vdots \\ x_n\end{array}\right]
@@ -91,26 +94,32 @@ C & 0 & \cdots & 0 \\
 &= \tilde{C}X
 \end{aligned}
 $$
+
 With the above equations, we have been able to express the system's outputs $Y$ up to $n$ steps ahead in terms of the inputs $U$.
 Next, we design the cost function to control the system to track the target value.
+
 $$
 \begin{aligned}
 J = (Y-Y_{target})^TQ(Y-Y_{target}) + (U-U_{target})^TR(U-U_{target})
 \end{aligned}
 $$
+
 where $Y_{target}$ and $U_{target}$ are the target values for outputs and controls.
 $Q$ and $R$ must be positive semi-definite and positive definite matrices, respectively.
 Since this cost function $J$ depends only on the inputs $U$, rearranging $J$ for $U$ yields the following:
+
 $$
 \begin{aligned}
 J &= (\tilde{C}(\tilde{A}x_0 + \tilde{B}U + \tilde{D}W)-Y_{target})^TQ(\tilde{C}(\tilde{A}x_0 + \tilde{B}U + \tilde{D}W)-Y_{target}) + (U-U_{target})^TR(U-U_{target})\\
 &= U^T(\tilde{B}^T\tilde{C}^TQ\tilde{C}\tilde{B} +R)U + 2((\tilde{C}(\tilde{A}x_0+\tilde{D}W) - Y_{target})^TQ\tilde{C}\tilde{B} - U_{target}^TR)U + (const)
 \end{aligned}
 $$
+
 Therefore, $J$ is a quadratic form of $U$ and can be easily optimized.
 
 Even in the case of nonlinear system dynamics, if the system trajectory is known in advance, linear approximation of the dynamics can be applied at each time step in the vicinity of the trajectory. This allows the application of the aforementioned linear MPC.
 However, it should be noted that the system dynamics become time-varying to approximate the dynamics at each time step:
+
 $$
 \begin{aligned}
 x_{k+1} = A_kx_k + B_ku_k + D_kw_k.
@@ -120,10 +129,12 @@ $$
 
 ## Nonlinear MPC
 Consider a system with nonlinear dynamics given by:
+
 $$
 x_{k+1} = f(x_k, u_k)\\
 y_k = g(x_k, u_k)\\
 $$
+
 Furthermore, even if the dynamics are linear, Nonlinear MPC may be applied if the cost function or constraints are not convex. In the Linear MPC section, it was mentioned that even if the system is nonlinear, Linear MPC can be applied by sequentially linearizing the system. However, Nonlinear MPC can also be applied by directly using the nonlinear model.
 
 Nonlinear MPC uses nonlinear optimization, so it has a higher computational cost and takes longer for optimization compared to Linear MPC. However, since it directly optimizes the nonlinear model without using approximations, it can sometimes compute better solutions.
@@ -142,45 +153,60 @@ Therefore, in order to ensure that the entire set satisfies the constraints, ext
 
 ## Stochastic MPC
 Consider a system given by:
+
 $$
 x_{k+1} = Ax_k + Bu_k + w_k\\
 u_k = \phi_k(X_k),\ X_k=[x_0,\ldots,x_k]\\
 x_k\in R^n, u_k\in R^m, w_k \in R^n
 $$
+
 where $T$ is finite horizon and $x_0, w_0, \ldots, w_{T-1}$ are random variables.
 Then, the objective function is defined as follows:
+
 $$
 J = \mathbb{E}(\sum_{k=0}^{T-1} l_k(x_k, u_k)+l_T(x_T))
 $$
+
 where $\mathbb{E}$ is expectation function, and $l_k$ and $l_T$ are convex.
 The objective function $J$ depends on the control policy $\phi_k$, so the goal of this problem is to choose $\phi_k$ that minimizes $J$.
 Since the variable is a function $\phi_k$, this problem is an infinite-dimensional problem.
 
 ### Linear Quadratic Stochastic MPC
 Stochastic MPC can analytically find solutions in special cases. We make the following assumptions:
+
 $$
 x_0, w_0, \ldots, w_{T-1}\ \mathrm{are\ independent}\\
 \mathbb{E}(x_0) = 0,\ \mathbb{E}(w_k) = 0,\ \mathbb{E}(x_0x_0^T) = \Sigma,\ \mathbb{E}(w_kw_k^T) = W_k 
 $$
+
 And suppose the objective function is as follows:
+
 $$
 l_k(x_k, u_k) = x_k^TQ_kx_k + u_k^TR_ku_k,\ Q_k\succeq 0,\ R_k\succ 0\\
 l_T(x_T) = x_T^TQ_kx_T,\ Q_T\succeq 0
-$$v
+$$
+
 Assuming the cost function is quadratic as follows:
+
 $$
 V_k(x_k) = x_k^TP_kx_k + q_k,\ k=0,\ldots,T
 $$
+
 The value function at time step $k$ can be expressed as follows:
+
 $$
 V_k(x_k) = \inf_{u_k} x_k^TQ_kx_k + u_k^TR_ku_k + \mathbb{E}((Ax_k + Bu_k + w_k)^TP_{k+1}(Ax_k + Bu_k + w_k) + q_{k+1})
 $$
+
 This results in the following:
+
 $$
 P_k = A^TP_{k+1}A-A^TP_{k+1}B(B^TP_{k+1}B+R_k)^{-1}B^TP_{k+1}A+Q_k\\
 q_k = q_{k+1} + \mathrm{Tr}(W_kP_{k+1})
 $$
+
 Therefore, by setting $P_T = Q_T$ and iteratively calculating $P_{T-1}, \ldots, P_0$, the optimal policy can be computed as follows, independent of the noise term.
+
 $$
 \phi_k^*(x_k) = K_kx_k\\
 K_k = -(B^TP_{k+1}B+R_k)^{-1}B^TP_{k+1}A

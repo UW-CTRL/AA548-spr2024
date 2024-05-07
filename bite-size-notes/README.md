@@ -48,7 +48,7 @@ Note: We avoid using your full name as this repo will be public.
 
 0. Make a github account if you do not already have one. 
 
-1.  Fork this repo onto your github account.
+1.  Fork this repo onto your github account by clicking the "Fork" button at the upper right of the main repo page; this will create a copy of the repo under your own GitHub account.
 
 2. In your forked repo (`your-own-username/AA548-spr2024`), go to `bite-size-notes` folder and click `Add file` make a new file with the appropriate filename `week-X-y-short-topic-name.md`
 

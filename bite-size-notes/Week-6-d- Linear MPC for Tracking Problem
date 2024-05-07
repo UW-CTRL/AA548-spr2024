@@ -64,7 +64,8 @@ where $U$ is the sequence of future control inputs over the prediction horizon.
 
 This structured approach allows LMPC to efficiently manage system responses while adhering to constraints, providing a robust method for control that balances performance with computational practicality.
 
-## MPC Application Example
+## Main Body
+### MPC Application Example
 ### Below is a simple diagram showing how the MPC works on a simple Electrical Vehicle :
 ![MPC Control Algorithm](https://github.com/1997Theo/streamlit_bank_campaign/blob/main/mpcalgorithm.png?raw=True)
 Here is a brief explanation on pictures above :
@@ -84,7 +85,7 @@ This represents the physical system or process being controlled by the MPC. In t
 These are the actual outputs from the vehicle or process, which are fed back into the MPC controller. This feedback loop allows the MPC to update its predictions and optimize future control inputs, adjusting for any discrepancies between the predicted and actual outputs.
 
 
-## MPC VS LQR application
+### MPC VS LQR application
 As we have learned about LQR in the previous section, now we want to see the strength and weakness of this MPC model compared to LQR algorithm :
 #### **Linear Quadratic Regulator (LQR)**
 LQR is a feedback control strategy designed for linear systems and aims to minimize a quadratic cost function that represents the error (deviation from the desired state) and the control effort. The solution to the LQR problem involves solving an algebraic Riccati equation to find an optimal gain matrix \( K \). This gain matrix is used to compute the control input as \( u = -Kx \), where \( x \) is the state vector of the system.

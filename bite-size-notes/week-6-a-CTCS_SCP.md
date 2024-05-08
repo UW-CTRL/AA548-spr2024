@@ -17,6 +17,7 @@ Apart on common notation, e.g. $\mathbb{R}^n$ to denote the n-dimensional real v
 
 ### CT Optimal Control Problem
 The standard optimal control problem reads
+
 $$
 \begin{array}{rl}
 \underset{x,u,t_f}{\text{minimize}} & L(t_f, x(t_f)) \\
@@ -26,6 +27,7 @@ $$
 & Q(t_i, x(t_i), t_f, x(t_f)) = 0
 \end{array}
 $$
+
 where $x, u, t$, respectively $x \in \mathbb{R}^n$, $u \in \mathbb{R}^m$, $t \in \mathbb{R}_+$, are the state, the control and time; $L$ is the scalar terminal cost function, $f:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^n$ identifies the dynamics function, $g:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^g$, $h:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^h$ the path constraint functions, and $Q:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}_+\times \mathbb{R}^n \rightarrow \mathbb{R}^Q$ the boundary condition constraint function. Typically $Q$ assumes simple forms, e.g. for prescribed fixed initial and final states $\bar{x}_i, \bar{x}_f$, $Q$ would be the function
 $$
 Q(t_i, x(t_i), t_f, x(t_f)) = \left[\begin{array}{c} x(t_i) - \bar{x}_i \\

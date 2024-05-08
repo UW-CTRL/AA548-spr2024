@@ -13,10 +13,11 @@ Direct methods are extremely popular for trajectory optimization purposes: they 
 
 ## Preliminaries
 ### Notation
-Apart on common notation, e.g. $\mathbb{R}^n$ to denote the n-dimensional real vectors $\mathbb{R}^{n\times m}$ to denote the n-by-m-dimensional real matrices, and  $\mathbb{R}_+$ to denote nonnegative real numbers, for each scalar $v$ we define the positive part $|v|_+ = max\{0, v\}$; in addition, operators $|\square|_+, |\square|, \square^2$ are defined element-wise for the argument $\square$. Finally, $1$ and $0$ indicate scalars or vectors, depending on the context.
+Apart on common notation, e.g. $\mathbb{R}^n$ to denote the n-dimensional real vectors $\mathbb{R}^{n\times m}$ to denote the n-by-m-dimensional real matrices, and  $\mathbb{R}_+$ to denote nonnegative real numbers, for each scalar $ v $ we define the positive part $|v|_+ = max \left{0, v \right}$; in addition, operators $|\square|_+, |\square|, \square^2$ are defined element-wise for the argument $\square$. Finally, $1$ and $0$ indicate scalars or vectors, depending on the context.
 
 ### CT Optimal Control Problem
 The standard optimal control problem reads
+
 $$
 \begin{array}{rl}
 \underset{x,u,t_f}{\text{minimize}} & L(t_f, x(t_f)) \\
@@ -26,6 +27,7 @@ $$
 & Q(t_i, x(t_i), t_f, x(t_f)) = 0
 \end{array}
 $$
+
 where $x, u, t$, respectively $x \in \mathbb{R}^n$, $u \in \mathbb{R}^m$, $t \in \mathbb{R}_+$, are the state, the control and time; $L$ is the scalar terminal cost function, $f:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^n$ identifies the dynamics function, $g:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^g$, $h:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^h$ the path constraint functions, and $Q:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}_+\times \mathbb{R}^n \rightarrow \mathbb{R}^Q$ the boundary condition constraint function. Typically $Q$ assumes simple forms, e.g. for prescribed fixed initial and final states $\bar{x}_i, \bar{x}_f$, $Q$ would be the function
 $$
 Q(t_i, x(t_i), t_f, x(t_f)) = \left[\begin{array}{c} x(t_i) - \bar{x}_i \\
@@ -47,12 +49,12 @@ The presented formulation is extremely straightforward and simple from the mathe
 ## References
 1. NASA Systems Analysis Branch Guidance and Control Division - **Space Shuttle Guidance, Navigation and Control - Design Equations - Volume IV Deorbit and Atmospheric Operations** - NASA Technical Report, 1972 
 
-2. Elango, P., Luo, D., Kamath, A.G., Uzun, S., Kim, T. $\text{A}\cc\text{ikme}\ss\text{e}$, B. - **Successive Convexification for Trajectory Optimization with Continuous-Time Constraint Satisfaction** - Arxiv, 2024 
+2. Elango, P., Luo, D., Kamath, A.G., Uzun, S., Kim, T. Acikmese, B. - **Successive Convexification for Trajectory Optimization with Continuous-Time Constraint Satisfaction** - Arxiv, 2024 
 
-3. Uzun, S., Elango, P., Kamath, A.G., Kim, T. $\text{A}\cc\text{ikme}\ss\text{e}$, B. - **Successive Convexification for Nonlinear Model Predictive Control with Continuous-Time Constraint Satisfaction** - ArXiV, 2024
+3. Uzun, S., Elango, P., Kamath, A.G., Kim, T. Acikmese, B. - **Successive Convexification for Nonlinear Model Predictive Control with Continuous-Time Constraint Satisfaction** - ArXiV, 2024
 
 4. GitHub, sametuzun781, https://github.com/sametuzun781/NMPC-CTCS
 
-5. Malyuta, D., $\text{A}\cc\text{ikme}\ss\text{e}$, B. - **Fast Homotopy for Spacecraft Rendezvous Trajectory Optimization with Discrete Logic** - Journal of Guidance, Control, and Dynamics, 2023
+5. Malyuta, D., Acikmese, B. - **Fast Homotopy for Spacecraft Rendezvous Trajectory Optimization with Discrete Logic** - Journal of Guidance, Control, and Dynamics, 2023
 
 6.

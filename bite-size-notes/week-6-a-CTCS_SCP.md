@@ -25,8 +25,8 @@ Direct methods are extremely popular for trajectory optimization purposes: they 
 
 
 ## References
-[1] NASA Systems Analysis Branch Guidance and Control Division - **Space Shuttle Guidance, Navigation and Control - Design Equations - Volume IV Deorbit and Atmospheric Operations** - NASA Technical Report, 1972
-[2] Elango, P., Luo, D., Kamath, A.G., Uzun, S., Kim, T. A\ccikme\sse, B. - **Successive Convexification for Trajectory Optimization with Continuous-Time Constraint Satisfaction** - Arxiv, 2024
+[1] NASA Systems Analysis Branch Guidance and Control Division - **Space Shuttle Guidance, Navigation and Control - Design Equations - Volume IV Deorbit and Atmospheric Operations** - NASA Technical Report, 1972 \\
+[2] Elango, P., Luo, D., Kamath, A.G., Uzun, S., Kim, T. A$\cc$ikme$\ss$e, B. - **Successive Convexification for Trajectory Optimization with Continuous-Time Constraint Satisfaction** - Arxiv, 2024 \\
 [3] 
 [4] 
 [5] 

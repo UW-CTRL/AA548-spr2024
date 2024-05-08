@@ -1,28 +1,46 @@
+
 # Introduction to Free Final Time
 
-Free final time refers to leaving the terminal time as a optimizable variable in an optimal control problem. This topic is well-understood [for linear? systems] [not so well understood for higher order systems or nonlinear]
+The problem of free final time refers to leaving the terminal time as a optimizable variable in an optimal control problem. This topic is well-understood for linear systems where analytical solutions are commonly available, but requires numerical methods to handle the increasing complexity of nonlinear dynamics and/or higher-order linear systems.
+
+<!--
+Add a photo here that helps reader visualize free final time: trajectory and alternate trajectories would be interesting.
+-->
+
+Free final time is an important topic in aerospace engineering, as fuel costs are inextricably tied to time of flight and many astronautical missions rely on a window of opportunity. Having the flexibility of directly optimizing time also aids in the robustness of any system that might experience changing dynamical situations commonly encountered in aerospace.
 
 ## Scope
 
-These notes will focus on introducing free final time on a simple system with theory and code, explain difficulties with implementation on higher-order systems, and provide resources to explore the subject further.
+These notes will focus on introducing free final time on a simple linear system with theory and code, explain difficulties with implementation on nonlinear and higher-order linear systems, and provide resources to explore the subject further.
 
-The reader is assumed to have a entry-level understanding of optimal control theory such as optimality, minimization/maximization, numerical methods, etc, etc.
+Learning objectives include...
+* Discovering the difference between *functions* and *functionals*.
+* Understanding how the Euler-Lagrange equation is used to determine extremizing functions within the cost functional.
+* Determining optimal control with the Hamiltonian under Pontryagin's Minimum Principle.
+* Constructing a free final time problem using a simple linear system.
+* Coding the same free final time problem in Python.
+
+The reader is expected to have prior knowledge of undergraduate-level controls and topics such as basic optimization and the Lagrangian.
 
 ## Prerequisites
+Why do we need new math to solve free final time? For free final time problem, terminal time $T$ is no longer fixed. This means
 
-Free final time [explain why we need these theorems (we want to find extrema functions, boundary conditions, and transversality conditions)]
+[explain why we need these theorems (we want to find extrema functions, boundary conditions, and transversality conditions)]
 
-Some mathematical theorems used in the free final time theorem are the calculus of variations and Pontryagin's Minimum Principle. A summarization of the theorems and their impacts to the problem are detailed below.
+The mathematical theorems used for the analytical solution to free final time are the calculus of variations and Pontryagin's Minimum Principle. A summarization of the equations/theorems and their impacts to the problem are detailed below.
 
 ### Calculus of variations
+Functionals are mappings from a set of functions to the set of real numbers. Intuitively, one can think of them as "functions of functions", as functions are mappings from a set of numbers to another set of numbers. The calculus of variations uses small changes of functions and functionals, known as variations, to determine the extrema of functionals.
 
-[short sentence about what the CoV is.]
+The purpose behind using the calculus of variations for free final time is to find a extrema function that minimizes/maximizes a functional: analogous to finding the critical points by setting the derivative of a function equal to zero.
 
-The purpose behind using the calculus of variations for free final time is to find a extrema function: analogous to finding the critical points by setting the derivative of a function equal to zero.
+Our optimization cost is then represented by a cost functional $J[x(t),u(t),t]$ rather than a cost function $J\big(x(t),u(t),t\big)$. More precisely,
 
-[explain what functionals are] Intuitively, one can think of them as "functions of functions".
-[explain extrema finding]
-[explain similarities to optimization] This shares similarities to the first derivative test
+$$J[x(t),u(t),t] = \int_0^T L\big(x(t), u(t), t\big) \,dt$$
+
+where $L$ is the Lagrangian and $T$ is the terminal time.
+
+
 
 One of the most important results from the calculus of variations is the Euler–Lagrange equation. [1]
 
@@ -33,34 +51,37 @@ $$
 <details close>
 <summary> <em>Derivation of the Euler–Lagrange equation.</em> </summary>
 <br>
-Well, you asked for it!
+<div markdown="1">
+
+Consider the functional
+$$
+J[y] =  \int_{a}^{b} L(x, y(x), y'(x)) \,dx
+$$
+where $a,b$ are constants, 
+
+</div>
 </details>
-
-More formally:
-[formal defintion and equations]
-
-[point about ]
 
 ### Pontryagin's Minimum Principle
 
 A formal definition
-[formal defintion and equations]
+[formal definition and equations]
 
 ## Main Body
 
 Now let's look at a standard optimal control problem, but this time with terminal time being an optimization variable.
 
 ### Theory
-
 The cost can be written as a function of the state, the control, and the terminal time.
 
 $$
 J\[x(t),u(t),T\]
 $$
 
+#### Common methods for constraints
+
 
 ### Example
-
 Let's revisit a common example: the 2D unicycle. All variables here are functions of time.
 * state variable $z$
   * positions $x$, $y$
@@ -104,19 +125,12 @@ To continue exploring this topic, references that were used to craft these notes
 ## References
 [1] 
 
-
 <!--
 Scope + objectives: What should one expect to learn from reading these notes? Think about what is the purpose of these notes, what questions will be answered, and what will the reader gain from reading these notes.
 
-Given the complexity of sequential convex programming both as a method and 
-An understanding of what kinds of problems should be solved by sequential convex programming. An elementary understanding of the theory behind the topic. Concrete ways to start with sequential convex programming. References to learn more.
-
 Introduction: Introduce the topic. Include things like how it is relevant to controls, in what situation would a reader find this useful, is there some historical context that's important to know, is this related to other topics?
 
-
-
 Preliminaries: Set up the mathematics needed to describe the topic/concept. Introduce definitions, notation, theorems, etc.
-
 
 Main body: Describe the topic/concept at a suitable depth given your selected scope and objectives. Consider including:
 Figures and diagrams

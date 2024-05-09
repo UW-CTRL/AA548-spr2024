@@ -20,7 +20,7 @@ Also, be aware of the terminology for value function is quite different from whe
 ---
 ![1](https://github.com/YJryu97/AA548spr2024/assets/115070210/bbaacef1-5c0a-439b-a9e3-3f74b6e5a3d8)
 
-The model is the concept of a system state, capturing all mutable and influential components of the system, represented at a particular point in time step $t$ by a variable $x$. The evolution of the system’s state is in turn governed by a set of constraints, called the system dynamics. When such a system can be said to be influenced by some control signal $u$, the task in control theory is to design the control signal to generate desirable behavior relative to a goal. 
+The model is the concept of a system state, capturing all mutable and influential components of the system, represented at a particular point in time step $k$ by a variable $x$. The evolution of the system’s state is in turn governed by a set of constraints, called the system dynamics. When such a system can be said to be influenced by some control signal $u$, the task in control theory is to design the control signal to generate desirable behavior relative to a goal. 
 
 Overall task will be to determine what is the “optimal” control for our system. For this we need to specify performance for each controls. Let the state represent as a node and control sequences correspond to paths originating at the initial state and terminating at one of the goal state correspond to the Terminal stage $N$. So if we view the cost of path as its length, we see that a determinisitic finite state finite horizon problem is equivalent to finding a minimun-length path from the initial state of the environment to the terminal state.
 

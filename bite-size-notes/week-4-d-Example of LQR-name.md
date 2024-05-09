@@ -72,14 +72,14 @@ The variation of the optimal representies of LQR and correponding Riccati equati
 |                                    | Cost function in LQR form                         | Riccati Equation                |                                
 | ---------------------------------  | -------------------------------- |-------------------------------- |
 | Continuous time finite horizon     | $\min \int_{0}^{T}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$ | $0 =\dot{P}(t) + P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t)$ | 
-| Discret time finite horizon   | $\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k} $ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
+| Discret time finite horizon   | $$\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k} $$ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
 | Continuous time infinite horizon   | $\min \int_{0}^{\inf}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t)$ |$PA+A^TP+Q-PBR^{-1}B^TP=0$ |
 | Discret time infinite horizon      | $$\min x_{k+1}^T Q_T x_{k+1} + \sum_{k=0}^k x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}$$ | $P = Q +A^TPA-(A^TPB)(R+B^TPB)^{-1}(B^TPA)$| 
 
 |                                    |  u          |                     
 | ---------------------------------  | -------------------------------- |
 | Continuous time finite horizon     | $u^*(t) =-R^{-1}B^TP(t)x$ |
-| Discret time finite horizon        | $u^*_k =-(R _{k+1}+B^TP _{k+1}B^{-1}^TP _{k+1}A) X _k$  |
+| Discret time finite horizon        | $u^*_k =-(R _{k+1}+B^TP _{k+1}B^{-1}B^TP _{k+1}A) X _k$  |
 | Continuous time infinite horizon   | $u^* =-R^{-1}B^TPx$|
 | Discret time infinite horizon      | $u^*_k =-(R+B^TPB^{-1}(B^TPA)x$ |
 
@@ -106,7 +106,6 @@ The Riccati equtaion is :
 
 $$
 0 =  \dot{P} (t) + (P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t)) 
-\label{1}
 $$
 
 $$
@@ -148,19 +147,23 @@ from t = 0 to t = final. The result is the series of the optimal control $u^*$.
 Let's do a example:
 The optimal control problem in terns on LQR is:
 
-
-	$\min \int_{0}^{1}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$  
- 
+ $$
+	\min \int_{0}^{1}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)
+$$
+ $$
 	s.t \dot{x} = Ax + Bu
-
+ $$
 
 Where
 
 $$
-A =  \begin{bmatrix} 0 & 1  \\\ 3 & 0 \end{bmatrix} \\
-B =  \begin{bmatrix} 0  \\\ 3  \end{bmatrix} \\
-Q =  \begin{bmatrix} 0  \\\ 3  \end{bmatrix} \\
-R= 1 \\;
+A =  \begin{bmatrix} 0 & 1  \\\ 3 & 0 \end{bmatrix} 
+B =  \begin{bmatrix} 0  \\\ 3  \end{bmatrix} 
+Q =  \begin{bmatrix} 0  \\\ 3  \end{bmatrix} 
+R= 1
+$$
+
+$$
 Q(T) = \begin{bmatrix} 50 & 0  \\\ 0 & 50  \end{bmatrix} \\
 x = \begin{bmatrix} x1  \\\ x2 \end{bmatrix} \\
 $$
@@ -337,7 +340,7 @@ end
 ```
 
 # Results: 
-First we can we plot the states without control, and find the system blows up, since the eigenvalue of the A matrix is on the RHP.
+First we can we plot the states without control, and find the state of the system go to infinity, since the eigenvalue of the A matrix is on the RHP.
 ![uncon](https://github.com/p8410077/AA548-spr2024/assets/11802603/b7168051-1b6c-4784-8c36-71f37404da7b)
 
 By inplementing LQR, the system converge to 0 in 1 second. 

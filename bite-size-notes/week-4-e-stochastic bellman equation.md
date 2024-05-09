@@ -66,14 +66,16 @@ $$
    V_{\pi}(x_k) = \mathbb{E} \[ g_N(x_N) + \sum^{N-1}_{m= k} g_k(x_m, \mu_k(x_m), \omega_m) \]                
 $$
 
-where the expected value operation  $\mathbb{E}\{\cdot\}$ is over all the random variables $\omega_k$ and $x_k$. An optimal policy $\pi^*$ is one that minimizes this cost; i.e,
+where the expected value operation  $\mathbb{E}\{\cdot\}$ is over all the random variables $\omega_k$ and $x_k$. An optimal policy $\pi^*$ is one that minimizes this cost;
+Expanding the value equation by viewing terminal state as the initial condition $J^\*_N(x_N) = \mathbb{E}\[g_N(x_N)\]$ and performing the induction:
+
 
 $$
     V_{\pi^*}(x_k) = \min_{u_m \in U_m(x_m), m=k,..,N-1} \mathbb{E} \[ g_N(x_N) + \sum_{m=k}^{N-1} g_m(x_m, \mu_k(x_m), \omega_m) \] 
 $$
 
 $$
-    = \min_{u_k \in U_k(x_k)} \mathbb{E} \[ g_k(x_k) + \min_{u_m \in U_m(x_m), m=k+1,..,N-1} \[g_m(x_m) + \sum_{m=k+1}^{N-1} g_m(x_m, \mu_k(x_m), \omega_m) \] \]
+    = \min_{u_k \in U_k(x_k)} \mathbb{E} \[ g_k(x_k) \] + \min_{u_m \in U_m(x_m), m=k+1,..,N-1} \mathbb{E} \[g_N(x_N) + \sum_{m=k+1}^{N-1} g_m(x_m, \mu_k(x_m), \omega_m) \]
 $$
 
 $$
@@ -133,7 +135,7 @@ $$
     {\mu_k} (x_k) \in arg\min_{u_k \in U_k (x_k)} \mathbb{E} \[ g_k(x_k, u_k, w_k) + V^*_{k+1}(f_k(x_k, u_k, w_k))
 $$
 
-- For finding suboptimal policy, approximate the cost-go-function $\bar{V}^*_{k}$(using Model Approximation, Neural-Nets, Rollout algorithm, Model Predictive Control..etc)
+- However, in stochastic case, sampling optimal policy from one-look ahead state optimal cost is still heavy because probabilistic problem contains state uncertainty and finding optimal control from added dimension of uncertainty makes the policy space more intractable. Hence, it is essential to incorporate additional constraints and approximation for Value-space which makes the policy suboptimal. For finding suboptimal policy, approximate the cost-go-function $\bar{V}^*_{k}$(using Model Approximation, Neural-Nets, Rollout algorithm, Model Predictive Control..etc)
 
 $$
    \bar{V_k}^{\*} = \min_{u_k \in U_k (x_k)} \mathbb{E} \[ g_k(x_k, u_k, w_k) + \bar{V}^*_{k+1}(f_k(x_k, u_k, w_k)) \
@@ -160,8 +162,8 @@ During the execution of a controlled system, at any point in time the system tra
 - Optimal control are not deterministic and the curse of dimensionality, approximation of value space and searching the suboptimal policy is the main objective of stochastic dynamic programming.
 
 ## References
-1. Karen Leung, "Bellman Equation & LQR lecture", 2024 4/15~4/17
-2. Matanya B. Horowitz, "Efficient Methods for Stochastic Optimal Control", 2014.
-3. Dimitri P. Bertsekas, "Reinforcement Learning and Optimal Control", Athena Scientific, Belmont, Massachusetts, 2019.
-4. Dimitri P. Bertsekas, "Dynamic Programming and Suboptimal Control: A survey from ADP to MPC", European Journal of Control, 2005.
+- Karen Leung, "Bellman Equation & LQR lecture", 2024 4/15~4/17
+- Matanya B. Horowitz, "Efficient Methods for Stochastic Optimal Control", 2014.
+- Dimitri P. Bertsekas, "Reinforcement Learning and Optimal Control", Athena Scientific, Belmont, Massachusetts, 2019.
+- Dimitri P. Bertsekas, "Dynamic Programming and Suboptimal Control: A survey from ADP to MPC", European Journal of Control, 2005.
 

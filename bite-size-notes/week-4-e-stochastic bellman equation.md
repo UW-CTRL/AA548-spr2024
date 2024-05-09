@@ -15,6 +15,7 @@ This bite-size notes discusses about the finite-horizon stochastic dynamical sys
 - $V_k$ : Overall Cost from the bellman equation 
 - $\bar{V}_k$ : Approximate of the cost
 - $\bar{\mu}_k$ : Suboptimal Policy
+
 Also, be aware of the terminology for value function is quite different from where it uses from reinforcement learning; Maximizing the value function (Reinforcement Learning) = Minimizing the cost function (Optimal control)
 ## Introduction 
 ---

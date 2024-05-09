@@ -341,6 +341,8 @@ end
 
 # Results: 
 First we can we plot the states without control, and find the state of the system go to infinity, since the eigenvalue of the A matrix is on the RHP.
+
+
 ![uncon](https://github.com/p8410077/AA548-spr2024/assets/11802603/b7168051-1b6c-4784-8c36-71f37404da7b)
 
 By inplementing LQR, the system converge to 0 in 1 second. 

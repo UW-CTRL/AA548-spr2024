@@ -72,7 +72,7 @@ The variation of the optimal representies of LQR and correponding Riccati equati
 |                                    | Cost function in LQR form                         | Riccati Equation                |                                
 | ---------------------------------  | -------------------------------- |-------------------------------- |
 | Continuous time finite horizon     | $\min \int_{0}^{T}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$ | $0 =\dot{P}(t) + P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t)$ | 
-| Discret time finite horizon   | $\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}\$ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
+| Discret time finite horizon   | $\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k} $ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
 | Continuous time infinite horizon   | $\min \int_{0}^{\inf}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t)$ |$PA+A^TP+Q-PBR^{-1}B^TP=0$ |
 | Discret time infinite horizon      | $$\min x_{k+1}^T Q_T x_{k+1} + \sum_{k=0}^k x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}$$ | $P = Q +A^TPA-(A^TPB)(R+B^TPB)^{-1}(B^TPA)$| 
 
@@ -110,18 +110,18 @@ $$
 $$
 
 $$
-\dot{P} (t) =  -P(t)A-A^TP(t)-Q-P(t)BR^{-1}B^TP(t))
+\dot{P} (t) =  -P(t)A-A^TP(t)-Q-P(t)BR^{-1}B^TP(t)
 $$
 
 Optimal control input is :
 
 $$u^*(t) =-R^{-1}B^TP(t)x$$
 
-By applying boundery condition to \ref{1}, P matrix at final time, $ P(tf) $, is $ Q(T) $ is our final condition.
+By applying boundery condition to Riccati equation, P matrix at final time,  $P(tf)$, is $Q(T)$ is our final condition.
 However, to solve PDE, we need to specify the initial condition rather than final condition. 
 We can still sovle $\dot{P}$ for P for, by solving the differential equation backward in time with initial condition $P(0) = Q(T)$.
 
-The command in matlab is: \
+The command in matlab is: 
 
 [t,PV]=ode45(@(t,p) dpp(t,p,A,B,Q,R,E,F),[0 (tf-ti)],Ptf,options);
 
@@ -134,7 +134,7 @@ To define a function named "dpp" as the reversed Riccati equation, which will be
 
 Since the inpout of the ode45 is a vactor, We need to reshape the vector to the original P matrix in the dpp founciton and reshape the output, $\dot{P}$ as a vector. 
 
-After solving the P, we will have Pm*Pm-by-n matrix. Pm is the dimention of the state or the roll number of the P matrix, n is the time stes number solving by ode45. 
+After solving the P, we will have Pm*Pm-by-n matrix. Pm is the dimention of the state or the dimention of the P matrix, n is the time stes number solving by ode45. 
 
 Because the solution is backward in time, we need to reverse the oder by using the matlab function fliup(). to reorder the PV vector and the corresponding time step in time. 
 
@@ -148,10 +148,11 @@ from t = 0 to t = final. The result is the series of the optimal control $u^*$.
 Let's do a example:
 The optimal control problem in terns on LQR is:
 
-$$
-	$\min \int_{0}^{1}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$ 
+
+	$\min \int_{0}^{1}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$  
+ 
 	s.t \dot{x} = Ax + Bu
-$$
+
 
 Where
 

@@ -35,11 +35,11 @@ x_k &\in \mathcal{X} \\
 u_k &\in \mathcal{U} \\
 x_0 &= x_{\text{init}} \\
 g_i(x_k,u_k,k) &\leq 0, \quad i = 1, \dots, m \\
-h_i(x_k,u_k,k) &= 0, \quad i = 1, \dots, p
+h_j(x_k,u_k,k) &= 0, \quad j = 1, \dots, p
 \end{split}
 $$
 
-where $J_{term} (x_{k+1})$ is the terminal cost, and $J(x_k,u_k,k)$ is the running/stage cost. The terminal cost is a function of the state at the final time step, and the stage cost is a function of the state and control at each time step. To solve the optimal control problem means to find the optimal control sequence $u^*$ that minimizes this cost function.
+where $J_{term} (x_{k+1})$ is the terminal cost, and $J(x_k,u_k,k)$ is the running/stage cost. The constraint functions $g_i, h_j$ denote the inequality and equality constraints that the states and controls must follow at each timestep $k$. The ranges of $i$ and $j$ implies that the state and control are subject to up to $m$ inequality and $p$ equality constraints at every timestep (some constraints may only apply at certain timesteps). The terminal cost is a function of the state at the final time step, and the stage cost is a function of the state and control at each time step. To solve the optimal control problem means to find the optimal control sequence $u^*$ that minimizes this cost function.
 
 In the form this question is written, we must re-solve the problem for each time step, which is computationally expensive. However, if we leverage dynamic programming, we can solve the problem for each time step in a recursive manner, which is much more efficient. For this, we introduce the Bellman equation:
 
@@ -63,7 +63,7 @@ $$
 \end{split}
 $$
 
-note that we have no control or state constraints. The dynamics are linear, and the cost function, composed of the next state cost and the running cost, are both quadratic and therefore convex. The regulator regulates to zero for stability. The quadratic cost function guarantees the optimal control input $u_k^*$ is globally optimal at each time step $k$.
+note that we have no control or state constraints, which helps guarantee the convexity of the problem. Including constraints is an extension to this basic formulation of LQR, but makes solving the problem possibly much more difficult and computationally expensive, so it is often ignored, as noted in 8.3.2 of [10]. The dynamics are linear, and the cost function, composed of the next state cost and the running cost, are both quadratic and therefore convex. The regulator regulates to zero for stability. The quadratic cost function guarantees the optimal control input $u_k^*$ is globally optimal at each time step $k$.
 
 The matrices $Q_k$ and $R_k$ are the weights for the state and control costs, respectively. The matrix $Q_T$ is the terminal cost weight, and is used to stabilize the system. The matrices $A$ and $B$ are the system dynamics matrices, and $x_k$ is the state at time step $k$. We require the matrices $Q_k$ and $Q_T$ to be positive semi-definite, and $R_k$ to be positive definite in order to guarantee that the cost function is bowl-shaped and has a global minimum. As a result, we have that:
 
@@ -95,7 +95,7 @@ We can then notice that the right-hand-side of our expression for $V(x_k, k)$ is
 
 $$\min_{u_k \in \mathcal{U}} x_k^T (Q_k + A^T P_{k+1} A)x_k + u_k^T (R_k + B^T P_{k+1} B)u_k + 2x_k^T A^T P_{k+1} Bu_k$$
 
-where we used that fact that $P_{k+1} = Q_T$ and combined the quadratic and linear terms for $x_k$ and $u_k$. We now have a standard degree-2 polynomial in $u_k$ which is easy to differentiate w.r.t. $u_k$ and set to zero to solve for the optimal control input $u_k^*$:
+where we used that fact that $P_{k+1} = Q_T$ and combined the quadratic and linear terms for $x_k$ and $u_k$. We now have a standard degree-2 polynomial in $u_k$ which is easy to differentiate w.r.t. $u_k$ and set to zero to solve for the optimal control input $u_k^*$ at timestep $k$. We note here that "optimal" in this case refers to the optima for LQR formulation of the optimal control problem, and **not** necessarily the physical system itself.
 
 $$ \frac{\partial V(x_k, k)}{\partial u_k} = 2(R_k + B^T P_{k+1} B)u_k + 2B^T P_{k+1} A x_k = 0 \implies u_k^* = - (R_k + B^T P_{k+1} B)^{-1} B^T P_{k+1} A x_k $$
 
@@ -121,9 +121,9 @@ lots of Markdown, but hopefully showing more of the derivation is helpful! Final
 
 $$ P_k = Q_k + A^T P_{k+1} A - (A^T P_{k+1} B) (R_k + B^T P_{k+1} B)^{-1} (B^T P_{k+1} A) $$
 
-which we can use to continue in the dynamic programming algorithm to solve for the optimal control input at each time step $k$. While this equation is long to look at, the computation is entirely linear, and it is known what the matrices $A, B, Q_k, R_k, Q_T, P_{k+1}$ are, so solving for $P_k$ is straightforward in code. The $u_k$ yielded at each step $k$ is the optimal control input that minimizes the cost function at that time step, and by the principle of optimality, this guarantees that the control vector $u^* = [u_0^*, u_1^*, \dots, u_K^*]$ is globally optimal.
+which we can use to continue in the dynamic programming algorithm to solve for the optimal control input at each time step $k$. While this equation is long to look at, the computation is entirely linear, and it is known what the matrices $A, B, Q_k, R_k, Q_T, P_{k+1}$ are, so solving for $P_k$ is straightforward in code. The $u_k$ yielded at each step $k$ is the optimal control input that minimizes the cost function at that time step, and by the principle of optimality, this guarantees that the control vector $u^\* = \[u_0^\*, u_1^\*, \dots, u_K^\*\]$ is globally optimal for this problem formulation.
 
-Considering the constant time nature of solving for each $u_k^*$, the LQR problem with dynamic programming is known to run in $O(Kn^3)$ time, where $n$ is the number of states in the system, which is significantly faster than solving the LQR by brute force, which would run in $O(K^3 n m^2)$ time [1], where $m$ is the number of control inputs. This makes the dynamic programming approach not dependent on the dimensionality of the control inputs, and therefore more scalable. It is also forseeably more efficient than computing $u_k$ by brute force, which would may not be boundable through big $O$ notation. However, we see that solving LQR using DQ suffers from the curse of dimensionality, as with any dynamic programming approach [2].
+Considering the constant time nature of solving for each $u_k^*$, the LQR problem with dynamic programming is known to run in $O(Kn^3)$ time, where $n$ is the number of states in the system, which is significantly faster than solving the LQR by brute force, which would run in $O(K^3 n m^2)$ time [1], where $m$ is the number of control inputs. This makes the dynamic programming approach not dependent on the dimensionality of the control inputs, and therefore more scalable. It is also forseeably more efficient than computing $u_k$ by brute force, which would may not be boundable through big $O$ notation. However, we see that solving LQR using DP suffers from the curse of dimensionality, as with any dynamic programming approach [2].
 
 ### Solving the discrete time, infinite horizon LQR problem
 
@@ -141,7 +141,7 @@ The above derivations are classically known, and there are also ready implementa
 
 The choice of the weights $Q_k, R_k, Q_T$ is then a critical, and non-trivial, part of the LQR problem. In many cases systems are designed such that they converge for all time if left unperturbed, so the design choices boil down to choosing $Q$ and $R$. 
 
-While this can be either trial-and-error, or be based on physical intuition/understanding of the system itself, the abstraction provided by the LQR allows for a more systematic and efficient approach. From the derivation, we see that $Q$ is the matrix that weighs state vector $\vec{x}$, and $R$ is the matrix that weighs control vector $\vec{u}$. For simplicity, $Q$ and $R$ are often chosen to be diagonal matrices, where the diagonal elements are the weights for each state and control input, respectively. This then provides directing and independent weighting of the states and control inputs in the cost function, which can be much easier to tune than parameters in a full state feedback design which can affect the entire state or control, or choosing control inputs without clear knowledge of how each impacts the states. The weights can be tuned directly based on output observations of the system, without clearly understanding the system internals.
+While this can be either trial-and-error, or be based on physical intuition/understanding of the system itself, the abstraction provided by the LQR can allow for a more systematic and efficient approach. From the derivation, we see that $Q$ weights the state vector $\vec{x}$, and $R$ weights the control vector $\vec{u}$. For simplicity, $Q$ and $R$ are often chosen to be diagonal matrices, where the diagonal elements are the weights for each state and control input, respectively. This then provides directing and independent weighting of the states and control inputs in the cost function, which can be much easier to tune than parameters in a full state feedback design which can affect the entire state or control, or choosing control inputs without clear knowledge of how each impacts the states. The weights can be tuned directly based on output observations of the system, without clearly understanding the system internals.
 
 This fact leads to Bryson's Rule [4], which is a popular method for determining a starting point for $Q$ and $R$. In fact, MATLAB's example documentation on LQR defaults on using Bryson's rule to choosing $Q$ and $R$ [5]. Bryson's Rule states that, for diagonal matricies $Q$ and $R$, the diagonal elements are chosen such that:
 
@@ -164,15 +164,15 @@ In the above, we have shown how the discrete time LQR problem is derived and sol
 #### Pros:
 1. **Abstracted Design**: The LQR problem allows for the design of the control input to be abstracted from the physical intuition or understanding of the system being controlled. This can be especially useful for complex systems where physical intuition may be difficult to obtain.
 2. **Efficiency**: The finite horizonLQR problem can be solved in $O(Kn^3)$ time using dynamic programming, which can significantly faster than brute force or naive methods. The infinite horizon case can be solved in constant time using the DARE. Both methods are also efficient to implement in code.
-3. **Optimal Control**: The LQR problem is convex and guarantees that the control input $u^*$ is globally optimal for the cost function at each time step $k$.
+3. **Optimal Control**: The LQR problem is convex and guarantees that the control input $u^\*$ is globally optimal for the cost function at each time step $k$. It's important to note that $u^\*$ is globally optimal in the space of the LQR formulation, and NOT the entire full state-space, but a well designed LQR problem can yield a good resulting control input for the full state-space while needing less time and complexity.
 4. **Independent Tuning**: The weights $Q$ and $R$ can be tuned independently for each state and control input, which can be easier than tuning parameters in PID, or pole placement design.
 
 #### Cons:
 1. **Curse of Dimensionality**: The finite horizon LQR problem suffers from the curse of dimensionality, as with any dynamic programming approach, which can make the problem difficult for high-dimensional systems.
 2. **Abstracted Design**: The abstraction provided by the LQR problem can make it difficult to understand how the control input affects the system. As opposed to full state feedback design, the LQR problem does not provide any specific insights regarding how the system responds to control inputs.
 3. **Non-Systematic Weight Choice**: There is no systematic method for choosing the weights $Q$ and $R$, and the choice of weights can be non-trivial and may be tedious through trial-and-error.
-4. **Model and Cost Limitation** The LQR problem assumes that the system dynamics are linear, and the cost function is quadratic. This limits it to the types of systems it control and the complexity of the cost function. For non-linear models, linearization methods may not provide an accurate enough model for LQR to be effective.
-5. **Constraint handling**: The LQR formulation does not explicitly handle state and control constraints, which can add complexity to the problem if constraints are present.
+4. **Model and Cost Limitation** The LQR problem assumes that the system dynamics are linear, and the cost function is quadratic. This limits it to the types of systems it control and the complexity of the cost function. For non-linear and\or non-convex models, the linearized model that LQR uses may not be accurate enough to yield effective or optimal control inputs.
+5. **Constraint Handling**: The LQR formulation does not explicitly handle state and control constraints, which can make the optimal control input $u^\*$ yielded by LQR inaccurate for the actual physical system.
 
 In conclusion, LQR can be an efficient and powerful tool when designing control systems that can be modelled as linear systems with quadratic cost functions. It can be especially useful as a starting point when designing control systems for complex systems where physical intuition may be difficult to obtain. However, the same abstraction can also be detrimental as relationship between controller parameters and controller behavior may need to be clearly understood, in which case full state feedback methods are preferred. The non-trivial and non-systematic choice of weights can also limit the usefulness of LQR in practical applications.
 
@@ -195,3 +195,5 @@ In conclusion, LQR can be an efficient and powerful tool when designing control 
 [8] [Wikipedia: Linear Quadratic Regulator](https://en.wikipedia.org/wiki/Linear%E2%80%93quadratic_regulator)
 
 [9] UW AA548 Spring 2024 Lecture Notes by Prof. Karen Leung
+
+[10] [Underactuated Robotics](https://underactuated.csail.mit.edu/lqr.html#section3) by Prof. Russ Tedrake

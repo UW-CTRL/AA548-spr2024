@@ -55,18 +55,14 @@ The presented formulation is straightforward and simple from the mathematical pe
 ### Standard DT Optimal Control problem 
 Consider the time horizon $[t_0, t_f]$ and an integer $N>0$. The nodes $t_i, i = 1,\dots,N+1$ are defined in such manner that $t_0 = t_1 \leq \dots \leq t_{N+1} = t_f$. In addition $x_i \coloneqq x(t_i)$, $u_i \coloneqq u(t_i)$ are the discrete states and controls; the subscript $(\square)_i$ The initial problem can be reframed as follows
 
-$$
-`
-\begin{array}{rl}
+$$ \begin{array}{rl}
 \underset{x_i,u_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\
 \text{subject to} & \dot{x}_i = f(t_i, x_i, u_i) \quad i = 1\dots, N\\
 & g(t_i, x_i, u_i) \leq 0  \quad i = 1\dots, N\\
 & h(t_i, x_i, u_i) = 0  \quad i = 1\dots, N\\
 & Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\
 & t_1 = t_0, \: t_{N+1} = t_f
-\end{array}
-`
-$$
+\end{array} $$
 
 Eventually, given a parameterized shape $\xi_i(t, p_i)$ for $u_i$, defined over interval $[t_i, t_{i+1}]$, being $p_i$ the set of parameters on which $\xi_i$ depends, the $i$-th dynamics constraint can be treated with a shooting approach, i.e. numerically integrated as follows
 
@@ -123,7 +119,6 @@ $$
  From $y$ dynamics definition, $\dot{y}(t) \geq 0\; \forall t \in [t_0, t_f]$; if boundary condition $y_0 = y_f$ is satisfied, then $\dot{y}(t) = 0 \;  \forall t \in [t_0, t_f]$, implying constraints $g(t, x(t), u(t)) \leq 0, h(t, x(t), u(t))=0$ are satisfied $\forall t \in [t_0, t_f]$. Therefore, the discretized problem reads
 
 $$
-`
 \begin{array}{rl}
 \underset{x_i,p_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\
 \text{subject to} & x_{i+1} = x_{i} + \int_{t_{i}}^{t_{i+1}} f(\tau, x(\tau), \xi_i(\tau, p_i))\text{d}\tau  \quad i = 1\dots, N\\[1ex]
@@ -132,7 +127,6 @@ $$
 & Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\[1ex]
 & t_1 = t_0, \: t_{N+1} = t_f
 \end{array}
-`
 $$
 
 where the positive variable $\varepsilon$ allows to 1) grant Linear Independence Constraint Qualification (LICQ), making the problem tractable, and 2) leverage an exact penalty approach [2]. In addition, the given $\varepsilon$ is linked with the maximum pointwise violation of the considered path constraints, according to the following relation 

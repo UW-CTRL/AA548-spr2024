@@ -350,7 +350,7 @@ By inplementing LQR, the system converge to 0 in 1 second.
 
 # Conclusion: 
 1. We succesfully use ode45 to solve Ricatti equation and find the optimal control for continuous finite time problem.
-2. For other variation of the LQR need different technic to solve, for example: the infinit time problen is not a ODE, therefore can't use ode45.
+2. For discrete time LQR need different technic to solve, for example: the infinit time problen is not a ODE, therefore can't use ode45.
 # Refernece: 
 [1] [Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation](https://underactuated.mit.edu/lyapunov.html) by Russ Tedrake \
 [2] https://www.youtube.com/watch?v=E_RDCFOlJx4 \

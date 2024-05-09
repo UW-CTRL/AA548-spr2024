@@ -1,9 +1,9 @@
 # Objectives: 
 1. Motivation of LQR
-2. Summarize the variation of LQR and corresponding Recati equation and optimal control. 
-3. Using ode45 to solve Reccati equation.
+2. Summarize the variation of LQR and corresponding Riccati equation and optimal control. 
+3. Using ode45 to solve Riccati equation.
 # Introduction: 
-LQR (Linear Quatratic Regulater) is the a optimal solution to a full state feedback control to minimine the state error and control efforts. Let's break down this sentence to understand what is LQR ? 
+LQR (Linear Quadratic Regulator) is an optimal solution for full-state feedback control, aiming to minimize a cost function chosen by the designer, typically reducing state error and control effort. Let's break down this sentence to understand what LQR is
 ## What is a fullstate feedback control.
 We want to stabilize a system and drive all state to 0. A standard full state feed back control can achieve this goal.(There are other variation which are out of the scope) \
 A standar full feedback controle has the block diagram. 

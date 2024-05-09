@@ -9,7 +9,7 @@ We want to stabilize a system and drive all states to 0. A standard full-state f
 A standar full feedback controle has the block diagram. 
  ![fullfeedback](https://github.com/p8410077/AA548-spr2024/assets/11802603/bea8ed3a-5062-4d60-93c9-b213d4d856d5)
 
-By using the full state control, we can using the method called pole placement, literally, we are putting the poles of the system at the desired location on the complex plane.
+By using the full state control, we can use the method called pole placement, literally, we are putting the poles of the system at the desired location to change the dynamics of the system.
 
 ## what is pole placement ?
 The open loop state space representices of the system is:

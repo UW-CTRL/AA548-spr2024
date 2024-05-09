@@ -9,7 +9,7 @@ We want to stabilize a system and drive all states to 0. A standard full-state f
 A standar full feedback controle has the block diagram. 
 ![fullfeedback](https://github.com/p8410077/AA548-spr2024/assets/11802603/7689c9d1-d507-4122-9feb-eb2966d2ae05)
 
-By using the full state control, we can use the method called pole placement, literally, we are putting the poles of the system at the desired location to change the dynamics of the system.
+By using the full state control, we can use the method called pole placement, literally, we are putting the poles of the system at the desired location to change the dynamics of the system. The theory of pole placement is explained in the next topic. 
 
 ## what is pole placement ?
 The open loop state space representices of the system is:
@@ -72,7 +72,7 @@ The variation of the optimal representies of LQR and correponding Riccati equati
 |                                    | Cost function in LQR form                         | Riccati Equation                |                                
 | ---------------------------------  | -------------------------------- |-------------------------------- |
 | Continuous time finite horizon     | $\min \int_{0}^{T}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$ | $0 =\dot{P}(t) + P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t)$ | 
-| Discret time finite horizon   | $$\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}\$$ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
+| Discret time finite horizon   | $\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}\$ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
 | Continuous time infinite horizon   | $\min \int_{0}^{\inf}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t)$ |$PA+A^TP+Q-PBR^{-1}B^TP=0$ |
 | Discret time infinite horizon      | $$\min x_{k+1}^T Q_T x_{k+1} + \sum_{k=0}^k x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}$$ | $P = Q +A^TPA-(A^TPB)(R+B^TPB)^{-1}(B^TPA)$| 
 
@@ -105,7 +105,8 @@ $$
 The Riccati equtaion is :
 
 $$
-0 =  \dot{P} (t) + (P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t))
+0 =  \dot{P} (t) + (P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t)) 
+\label{1}
 $$
 
 $$
@@ -116,8 +117,9 @@ Optimal control input is :
 
 $$u^*(t) =-R^{-1}B^TP(t)x$$
 
-By applying boundery condition, P matrix at final time, P(tf), is Q(T). 
-Therefore we can sovle the P for $\dot{P}$, by solving the differential equation backward in time with initial condition $P(0) = Q(T)$.
+By applying boundery condition to \ref{1}, P matrix at final time, $ P(tf) $, is $ Q(T) $ is our final condition.
+However, to solve PDE, we need to specify the initial condition rather than final condition. 
+We can still sovle $\dot{P}$ for P for, by solving the differential equation backward in time with initial condition $P(0) = Q(T)$.
 
 The command in matlab is: \
 

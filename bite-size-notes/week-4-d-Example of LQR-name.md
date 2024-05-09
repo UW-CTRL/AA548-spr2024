@@ -7,7 +7,7 @@ LQR (Linear Quadratic Regulator) is an optimal solution for full-state feedback 
 ## What is a fullstate feedback control.
 We want to stabilize a system and drive all states to 0. A standard full-state feedback control can achieve this goal. (A standard full-state feedback means the system doesn't have a reference input. Other variations, such as systems with reference inputs or error tracking, are out of scope.) \
 A standar full feedback controle has the block diagram. 
- ![fullfeedback](https://github.com/p8410077/AA548-spr2024/assets/11802603/bea8ed3a-5062-4d60-93c9-b213d4d856d5)
+![fullfeedback](https://github.com/p8410077/AA548-spr2024/assets/11802603/7689c9d1-d507-4122-9feb-eb2966d2ae05)
 
 By using the full state control, we can use the method called pole placement, literally, we are putting the poles of the system at the desired location to change the dynamics of the system.
 
@@ -52,7 +52,7 @@ We know that the eigenvalue of the matrix (A-BK) is the poles of the system. We 
 
 
 ## How to chose K ?  
-Since we can change the respoce of the system by poles placement. We might ask ourself where should I put the poles, in other words, how to chose the K ? One idea is to construcet the problem into optimization framework that minimize the state error and control nameed LQR.
+Since we can change the response of the system by pole placement, we might ask ourselves where should we put the poles, in other words, how to choose K? We can choose K that satisfies design criteria such as settling time. Another idea is to construct the problem into an optimization framework that minimizes the state error and control effort, named LQR.
 
 In class, we already disccused, by using HJB, the optimal control input u^* is a function of A,B,R,Q,P where
 
@@ -66,33 +66,33 @@ $$
  \end{aligned}
 $$
 
-And by solving the Ricatti equation, we can find the optimal control input $u^*$
+And by solving the Riccati equation, equivalently finding the P matrix, we can find the optimal control input $u^*$
 The variation of the optimal representies of LQR and correponding Riccati equation and control u are summirized below.  
 
-|                                    | LQR form                         | Riccati Equation                |                                
+|                                    | Cost function in LQR form                         | Riccati Equation                |                                
 | ---------------------------------  | -------------------------------- |-------------------------------- |
 | Continuous time finite horizon     | $\min \int_{0}^{T}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T)$ | $0 =\dot{P}(t) + P(t)A+A^TP(t)+Q-P(t)BR^{-1}B^TP(t)$ | 
-| Discret time finite horizon   | $$\sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}\$$ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
+| Discret time finite horizon   | $$\min \sum_{n=1}^{\infty} x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}\$$ | $P_k = Q_k +A^T P_{k+1}A-(A^TP_{k+1}B)(R_k+B^TP_{k+1}B)^{-1}(B^TP_{k+1}A)$ | 
 | Continuous time infinite horizon   | $\min \int_{0}^{\inf}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t)$ |$PA+A^TP+Q-PBR^{-1}B^TP=0$ |
 | Discret time infinite horizon      | $$\min x_{k+1}^T Q_T x_{k+1} + \sum_{k=0}^k x_{k}^T Q_k x_{k} + u_{k}^T R_k u_{k}$$ | $P = Q +A^TPA-(A^TPB)(R+B^TPB)^{-1}(B^TPA)$| 
 
 |                                    |  u          |                     
 | ---------------------------------  | -------------------------------- |
 | Continuous time finite horizon     | $u^*(t) =-R^{-1}B^TP(t)x$ |
-| Discret time finite horizon        | $u^*_k =-(R _{k+1}+B^TP _{k+1}B^{-1}BP _{k+1}A) X _k$  |
+| Discret time finite horizon        | $u^*_k =-(R _{k+1}+B^TP _{k+1}B^{-1}^TP _{k+1}A) X _k$  |
 | Continuous time infinite horizon   | $u^* =-R^{-1}B^TPx$|
 | Discret time infinite horizon      | $u^*_k =-(R+B^TPB^{-1}(B^TPA)x$ |
 
 
 
-Fron this point, we narrow down the optimal problem to solving a differentail matrix equation. And I want to show how to solving the Ricatti equation for the continuous finite time using matlab ode45. 
+Fron this point, we narrow down the optimal problem to solving a differentail matrix equation or an algebratic equation, correspongding to either continuous time or discret time Ricatti equaiton. And I want to show how to solving the continuous time Ricatti equation (a differentail matrix equation) for the continuous finite time optimal problem using matlab ode45. 
  
 # Main body 
 ## Solving the Recatti equation using matlab ode45 (Method from AA550 Nonlinear optimal control by Prof. Santosh Divasia)
 
-Please refer to the attached code. 
+Please refer to the attached code. The following content is an explanation of the code.
 
-The optimal control problem in terns on LQR is:
+The continuous finite time optimal control problem in terns on LQR is:
 
 $$
 	\min \int_{0}^{T}x(t)^T Q(t) x(t) + u(t)^T R(t) u(t) + x(T)^T Q(T) x(T) 

@@ -57,11 +57,11 @@ Consider the time horizon $[t_0, t_f]$ and an integer $N>0$. The nodes $t_i, i =
 
 $$ 
 \begin{array}{rl}
-\underset{x_i,u_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\
-\text{subject to} & \dot{x}_i = f(t_i, x_i, u_i) \quad i = 1\dots, N \\
-& g(t_i, x_i, u_i) \leq 0  \quad i = 1\dots, N\\
-& h(t_i, x_i, u_i) = 0  \quad i = 1\dots, N\\
-& Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\
+\underset{x_i,u_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\\
+\text{subject to} & \dot{x}_i = f(t_i, x_i, u_i) \quad i = 1\dots, N \\\
+& g(t_i, x_i, u_i) \leq 0  \quad i = 1\dots, N \\\
+& h(t_i, x_i, u_i) = 0  \quad i = 1\dots, N \\\
+& Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\\
 & t_1 = t_0, \: t_{N+1} = t_f
 \end{array} 
 $$
@@ -120,17 +120,15 @@ $$
 
  From $y$ dynamics definition, $\dot{y}(t) \geq 0\; \forall t \in [t_0, t_f]$; if boundary condition $y_0 = y_f$ is satisfied, then $\dot{y}(t) = 0 \;  \forall t \in [t_0, t_f]$, implying constraints $g(t, x(t), u(t)) \leq 0, h(t, x(t), u(t))=0$ are satisfied $\forall t \in [t_0, t_f]$. Therefore, the discretized problem reads
 
-$$
-\begin{array}{rl}
-\underset{x_i,p_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\
-\text{subject to} & x_{i+1} = x_{i} + \int_{t_{i}}^{t_{i+1}} f(\tau, x(\tau), \xi_i(\tau, p_i))\text{d}\tau  \quad i = 1\dots, N \\[1ex]
-& y_{i+1} = y_{i} + \int_{t_{i}}^{t_{i+1}} [1^\top |g(\tau, x(\tau), \xi_i(\tau, p_i))|^2_+ + 1^\top h(\tau, x(\tau), \xi_i(\tau, p_i))^2]\text{d}\tau  \quad i = 1\dots, N \\[1ex]
-& y_{i+1} - y_{i} \leq \varepsilon \quad i = 1\dots, N \\[1ex]
-& Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\[1ex]
+$$\begin{array}{rl}
+\underset{x_i,p_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\\
+\text{subject to} & x_{i+1} = x_{i} + \int_{t_{i}}^{t_{i+1}} f(\tau, x(\tau), \xi_i(\tau, p_i))\text{d}\tau  \quad i = 1\dots, N \\\
+& y_{i+1} = y_{i} + \int_{t_{i}}^{t_{i+1}} [1^\top |g(\tau, x(\tau), \xi_i(\tau, p_i))|^2_+ + 1^\top h(\tau, x(\tau), \xi_i(\tau, p_i))^2]\text{d}\tau  \quad i = 1\dots, N \\\
+& y_{i+1} - y_{i} \leq \varepsilon \quad i = 1\dots, N \\\
+& Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\\
 & t_1 = t_0, \: t_{N+1} = t_f
 \end{array}
 $$
-
 where the positive variable $\varepsilon$ allows to 1) grant Linear Independence Constraint Qualification (LICQ), making the problem tractable, and 2) leverage an exact penalty approach [2]. In addition, the given $\varepsilon$ is linked with the maximum pointwise violation of the considered path constraints, according to the following relation 
 
 $$

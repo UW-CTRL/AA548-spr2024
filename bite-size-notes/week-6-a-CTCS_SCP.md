@@ -13,7 +13,7 @@ Direct methods are extremely popular for trajectory optimization purposes: they 
 
 ## Preliminaries
 ### Notation
-Apart on common notation, e.g. $\mathbb{R}^n$ to denote the n-dimensional real vectors $\mathbb{R}^{n\times m}$ to denote the n-by-m-dimensional real matrices, and  $`\mathbb{R}_+`$ to denote nonnegative real numbers, for each scalar $`v`$ we define the positive part $`|v|_+ = \text{max} \left\{0, v \right\}`$; in addition, operators $|\square|_+, |\square|, \|\square\|,\square^2$ are defined element-wise for the argument $\square$. Finally, $1$ and $0$ indicate scalars or vectors, depending on the context. Additional notation is provided throughout the work.
+Apart on common notation, e.g. $\mathbb{R}^n$ to denote the n-dimensional real vectors $\mathbb{R}^{n\times m}$ to denote the n-by-m-dimensional real matrices, and  $`\mathbb{R}_+`$ to denote nonnegative real numbers, for each scalar $`v`$ we define the positive part $`|v|_+ = \text{max} \left\{0, v \right\}`$; in addition, operators $`|\square|_+, |\square|, \|\square\|,\square^2`$ are defined element-wise for the argument $\square$. Finally, $1$ and $0$ indicate scalars or vectors, depending on the context. Additional notation is provided throughout the work.
 
 
 ### CT Optimal Control Problem
@@ -33,6 +33,7 @@ $$
 where $x,u,t$, respectively $x \in \mathbb{R}^n$, $u \in \mathbb{R}^m$, $`t \in \mathbb{R}_+`$, are the state, the control and time; $L$ is the scalar terminal cost function, $`f:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^n`$ is the dynamics function, $`g:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^g`$, $`h:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}^m \rightarrow \mathbb{R}^h`$ are the path constraint functions, and $`Q:\mathbb{R}_+\times \mathbb{R}^n \times\mathbb{R}_+\times \mathbb{R}^n \rightarrow \mathbb{R}^Q`$ is the boundary condition constraint function.
 
 $L$ may represent as well a running cost: a running cost $\mathcal{L}$ can indeed be embedded in $L$ using numerical integration, i.e. adding a fictitious state $l \in \mathbb{R}$ such that
+
 $$
 \begin{array}{c}
 l(t_0) = 0, \quad \dot{l}(t) = \mathcal{L}(t, x(t), u(t)), \quad l(t_f) = L(t_f, x(t_f))
@@ -55,6 +56,7 @@ The presented formulation is straightforward and simple from the mathematical pe
 Consider the time horizon $[t_0, t_f]$ and an integer $N>0$. The nodes $t_i, i = 1,\dots,N+1$ are defined in such manner that $t_0 = t_1 \leq \dots \leq t_{N+1} = t_f$. In addition $x_i \coloneqq x(t_i)$, $u_i \coloneqq u(t_i)$ are the discrete states and controls; the subscript $(\square)_i$ The initial problem can be reframed as follows
 
 $$
+`
 \begin{array}{rl}
 \underset{x_i,u_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\
 \text{subject to} & \dot{x}_i = f(t_i, x_i, u_i) \quad i = 1\dots, N\\
@@ -63,6 +65,7 @@ $$
 & Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\
 & t_1 = t_0, \: t_{N+1} = t_f
 \end{array}
+`
 $$
 
 Eventually, given a parameterized shape $\xi_i(t, p_i)$ for $u_i$, defined over interval $[t_i, t_{i+1}]$, being $p_i$ the set of parameters on which $\xi_i$ depends, the $i$-th dynamics constraint can be treated with a shooting approach, i.e. numerically integrated as follows
@@ -89,7 +92,7 @@ $$
 \mathcal{L}(t, x(t), u(t)) = \|r(t) - r_{\text{ref}}(t)\|^2
 $$
  
-being $r$ the position, $v$ the speed, $u$ the acceleration and $c_d$ a drag coefficient. In addition, the acceleration is limited as $\|u(t)\|_2 \leq a_{\text{max}}$. Final condition is not ensured strictly (NMPC standard framework), thus a penalization is present as per final deviation with respect to referene. Notice $r_{\text{ref}}(t)$ is usually computed at low frequency, ignoring the real environment the drone shall move in: hypothesize that the tracking problem, given a finite horizon of length $T$, shall be solved in presence of moving obstacles, not accounted for in $r_{\text{ref}}(t)$. 
+being $r$ the position, $v$ the speed, $u$ the acceleration and $c_d$ a drag coefficient. In addition, the acceleration is limited as $`\|u(t)\|_2 \leq a_{\text{max}}`$. Final condition is not ensured strictly (NMPC standard framework), thus a penalization is present as per final deviation with respect to referene. Notice $r_{\text{ref}}(t)$ is usually computed at low frequency, ignoring the real environment the drone shall move in: hypothesize that the tracking problem, given a finite horizon of length $T$, shall be solved in presence of moving obstacles, not accounted for in $r_{\text{ref}}(t)$. 
 
 Ideally, for each obstacle $j$, the following constraint holds
 
@@ -111,13 +114,16 @@ What happens between node $i$ and node $i+1$ with the discrete formulation? The 
 *Retrieved with permission from [4]
 
 ### CTCS-granting Optimal Control
-To overcome the inter-sample constraint violation problem, [2] makes use of *exterior penalty functions*, thus allowing a similar approach to the dynamics shooting; consider the fictitious state $y \in \mathbb{R}^{g+h}$ with time derivative 
+To overcome the inter-sample constraint violation problem, [2] makes use of *exterior penalty functions*, thus allowing a similar approach to the dynamics shooting; consider the fictitious state $y \in \mathbb{R}^{g+h}$ with time derivative
+
 $$
 \dot{y}(t) \coloneqq 1^\top|g(t, x(t), u(t))|^2_+ + 1^\top h(t, x(t), u(t))^2
 $$
+
  From $y$ dynamics definition, $\dot{y}(t) \geq 0\; \forall t \in [t_0, t_f]$; if boundary condition $y_0 = y_f$ is satisfied, then $\dot{y}(t) = 0 \;  \forall t \in [t_0, t_f]$, implying constraints $g(t, x(t), u(t)) \leq 0, h(t, x(t), u(t))=0$ are satisfied $\forall t \in [t_0, t_f]$. Therefore, the discretized problem reads
 
 $$
+`
 \begin{array}{rl}
 \underset{x_i,p_i,t_f}{\text{minimize}} & L(t_{N+1}, x_{N+1}) \\
 \text{subject to} & x_{i+1} = x_{i} + \int_{t_{i}}^{t_{i+1}} f(\tau, x(\tau), \xi_i(\tau, p_i))\text{d}\tau  \quad i = 1\dots, N\\[1ex]
@@ -126,6 +132,7 @@ $$
 & Q(t_1, x_1, t_{N+1}, x_{N+1}) = 0 \\[1ex]
 & t_1 = t_0, \: t_{N+1} = t_f
 \end{array}
+`
 $$
 
 where the positive variable $\varepsilon$ allows to 1) grant Linear Independence Constraint Qualification (LICQ), making the problem tractable, and 2) leverage an exact penalty approach [2]. In addition, the given $\varepsilon$ is linked with the maximum pointwise violation of the considered path constraints, according to the following relation 

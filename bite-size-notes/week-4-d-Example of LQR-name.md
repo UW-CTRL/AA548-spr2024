@@ -5,7 +5,7 @@
 # Introduction: 
 LQR (Linear Quadratic Regulator) is an optimal solution for full-state feedback control, aiming to minimize a cost function chosen by the designer, typically reducing state error and control effort. Let's break down this sentence to understand what LQR is
 ## What is a fullstate feedback control.
-We want to stabilize a system and drive all state to 0. A standard full state feed back control can achieve this goal.(There are other variation which are out of the scope) \
+We want to stabilize a system and drive all states to 0. A standard full-state feedback control can achieve this goal. (A standard full-state feedback means the system doesn't have a reference input. Other variations, such as systems with reference inputs or error tracking, are out of scope.) \
 A standar full feedback controle has the block diagram. 
  ![fullfeedback](https://github.com/p8410077/AA548-spr2024/assets/11802603/bea8ed3a-5062-4d60-93c9-b213d4d856d5)
 

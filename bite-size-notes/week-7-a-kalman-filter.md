@@ -1,6 +1,67 @@
-# bite-size-notes
+# Kalman Filter: A Closed Form Solution to State Estimation
 
-You can write your "bite-size notes" using Markdown and all the nice formatting functionalities that Markdown provides.
+### Scope
+- Linear discrete time system dynamics
+### Objectives
+- The implementation of a Kalman filter
+- The derivation of the Kalman filter
+- A brief description of duality
+
+## Introduction: Help, I Don't Know Where my System is!
+Many modern state space control techniques make the assumption that the controller knows the true state and output of the system. 
+
+## Preliminaries
+Given the following variables and initial conditions
+- $x$ is the true state
+- $y$ is the output
+- $u$ is the input
+- $\hat{x}$ is the estimated state
+- $\tilde{x}=x-\hat{x}$ is the estimation error between the true and estimated states
+- $K$ is the Kalman filter gain matrix
+- $A,B,C,D$ are the system state space matrices
+- $\omega\approx\mathcal{N}(0,Q)$ is some Gaussian process noise sampled from a normal distribution with variance $Q=\mathbb{E}[w_kw_k^T]$
+- $v\approx\mathcal{N}(0,R)$ is some Gaussian observer noise sampled from a normal distribution with variance $R=\mathbb{E}[v_kv_k^T]$
+- $\hat{x}_0\approx\mathcal{N}(\mu_0,\Sigma_0)$ is the initial state estimate
+
+The following linear discrete time Gaussian dynamics with some additive Gaussian noise will be used to represent a system of interest.
+
+$$x_{k+1}=Ax_k+Bu_k+\omega_k$$
+
+$$y_{k+1}=Cx_k+Du_k+v_k$$
+
+For the puposes of these notes, $D$ is assumed to be zero.
+
+## Main Body
+The Kalman filter is a method of estimating unknown variables in a system's current state. It is a recursive process that uses successive observations to update an estimate of the true state. This estimate is represented by a normal distribution with some mean $\mu$ (the average estimated state) and variance $\Sigma$ (the variation in the estimated state).
+### Kalman Filter Implementation
+The Kalman filter is a two-step process. Both steps must be run at each time step $k$.
+1) **Estimate the current state based on the previous state**
+   
+   $$\mu_k^{pred}=A\mu_{k-1}+Bu_{k-1}$$
+
+   $$\Sigma_k^{pred}=Q+A\Sigma_{k-1}^{pred}A^T-A\Sigma_{k-1}^{pred}C^T(C\Sigma_{k-1}^{pred}C^T+R)^{-1}C\Sigma_{k-1}^{pred}A^T$$
+
+   Here the current predicted mean is estimated by passing the previous mean through the system dynamics. The estimation equation for the predicted variance is derived later in these notes and comprises the bulk of the Kalman filter derivation process.
+
+2) **Update the current state estimation using observations of the outputs**
+
+   The current optimal Kalman gain matrix $K_k$ is calculated using the current predicted variance.
+
+   $$K_k=\Sigma_{k}^{pred}C^T(C\Sigma_{k}^{pred}C^T+R)^{-1}$$
+
+   The Kalman gain is then used to correct the predicted mean using current observations of the state $y_k$.
+   
+   $$\mu_k=(I-K_kC)\mu_k^{pred}+K_ky_k$$
+
+$\mu_k$ can then be used to represent $\hat{x}_k$, the current estimated state.
+
+It is important to note that the Kalman filter process runs forwards in time.
+### Kalman Filter Derivation
+
+## Conclusion
+
+## References
+[1] Leung, Karen. “Linear Multivariable Control” Lecture, University of Washington, Seattle, 2024-05-6.
 
 ## What to include in your notes
 

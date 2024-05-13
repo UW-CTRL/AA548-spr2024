@@ -468,6 +468,13 @@ grid on;
 | `Python` do-mpc library | 1 seconds |
 | `MATLAB` 'MPC' toolbox | 0.08 seconds |
 
+# Conclusion
+Here are the key takeaways from our exploration of LMPC:
+1. Predictive Capability: LMPC anticipates future system behaviors, allowing for proactive adjustments in control strategies crucial in dynamic environments.
+2. Handling Constraints: LMPC effectively integrates both input and output constraints directly into the control process, ensuring all actions are feasible and within safe operational limits.
+3. Optimization of Control Actions: By solving an optimization problem at each control step, LMPC optimizes control actions to balance system performance and control effort, leading to more efficient operations.
+4. Versatile Applications: LMPC's adaptability suits various industries, including automotive, aerospace, chemical processing, and energy management.
+5. Receding Horizon Principle: The receding horizon mechanism enables LMPC to continuously update and adapt its strategy based on new system measurements, enhancing its effectiveness in non-stationary environments.
 # References
 1. [Steve Brunton MPC video](https://www.youtube.com/watch?v=YwodGM2eoy4)
 2. [Model Predictive Control (MPC) for Autonomous Vehicles](https://amitp-ai.medium.com/model-predictive-control-mpc-for-autonomous-vehicles-e0fdf75a9661)

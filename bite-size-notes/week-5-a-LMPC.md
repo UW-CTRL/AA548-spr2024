@@ -1,7 +1,11 @@
 # Linear Model Predictive Control (MPC)
 
 ## Introduction
-Model Predictive Control (MPC) is a control strategy that uses an optimization algorithm to compute the control action by predicting the future behavior of the plant. 
+**Model Predictive Control (MPC)** is an advanced method of process control that utilizes an optimization algorithm to determine the control actions by predicting the future behavior of a plant over a finite time horizon. This approach not only allows for the anticipation of future events but also enables the timely adjustment of control actions to optimize the performance criteria.
+
+**Why is MPC Useful?**
+
+MPC is particularly valued for its ability to handle multi-variable control problems where the inputs and outputs within the system are interconnected and where constraints exist on inputs and outputs. Its predictive capabilities and the explicit consideration of constraints allow MPC to optimize system performance in a way that traditional controllers, such as PID controllers, cannot. This makes it especially powerful in dealing with constraints and dynamics that exhibit delays, nonlinearities, or interactions between variables.
 
 ## Theory
 Linear MPC uses the linear model of the system to predict future outputs over a certain prediction horizon, based on a sequence of future inputs. The controller optimizes these inputs to achieve the best system performance according to a defined cost function. The cost function typically includes terms for error minimization and control effort. After computing the optimal control inputs, only the first control input is applied. The process repeats at the next time step, incorporating new measurements.

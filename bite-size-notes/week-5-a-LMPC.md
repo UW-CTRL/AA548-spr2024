@@ -61,6 +61,9 @@ At the next time step $k+1$, update the system state $x_{k+1}$, shift the predic
 
 ## Example
 Consider a [aircraft pitch system](https://ctms.engin.umich.edu/CTMS/index.php?example=AircraftPitch&section=SystemModeling).
+<p align="center">
+<img src="figs/Block-Diagram-of-Model-Predictive-Control-algorithm.png" width="400">
+</p>
 
 ### System Description
 - **State Vector ($\mathbf{x}$):** 
@@ -468,14 +471,14 @@ grid on;
 | `Python` do-mpc library | 1 seconds |
 | `MATLAB` 'MPC' toolbox | 0.08 seconds |
 
-# Conclusion
+## Conclusion
 Here are the key takeaways from our exploration of LMPC:
 1. Predictive Capability: LMPC anticipates future system behaviors, allowing for proactive adjustments in control strategies crucial in dynamic environments.
 2. Handling Constraints: LMPC effectively integrates both input and output constraints directly into the control process, ensuring all actions are feasible and within safe operational limits.
 3. Optimization of Control Actions: By solving an optimization problem at each control step, LMPC optimizes control actions to balance system performance and control effort, leading to more efficient operations.
 4. Versatile Applications: LMPC's adaptability suits various industries, including automotive, aerospace, chemical processing, and energy management.
 5. Receding Horizon Principle: The receding horizon mechanism enables LMPC to continuously update and adapt its strategy based on new system measurements, enhancing its effectiveness in non-stationary environments.
-# References
+## References
 1. [Steve Brunton MPC video](https://www.youtube.com/watch?v=YwodGM2eoy4)
 2. [Model Predictive Control (MPC) for Autonomous Vehicles](https://amitp-ai.medium.com/model-predictive-control-mpc-for-autonomous-vehicles-e0fdf75a9661)
 3. [Model predictive control: Theory and practice](https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667088X73407/1-s2.0-B9780080357355500061/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjECgaCXVzLWVhc3QtMSJHMEUCIQC24O2Mxgq36BYDe7bXh75HZsvpWb4BgXXj0Z3AyJL%2FbAIgRCScvCjf1tCGUy4eTJQv9zqg0oLO7Wi5bcvGZSVeVzkquwUIgf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAFGgwwNTkwMDM1NDY4NjUiDANYiC3H14yEPdF8zCqPBWGvj%2B%2BfF9%2FZejbXvmVwvEqB8TA6CekYh80QYptbaaN8tOZ6pCcKEiF2zj%2Bs7ibMOhS%2Fc9fGsMbyfV%2F1GV9ciYIJPGYshcnXT1r3iE6YLmloIAb%2BoaCUBhtGXiNOddBSP%2FX4R4D6q8V9ZBn73fM1n6RYspDalELXljO8o0D0BPEtn6cyIz1zvQ0SVU9shi%2FsoWP6Vs9XFRZPCXywQRIfK6NX%2BoWTZS9Qr5OTutHqJ%2FQGMOBm9kLOz1YGRKe74fYrgAfvtzMyJOPtYS0jZrBHLFOn8JGuL%2FLicB5KNA84Ie%2FhAUHGeccD%2BnHN0i4rWpt6Kf2iVYsoWWxeu%2BOADii9BCgJaU1FN2Vm04txEXNfN66amE%2BHrIRI1EARiB8SjNxGl6Qr5K%2FcBxlBybMHSh%2FmGLTx9KB7g5DTeIqjmvU8PGVYph8AJCjZbQHJUjHsNDTdYwuPu%2Bh5R4qauWcll0IH2oer2OxSB12Gs58VJ%2B8eIkbwfMPgbQUMzv3qDQzlAjWGGeeX%2BXXrJQVYZx%2Fu28YQIBrcaVeINqQqqSA6N%2Fai2xTh2yJlVEuVb0V%2FZdY4ii10zfXnE%2FxtpJlZVWgHrOQ2Gn2xDT6JUThLpxBx6MOyoDu%2F6T2ODDi39RKSF2FSzyhCzibttKgZ2TpiFeUQXSWOKBZSEGhTFhNmpUM0VVlp7D5HDVrm18LM4deUvTNf4q9SgID3lHj3IFvvTuvgPj2vzZXnvWEayKoNEbeObg0MN4%2BdNGDqlFQIlYLr492l90BkSkid8YZIbJ2tq%2B7Xm%2F2US5b5y89XrIFFs3ZEZ6HRq0nRe4ixV93aJfU5j2953uw%2B4VvR%2FZiodda1ArfC46Bxug7YeWgjbkceqd0REzjrg9kw1%2BXVsQY6sQGG%2F5%2Bgk2euGLVCxoECDoDrOLHffyAVuFZVq8fmR7nYYeqkdL6boZ%2BrzXgioeTLVm3PEIU4mbexkDPmlPToFudYwJfhZl9GwXqaYjwY5O2Xdfq%2FGQp8qEOd6Iz8YzdyxV45YnJDIWMysCoVEKGPLmVJ3Xo9XUTJYKrukBZdSbUHvCNsXckmnBalTZlZf02YRrhHcLL1uim%2FUxWD5bX73xmXIn9XQ7AHmxC2y6S0kmdppvo%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240504T000741Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY6W3ZE7HD%2F20240504%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=895b3f39b4e6c7077ae7524226c54ee463d01c6926e49f569c7a0aecafeae8da&hash=49028be39943e9d7015647722341ca3d956d645d5238334c76dd8b2483a4a8b7&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=B9780080357355500061&tid=spdf-fcf55da0-f1f0-4d98-81a3-a38862f620b2&sid=f6ff2daf4f57b3461c3a8d647c146ed3dc15gxrqa&type=client&tsoh=d3d3LnNjaWVuY2VkaXJlY3QuY29t&ua=171c5d550353525057&rr=87e440816c0e0943&cc=us)

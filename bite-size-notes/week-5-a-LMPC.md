@@ -10,7 +10,7 @@ MPC is particularly valued for its ability to handle multi-variable control prob
 ## Theory
 Linear MPC uses the linear model of the system to predict future outputs over a certain prediction horizon, based on a sequence of future inputs. The controller optimizes these inputs to achieve the best system performance according to a defined cost function. The cost function typically includes terms for error minimization and control effort. After computing the optimal control inputs, only the first control input is applied. The process repeats at the next time step, incorporating new measurements.
 <p align="center">
-<img src="figs/mpc.png" width="600">
+<img src="figs/mpcc.png" width="600">
 </p>
 
 Here is a step-by-step breakdown of the MPC algorithm:
@@ -456,7 +456,7 @@ title('MPC - State 3 Trajectory');
 grid on;
 ```
 <p align="center">
-<img src="figs/mpcr3.png" width="500">
+<img src="figs/mpcresult3updated.png" width="500">
 </p>
 
 

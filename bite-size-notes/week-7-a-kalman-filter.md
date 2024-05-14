@@ -32,14 +32,14 @@ $$y_{k+1}=Cx_k+Du_k+v_k$$
 For the puposes of these notes, $D$ is assumed to be zero.
 
 ## Main Body
-The Kalman filter is a method of estimating unknown variables in a system's current state. It is a recursive process that uses successive observations to update an estimate of the true state. This estimate is represented by a normal distribution with some mean $\mu$ (the average estimated state) and variance $\Sigma$ (the variation in the estimated state).
+The Kalman filter is a method of estimating unknown variables in a system's current state. It is a recursive process that uses successive observations to update an estimate of the true state. This estimate is represented by a normal distribution with some mean $\mu$ (the average estimated state) and covariance $\Sigma$ (the relationships between state variables).
 ### Kalman Filter Implementation
 The Kalman filter is a two-step process. Both steps must be run at each time step $k$.
 1) **Estimate the current state based on the previous state**
    
    $$\mu_k^{pred}=A\mu_{k-1}+Bu_{k-1}$$
 
-   $$\Sigma_k^{pred}=Q+A\Sigma_{k-1}^{pred}A^T-A\Sigma_{k-1}^{pred}C^T(C\Sigma_{k-1}^{pred}C^T+R)^{-1}C\Sigma_{k-1}^{pred}A^T$$
+   $$\Sigma_k^{pred}=A\Sigma_{k-1}A^T+Q$$
 
    Here the current predicted mean is estimated by passing the previous mean through the system dynamics. The estimation equation for the predicted variance is derived later in these notes and comprises the bulk of the Kalman filter derivation process.
 
@@ -49,15 +49,17 @@ The Kalman filter is a two-step process. Both steps must be run at each time ste
 
    $$K_k=\Sigma_{k}^{pred}C^T(C\Sigma_{k}^{pred}C^T+R)^{-1}$$
 
-   The Kalman gain is then used to correct the predicted mean using current observations of the state $y_k$.
+   The Kalman gain is then used to correct the predicted mean and covariance using current observations of the state $y_k$.
    
    $$\mu_k=(I-K_kC)\mu_k^{pred}+K_ky_k$$
+
+   $$\Sigma_k=(I-K_kC)\Sigma_k^{pred}$$
 
 $\mu_k$ can then be used to represent $\hat{x}_k$, the current estimated state.
 
 It is important to note that the Kalman filter process runs forwards in time.
 ### Kalman Filter Derivation
-
+$$\Sigma_k^{pred}=Q+A\Sigma_{k-1}^{pred}A^T-A\Sigma_{k-1}^{pred}C^T(C\Sigma_{k-1}^{pred}C^T+R)^{-1}C\Sigma_{k-1}^{pred}A^T$$
 ## Conclusion
 
 ## References

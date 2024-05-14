@@ -31,10 +31,10 @@ Its benefits encompass its ability to accommodate with nonlinear system dynamics
 
 ## Preliminaries
 
-- **Backward Reachable Set**
+### Backward Reachable Set 
 
 
-   - Optimal Control Problem:
+Optimal Control Problem:
 
 
 $$ \min_{u \in U} \left( \int_0^T g(x,u,t) \, dt + g_T(x(T), T) \right), \text{s.t.} \quad \dot{x} = f(x,u,t), \quad x(0) = x_0, \quad u(t) \in U $$
@@ -56,7 +56,7 @@ $$R_{\text{backward}} = \{ x \in E \mid V(x, T-t) \leq 0 \}$$
 We will have to do this for each initial state $x_0$. , instead we can use dynamic programming. For discrete cases we can use Bellman equations, however for our continious case we can use Jamilton Jacobi Bellman Equation.
 
 
-- **Hamilton-Jacobi-Bellman (HJB) Equation**
+### Hamilton-Jacobi-Bellman (HJB) Equation
 
 $$ \frac{dV}{dt} + \min_{u \in U} \left( g(x, u, t) + \nabla V(x,t)^T f(x, u, t) \right) = 0 $$
 
@@ -79,8 +79,7 @@ $$ \frac{dV}{dt} + \min_{u \in U} \left(0, \nabla V(x,t)^T f(x,u,t)\right) = 0 $
 This is called Backward Reachable Tube.
 
 What happens If there is disturbance in the system and we cannot use Hamilton Jacobi Bellman Equation, we can use Hamilton-Jacobi-Isaacs (HJI) Equation:
-
-- **Hamilton-Jacobi-Isaacs (HJI) Equation**
+### Hamilton-Jacobi-Isaacs (HJI) Equation
 
 $$ \frac{dV}{dt} + \min_{u \in U} \max_{d \in D} \left(\nabla V(x,t)^T f(x,u,d,t)\right) = 0 $$
 
@@ -96,7 +95,7 @@ $$u^* = \arg \min_{u \in U} \max_{d \in D} \left( \nabla V(x,t)^T f(x,u,d,t) \ri
 
 In HJI the dynamics are described as  f(x, u, d, t), different form HJB, there is d term which describes disturbance. HJI must be used when disturbance is present and robustness against disturbance is wanted.
 
-- **Modified HJI Equation**
+### Modified HJI Equation
 
 $$ \frac{dV}{dt} + \max_{u \in U} \min_{d \in D} \left(\nabla V(x,t)^T f(x,u,d,t)\right) = 0 $$
 
@@ -104,7 +103,7 @@ The modified version of the Hamilton-Jacobi-Isaacs (HJI) equation shifts the foc
 
 This formulation is particularly relevant in scenarios where the system must avoid certain states or zones, which could be unsafe or non-permissible. 
 
-- **Backward Reachable Set**
+### Backward Reachable Set
 
 $$R_{\text{backward}}(t, T) = \{( x \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
 
@@ -122,7 +121,7 @@ $\tilde{x} \in T$: Means that the state $\tilde{x}$, reached by applying the con
 
 We can also create the inverse of reachabile set, which is called Avoid set.
 
-- **Backward Avoid Set**
+### Backward Avoid Set
 
 $$A_{\text{backward}}(t, T) = \{( x \in X \mid \forall u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t), \tilde{x} \in T )\}$$
 
@@ -138,7 +137,7 @@ $\tilde{x} \in T$: States that the reached state $\tilde{x}$ must belong to the 
 
 
 
-- **Forward Reachable Set**
+### Forward Reachable Set
 $$R_{\text{forward}}(x(t_0), t) = \{ (\tilde{x} \in X \mid \exists u(\cdot) \in U \text{ s.t. } \tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)) \}$$
 
 If $\tilde{x} \in R_{\text{forward}}(x(t_0), t)$, then there exists a control signal that can take the system from $x(t_0)$ to $\tilde{x}$ in $t - t_0$ seconds under the rules of control constraints and system dynamics. 
@@ -149,15 +148,15 @@ $\exists u(\cdot) \in U$: This means there exists a control input $u(\cdot)$, wh
 
 Such that $\tilde{x} = \xi(x(t_0), u(\cdot), f(\cdot, \cdot, \cdot), t)$: It says that $\tilde{x}$ is the state reached at time $t$ when the system evolves from $x(t_0)$ under the influence of the control $u(\cdot)$ and the system dynamics described by $f$. The function $\xi$ represents the state trajectory, which is determined by the initial state, the control inputs, and the system dynamics over time.
 
-### Code Example:
+## Code Example:
 
 There is a HJ toolbox written in in stanford ASL written for python [1], and matlab available, and can be imported with the command: import hj_reachability in phython. It is a toolbow that allows us to solve reachability problems. https://github.com/StanfordASL/hj_reachability
 
-- **Example From HJ toolbox**
+- Example From HJ toolbox
 
-- **Example System:Air3d  (Pursuer trying to reach to an Evader)**
+- Example System:Air3d  (Pursuer trying to reach to an Evader)
 
-- **System Dynamics:**
+- System Dynamics:
 
 $$
 \begin{aligned}

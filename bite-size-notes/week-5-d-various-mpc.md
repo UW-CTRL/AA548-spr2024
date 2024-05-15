@@ -33,12 +33,14 @@ Challenges of MPC include:
 Consider the following dynamical system:
 
 $$
-\begin{aligned}
-x_{k+1} = Ax_k + Bu_k + Dw_k\\
-y_k = Cx_k\\
-x_k\in R^n, u_k\in R^m, w_k \in R^n.
-\end{aligned}
+\begin{align}
+&x_{k+1} = Ax_k + Bu_k + Dw_k\\
+&y_k = Cx_k\\
+&x_k\in R^n,\ y_k\in R^m,\ u_k\in R^m,\ w_k \in R^n,\\
+&A\in R^{n\times n},\ B\in R^{n\times m},\ C\in R^{m\times n},\ D\in R^{n\times n},
+\end{align}
 $$
+where $x_k$, $y_k$, $u_k$, $w_k$ represent states, outputs, controls, and known disturbances, respectively.
 
 By repeatedly applying this equation, we can calculate the state at $k$ steps ahead. Given an initial state of $x_0$, $u_0$, and $w_0$,
 
@@ -163,9 +165,10 @@ Since this cost function $J$ depends only on the inputs $U$, rearranging $J$ for
 $$
 \begin{aligned}
 J &= (\tilde{C}(\tilde{A}x_0 + \tilde{B}U + \tilde{D}W)-Y_{target})^TQ(\tilde{C}(\tilde{A}x_0 + \tilde{B}U + \tilde{D}W)-Y_{target}) + (U-U_{target})^TR(U-U_{target})\\
-&= U^T(\tilde{B}^T\tilde{C}^TQ\tilde{C}\tilde{B} +R)U + 2((\tilde{C}(\tilde{A}x_0+\tilde{D}W) - Y_{target})^TQ\tilde{C}\tilde{B} - U_{target}^TR)U + (const)
+&= U^T(\tilde{B}^T\tilde{C}^TQ\tilde{C}\tilde{B} +R)U + 2((\tilde{C}(\tilde{A}x_0+\tilde{D}W) - Y_{target})^TQ\tilde{C}\tilde{B} - U_{target}^TR)U + (const),
 \end{aligned}
 $$
+where $(const)$ represents the terms that are not related to $U$.
 
 Therefore, $J$ is a quadratic form of $U$ and can be easily optimized.
 
@@ -187,7 +190,8 @@ x_{k+1} = f(x_k, u_k)\\
 y_k = g(x_k, u_k)\\
 $$
 
-Furthermore, even if the dynamics are linear, Nonlinear MPC may be applied if the cost function or constraints are not convex. In the Linear MPC section, it was mentioned that even if the system is nonlinear, Linear MPC can be applied by sequentially linearizing the system. However, Nonlinear MPC can also be applied by directly using the nonlinear model.
+
+Furthermore, even if the dynamics are linear, Nonlinear MPC may be applied if the cost function or constraints are not convex. Convexity is an important concept in optimization because it ensures that any local minimum is also a global minimum, making optimization problems easier to solve. In the Linear MPC section, it was mentioned that even if the system is nonlinear, Linear MPC can be applied by sequentially linearizing the system. However, Nonlinear MPC can also be applied by directly using the nonlinear model. 
 
 Nonlinear MPC uses nonlinear optimization, so it has a higher computational cost and takes longer for optimization compared to Linear MPC. However, since it directly optimizes the nonlinear model without using approximations, it can sometimes compute better solutions.
 
@@ -219,8 +223,9 @@ $$
 J = \mathbb{E}(\sum_{k=0}^{T-1} l_k(x_k, u_k)+l_T(x_T))
 $$
 
-where $\mathbb{E}$ is expectation function, and $l_k$ and $l_T$ are convex.
-The objective function $J$ depends on the control policy $\phi_k$, so the goal of this problem is to choose $\phi_k$ that minimizes $J$.
+where $\mathbb{E}$ is expectation function, and $l_k$ and $l_T$ represent cost at time $k$ and terminal cost, respectively, and they are convex.
+The objective function $J$ depends on the control policy $\phi_k$ because $u_k = \phi_k(X_k)$.
+Therefore, the goal of this problem is to choose $\phi_k$ that minimizes $J$.
 Since the variable is a function $\phi_k$, this problem is an infinite-dimensional problem.
 
 ### Linear Quadratic Stochastic MPC
@@ -236,7 +241,7 @@ $$
 And suppose the objective function is as follows:
 
 $$
-l_k(x_k, u_k) = x_k^TQ_kx_k + u_k^TR_ku_k,\ Q_k\succeq 0,\ R_k\succ 0\\
+l_k(x_k, u_k) = x_k^T,\ Q_kx_k + u_k^T,\ R_ku_k,\ Q_k\succeq 0,\ R_k\succ 0\\
 l_T(x_T) = x_T^TQ_kx_T,\ Q_T\succeq 0
 $$
 

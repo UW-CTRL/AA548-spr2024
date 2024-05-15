@@ -100,7 +100,7 @@ s.t. \quad \dot{x}(t) = A(t)x(t) + B(t)u(t) + F(t)p(t) + r(t), \tag{6b} \\
 (x(t), p) \in \mathcal{X}(t), \tag{6c} \\
 (u(t), p) \in \mathcal{U}(t), \tag{6d} \\
 C(t)x(t) + D(t)u(t) + G(t)p + r'(t) \leq 0, \tag{6e} \\
-H_{0}x(0) + K_{0}p + l_{0}, \tag{6f} \\
+H_{0}x(0) + K_{0}p + l_{0} = 0, \tag{6f} \\
 H_{f}x(1) + K_{f}p + l_{f} = 0. \tag{6g} \\
 \end{align}
 $$

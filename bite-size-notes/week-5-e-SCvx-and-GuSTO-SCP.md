@@ -45,7 +45,7 @@ The cost function (1a) is assumed to be in the form:
 
 $$
 \begin{align}
-J(x, u, p) = \phi(x(1), p) + \int_{0}^{1} \Gamma(x(t), u(t), p) \, dt\ \tag{2}
+J(x, u, p) = \phi(x(1), p) + \int_{0}^{1} \Gamma(x(t), u(t), p)dt \tag{2}
 \end{align}
 $$
 
@@ -116,7 +116,7 @@ $$
 \delta x(t) = x(t) - \bar{x}(t), \\
 \delta u(t) = u(t) - \bar{u}(t), \\
 \delta p = p - \bar{p}, \\
-\alpha_{x}\parallel \delta x(t) \parallel_{q} + \alpha_{u}\parallel \delta u(t) \parallel \leq \eta, for t \in [0,1], \tag{7}
+\alpha_{x}\parallel \delta x(t) \parallel_{q} + \alpha_{u}\parallel \delta u(t) \parallel \leq \eta, \quad for \quad t \in [0,1], \tag{7}
 \end{align}
 $$
 
@@ -132,6 +132,64 @@ The SCvx algorithm follows three things:
 > 1. The terminal and running cost is assumed to be convex by offloading nonconvex terms into the constraints.
 > 2. The constraint (7) is enforced as a hard constraint and $\eta$ is adjusted through the SCvx update rule.
 > 3. Artificial infeasibility is handled using virtual control terms.
+
+The virtual control terms to handle artificial infeasibility are added to (6b) and (6e-6g) as follows:
+
+$$
+\begin{align}
+\dot{x} = A x + B u + F p + r + Ev, \tag{8a} \\
+v_{s} \geq C x + D u + G p + r', \tag{8b} \\
+0 = H_{0}x(0) + K_{0}p + l_{0} + v_{ic}, \tag{8c} \\
+0 = H_{f}x(1) + K_{f}p + l_{f} + v_{tc}, \tag{8d}
+\end{align}
+$$
+
+where $v(\cdot) \in R^{n_{v}}$, $v_{s}(\cdot) \in R^{n_{s}}$, $v_{ic} \in R^{n_{ic}}$, and $v_{tc} \in R^{n_{tc}}$ are the virtual control terms. The pair (A, E) is required to be controllable and a common choice for $E$ is $E = I_{n}$.
+
+The virtual control terms are paired with a penalty term $P:R^{n} \times R^{p} \rightarrow R_{+}$ where p is any appropriate integer so that they are only used when it is necessary to avoid subproblem infeasibility. A typical choice is:
+
+$$
+\begin{align}
+P(y,z) = \parallel y \parallel_{1} + \parallel z \parallel_{1}, (9)
+\end{align}
+$$
+
+where y and z are placeholder functions. The cost function (6a) is then augmented with penalty terms as:
+
+$$
+\begin{align}
+J_{\lambda}(x,u,p,\hat{v}) \triangleq \phi_{\lambda}(x(1), p, v_{ic}, v_{tc}) + \int_{0}^{1} \Gamma_{\lambda}(x,u,p,Ev,v_{s})dt, \tag{10} \\
+\phi_{\lambda}(x(1),p,v_{ic},v_{tc}) = \phi(x(1),p) + \lambda P(0,v_{ic}) + \lambda P(0,v_{tc}), \\
+\Gamma_{\lambda}(x,u,p,Ev,v_{s}) = \Gamma(x,u,p) + \lambda P(Ev,v_{s}). \tag{11}.
+\end{align}
+$$
+
+where $\hat{v}$ is short for $v,v_{s},v_{ic},v_{tc}$. The positive weight $\lambda \in R_{++}$ is selected by the user and must be sufficiently large (typically a power of 10).
+
+So now the convex subproblem can be stated as:
+
+$$
+\begin{align}
+\min_{u,p,\hat{v}} J_{\lambda}(x,u,p,\hat{v}), \tag{12a} \\
+s.t. \quad \dot{x} = Ax + Bu + Fp + r + Ev, \tag{12b} \\
+(x, p) \in \mathcal{X}, \quad (u, p) \in \mathcal{U}, \tag{12c} \\
+Cx + Du + Gp + r' \leq v_{s}, \tag{12d} \\
+H_{0}x(0) + K_{0}p + l_{0} + v_{ic} = 0, \tag{12e} \\
+H_{f}x(1) + K_{f}p + l_{f} + v_{tc} = 0, \tag{12f} \\
+\parallel \delta x \parallel_{q} + \parallel \delta u \parallel_q + \parallel \delta p \parallel_{q} \leq \eta. \tag{12g}
+\end{align}
+$$
+
+We now apply temporal discretization to solve the problem numerically with temporal nodes $t_{k} \in [0,1] \quad for \quad k=1,...,N,$ and cast the subproblem with variables $x = \[x_{k}\]^{N}\_{k=1}$, $u = \[u{k}\]^{N}\_{k=1}$, $p$, $v = \[v_{k}\]^{N-1}\_{k=1}$, $v_{s} = \[v_{s,k}\]^{N}\_{k=1}$, $v_{ic}$, and $v_{tc}$. With zero order hold (ZOH) for the controls, we get the discretized problems:
+
+$$
+\begin{align}
+\mathcal{L}_{\lambda}(x,u,p,\hat{v}) = \phi\_{\lambda}(x(1),p,v\_{ic},v\_{tc}) + trapz(\Gamma^{N}\_{\lambda}) \tag{13} \\
+\Gamma^{N}\_{\lambda,k} = \Gamma\_{\lambda}(x_\{k},u_{k},p,E_{k}v_{k},v_{s,k}), \tag{14}
+\end{align}
+$$
+
+
 
 **GuSTO Algorithm**
 The GuSTO algorithm follows two things:

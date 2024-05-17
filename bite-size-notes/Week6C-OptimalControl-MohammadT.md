@@ -88,6 +88,8 @@ LQR control emerges as a potent technique for stabilizing linear systems charact
 The optimal control law for LQR control is delineated by u* = -Kx wherein K denotes the solution to the associated algebraic Riccati equation:
 
 $$ \ A^T P + PA - PB(R + B^T P B)^{-1} B^T P + Q = 0 \ $$
+
+And K formula is,
 $$ \ K = (R + B^T P B)^{-1} B^T P A \ $$
 
 Once K is ascertained, it can be wielded to compute the optimal control input u* for any bestowed state x, thereby ensuring stability and optimal performance.
@@ -102,8 +104,7 @@ HJ reachability represents a mathematical framework instrumental in analyzing sa
 
 $$ \ \frac{\partial V}{\partial t} + H(x, \nabla V) = 0 \ $$
 
-Here, V embodies the value function denoting the optimal cost-to-go from a conferred state, t designates time, x signifies the state vector, and nabla V encapsulates the gradient of V with respect to x. The function 
-$$ \(H(x, \nabla V)\) $$
+Here, V embodies the value function denoting the optimal cost-to-go from a conferred state, t designates time, x signifies the state vector, and nabla V encapsulates the gradient of V with respect to x.
 
 The Hamiltonian, often referred to as H(x,∇V) represents the system's dynamics.
 

@@ -89,9 +89,7 @@ The optimal control law for LQR control is delineated by u* = -Kx wherein K deno
 
 $$ \ A^T P + PA - PB(R + B^T P B)^{-1} B^T P + Q = 0 \ $$
 
-And K formula is,
-$$ K = (R + B^T P B)^{-1} B^T P A $$
-
+Then we can find K from the values that we found from above formula [K = PB (R + B^T P B)^(-1) B^T PA]
 
 Once K is ascertained, it can be wielded to compute the optimal control input u* for any bestowed state x, thereby ensuring stability and optimal performance.
 

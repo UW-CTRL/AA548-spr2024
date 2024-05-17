@@ -42,7 +42,7 @@ $$ V(x) = \min_u \{ L(x,u) + V(f(x,u)) \} $$
 
 $$ \ A^T P + PA - PB(R + B^T P B)^{-1} B^T P + Q = 0 \ $$
 
-- **HJ Reachability:**
+- **Hamilton Jacobi (HJ) Reachability:**
 
 $$ \ \frac{\partial V}{\partial t} + H(x, \nabla V) = 0 \ $$
 
@@ -60,6 +60,8 @@ Mathematically, h(x) must adhere to the inequality:
 
 $$ \ \frac{d}{dt}h(x) \leq \alpha(h(x)) + \beta(u) \ $$
 
+α(⋅) and β(⋅) are functions selected based on the specific application, system dynamics, and desired control or safety requirements.
+
 #### Example:
 
 Consider a scenario involving a quadcopter drone navigating within a constrained indoor environment. Here, the CBF h(x) could be defined to ensure that the distance between the drone and any obstacle remains above a certain threshold. Should the drone approach too close to an obstacle, the CBF would enact corrective actions, adjusting control inputs such as velocity or orientation to steer the drone away and maintain a safe distance. Thus, CBFs effectively serve as safety mechanisms, averting collisions and ensuring the secure operation of autonomous systems.
@@ -68,7 +70,7 @@ Consider a scenario involving a quadcopter drone navigating within a constrained
 
 The Principle of Optimality states that making the best decisions at each step leads to an optimal overall outcome. In the context of dynamic programming, this principle is captured by the Bellman equation:
 
-$$ V(x) = \min_u \{ L(x,u) + V(f(x,u)) \} $$
+$$ V(x) = \min_u \big[ \{ L(x,u) + V(f(x,u)) \} \big]$$
 
 where V(x) is the value function representing the best expected outcome from state x, L(x,u) is the immediate cost of taking action u in state x, and f(x,u) is the transition function that defines the next state given the current state and action.
 
@@ -83,9 +85,10 @@ Consider a robotic entity traversing through a grid-based environment, facing de
 
 LQR control emerges as a potent technique for stabilizing linear systems characterized by quadratic cost functions. Its primary objective revolves around minimizing a cost function subject to state space of the system where x signifies the system state, u denotes the control input, Q represents a positive definite weighting matrix for the state, and R stands as a positive definite weighting matrix for the control input.
 
-The optimal control law for LQR control is delineated by u* = -kx wherein K denotes the solution to the associated algebraic Riccati equation:
+The optimal control law for LQR control is delineated by u* = -Kx wherein K denotes the solution to the associated algebraic Riccati equation:
 
 $$ \ A^T P + PA - PB(R + B^T P B)^{-1} B^T P + Q = 0 \ $$
+$$ K = (R + B^T P B)^{-1} B^T P A $$
 
 Once K is ascertained, it can be wielded to compute the optimal control input u* for any bestowed state x, thereby ensuring stability and optimal performance.
 
@@ -101,11 +104,12 @@ $$ \ \frac{\partial V}{\partial t} + H(x, \nabla V) = 0 \ $$
 
 Here, V embodies the value function denoting the optimal cost-to-go from a conferred state, t designates time, x signifies the state vector, and nabla V encapsulates the gradient of V with respect to x. The function 
 $$ \(H(x, \nabla V)\) $$
-dubbed the Hamiltonian, encapsulates the system's dynamics.
 
-By solving the HJ PDE, one can elicit the value function V(x), furnishing insights into the reachable set of the system. This set encompasses all states accessible from a given initial state while satisfying specific safety constraints.
+The Hamiltonian, often referred to as H(x,∇V) represents the system's dynamics.
 
-The reachable set materializes from the level sets of the value function V, demarcating regions in the state space wherein the system can safely operate without contravening constraints.
+By solving the Hamilton-Jacobi partial differential equation (HJ PDE), one can determine the value function V(x), which provides insights into the reachable set of the system. This set includes all states that can be reached from a given initial state while satisfying specific safety constraints.
+
+The reachable set arises from the level sets of the value function V, marking regions in the state space where the system can operate safely without violating constraints.
 
 #### Example:
 

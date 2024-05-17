@@ -36,7 +36,7 @@ $$ \ \frac{d}{dt}h(x) \leq \alpha(h(x)) + \beta(u) \ $$
 
 - **Principle of Optimality:**
 
-$$ V(x) = \min_u \{ L(x,u) + V(f(x,u)) \} $$
+$$ V(x) = \min_u \big[ \{ L(x,u) + V(f(x,u)) \} \big]$$
 
 - **Linear Quadratic Regulator (LQR) Control:**
 

@@ -9,7 +9,7 @@
  - Verify capabilities of CTCS for application scenarios.
 
 ## Introduction
-Direct methods are extremely popular for trajectory optimization purposes: they directly treat control as optimization variable while satisfying CT dynamics constraints and CT path constraints of different nature (e.g. max thrust from a rocket engine). Such direct methods are widely used for both offline and online planning purposes: convex formulation of such problems further ensures polynomial-bounded limit on computational time. Direct methods follow a discretize-then-optimize approach, and rely on heuristics to choose a discretization  approach appropriate for the required accuracy and computational performances. State-of-the-art techniques are available to ensure satisfaction of dynamics in a CT framework; on the other hand, no unified method exists to grant satisfaction of path constraints in CT; reason is the following: dynamics can be integrated with high accuracy with 'shooting' approaches (Space Shuttle Guidance is an illustrious example [1]), whereas path constraints can be only imposed at node points, i.e. the time instants at which state and controls are optimization variables. The problem becomes more relevant if few nodes are used, which is common for online applications, e.g. when a SCP techinque is employed. The present note digs into a recently-proposed approach to grant CT satisfaction of path constraints, up to arbitrarily high degree of accuracy [2]; an open-source drone NMPC controller applied to an obstacle-avoidance scenario is used as example [3,4].  
+Direct methods are extremely popular for trajectory optimization purposes: they directly treat control as optimization variable while imposing CT dynamics constraints and CT path constraints of different nature (e.g. max thrust from a rocket engine). Such direct methods are widely used for both offline and online planning purposes: convex formulation of such problems further ensures polynomial-bounded limit on computational time. Direct methods follow a discretize-then-optimize approach, and rely on heuristics to choose a discretization approach that is appropriate for the required accuracy and computational performances. State-of-the-art techniques, such as **shooting** [6] (later explained) or **remeshing** [7] ( the number of points where dynamics is satisfied are increased up to when the integration error estimate drops below a predefined threshold ) are available to ensure satisfaction of dynamics in a CT framework; on the other hand, no unified method exists to grant satisfaction of path constraints in CT; reason is the following: dynamics can be integrated with high accuracy with shooting approaches (Space Shuttle Guidance is an illustrious example [1]), whereas path constraints can be only imposed at node points, i.e. the time instants at which state and controls are optimization variables. Remeshing is a common technique to solve this problem: bounds on computational time, however, can not be determined a priori. The problem becomes indeed more relevant if few nodes are used, i.e. a common requirement from online applications, e.g. for SCP techniques. The present note digs into a recently-proposed approach to grant CT satisfaction of path constraints, up to arbitrarily high degree of accuracy [2]; an open-source drone NMPC controller applied to an obstacle-avoidance scenario is used as example [3,4].  
 
 ## Preliminaries
 ### Notation
@@ -49,7 +49,7 @@ $$
 
 i.e. the difference between state at initial and final time and their prescribed values. In addition, $L, f, g, h, Q$ are supposed continuously differentiable; although not always true, smooth approximations of such functions can be built, and the problem solved iteratively, with iteratively more accurate smooth approximations [5]. However, this is another story :guardsman:.
 
-The presented formulation is straightforward and simple from the mathematical perspective; on the other hand, it is not tractable as it is, but a finite number of states $x$ and controls $u$ at defined time instants $t_i$ shall be instead considered. With this last process, called discretization, we get into the heart of the note.
+The presented formulation is straightforward and simple from the mathematical perspective; on the other hand, $x(t)$ and $u(t)$ are functions of the continuous parameter $t$, on the dense interval $[t_0, t_f]$; hence, with some abuse of notation, signal $`x(t) \in \mathbb{R}^{\infty}`$ and signal $`u(t) \in \mathbb{R}^{\infty}`$. Our unknowns $x(t)$ and $u(t)$ belong then to an infinite dimensional space! The previous formulation is hence not tractable; a finite number of states $x$ and controls $u$ at defined time instants $t_i$ shall be instead considered. With this last process, called discretization, we get into the heart of the note.
 
 ## Main body
 ### Standard DT Optimal Control problem 
@@ -77,6 +77,7 @@ $$
 x_{i+1} = x_i + \int_{t_{i}}^{t_{i+1}} f(\tau, x(\tau), \xi_i(\tau, p_i))\text{d}\tau
 $$
 
+Notice that parameterizing the control variable is necessary to integrate the dynamics ( Zero-Order Hold is a straightforward example of control parameterization ).
 The problem resulting from discretization and application of the shooting approach is tractable, as the amount of unknowns is finite. A common technique to solve the problem consists of applying Sequential Convex Programming (SCP), i.e. repeatedly convexifying and solving the problem itself, up to convergence.
 
 ### Inter-sample constraint violation
@@ -135,13 +136,13 @@ $$\begin{array}{rl}
 \end{array}
 $$
 
-where the positive variable $\varepsilon$ allows to 1) grant Linear Independence Constraint Qualification (LICQ), making the problem tractable, and 2) leverage an exact penalty approach [2]. In addition, the given $\varepsilon$ is linked with the maximum pointwise violation of the considered path constraints, according to the following relation 
+where the positive variable $\varepsilon$ allows to 1) grant Linear Independence Constraint Qualification (LICQ), making the problem tractable, and 2) leverage an exact penalty approach [2]. Point 1) consists of the fact that, under LICQ validity, the KKT conditions (the conditions treated in last instance by the convex solver) feature a unique solution [8]. In addition, the given $\varepsilon$ is linked with the maximum pointwise violation of the considered path constraints, according to the following relation 
 
 $$
 \int_{t_k}^{t_{k+1}} |g^j(\tau, x(\tau), \xi_i(\tau, p_i)) + \delta_{g^j}(\varepsilon)|^2_+ \text{d}t \leq \varepsilon \Rightarrow g^j(\tau, x(\tau), \xi_i(\tau, p_i)) \leq 0, \; \forall t \in [t_k, t_{k+1}]
 $$
 
-where the monotonic increasing function $\delta_{g^j}(\varepsilon)$ can be estimated at a first iteration; the SCP approach can then be adopted, for decreasing $\varepsilon$, up to satisfaction of a desired tolerance $\texttt{tol}$: $\delta_{g^j}(\varepsilon) < \text{\texttt{tol}}$.
+where the monotonic increasing function $\delta_{g^j}(\varepsilon)$ can be estimated at a first iteration. The SCP approach can then be adopted, for decreasing $\varepsilon$; in virtue of its own monotonicity, $\delta_{g^j}(\varepsilon)$ decreases for decreasing $\varepsilon$, up to when a desired tolerance $\texttt{tol}$ is satisfied: $\delta_{g^j}(\varepsilon) < \text{\texttt{tol}}$.
 
 ### Inter-sample constraint satisfaction
 The developed framework is now applied to the same drone example as before, but now embedding the obstacle avoidance constraint in the CTCS formulation. Constraint is rported again for clarity here below.
@@ -169,3 +170,8 @@ The present note has outlined one of the most recent advances in SCP-based algor
 
 5. Malyuta, D., Acikmese, B. - **Fast Homotopy for Spacecraft Rendezvous Trajectory Optimization with Discrete Logic** - Journal of Guidance, Control, and Dynamics, 2023
 
+6. Betts, J.T. - **Survey of Numerical Methods for Trajectory Optimization** - Journal of Guidance, Control, and Dynamics, 1998
+
+7. Patterson, M. A., Rao, A. V. - **GPOPS-II: A MATLAB Software for Solving Multiple-Phase Optimal Control Problems Using hp-Adaptive Gaussian Quadrature Collocation Methods and Sparse Nonlinear Programming** - ACM Transactions on Mathematical Software, 2014
+
+8. Nocedal, J., Wright, S. J. - **Numerical Optimization** - Springer Series in Operations Reserch, 2006

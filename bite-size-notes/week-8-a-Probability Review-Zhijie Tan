@@ -1,0 +1,204 @@
+## Probability Review
+##Scope
+Probability is a branch of mathematics that deals with the occurrence of random events. It has been introduced in math to predict how likely events are to happen. The meaning of probability is essentially the extent to which something is likely to happen.[1] In probability theory, it is also used in probability distributions, which show the possibility of random cases. Probability theory is a fundamental aspect of statistical analysis and is used in various fields, including science, engineering, economics, and social sciences.
+
+This section covers the introduction of symbols related to Probability and discusses Random variables in different formulas. 
+
+##
+The following notes will explain the meanings of symbols and demonstrate different formulas related to random variables.
+
+- Probability Distribution: An introduction to probability distributions, which describe how probabilities are distributed over the values of a random variable.
+
+- Example of Probability Mass Function (PMF): A discussion and example of PMFs, which apply to discrete random variables and give the probability that a discrete random variable is exactly equal to some value.
+
+- Example of Probability Density Function (PDF): A discussion and example of PDFs, which apply to continuous random variables and describe the likelihood of a random variable to take on a particular value.
+
+- Rules Corresponding to Random Variables: An overview of some fundamental rules and properties related to random variables.
+
+### Random Variable
+
+### Symbol
+- X:random varible(RV). a quantity whose value is unknown/uncertain 
+- x: possible value of X or sample of X or realization of X 
+
+
+### Probability Space ($\Omega$,$F$,$\mathcal{P}$)
+- $\Omega$: sample space (all possible outcomes of RV)
+- $\mathcal{F}$: Event space (all possible sets of outcomes in $\Omega$)
+- $\mathcal{P}$: Probability measure (assigns a probability to each other)
+
+## Moving forward consider X v P(X) where P(x) is a probabilty distribution
+- Expectation $\mathbb{E}$
+  
+  ${\mathbb{E} \text{xp} [g(x)]} = \int_x g(x) P(x) \, dx \text{ or } \sum_x g(x) P(x)$
+  - mean $\mathcal{u_x}$ = ${\mathbb{E} \text{xp}(x) [g(x)]}$
+
+
+
+### Discrete Random Variable Plot
+
+The following plot represents the probability mass function (PMF) of a discrete random variable: 
+![Discrete Random Variable Plot](PMF.png)
+- $S=[1.2.3]$
+- P($x\in$,$\mathcal{S}$)= $\sum_{x=S}P(x)$
+- $\sum_xP(x)=1$ 
+- $0≤P（x）≤1$
+
+### Continous Random Variable Plot
+The following plot represents the probability density function (PDF) of a continuous random variable:
+
+![Discrete Random Variable Plot](PDF.png)
+
+- P($x\in$,$\mathcal{S}$)= $\int_\mathcal{S}P(x) dx$
+- $\int_x P(X)=1$
+  
+### The probability density function of a multivariate normal (or Gaussian) distribution
+$N(u, \Sigma) = \frac{1}{(2\pi)^{k/2} \det(\Sigma)^{1/2}} \exp\left(-\frac{1}{2}(x - u)^T \Sigma^{-1} (x - u)\right)$
+
+- $u$: the mean vector
+- $\Sigma$:the covariance matrix
+- $k$:the dimensionality of the distribution
+- $x$:the vector of the variables
+- $det(\Sigma)$:the determinant of the the covariance matrix 
+- $\Sigma^{-1}$is the inverse of the covariance matrix
+
+## 
+$\mathbf{X} = (x_1, x_2, \ldots, x_n)$, if $\mathbf{X}$ is a vector of random variables
+
+$P(\mathbf{X})=P(x_1, x_2, \ldots, x_n)$
+
+$(\mathbf{X,Y}) \sim P(\mathbf{X,Y})$
+
+$((x_1, X_2, \ldots, x_n),(y_1, y_2, \ldots, y_n))\sim P((x_1, x_2, \ldots, x_n,y_1, y_2, \ldots, y_n))$
+
+## Marginalization
+Given $(X,Y) \sim P(X,Y)$ ,what is $P(X), P(Y)$
+- “Integrate out" a variable
+- $[ P(X) = \int_y P(X, Y) \, dy / {\Sigma_y} P(X, Y) ]$
+- $[ P(Y) = \int_x P(X, Y) \, dx / {\Sigma_x} P(X, Y) ]$
+
+## Conditional distribution 
+Given $X \& Y$ ,what is $X \mid Y$ $(X$ given $Y)$ 
+
+$P(X \mid Y) = \frac{P(X,Y)}{P(Y)}$
+
+
+## Chain rule
+$P(X,Y)=P(X|Y)P(Y)=P(Y|X)P(X)$
+
+$P(X,Y,Z)=P(X|Y,Z)P(Y,Z)=P(X|Y,Z)P(Y|Z)P(Z)$
+
+## Bayes‘ Rule
+$P(X|Y)P(Y)=P(Y|X)P(X)$
+
+$P(X|Y)=\frac{P(Y|X)P(X)}{P(Y)} \int_x P(Y|X)P(X) dx$
+
+$P(X|Y) \space \propto \space P(Y|X)P(X)$ ($\propto$: is proportional to)
+
+## Posterior, if Y is a measurement then what is X given Y?
+## Prior, your belief guess of X before knowing Y?
+### Likelihood Function
+ The joint probability mass (or probability density) of observed data is viewed as a function of the parameters of a statistical model.[2]
+- Given X, what you expect Y to be
+- What happens if we have multiple measures?
+- $P(x|y,y_2) \space \propto \space P(y_2|x,y_1)P(x|y_1)$
+
+Assume measurements are independent
+- - $\propto \space P(y_2|x)P(x|y_1)$
+- - $\propto \space P(y_2|x,y_1)P(y_2|x)$   
+- - $\propto \space P(y_2|x,y_1)P(y_1|x)P(x)$ 
+
+## Recursive Bayes Estimates
+A general probabilistic approach for recursively estimating an unknown probability density function (PDF) over time using incoming measurements and a mathematical process model.[2]
+
+Recursive Bayes Estimation Example:
+-- Python Coding
+-- [Recursive Bayes Estimation](https://github.com/ankit-1517/Recursive-Bayesian-Estimation/blob/main/bayes_filter.ipynb)[3]
+
+
+$x$ is (static)
+
+$P(x|y_{1：k})=P(y_k|x)P(x|y_{1:k-1})=\int_x P(y_k|x)P(x|y_{1:k-1})dx$
+
+Posterior from k-1 is your prior for step k
+
+## Recursive Bayesian Rule
+A general probabilistic approach for estimating an unknown probability density function (PDF) recursively over time using incoming measurements and a mathematical process model.[2]
+
+$P(x|y_{1:k}) = \frac{P(y_k|x)P(x|y_{1:k-1})}{\int_{\tilde{x}} P(y_k|\tilde{x})P(\tilde{x}|y_{1:k-1})d\tilde{x}}$
+
+$P(x|y_{1:k-1}) \space \propto \space P(y_{1:k}|x)P(x)$
+
+$P(y_{1:k}|x)=P(y_k|x,y_{1:k-1})P(y_{1:k-1}|x)$
+
+$P(x_1,x_2)=P(x_1:x_2)P(x_2)$ (chian rule)
+
+
+
+Measurements are independently conditioned on X
+
+![](independent.png)
+
+$=P(y_k|x)P(y_{1:k-1}|x)$
+## Transform the formula
+$P(x|y_{1:k}) = {P(y_k|x)P(x|y_{1:k-1})}P(x)$
+
+${P(y_k|x)=P(x|y_{1:k-1})}P(x)$
+
+$P(x|y_{1:k})$ $\propto$ $P(y_{1:k-1}|x)P(x)$ $\rhd {\int_{\tilde{x}} P(y_k|{x})P({x}|y_{1:k-1})d{x}}$
+
+$P(x|y_{1:k})=P(y_k|x)\frac{P(y_{1:k-1}|x)P(x)}{\int_{\tilde{x}} P(y_k|\tilde{x})P(\tilde{x}|y_{1:k-1})d\tilde{x}}=P(x|y_{1:k-1})$
+
+$P(x|y_{1:k})={\int_{\tilde{x}} P(y_k|{x})P({x}|y_{1:k-1})d{x}}\frac{P(y_{1:k-1}|x)P(x)}{\int_{\tilde{x}} P(y_k|\tilde{x})P(\tilde{x}|y_{1:k-1})d\tilde{x}}=\frac{P(y_k|x)P(x|y_{1:k-1})}{\int_{\tilde{x}} P(y_k|\tilde{x})P(\tilde{x}|y_{1:k-1})d\tilde{x}}$
+
+
+
+## Independence 
+$X,Y, RV, X$ is independent of $Y$(Transfor either side) if $P(x,y)=P(x)P(y)$
+
+$\rhd$ $P(x|y)=P(x),P(y|x)=P(y)$
+
+
+## Conditioned independence
+
+$y_1,y_2, conditoned independence X$
+
+$P(y_1|y_2,x)=P(y_1|x)，P(y_2|y_1,x)=P(y_x|x)$
+
+## Recursive Bayesian Filter 
+
+- is change  over time $(x_0,x_1,x_2,..,x_k)$ $P(x_{k+1}|x_{0:k})=P(x_{k+1}|x_k)$
+
+Assume the system is Markov
+- "Next state depends only on the current state"
+- $P(x_0,x_1,x_2,..,x_k)=P(x_0) \pi ^k _{i=1}$P(x_i|x_{i-1})$ Note: no control input
+
+(Markvo Chain Rule) 
+
+![](Markvo.png)
+
+include control input
+![](control.png)
+
+$\rhd P(x_k:x_{k-1},u_{k-1})$ 
+
+- with control inputs, Markov Decision Process(MDP)
+- if include observations, assume some/all of x cannot be observed.have a partially observable MDP(POMDP)
+
+## Given the conditional independent assumption & the property of the posterior $(P(x_k|y_{1:k}))$ can be computed 
+
+(1)Predict
+- $P(x_k \mid y_{1:k-1}) = \int P(x_k \mid x_{k-1}) P(\tilde{x}_{k-1} \mid y_{1:k-1}) d\tilde{x}_{k-1} \quad \text{Markov: } P(x_k \mid x_{k-1})
+$
+
+(2) update
+- $P(x_k|y_{1:k})$ $\propto$ $P(y_k|x_k)P(x_k|y_{1:k-1})$ Bayes Rule
+
+## Conclusion
+Overall, these notes involve the definitions of formulas and key vocabulary words related to probability. Probability is a powerful mathematical tool that can be applied in various areas. Understanding the definitions and formulas related to probability enhances our comprehension of control systems in different scenarios. The key points of probability help us predict the future behavior of our control systems. By analyzing the probability of our system, we can reduce errors and improve the performance of the control system.
+
+
+## Reference
+- [1]BYJU'S. (n.d.). Probability. Retrieved from https://byjus.com/maths/probability/
+- [2]Wikipedia contributors. https://en.wikipedia.org/wiki/Probability
+- [3]Ankit. (2024). *Bayesian Filter Notebook*. Retrieved from https://github.com/ankit-1517/Recursive-Bayesian-Estimation/blob/main/bayes_filter.ipynb

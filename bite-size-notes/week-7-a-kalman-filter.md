@@ -116,7 +116,7 @@ $$K_k^*=\Sigma_k^{pred}C^T(C\Sigma_k^{pred}C^T+R)^{-1}$$
 This equation produces the optimal gain matrix for each time step using the predicted covariance.
 
 ## Conclusion
-The Kalman filter is one solution to state estimation that combines observations and dynamics-derived predictions to more accurately estimate a system's current state. It also shares a duality with the LQR control problem. By plugging the update equation for $\Sigma_k$ into the prediction equation for $\Sigma_{k+1}^{pred} and doing much algebra, a Ricatti Equation can be recovered of similar form to the Ricatti Equation solved in LQR.
+The Kalman filter is one solution to state estimation that combines observations and dynamics-derived predictions to more accurately estimate a system's current state. It also shares a duality with the LQR control problem. By plugging the update equation for $\Sigma_k$ into the prediction equation for $\Sigma_{k+1}^{pred}$ and doing much algebra, a Ricatti Equation can be recovered of similar form to the Ricatti Equation solved in LQR.
 
 $$\Sigma_k^{pred}=Q+A\Sigma_{k-1}^{pred}A^T-A\Sigma_{k-1}^{pred}C^T(C\Sigma_{k-1}^{pred}C^T+R)^{-1}C\Sigma_{k-1}^{pred}A^T$$
 

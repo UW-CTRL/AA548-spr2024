@@ -4,11 +4,11 @@ Authors - Davide Falanga, Philipp Foehn, Peng Lu, and Davide Scaramuzza
 
 ## Why is this important?
 
-As we are advancing into a world of autonomous control of vehicles, there have been some key developments that have accelerated the research in the domain. One of these, is the Perception Aware Model Predictive Control (PAMPC) for Quadrotors, which I am going to review in this document. The focus of this review is to summarize the Model Predictive Control (MPC) pipeline used along with its cost function and control constraints.
+As we are advancing into a world of autonomous control of vehicles, there have been some key developments that have accelerated the research in the domain. One of these developments is the perception awareness in autonomous devices. Perception awareness helps the robots improve on safety and performance after being guided by the feature selection, the same way the human perception works.  A significant research in this development is the Perception Aware Model Predictive Control (PAMPC) for Quadrotors, which I am going to review in this document. The focus of this review is to summarize the Model Predictive Control (MPC) pipeline used along with its cost function and control constraints.
 
 ## Introduction
 
-Previously, perception and control action were treated as two separate problems in controls. To solve this problem, the authors of the paper designed a Model Predictive Control that optimizes the control input for trajectory optimization and simultaneously optimizing the perception of the sensing algorithms to maximize the vision needed to execute a control action. An example of this can be the path planning and trajectory optimization for the quadrotor to pass through a narrow gap, at the same time making sure the gap is always visible. A big advantage of this approach is that it is independent of the task and can be used in variety of other applications, other than quadrotors, that involve a vision-based localization and target tracking.
+Perception in terms of robotics and autonomous systems mean a process by which a robot or computer system interpret and understand sensory data from its environment. Perception in robotics and computer vision is crucial for enabling autonomous systems to interact with and navigate their environments effectively. Previously, perception and control action were treated as two separate problems in controls. To solve this problem, the authors of the paper designed a Model Predictive Control that optimizes the control input for trajectory optimization and simultaneously optimizing the perception of the sensing algorithms to maximize the vision needed to execute a control action. An example of this can be the path planning and trajectory optimization for the quadrotor to pass through a narrow gap, at the same time making sure the gap is always visible. A big advantage of this approach is that it is independent of the task and can be used in variety of other applications, other than quadrotors, that involve a vision-based localization and target tracking.
 
 ## Methodology
 
@@ -43,7 +43,19 @@ $$
 
 where $f_{x}, f_{y}$ are the focal lengths for pixel rows and columns, respectively.
 Later, these equations can be used to express the projection velocity as a function of the quadrotor state and input vectors as we are interested in reducing the velocity of its projection onto the image plane. 
+The following step-by-step approach summarizes our steps: 
+### Step-by-Step Approach:
 
+1. Define the Dynamics of the Quadrotor
+2. Incorporate Perception Objectives
+3. Setup the Cost Function
+4. Convert the Point of Interest to the Camera Frame
+5. Project the Point onto the Image Plane
+6. Express the Projection Velocity
+7. Formulate the Unified Optimization Problem
+8. Solve the Optimization Problem using MPC
+
+ 
 ## Problem Formulation
 
 The unified optimization problem can be formulated as following:
@@ -78,6 +90,9 @@ $$
 
 where the values  $\overline{\mathbf{x}}, \overline{\mathbf{z}}, \overline{\mathbf{u}}$ refer to the difference with respect to the reference of each value.
 
+The $\mathcal{Q}_{x, i}$, $\mathcal{Q}_{p, i}$  and $\mathcal{R}_{i}$ represent the time varying state cost, perception cost and Input cost. As previously stated, we have shown here that the Preception terms are included in the cost, and not wholelly in the constraints. 
+
+
 The inputs $\mathbf{u}$, consisting of $c$ and $\boldsymbol{\Omega}_{B}$, as well as the velocity $\mathbf{v}_{W B}$ are limited by the constraints:
 
 $$
@@ -90,6 +105,8 @@ $$
 
 where $c_{\min }, c_{\max }, \Omega_{\max }, v_{\max } \in \mathcal{R}_{+} \cdot$
 
+After formulating the cost function described in equation (10), we have succesfully included the percception as a part of the cost function that minimizes to give us an optimum input, ensuring that contols and perception are not mutuallly exclusive. 
+
 ## Conclusion
 
 The aforementioned cost function and constraints used in PAMPC are then used with the hardware of the quadrotors to execute the control action in real time. The authors proved successful results using this approach via experimentation. An example of it was a room with
@@ -99,6 +116,7 @@ obstacles (boxes) on the ground where the quadrotors were able to manage to enci
 
 The figure above shows the quadrotors maintaining their velocity at the same time maximizing their vision space around objects.
 
+Some limitations with this approach like any other multi-step approach is the discretization wherein, if we want to increase the time horizon and decrease the time-step, the computation time increases by $\mathcal{O}(N^2)$. Moreover, the the cost function is constrained to be convex in nature, and further work needs to be done to make sure the proposed method works efficiently with non-convex scenarios as well, as opposed to traditional MPC that can convexify non-convex problems via methods such as Sequential Convexification. 
 ## References
 
 [1] Falanga, D., Foehn, P., Lu, P., \& Scaramuzza, D. (2018). PAMPC: Perception-aware model predictive control for quadrotors. 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). https://doi.org/10.1109/iros.2018.8593739 

@@ -115,15 +115,98 @@ $$K_k^*=\Sigma_k^{pred}C^T(C\Sigma_k^{pred}C^T+R)^{-1}$$
 
 This equation produces the optimal gain matrix for each time step using the predicted covariance.
 
-## Conclusion
-The Kalman filter is one solution to state estimation that combines observations and dynamics-derived predictions to more accurately estimate a system's current state. It also shares a duality with the LQR control problem. By plugging the update equation for $\Sigma_k$ into the prediction equation for $\Sigma_{k+1}^{pred}$ and doing much algebra, a Ricatti Equation can be recovered of similar form to the Ricatti Equation solved in LQR.
+Interestingly, the Kalman filter shares duality with the LQR control problem. By plugging the update equation for $\Sigma_k$ into the prediction equation for $\Sigma_{k+1}^{pred}$ and doing much algebra, a Ricatti Equation can be recovered of similar form to the Ricatti Equation solved in LQR.
 
 $$\Sigma_k^{pred}=Q+A\Sigma_{k-1}^{pred}A^T-A\Sigma_{k-1}^{pred}C^T(C\Sigma_{k-1}^{pred}C^T+R)^{-1}C\Sigma_{k-1}^{pred}A^T$$
 
+## Conclusion
+The Kalman filter is one solution to state estimation that combines observations and dynamics-derived predictions to more accurately estimate a system's current state. By making assumptions about the type of noise (Gaussian) and dynamics (Linear) of the system an optimal closed form solution can be found.
+
 Additional derivation methods can be found in [3].
+
+## Example Code
+
+```
+import numpy as np
+import jax
+import jax.numpy as jnp
+
+# define a simple 2D quadrotor model, derived by Karen Leung from the University of Washington [4]
+class BasePlanarQuadrotor:
+
+    def __init__(self):
+        # Dynamics constants
+        # yapf: disable
+        self.x_dim = 6         # state dimension (see dynamics below)
+        self.u_dim = 2         # control dimension (see dynamics below)
+        self.g = 9.807         # gravity (m / s**2)
+        self.m = 2.5           # mass (kg)
+        self.l = 1.0           # half-length (m)
+        self.Iyy = 1.0         # moment of inertia about the out-of-plane axis (kg * m**2)
+        self.Cd_v = 0.25       # translational drag coefficient
+        self.Cd_phi = 0.02255  # rotational drag coefficient
+        # yapf: enable
+
+        # Control constraints
+        self.max_thrust_per_prop = 1.5 * self.m * self.g  # total thrust-to-weight ratio = 1.5
+        self.min_thrust_per_prop = 0  # at least until variable-pitch quadrotors become mainstream :D
+
+    def ode(self, state, control, np=jnp):
+        #Continuous-time dynamics of a planar quadrotor expressed as an ODE
+        x, v_x, y, v_y, phi, omega = state
+        F_str, F_stl = control
+        return np.array([
+            v_x,
+            (-(F_str+F_stl) * np.sin(phi) - self.Cd_v * v_x) / self.m,
+            v_y,
+            ((F_str+F_stl) * np.cos(phi) - self.Cd_v * v_y) / self.m - self.g,
+            omega,
+            ((F_str-F_stl) * self.l - self.Cd_phi * omega) / self.Iyy,
+        ])
+
+    def discrete_step(self, state, control, dt, np=jnp):
+        #Discrete-time dynamics (Euler-integrated) of a planar quadrotor
+        return state + dt * self.ode(state, control, np)
+    
+    def discrete_step_SS(self, state, control, dt, np=jnp):
+        jacobFun = jax.jacobian(self.ode,[0,1])
+        A,B = jacobFun(state,control)
+        C = np.eye(6)
+        return state + dt * (np.matmul(A,state)+np.matmul(B,control)),A,B,C
+
+qr = BasePlanarQuadrotor()
+initial_state = np.array([10,0,10,0,0,0]) #Initial state
+u = np.array([0.1+qr.max_thrust_per_prop,0.1+qr.max_thrust_per_prop]) #Constant input
+P = np.eye(6) #Initial state covariance
+Q = np.eye(6)*0.1 #Process covariance
+R = np.eye(6)*0.1 #Measurement covariance
+
+T_final = 5 #Final time (seconds)
+steps = 50 #Number of time steps
+dt = T_final/steps #get time step
+
+y = qr.discrete_step(initial_state,u,np) #Get the first observed step
+
+for t in range(steps):
+   #Predict the next state
+   predicted_mean,A,B,C = qr.discrete_step_SS(initial_state,u,np)
+   predicted_covariance = A@P@A.T + Q
+
+   #Update the predicted state
+   K = predicted_covariance@C.T@np.linalg.inv(C@predicted_covariance@C.T+R)
+   estimated_mean = (np.eye(6)-K@C)@predicted_state+K@y
+   estimated_covariance = (np.eye(6)-K@C)@predicted_covariance
+
+   #Get the next observation, done here in the loop because the system is simulated
+   y = qr.discrete_step(y,u,np)
+   
+```
+
 ## References
 [1] Leung, Karen. “Linear Multivariable Control” Lecture, University of Washington, Seattle, 2024-05-6.
 
 [2] [Underactuated Robotics: Algorithms for Walking, Running, Swimming, Flying, and Manipulation](https://underactuated.csail.mit.edu/) by Russ Tedrake 
 
 [3] H. Masnadi-Shirazi, A. Masnadi-Shirazi, and M.-A. Dastgheib, “A Step by Step Mathematical Derivation and Tutorial on Kalman Filters.” arXiv, Oct. 08, 2019. [Online]. Available: https://arxiv.org/abs/1910.03558
+
+[4] Leung, Karen. “ME 548 Homework 2”, University of Washington, Seattle, 2024-05-15.

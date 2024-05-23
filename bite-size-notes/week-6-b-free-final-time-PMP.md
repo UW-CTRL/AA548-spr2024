@@ -1,11 +1,7 @@
 # Free Final Time with Pontryagin's Minimum Principle
 
 ## Introduction
-The problem of free final time refers to leaving the terminal time as a optimizable variable in an optimal control problem. This topic is well-understood for linear systems where analytical solutions are commonly available, but requires numerical methods to handle the increasing complexity of nonlinear dynamics and/or higher-order linear systems.
-
-<!--
-Add a photo here that helps reader visualize free final time: trajectory and alternate trajectories would be interesting.
--->
+The problem of free final time refers to leaving the terminal time as a optimizable variable in an optimal control problem. This topic is well-understood for linear systems where analytical solutions are commonly available [1], but requires numerical methods to handle the increasing complexity of nonlinear dynamics and/or higher-order linear systems.
 
 Free final time is an important topic in aerospace engineering, as fuel costs are inextricably tied to time of flight and many astronautical missions rely on a window of opportunity. Having the flexibility of directly optimizing time also aids in the robustness of any system that might experience changing dynamical situations commonly encountered in aerospace.
 
@@ -62,17 +58,11 @@ Put another way: rather than finding extrema (minima/maxima) values for a functi
 ### Functionals
 Functionals are mappings from a set of functions to the set of real numbers. Intuitively, one can think of them as "functions of functions", as functions are mappings from a set of numbers to another set of numbers. The calculus of variations uses small changes of functions and functionals, known as variations, to determine the extrema of functionals.
 
-<!--
-Add a photo here that helps reader visualize functionals.
--->
-
-The purpose behind using the calculus of variations for free final time is to find a extrema function that minimizes/maximizes a functional: analogous to finding the critical points by setting the derivative of a function equal to zero.
+The purpose behind using the calculus of variations for free final time is to find a extrema function that minimizes/maximizes a functional. One of these similarities is setting the first variation to equal zero to find an extrema of a functional, analogous to the first derivative test that finds the critical points by setting the derivative of a function equal to zero.
 
 Our optimization cost is then represented by a cost functional $J[z(t),u(t),t]$ rather than a cost function $J\big(z(t),u(t),t\big)$. More precisely,
 
-$$\underbrace{J[z(t),u(t),t]}\_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}\_{\text{cost-to-go}} \,dt + \underbrace{\Psi(T)}\_{\text{terminal cost}}$$
-
-
+$$\underbrace{J[z(t),u(t),t]}\_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}\_{\text{cost-to-go}} dt + \underbrace{\Psi(T)}\_{\text{terminal cost}}$$
 
 where $L$ is the Lagrangian, $\Psi$ is a terminal cost function, and $T$ is the terminal time.
 
@@ -80,13 +70,15 @@ where $L$ is the Lagrangian, $\Psi$ is a terminal cost function, and $T$ is the 
 
 If control is not an optimization function, the Euler-Lagrange equation from calculus of variations is a necessary condition for optimality of a functional.
 
-However, if control is also being optimized, Pontryagin's Minimum Principle gives necessary conditions for minimization of a functional. If transversality conditions are included and the Hamiltonian w.r.t. the state variables is strictly convex, that set of conditions is also sufficient. [1]
+However, if control is also being optimized, Pontryagin's Minimum Principle gives necessary conditions for minimization of a functional, with the condtions being derived from variational calculus. If transversality conditions are included and the Hamiltonian w.r.t. the state variables is strictly convex, that set of conditions is also sufficient. [2]
+
+The convexity of the Hamiltonian w.r.t. the state variables can also be checked by a second partial derivative w.r.t. the state of the Hamiltonian, also known as the Hessian.
 
 ### Pontryagin's Minimum Principle (PMP)
 
 Let the cost functional be
 
-$$\underbrace{J[z(t),u(t),t]}\_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}\_{\text{cost-to-go}} \,dt +  \underbrace{\Psi(T)}\_{\text{terminal cost}}$$
+$$\underbrace{J[z(t),u(t),t]}\_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}\_{\text{cost-to-go}} dt +  \underbrace{\Psi(T)}\_{\text{terminal cost}}$$
 as defined above.
 
 The constraints from the system dynamics are added to the Lagrangian $L$ with time-varying Lagrange multipliers $\lambda(t)$  whose elements are called the co-states of the system.
@@ -114,11 +106,7 @@ $$
 \end{align}
 $$
 
-$$
-\begin{equation}
-\lambda(T)^\top = \nabla_z \Psi(z(T))
-\end{equation}
-$$
+
 
 The above equations are necessary for optimality with fixed final time, this last condition is for free final time.
 
@@ -133,27 +121,27 @@ $$
 For free final time, the transversality conditions state that at the optimal terminal time $T$, the Hamiltonian $H$ should satisfy
 $$H\big(z(T),u(T),\lambda(T),T\big) = 0.$$ This implies that no further performance can be achieved by changing $T$.
 
-For similar reasons, all co-states should be zero at the optimal terminal time $T$.
-$$\lambda(T) = 0$$
+The co-state conditon ensures that the variations in the state at the terminal time are linked to the changes in the terminal cost.
 
+$$
+\begin{equation}
+\lambda(T)^\top = \nabla_z \Psi(z(T))
+\end{equation}
+$$
 
-## Example: 2D Unicycle
+## Example: 1D Motion
 
 Now let's look at a standard optimal control problem, but this time with terminal time being an optimization variable.
 
-### Analytical solution
-Let's revisit a common example: the 2D unicycle. We seek to reach a goal state and minimize both effort and time doing so.
+Let's revisit a common example: a 1D system in motion. We seek to reach a goal state and minimize both effort and time doing so.
 * state variable $z$
-  * positions $x$, $y$
+  * positions $x$
   * velocity $v$
-  * angle $\theta$
 * control input $u$
   * acceleration $a$
-  * angular velocity $\omega$
 * state variable $z_g$
-  * goal positions $x_g$, $y_g$
+  * goal positions $x_g$
   * goal velocity $v_g$
-  * goal angle $\theta_g$
 * co-state $\lambda$
 * Lagrange multiplier $\mu$
 * maximum acceleration $a_{\text{max}}$
@@ -163,45 +151,40 @@ Then the state and dynamics vectors, still functions of time, are:
 $$
 z = \begin{bmatrix}
   x \\
-  y \\
   v \\
-  \theta
 \end{bmatrix}, \qquad
 \text{and}
 \qquad \dot{z} = \begin{bmatrix}
-  v \cos \theta \\
-  v \sin \theta \\
+  v \\
   a \\
-  \omega
 \end{bmatrix}
 $$
 
-Let the Lagrangian $L(z(t), u(t), t\big) = a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2$ and the terminal cost be $\Psi(T) = \|z(T) - z_g\|^2$. Include a constraint on the control: $a \le a_{\text{max}}$.
+Let the Lagrangian $L(z(t), u(t), t\big) = \|x-x_g\|^2 + v^2$ and the terminal cost be $\Psi(T) = \|z(T) - z_g\|^2$. Include a constraint on the control: $||a||\_2 \le a_{\text{max}}$.
 
 The cost functional can be written as:
 
 $$
 \begin{align}
 J[z(t),u(t),t]
-&= \int\_0^T L\big(z(t), u(t), t\big) \,dt + \Psi(T)\\
-&= \int\_0^T a^2 + \omega^2 + \|x-x\_g\|^2 + \|y-y\_g\|^2 \,dt + \|z(T) - z\_g\|^2
+&= \int\_0^T L\big(z(t), u(t), t\big) dt + \Psi(T)\\
+&= \int\_0^T \|x-x_g\|^2 + v^2 dt + \|z(T) - z\_g\|^2
 \end{align}
 $$
 
-Augment the Lagrangian with the control constraint with a Lagrange multiplier of $\mu$.
-$$L(z(t), u(t), t\big) = a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2 + \mu (a_{\text{max}} - a) $$
+Augment the Lagrangian with the control constraint.
+
+$$L(z(t), u(t), t\big) = \|x-x_g\|^2 + v^2 + \theta^2 + \mu (a_{\text{max}} - ||a||\_2) $$
 
 Then the Hamiltonian augments the state dynamics to the Lagrangian.
 
-$$H(z(t), u(t), t\big) = \lambda(t)^\top \cdot \dot{z} + a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2 + \mu (a_{\text{max}} - a) $$
+$$H(z(t), u(t), t\big) = \lambda(t)^\top \cdot \dot{z} + \|x-x_g\|^2 + v^2 + \mu (a_{\text{max}} - a) $$
 
-Taking the second derivative of the Hamiltonian,
+Taking the Hessian of the Hamiltonian reveals that it is positive definite, thus the Hamiltonian is convex and can result in a globally optimal answer.
 
 $$
-\frac{\partial H}{\partial z} = \begin{bmatrix} 2 & 0 & 0 & 0 \\
-0 & 2 & 0 & 0 \\
-0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 \end{bmatrix}
+\frac{\partial H}{\partial z} = \begin{bmatrix} 2 & 0 \\
+0 & 2 \end{bmatrix} \succ 0
 $$
 
 By Pontryagin’s minimum principle and transversality conditions, we must satisfy these conditions to be optimal.
@@ -224,14 +207,7 @@ $$
 
 $$H\big(z(T),u(T),\lambda(T),T\big) = 0$$
 
-$$\lambda(T) = 0$$
-
-If these equations are also convex, the problem can be solved numerically with a convex optimizer.
- 
-### Numerical solution
-
-We provide a 
-
+This can then be solved using shooting methods.
 
 ## Conclusion
 
@@ -240,5 +216,8 @@ In these notes, we've hopefully provided a base understanding of free final time
 To continue exploring this topic, references that were used in these notes are provided in the next section.
 
 ## References
-[1] Morton I Kamien, Nancy L Schwartz, Sufficient conditions in optimal control theory, Journal of Economic Theory, Volume 3, Issue 2,
+[1] Donald E. Kirk, Optimal Control Theory: An Introduction. Dover Publications, 2012, Pages 107-309.
+[2] Morton I Kamien, Nancy L Schwartz, Sufficient conditions in optimal control theory, Journal of Economic Theory, Volume 3, Issue 2,
 1971, Pages 207-214, ISSN 0022-0531, https://doi.org/10.1016/0022-0531(71)90018-4.
+[3] David G. Hull, Optimal Control Theory for Applications, Springer, 2003, Pages 221-246.
+

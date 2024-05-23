@@ -16,7 +16,7 @@ The method explored in particular is Pontryagin's Minimum Principle (PMP), which
 These notes will focus on introducing free final time on a simple linear system with theory and code, explain difficulties with implementation on nonlinear and higher-order linear systems, and provide resources to explore the subject further.
 
 Learning objectives include...
-* Discovering the difference between functions and functionals.
+* Introducing an extension to function theory: the functional.
 * Understanding the similarities of extremizing functions of a functional with finding critical points.
 * Determining necessary conditions for optimality with the Hamiltonian under Pontryagin's Minimum Principle.
 * Constructing a free final time problem of a simple linear system.
@@ -24,7 +24,6 @@ Learning objectives include...
 The reader is expected to have prior knowledge of undergraduate-level controls and topics such as basic optimization and the Lagrangian.
 
 ## Prerequisites
-
 
 ### Nomenclature
 <details close>
@@ -63,11 +62,17 @@ Put another way: rather than finding extrema (minima/maxima) values for a functi
 ### Functionals
 Functionals are mappings from a set of functions to the set of real numbers. Intuitively, one can think of them as "functions of functions", as functions are mappings from a set of numbers to another set of numbers. The calculus of variations uses small changes of functions and functionals, known as variations, to determine the extrema of functionals.
 
+<!--
+Add a photo here that helps reader visualize functionals.
+-->
+
 The purpose behind using the calculus of variations for free final time is to find a extrema function that minimizes/maximizes a functional: analogous to finding the critical points by setting the derivative of a function equal to zero.
 
-Our optimization cost is then represented by a cost functional $J[x(t),u(t),t]$ rather than a cost function $J\big(x(t),u(t),t\big)$. More precisely,
+Our optimization cost is then represented by a cost functional $J[z(t),u(t),t]$ rather than a cost function $J\big(z(t),u(t),t\big)$. More precisely,
 
-$$\underbrace{J[z(t),u(t),t]}_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}_{\text{cost-to-go}} \,dt +  \underbrace{\Psi(T)}_{\text{terminal cost}}$$
+$$\underbrace{J[z(t),u(t),t]}\_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}\_{\text{cost-to-go}} \,dt + \underbrace{\Psi(T)}\_{\text{terminal cost}}$$
+
+
 
 where $L$ is the Lagrangian, $\Psi$ is a terminal cost function, and $T$ is the terminal time.
 
@@ -80,33 +85,33 @@ However, if control is also being optimized, Pontryagin's Minimum Principle give
 ### Pontryagin's Minimum Principle (PMP)
 
 Let the cost functional be
-$$\underbrace{J[z(t),u(t),t]}_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}_{\text{cost-to-go}} \,dt +  \underbrace{\Psi(T)}_{\text{terminal cost}}$$
+
+$$\underbrace{J[z(t),u(t),t]}\_{\text{cost functional}} = \int_0^T \underbrace{L\big(z(t), u(t), t\big)}\_{\text{cost-to-go}} \,dt +  \underbrace{\Psi(T)}\_{\text{terminal cost}}$$
 as defined above.
 
 The constraints from the system dynamics are added to the Lagrangian $L$ with time-varying Lagrange multipliers $\lambda(t)$  whose elements are called the co-states of the system.
 
 We can then construct the Hamiltonian $H$:
+
 $$
-\begin{equation*}
-H\big(z(t), u(t), \lambda(t), t\big) = \lambda(t)^\top \cdot \dot{z} + L\big(z(t), u(t)\big).
-\end{equation*}
+\begin{equation}
+H\big(z(t), u(t), \lambda(t), t\big) = \lambda(t)^\top \cdot \dot{z} + L\big(z(t), u(t), t\big).
+\end{equation}
 $$
 
 Pontryagin's minimum principle states that the optimal parameters must minimize the Hamiltonian $H$ for all time $t \in [0, T]$ and all feasible controls $u$ so that
-$$
-\begin{equation}
-H(z^*(t), u^*(t), \lambda^*(t), t) \leq H(z(t), u(t), \lambda(t), t).
-\end{equation}
-$$
 
 $$
-\begin{equation}
-\begin{aligned}
+H(z^\*(t),u^\*(t),\lambda^\*(t),t) \leq H(z(t),u(t),\lambda(t),t).
+$$
+
+
+$$
+\begin{align}
 -\dot{\lambda}(t)
-&= \nabla_z H(z^*(t), u^*(t), \lambda^*(t), t) \\ 
-&= \lambda(t)^\top \cdot \nabla_z \dot{z}(z^*(t), u^*(t)) + \nabla_z L(z^*(t), u^*(t)) 
-\end{aligned}
-\end{equation}
+&= \nabla_z H(z^\*(t), u^\*(t), \lambda^\*(t), t) \\ 
+&= \lambda(t)^\top \cdot \nabla_z \dot{z}(z^\*(t), u^\*(t)) + \nabla_z L(z^\*(t), u^\*(t)) 
+\end{align}
 $$
 
 $$
@@ -116,6 +121,7 @@ $$
 $$
 
 The above equations are necessary for optimality with fixed final time, this last condition is for free final time.
+
 $$
 \begin{equation}
 \nabla_T \Psi(z(T)) + H(T) = 0
@@ -173,20 +179,24 @@ $$
 Let the Lagrangian $L(z(t), u(t), t\big) = a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2$ and the terminal cost be $\Psi(T) = \|z(T) - z_g\|^2$. Include a constraint on the control: $a \le a_{\text{max}}$.
 
 The cost functional can be written as:
+
 $$
-\begin{align*} J[z(t),u(t),t]
-&= \int_0^T L\big(z(t), u(t), t\big) \,dt + \Psi(T)\\
-&= \int_0^T a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2 \,dt + \|z(T) - z_g\|^2\\
-\end{align*}
+\begin{align}
+J[z(t),u(t),t]
+&= \int\_0^T L\big(z(t), u(t), t\big) \,dt + \Psi(T)\\
+&= \int\_0^T a^2 + \omega^2 + \|x-x\_g\|^2 + \|y-y\_g\|^2 \,dt + \|z(T) - z\_g\|^2
+\end{align}
 $$
 
 Augment the Lagrangian with the control constraint with a Lagrange multiplier of $\mu$.
 $$L(z(t), u(t), t\big) = a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2 + \mu (a_{\text{max}} - a) $$
 
 Then the Hamiltonian augments the state dynamics to the Lagrangian.
+
 $$H(z(t), u(t), t\big) = \lambda(t)^\top \cdot \dot{z} + a^2 + \omega^2 + \|x-x_g\|^2 + \|y-y_g\|^2 + \mu (a_{\text{max}} - a) $$
 
-Taking the second derivative of the Hamiltonian, 
+Taking the second derivative of the Hamiltonian,
+
 $$
 \frac{\partial H}{\partial z} = \begin{bmatrix} 2 & 0 & 0 & 0 \\
 0 & 2 & 0 & 0 \\
@@ -195,12 +205,13 @@ $$
 $$
 
 By Pontryagin’s minimum principle and transversality conditions, we must satisfy these conditions to be optimal.
+
 $$
-H(z^*(t), u^*(t), \lambda^*(t), t) \leq H(z(t), u(t), \lambda(t), t) \text{  for  } t \in [0,T]
+H(z^\*(t), u^\*(t), \lambda^\*(t), t) \leq H(z(t), u(t), \lambda(t), t) \text{  for  } t \in [0,T]
 $$
 
 $$
--\dot{\lambda}(t) = \lambda(t)^\top \cdot \nabla_z \dot{z}(z^*(t), u^*(t)) + \nabla_z L(z^*(t), u^*(t)) 
+-\dot{\lambda}(t) = \lambda(t)^\top \cdot \nabla_z \dot{z}(z^\*(t), u^\*(t)) + \nabla_z L(z^\*(t), u^\*(t)) 
 $$
 
 $$
@@ -215,9 +226,11 @@ $$H\big(z(T),u(T),\lambda(T),T\big) = 0$$
 
 $$\lambda(T) = 0$$
 
- This can be solved with shooting methods, to be explored with in code.
+If these equations are also convex, the problem can be solved numerically with a convex optimizer.
  
 ### Numerical solution
+
+We provide a 
 
 
 ## Conclusion

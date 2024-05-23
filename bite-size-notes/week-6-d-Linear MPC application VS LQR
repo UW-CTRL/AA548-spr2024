@@ -1,0 +1,248 @@
+# Linear Model Predictive Control algorithm and Comparison with LQR
+ 
+## Scope and Objectives
+This note will summarize the function of Linear Model Predictive Control to solve the tracking problem. It will also gives an example in the real applications. This note will also discuss briefly about the advantages and disadvantages of this control compared to LQR Control Model
+
+## Introduction
+Model Predictive Control (MPC) has evolved significantly since its inception in the 1970s, primarily used in the chemical process industry where it managed multivariable control problems with constraints effectively. Over the decades, the adoption of MPC, particularly its linear formulation known as LMPC, has expanded across various industries, including aerospace, automotive, and electronics. It is widely used because it balances the simplicity of open-loop control and the precision of full closed-loop control. Unlike open-loop systems, LMPC adapts to changes in system dynamics and disturbances through predictive modeling, enhancing its robustness and accuracy as stated in one of the paper (reference [5]). While if we Compared to fully closed-loop control, LMPC uses a predictive horizon that optimizes performance and reduces unnecessary computation while maintaining stability. This control model helps anticipate and mitigate potential system constraints or disturbances and keep the system stable, offering a superior control solution that is both efficient and adaptable. The ways it works is that At each control step, it applies only the first control action from the optimized sequence, then recalculates the control actions for the next step using updated state information, ensuring continuous adaptation to changes in system conditions.
+
+## Preliminaries
+Before going to the application of Linear MPC to solve tracking problems, here are a few basic things we need to know :
+
+### System Model
+In Linear MPC, we use a linear time-invariant (LTI) system model described by the state-space equations:
+$$
+x_{k+1} = A x_k + B u_k + w_k \tag{1}\\
+$$
+where:
+- $x_k$ is the state vector at time step $k$,
+- $u_k$ is the control input at time step $k$,
+- $w_k$ is the noise variable
+- $A$ and $B$ are system matrices defining the dynamics. $A$ and $B$ values can also be time vaarying, thus making it as $A_k$ and $B_k$
+
+### Objective Function
+MPC is usually modeled as typical quadratic form of cost function with linear dynamics. The objective is to minimize a cost function over a finite prediction horizon:
+$$
+J = \sum_{k=0}^{N-1} \left( x_k^T Q x_k + u_k^T R u_k \right) + x_N^T P x_N \tag{2}\\
+$$
+where:
+- $N$ is the prediction horizon,
+- $Q$, $R$, and $P$ are the weighting matrices for the states and control inputs,
+- $x_N$ is the state at the end of the prediction horizon, and $P$ is the terminal weight matrix.
+- The sum part is usually called cost to go and the cost at the final time step is called the terminal cost
+
+### Constraints
+Linear MPC can incorporate various constraints to ensure the system's control actions are feasible and safe:
+$$
+u_{\text{min}} \leq u_k \leq u_{\text{max}} \tag{3}\\
+$$ 
+$$
+x_{\text{min}} \leq x_k \leq x_{\text{max}} \tag{4}\\
+$$
+
+### Predictive Model
+Using the system model, future states are predicted based on the current state and future control inputs, allowing the controller to anticipate and adjust to system dynamics and disturbances. The 'Predictive Model' used in MPC forecasts future states of the system based on current and past data, aiding in proactive decision-making
+
+### Optimization Problem & Receding Horizon Principle
+the formulation of the optimization problem in MPC involves minimizing a cost function which represents a balance between achieving the desired system performance and adhering to operational constraints. This objective, along with constraints that ensure the system's variables remain within predefined limits, are recalculated at each step to reflect the most recent system state and predictions. At each control step, MPC solves an optimization problem to determine the optimal control actions:
+$$
+\min_{U} \left\{ \sum_{k=0}^{N-1} \left( x_k^T Q x_k + u_k^T R u_k \right) + x_N^T P x_N \right\} \tag{5}\\
+$$
+Subject to:
+$$
+x_{k+1} = A x_k + B u_k + w_k \tag{6}\\
+$$
+$$
+u_{\text{min}} \leq u_k \leq u_{\text{max}} \tag{7}\\
+$$
+$$
+x_{\text{min}} \leq x_k \leq x_{\text{max}} \tag{8}\\
+$$
+where $U$ is the sequence of future control inputs over the prediction horizon.
+
+**MPC only implements the first control input from the optimized sequence, then updates the state based on this input and recalculates the optimal path at the next timestep, continuously adapting to new data.**
+
+This structured approach allows LMPC to efficiently manage system responses while adhering to constraints, providing a robust method for control that balances performance with computational practicality.
+
+### Example Scenario
+To gain better understanding, here is a simple example. Imagine it’s a cold day, and the room temperature is initially 18°C with a target of 22°C. The MPC might decide to heat more aggressively initially but scale back as the room approaches the desired temperature. External temperature drops are predicted for the next few hours, which are factored into the control strategy to adjust the heating levels preemptively.
+
+This example showcases how MPC uses model predictions and optimization to make real-time adjustments in control strategies, ensuring comfort while optimizing energy use.
+
+## Main Body
+### Below is a simple diagram showing how the MPC works :
+![MPC Control Algorithm](https://github.com/1997Theo/streamlit_bank_campaign/blob/main/mpcalgorithm.png?raw=True)
+#### *Fig 1 MPC Control Algorithm*</br></br>
+Here is a brief explanation on pictures above :
+- **Reference/desired state:**
+This is the desired trajectory or setpoints that the control system aims to achieve. These could be speed, position, temperature, etc., depending on the specific application of the MPC.
+- **MPC Controller:**
+The central component of the diagram, consisting of two main sub-components:
+- **Optimizer:**
+This calculates the optimal control inputs by solving a constrained optimization problem. The objective is usually to minimize the difference between the predicted outputs and the reference over the prediction horizon, while also minimizing the use of control energy.
+- **Prediction Model:**
+This model predicts future outputs of the system based on current and past information and the proposed control inputs. It usually encompasses the dynamics of the vehicle or process being controlled.
+- **Control Inputs:**
+These are the actions or commands generated by the optimizer that are sent to the vehicle or process. These inputs are designed to drive the system towards the reference objectives.
+- **Vehicle:**
+This represents the physical system or process being controlled by the MPC. In this context, it's labeled as a "vehicle," which could be literal (such as a car or drone) or figurative (such as any system that 'moves' or changes state).
+- **Measured Outputs:**
+These are the actual outputs from the vehicle or process, which are fed back into the MPC controller. This feedback loop allows the MPC to update its predictions and optimize future control inputs, adjusting for any discrepancies between the predicted and actual outputs.
+
+
+## MPC VS LQR application
+As we have learned about LQR in the previous section, now we want to see the strength and weakness of this MPC model compared to LQR algorithm :
+#### **Linear Quadratic Regulator (LQR)**
+LQR is a feedback control strategy designed for linear systems and aims to minimize a quadratic cost function that represents the error (deviation from the desired state) and the control effort. The solution to the LQR problem involves solving an algebraic Riccati equation to find an optimal gain matrix \( K \). This gain matrix is used to compute the control input as \( u = -Kx \), where \( x \) is the state vector of the system.
+
+#### **Model Predictive Control (MPC)**
+MPC solves an optimization problem at each step in the control process. It uses a model of the system to predict future states over a finite horizon based on current states and a sequence of future control inputs. The objective is to minimize a cost function typically similar to LQR but over a finite horizon and subject to constraints on states and controls. After solving the optimization, only the first control action is implemented, and the process is repeated at the next step.
+
+Now we will discuss about the advantage of MPC, readers could also [3] and [6] for further reference, but here are the brief summary of advantages and disadvantages :
+
+#### Advantages of Using MPC Over LQR
+- **Better at handling constraints on inputs and states,** ensuring compliance with operational limits.
+- **Adapts in real-time to changes and disturbances,** improving system responsiveness and robustness.
+- **Utilizes predictive capabilities to anticipate future events,** optimizing control actions proactively.
+
+#### Disadvantages of Using MPC Over LQR
+- **Requires significant computational resources,** which can be a constraint in real-time applications.
+- **Implementation complexity is higher** due to the need for solving optimization problems frequently.
+- **Relies heavily on model accuracy,** with performance degrading if the predictive model is not precise.
+
+As we have seen the comparison between MPC and LQR, let's now explore how these principles are applied in a real-world scenario. We'll use the example of a Planar Quadrotor to demonstrate the practical application of the concepts we've outlined.
+
+### MPC VS LQR Implementation Example
+Now, we are going to implement MPC algorithm into Homework 2 Problem 3 where we did it with LQR before. Because MPC has a variable called N_horizon (how many time step do we want to predict), this note will take 2 N_horizon of prefiction which is 10 and N (total time step). The code snippets is only a close loop part of homework 2 problem 3, everything else is in HW 2 starter code using N_horizon = 10. (If you want to practice, simply change the N_horizon at the bottom of the code) :
+```
+A = []
+B = []
+
+Q = 1e3 * np.diag([1, 1e-2, 1, 1e-2, 1e-2, 1e-2])
+R = np.diag([1, 1])
+
+
+def linearize_autodiff(unicycle_dynamics, state, control, dt):
+
+    A = jacfwd(unicycle_dynamics, argnums=0)(state, control, dt)
+    B = jacfwd(unicycle_dynamics, argnums=1)(state, control, dt)
+    return A, B
+
+for k in range(N):
+    a,b = linearize_autodiff(BasePlanarQuadrotor().discrete_step, nominal_states[k], nominal_controls[k], dt)
+    A.append(a)
+    B.append(b)
+```
+
+```
+def simulate_closed_loop(initial_state, nominal_states, nominal_controls, N_horizon):
+    states = [initial_state]
+    n = 6
+    m = 2
+    objective = 0
+    for k in range(N):
+        current_state = states[k]
+        current_state = current_state.reshape(-1, 1)
+
+        # Set up the MPC optimization problem
+        x = {i: cp.Variable((n, 1)) for i in range(N_horizon + 1)}  # State variables over horizon
+        u = {i: cp.Variable((m, 1)) for i in range(N_horizon)} 
+        
+        constraints = [x[0] == current_state]
+        
+        for t in range(N_horizon):
+            if t + k >= 50 :
+                objective += cp.Minimize(
+                    cp.quad_form(x[t] - nominal_states[t+k].reshape(-1, 1), Q) # terminal cost
+                )
+                break
+            else :
+                # Define the system dynamics and constraints
+                objective += cp.Minimize(
+                    cp.quad_form(x[t] - nominal_states[t+k].reshape(-1, 1), Q)  +
+                    cp.quad_form(u[t] - nominal_controls[t+k].reshape(-1,1), R)
+                )
+
+                # Dynamics constraint, for simplicity using linear dynamics, replace with your system
+                constraints.append(x[t+1] == A[t+k] @ x[t] + B[t+k] @ u[t])  # A, B should be defined based on your model
+                constraints.append(u[t] >= planar_quad.min_thrust_per_prop)  # control input constraints
+                constraints.append(u[t] <= planar_quad.max_thrust_per_prop)
+
+        # Solve the MPC problem
+        prob = cp.Problem(objective, constraints)
+        prob.solve(solver=cp.ECOS, verbose=True)
+
+        # Extract the optimal control to apply
+        optimal_control = u[0].value.T + nominal_controls[k]
+
+
+        next_state = planar_quad.discrete_step(states[k], optimal_control.reshape(-1,), dt)
+        next_state = apply_wind_disturbance(next_state, dt)
+        states.append(next_state)
+
+    return np.array(states)
+
+
+planar_quad = PlanarQuadrotor()
+fig, ax = plt.subplots(figsize=(12, 6))
+plot_obstacle(ax)
+plot_nominal_trajectory(ax)
+plot_wind(ax)
+planar_quad.animate(simulate_closed_loop(initial_state, nominal_states, nominal_controls, 10), dt, ax)
+```
+
+### Some explanation about the code :
+
+1. System Model Linearization:
+
+   linearize_autodiff function: Uses automatic differentiation (jacfwd from JAX or similar) to linearly approximate the dynamics of the unicycle at each time step based on the current state and control inputs. It computes the Jacobian matrices A and B which represent the system dynamics and the influence of control inputs, respectively.
+
+2. MPC Setup and Execution:
+
+    In the simulate_closed_loop function, an MPC problem is set up and solved for each time step over a predefined horizon (N_horizon). The state (x) and control (u) variables are initialized as optimization variables.
+    The objective function minimizes the quadratic cost of deviating from nominal states and controls, represented by weighting matrices Q and R.
+    Constraints ensure that the system dynamics are respected (x[t+1] = A[t] @ x[t] + B[t] @ u[t]) and control inputs remain within allowable bounds.
+
+3. Optimization and State Update:
+
+    At each iteration of the loop over N total simulation steps, the MPC problem is solved using the ECOS solver. The first control input from the optimized sequence is applied to the system.
+    The system's next state is computed using the discrete_step method of a BasePlanarQuadrotor object, which likely simulates the physical movement of the quadrotor based on the applied control.
+
+### Summary of the code :
+The code leverages linearized models of the dynamics and MPC to optimize the control actions for a quadrotor in a simulated environment. It aims to keep the quadrotor on a predefined trajectory despite possible disturbances, using real-time optimizations at each step. The objective is continually recalculated and minimized, ensuring the system adapts to changes effectively, while adhering to operational constraints.
+
+Here is the comparison result of the simulation :
+### 1. LQR Control (3 seconds to run)
+![LQR_simulation_Result](https://github.com/1997Theo/AA548-spr2024/blob/main/bite-size-notes/figs/lqr.png?raw=True)
+#### *Fig 2 LQR Simulation Result*</br></br>
+
+
+### 2. MPC with N_horizon = 10 Control (1 minute 22 seconds to run)
+![LQR_simulation_Result](https://github.com/1997Theo/AA548-spr2024/blob/main/bite-size-notes/figs/MPC_10.png?raw=True)
+#### *Fig 3 MPC Simulation with N_horizon = 10*</br></br>
+
+
+### 3. MPC with N_horizon = 50 Control (4 minutes 29 seconds to run)
+![LQR_simulation_Result](https://github.com/1997Theo/AA548-spr2024/blob/main/bite-size-notes/figs/MPC_50.png?raw=True)
+#### *Fig 4 MPC Simulation with N_horizon = 50*</br></br>
+
+
+
+From that simulation, we could see that MPC took longer time to run because unlike simpler control strategies that may use static or predefined rules, LMPC recalculates the optimal control actions at every time step based on the latest available system state and predictions. This recalculation is necessary to adapt to new information and maintain optimal performance, but it adds to the computational load. The further we want the prediction, the longer it will take time. In this case, we could see that LQR result is better than MPC for both 10 and 50 N_horizon. Even 10 N_horizon is better than 50 N_horizon. This is because The performance of MPC is heavily dependent on the accuracy of the system model. An inaccurate model can lead to suboptimal control. Aside from that, we could see that LQR's control gains provides consistent and predictable behavior, which might be preferable in environments where the system dynamics are well-understood and relatively stable just like in the example. But again, this will not always be the case in other implementation. In systems where multiple inputs and outputs interact in complex ways, MPC's ability to consider the effect of all control actions simultaneously offers a significant advantage like in the process control and manufacturing, where multiple variables must be controlled simultaneously.
+
+## Conclusion on Model Predictive Control (MPC)
+Model Predictive Control (MPC) is a sophisticated control strategy that offers significant advantages in complex and constrained environments. It excels in systems where the ability to adhere to operational constraints and respond adaptively to changes in system dynamics is crucial. The predictive nature of MPC allows for proactive management of system responses, leveraging its capability to forecast future conditions and optimize control actions accordingly.
+
+However, the benefits of MPC come with certain trade-offs. The requirement for significant computational resources and the complexity of implementation are considerable challenges, especially in environments demanding real-time decision-making. Moreover, the effectiveness of MPC is heavily reliant on the accuracy of the underlying model used for predictions. Any discrepancies between the model and actual system behavior can lead to suboptimal control decisions.
+
+
+
+## Reference :
+[1] Design and Experimental Comparison of PID, LQR and MPC Stabilizing Controllers for Parrot Mambo Mini-Drone,
+Mohamed Okasha and Jordan K. Kralev and Maidul Islam,2022,
+url={https://api.semanticscholar.org/CorpusID:249301956} </br>
+[2] Leung, Karen. “Linear Multivariable Control” Lecture, University of Washington, Seattle, 2024-04-02. </br>
+[3] M. Islam and M. Okasha, "A Comparative Study of PD, LQR and MPC on Quadrotor Using Quaternion Approach," 2019 7th International Conference on Mechatronics Engineering (ICOM), Putrajaya, Malaysia, 2019, pp. 1-6, url={https://ieeexplore.ieee.org/document/8952046} </br>
+[4] Stanford Lectures on MPC https://stanford.edu/class/ee365/lectures/mpc.pdf </br>
+[5] Jingchao Li, Zhaohui Yuan, Sheng Dong, Xiaoyue Sang, Jian Kang, A learning-based model predictive control scheme and its application in biped locomotion, Engineering Applications of Artificial Intelligence, https://doi.org/10.1016/j.engappai.2022.105246 </br>
+[6] Badgwell, Thomas, A Survey of Industrial Model Predictive Control Technology, http://dx.doi.org/10.1016/S0967-0661(02)00186-7

@@ -96,14 +96,14 @@ We start with some belief of the state $\mathbf{x}$, which is $\mu_{t-1}$ with c
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + g'(u_t, \mu_{t-1}) (x_{t-1} - \mu_{t-1})$$
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + G_t (x_{t-1} - \mu_{t-1})$$
 
-      Where: $g'(u_t, x_{t-1}) = \frac{\partial g(u_t, x_{t-1})}{\partial x_{t-1}} \implies G_t = \frac{\partial g(u_t, \mu_{t-1})}{\partial \mu_{t-1}}$
-      $$\implies \bar{\Sigma}_t = G_t \Sigma_{t-1} G_t^T + R_t$$
+      Where: $g'(u_t, x_{t-1}) = \frac{\partial g(u_t, x_{t-1})}{\partial x_{t-1}} \implies G_t = \frac{\partial g(u_t, \mu_{t-1})}{\partial \mu_{t-1}}$ $$\implies \bar{\Sigma}_t = G_t \Sigma_{t-1} G_t^T + R_t$$
 
 2. Update \& Correct:
 
     - The exact same linearization is implemented for the measurement function $h$ using first order Taylor approximation.
       $$h(x_t) \approx h(\bar{\mu}_{t}) + h'(\bar{\mu}_{t}) (x_{t} - \bar{\mu}_{t})$$
       $$h(x_t) \approx h(\bar{\mu}_{t}) + H_t (x_{t} - \bar{\mu}_{t})$$
+      
       Where: $h'(x_{t}) = \frac{\partial h(x_{t})}{\partial x_{t}} \implies H_t = \frac{\partial h(\bar{\mu}_{t})}{\partial \bar{\mu}_{t}}$
     - Compute the Kalman gain at time step $t$.
       $$\implies K_t = \bar{\Sigma}_t H_t^T (H_t \bar{\Sigma}_t H_t^T + Q_t)^{-1}$$

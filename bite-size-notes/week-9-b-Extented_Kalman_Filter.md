@@ -96,7 +96,8 @@ We start with some belief of the state $\mathbf{x}$, which is $\mu_{t-1}$ with c
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + g'(u_t, \mu_{t-1}) (x_{t-1} - \mu_{t-1})$$
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + G_t (x_{t-1} - \mu_{t-1})$$
 
-      Where: $g'(u_t, x_{t-1}) = \frac{\partial g(u_t, x_{t-1})}{\partial x_{t-1}} \implies G_t = \frac{\partial g(u_t, \mu_{t-1})}{\partial \mu_{t-1}}$ $$\implies \bar{\Sigma}_t = G_t \Sigma_{t-1} G_t^T + R_t$$
+      Where: $g'(u_t, x_{t-1}) = \frac{\partial g(u_t, x_{t-1})}{\partial x_{t-1}} \implies G_t = \frac{\partial g(u_t, \mu_{t-1})}{\partial \mu_{t-1}}$.
+      $$\implies \bar{\Sigma}_t = G_t \Sigma_{t-1} G_t^T + R_t$$
 
 2. Update \& Correct:
 

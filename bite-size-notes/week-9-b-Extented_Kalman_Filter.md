@@ -17,11 +17,10 @@ Historically, Gaussian Filters constitute the earliest tractable implementations
 $$bel(\mathbf{x}(t)) = det(2 \pi \Sigma)^{-\frac{1}{2}} exp(-\frac{1}{2} (\mathbf{x} - \mu)^T \Sigma^{-1} (\mathbf{x} - \mu))$$
 The density over the state variable $\mathbf{x}$ is characterized by two parameters: the mean $\mu$ and the covariance $\Sigma$. The mean $\mu$ is a vector with the same dimensionality as the state $\mathbf{x}$. The covariance $\Sigma$ is a symmetric, positive-semidefinite matrix whose dimensions correspond to the square of the dimensionality of the state $\mathbf{x}$.
 
-For Linear Gaussian Systems, with measurements $z_t$ that are governed by dynamics of the following form, the Kalman Filter is the optimal estimator and is also computationally efficient since the parameters of the Kalman Filter algorithm can be computed in closed form.
-$$\begin{align*}
-\mathbf{x}_{t+1} &= A_t \mathbf{x}_{t} + B_t u_t + \varepsilon_t  \\
-z_t &= C_t \mathbf{x}_t + \delta_t
-\end{align*}$$
+For Linear Gaussian Systems, with measurements $z_t$ that are governed by dynamics of the following form, the Kalman Filter is the optimal estimator and is also computationally efficient since the parameters of the Kalman Filter algorithm can be computed in closed form. 
+$$\mathbf{x}_{t+1} = A_t \mathbf{x}_t + B_t u_t + \varepsilon_t$$
+$$z_t = C_t \mathbf{x}_t + \delta_t$$
+
 Understanding that observations are linear functions of the state and the transition between states follows a linear function from the previous state is pivotal in deriving the Kalman Filter. This foundational concept ensures that the belief about the state, represented as $bel(\mathbf{x})$, can be iterated through linear dynamics, maintaining the Gaussian nature of the belief about the next state. 
 
 As illustrated in the figures below, this principle fails to hold for systems with nonlinear dynamics. The nonlinear transformation of a Gaussian distribution does not result in a Gaussian distribution, thus necessitating the use of the Extended Kalman Filter.
@@ -66,16 +65,17 @@ where $J(\mathbf{a})$ is the Jacobian matrix of $\mathbf{f}$ evaluated at $\math
 
 This approximation is particularly useful when dealing with nonlinear functions because it allows us to simplify complex functions into linear ones, making them easier to analyze and compute. Additionally, it is a crucial tool in optimization, where it is often used to approximate objective functions or constraints in optimization problems.
 
-There exist many techniques for linearizing nonlinear functions. EKFs operate on the _first order Taylor expansion_ using the _Jacobian_.
+There exist many techniques for linearizing nonlinear functions. EKFs operate on the _first-order Taylor expansion_ using the _Jacobian_.
 
 ## Main Body
 In the realm of real-world systems, state transitions and measurements often defy linearity. This departure from linear behavior, coupled with the constraint of unimodal beliefs, renders the plain Kalman Filter unsuitable for many practical applications. The Extended Kalman Filter offers a solution by relaxing the linearity assumption.
 
 Consider a nonlinear discrete system of the following form:
-$$\begin{align*}
-\mathbf{x}_{t} &= g(\mathbf{x}_{t-1}, u_t) + \varepsilon_t\\
-z_t &= h(\mathbf{x}_t) + \delta_t
-\end{align*}$$
+
+$$\mathbf{x}_t = g(\mathbf{x} _{t-1}, u_t) + \varepsilon_t$$
+
+$$z_t = h(\mathbf{x}_t) + \delta_t$$
+
 
 The EKF algorithm and its derivation are in many ways similar to the Kalman filter. It differs in the fact that the EKF calculates a Gaussian approximation to the true belief. The key idea underlying the EKF approximation is _linearization_ as seen in Figure 3. By approximating the nonlinear function $g(\mathbf{x}, u)$ by a linear function that is tangent to $g$ at the mean of the Gaussian. Projecting the Gaussian through this linear approximation results in a Gaussian density. This enables the use of the Kalman filter framework for nonlinear systems.
 
@@ -97,15 +97,15 @@ We start with some belief of the state $\mathbf{x}$, which is $\mu_{t-1}$ with c
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + G_t (x_{t-1} - \mu_{t-1})$$
 
       Where: $g'(u_t, x_{t-1}) = \frac{\partial g(u_t, x_{t-1})}{\partial x_{t-1}} \implies G_t = \frac{\partial g(u_t, \mu_{t-1})}{\partial \mu_{t-1}}$.
-      $$\implies \bar{\Sigma}_t = G_t \Sigma_{t-1} G_t^T + R_t$$
+      $$\implies \bar{\Sigma}_ t = G_ t \Sigma_ {t-1} G_t^T + R_t$$
 
 2. Update \& Correct:
 
-    - The exact same linearization is implemented for the measurement function $h$ using first order Taylor approximation.
-      $$h(x_t) \approx h(\bar{\mu}_{t}) + h'(\bar{\mu}_{t}) (x_{t} - \bar{\mu}_{t})$$
-      $$h(x_t) \approx h(\bar{\mu}_{t}) + H_t (x_{t} - \bar{\mu}_{t})$$
+    - The exact same linearization is implemented for the measurement function $h$ using first-order Taylor approximation.
+      $$h(x_t) \approx h(\bar{\mu}_ t) + h'(\bar{\mu}_ t) (x_ t - \bar{\mu}_ t)$$
+      $$h(x_t) \approx h(\bar{\mu}_ t) + H_t (x_ t - \bar{\mu}_ t )$$
       
-      Where: $h'(x_{t}) = \frac{\partial h(x_{t})}{\partial x_{t}} \implies H_t = \frac{\partial h(\bar{\mu}_{t})}{\partial \bar{\mu}_{t}}$
+      Where: $h'(x_{t}) = \frac{\partial h(x_{t})}{\partial x_{t}} \implies H_t = \frac{\partial h(\bar{\mu}_ t)}{\partial \bar{\mu}_t}$
     - Compute the Kalman gain at time step $t$.
       $$\implies K_t = \bar{\Sigma}_t H_t^T (H_t \bar{\Sigma}_t H_t^T + Q_t)^{-1}$$
 

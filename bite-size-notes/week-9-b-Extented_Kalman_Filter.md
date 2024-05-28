@@ -26,15 +26,15 @@ Understanding that observations are linear functions of the state and the transi
 As illustrated in the figures below, this principle fails to hold for systems with nonlinear dynamics. The nonlinear transformation of a Gaussian distribution does not result in a Gaussian distribution, thus necessitating the use of the Extended Kalman Filter.
 
 <div style="display:flex; justify-content:center;">
-  <div style="margin-right:10px;">
+  <div style="margin-right:10px;" align="left">
     <img src="figs/EKF_1.png" alt="Linear Transformation of Gaussian distribution" width="450" height="450"/>
-    <p align="center">
+    <p>
       <em>Figure 1: Linear Transformation of Gaussian distribution</em>
     </p>
   </div>
-  <div style="margin-left:10px;">
+  <div style="margin-left:10px;" align="right">
     <img src="figs/EKF_2.png" alt="Non-Linear Transformation of Gaussian distribution" width="450" height="450"/>
-    <p align="center">
+    <p>
       <em>Figure 2: Non-Linear Transformation of Gaussian distribution</em>
     </p>
   </div>

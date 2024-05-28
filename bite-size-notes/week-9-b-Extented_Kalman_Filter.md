@@ -27,12 +27,15 @@ As illustrated in the figures below, this principle fails to hold for systems wi
 
 <div style="display:flex; justify-content:center;">
   <div style="margin-right:10px;" align="center">
-    <img src="figs/EKF_1.png" alt="Linear Transformation of Gaussian distribution" width="480" height="480" align="left"/>
-    <img src="figs/EKF_2.png" alt="Non-Linear Transformation of Gaussian distribution" width="480" height="480" align="right"/>
+    <img src="figs/EKF_1.png" alt="Linear Transformation of Gaussian distribution" width="400" height="400" align="center"/>
+    <p align="center"><em>Figure 1: Linear Transformation of Gaussian distribution</em></p>
   </div>
-  <p>
-    <em>Figure 2: Non-Linear Transformation of Gaussian distribution</em>
-  </p>
+</div>
+<div>
+  <div style="margin-right:10px;" align="center">
+    <img src="figs/EKF_2.png" alt="Non-Linear Transformation of Gaussian distribution" width="400" height="400" align="center"/>
+     <p align="center"><em>Figure 2: Non-Linear Transformation of Gaussian distribution</em></p>
+  </div>
 </div>
 
 ## Preliminaries
@@ -74,12 +77,13 @@ $$z_t = h(\mathbf{x}_t) + \delta_t$$
 
 The EKF algorithm and its derivation are in many ways similar to the Kalman filter. It differs in the fact that the EKF calculates a Gaussian approximation to the true belief. The key idea underlying the EKF approximation is _linearization_ as seen in Figure 3. By approximating the nonlinear function $g(\mathbf{x}, u)$ by a linear function that is tangent to $g$ at the mean of the Gaussian. Projecting the Gaussian through this linear approximation results in a Gaussian density. This enables the use of the Kalman filter framework for nonlinear systems.
 
-<div style="display:flex; justify-content:center;">
+<div style="display:flex; justify-content:center;" align="center">
     <img src="figs/EKF_3.png" alt="Illustration of linearization applied by EKF" width="450" height="450"/>
+    <p align="center">
+        <em>Figure 3: Illustration of linearization applied by EKF</em>
+    </p>
 </div>
-<p align="center">
-    <em>Figure 3: Illustration of linearization applied by EKF</em>
-</p>
+
 
 
 ### EKF Algorithm
@@ -114,10 +118,10 @@ The Algorithm has been summarised below in Figure 4. The derivation of these equ
 
 <div style="display:flex; justify-content:center;" align="center">
     <img src="figs/EKF_4.png" alt="The EKF Update algorithm" width="600" height="250"/>
+    <p align="center">
+        <em>Figure 4: The EKF Algorithm</em>
+    </p>
 </div>
-<p align="center">
-    <em>Figure 4: The EKF Algorithm</em>
-</p>
 
 
 ### Practical Considerations
@@ -126,14 +130,14 @@ The Algorithm has been summarised below in Figure 4. The derivation of these equ
 
 - The limitation of the Extended Kalman filter is that its performance is dependant of the degree of local nonlinearity in the systems and the degree of uncertainity. Figure 5 and Figure 6 compare the performance of the EKF in systems with different uncertainities.
 
-<div style="display:flex; justify-content:center;">
-  <div style="margin-right:10px;">
+<div style="display:flex; justify-content:center;" align="center">
+  <div style="margin-right:10px;" align="center">
     <img src="figs/EKF_5.png" alt="Linear Transformation of Gaussian distribution" width="450" height="450"/>
     <p align="center">
       <em>Figure 5: Linearised Transformation of high uncertainity distribution</em>
     </p>
   </div>
-  <div style="margin-left:10px;">
+  <div style="margin-left:10px;" align="center">
     <img src="figs/EKF_6.png" alt="Non-Linear Transformation of Gaussian distribution" width="450" height="450"/>
     <p align="center">
       <em>Figure 6: Linearised Transformation of low uncertainity distribution</em>
@@ -146,14 +150,14 @@ The Algorithm has been summarised below in Figure 4. The derivation of these equ
 
 ### EKF-Slam Example
 Simultaneous Localization and Mapping (SLAM) is a process where a robot or autonomous system builds a map of an unknown environment while simultaneously tracking its location within that map. SLAM is essential for autonomous navigation in complex and dynamic environments. Historically the earilest-and perhaps the most influential- SLAM algorithm is based on the extended Kalman filter. The figures attached showcase the implementaion of EKF Slam in a physics simulator with different motion and measurement uncertainities. Notice the drop in performance of the EKF with increase in uncertainities.
-<div style="display:flex; justify-content:center;">
-  <div style="margin-right:10px;">
+<div style="display:flex; justify-content:center;" align="center">
+  <div style="margin-right:10px;" align="center">
     <img src="figs/EKF_7.png" alt="EKF Slam with low uncertainities" width="450" height="450"/>
     <p align="center">
       <em>Figure 7: EKF Slam with low uncertainities</em>
     </p>
   </div>
-  <div style="margin-left:10px;">
+  <div style="margin-left:10px;" align="center">
     <img src="figs/EKF_8.png" alt="EKF Slam with high uncertainities" width="450" height="450"/>
     <p align="center">
       <em>Figure 8: EKF Slam with high uncertainities</em>

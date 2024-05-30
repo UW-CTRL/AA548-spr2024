@@ -23,9 +23,10 @@ First, we'll begin with a few definitions of relevant concepts used throughout t
     A pair of dynamics $(A,C)$ is observable if the observability matrix $O$ has $rank(O) = n = dim(A)$. The observability matrix is as follows:
 
 
-$$ \ O =    \begin{bmatrix}
-                C\\ CA \\\vdots \\ CA^{n-1}
-            \end{bmatrix}\ 
+$$ \ O =    
+\begin{bmatrix}
+C \\ CA \\ \vdots \\ CA^{n-1}
+\end{bmatrix}\ 
 $$
 
 - **Definition 2:**
@@ -40,11 +41,11 @@ $$
 
     A system (A,B) is reachable if and only if $rank(R) = n$ where $x \in \mathbb{R}^n$ and
 
-    $$
-    R = \begin{pmatrix}
-    B & AB & \dots & A^{n-1}B
-    \end{pmatrix}
-    $$
+$$
+R = \begin{pmatrix}
+B & AB & \dots & A^{n-1}B
+\end{pmatrix}
+$$
 
 ### Problem Definition:
 
@@ -87,6 +88,7 @@ $$
 $$
 
 Again we expand our error dynamics with new estimated state dynamics.
+
 $$
 \begin{align*}
 \dot{\tilde{x}}(t) &= \dot{x}(t) - \dot{\hat{x}}(t) \\
@@ -142,22 +144,22 @@ where $O$ is the observability matrix. Since $rank(O) = rank(O^T)$, we can set $
 
 $$
 K = \begin{pmatrix}
-        0 & \dots & 1
-    \end{pmatrix}
-    R^{-1}p^*_{cl}(A)
+0 & \dots & 1
+\end{pmatrix}
+R^{-1}p^*_{cl}(A)
 $$
+
 where $p^*_{cl}(A)$ is the characteristic polynomial from the closed-loop matrix. Once again, use duality between controls and estimation, we can now write
+
 $$
 \begin{align*}
 \tilde{K} &= L^T \\
 &= \begin{pmatrix}
-        0 & \dots & 0 & 1
-    \end{pmatrix}
-    R^{-1}p^*_{cl}(A)\\
-L&= p^*_{cl}(A)O^{-1}
+0 & \dots & 0 & 1
+\end{pmatrix}
 \begin{pmatrix}
-        0 & \dots & 0 & 1
-\end{pmatrix} ^T
+0 & \dots & 0 & 1
+\end{pmatrix}^T
 \end{align*}
 $$
 

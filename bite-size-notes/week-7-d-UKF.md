@@ -31,8 +31,8 @@ The UKF was developed in the late 1990s by Simon J. Julier and Jeffrey K. Uhlman
 ## Mathematical Background
 
 The UKF relies on key mathematical concepts:
-- **Mean and Covariance Propagation**: Instead of linearizing the process, the UKF propagates a set of sigma points through the nonlinear functions to capture the mean and covariance more accurately.
-- **Unscented Transform (UT)**: A method to compute the mean and covariance of a random variable undergoing a nonlinear transformation.
+- **Mean and Covariance Propagation**: Instead of linearizing the process, the UKF propagates a set of sigma points through the nonlinear functions to capture the mean and covariance more accurately. The UKF approximates the state distribution using a set of carefully chosen sample points called sigma points.  These sigma points are propagated through the nonlinear functions. Unlike EKF, which linearizes the nonlinear function using Jacobians (and can be inaccurate if the system is highly nonlinear), the UKF's sigma points capture the mean and covariance of the state distribution more accurately because they are propagated through the true nonlinear model. However, this accuracy comes at the cost of increased computational and implementation complexity, potential numerical stability issues, and sensitivity to noise characteristics.
+- **Unscented Transform (UT)**: The UT uses a minimal set of deterministically chosen sample points around the mean to capture the true mean and covariance after the nonlinear transformation. These sigma points are weighted to ensure that the sample mean and covariance match the actual mean and covariance of the system, which leads to more accurate results than linearization.
 
 # Unscented Kalman Filter Equations and Coding Example
 
@@ -53,17 +53,49 @@ For a state vector x with covariance P:
 
 χᵢ₊ₗ = x - (√((L+λ)P))ᵢ
 
-where L is the dimension of x and λ is a scaling parameter calculated as λ = α²(L + κ) - L.
+(i=1, 2, 3, ... , n)
+
+where L is the dimension of x and λ is a scaling parameter calculated as λ = α²(L + κ) - L. And the √((L+λ)P) operation can be written as the Chlesky decomposition of the matrix P, aiding numerical stability and computational efficiency.
 
 - α: Determines the spread of the sigma points. A small α leads to sigma points closer to the mean.
 - κ: A secondary scaling parameter, often set to 0 or 3 - L.
 - β: Incorporates prior knowledge of the distribution of x (for Gaussian distributions, β = 2).
+
+### Weights for the Mean and Covariance
+
+1. **Weight for the zeroth sigma point (mean)**:
+
+$$
+W_0,m = λ/(n+λ)
+$$
+
+2. **Weight for the zeroth sigma point (covariance)**:
+
+$$
+W_0,c = λ/(n+λ)+​(1−α^2+β)
+$$
+
+3. **Weights for the remaining sigma points**:
+
+$$
+W_0,m = W_0,c = λ/2(n+λ)
+$$
 
 ### Propagation Through Nonlinear Function
 
 For a nonlinear function f:
 
 χᵢ' = f(χᵢ)
+
+example
+
+$$
+x_{k+1} = \sin(x_k) + w_k
+$$
+
+$$
+y_k = x_k^2 + v_k
+$$
 
 Each sigma point is passed through the nonlinear function to obtain a new set of transformed sigma points χᵢ'.
 

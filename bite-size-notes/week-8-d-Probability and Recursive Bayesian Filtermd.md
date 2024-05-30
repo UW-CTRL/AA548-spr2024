@@ -1,5 +1,5 @@
 # Probability and Recursive Bayesian Filter
-##  objectives
+##  Objectives
 1.Probability review
 
 2.Understanding and mastering the fundamentals and applications of Recursive Bayesian Filter
@@ -44,6 +44,8 @@ $$
 
 where $\mu$ is the mean vector, $\Sigma$ is a positive semidefinite and symmetric matrix called the covariance matrix; $T$ denotes the transpose of the vector.
 
+The joint distribution of two random variables $\mathbf{X}$ and $\mathbf{Y}$ describes the probability distribution of $\mathbf{X}$ and $\mathbf{Y}$ occurring simultaneously. It is a multivariate distribution that captures the likelihood of different combinations of $\mathbf{X}$ and $\mathbf{Y}$ values.
+
 The joint distribution of two random variables $\mathbf{X}$ and $\mathbf{Y}$ is:
 
 $$
@@ -77,6 +79,9 @@ $$
 In other words, if $\mathbf{X}$ and $\mathbf{Y}$ are independent, then $\mathbf{Y}$ provides no information about the value of $\mathbf{X}$.
 
 ### Theorem of Total Probability
+
+The Theorem of Total Probability states that the total probability of an event can be found by considering all possible ways that event can occur, using conditional probabilities and the law of total probability. It applies to both discrete and continuous cases.
+
 #### discrete case：
 $$
 p(x) = \sum_y p(x|y)p(y) \tag{8} \quad  
@@ -85,6 +90,7 @@ $$
 $$
 p(x) = \int p(x|y)p(y)dy \tag{9} \quad 
 $$
+
 ### Bayes Rule
 Bayes' Rule links the conditional probability $p(x|y)$ with the "reverse" probability $p(y|x)$, requiring $p(y) > 0$:
 #### discrete case：

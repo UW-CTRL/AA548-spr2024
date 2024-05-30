@@ -3,10 +3,10 @@
 ## Scope and Objectives
 Since the normal Kalman filter can only deal with linear dynamics problems, extended Kalman filter(EKF) is the nonlinear version of the Kalman filter which linearizes about an estimate of the current mean and covariance. 
 
-In this note, I intend to provide a brief introduction to EKF, specifying EKF problems, and explaining its relevance to control theories. After reading this note, readers will understand the basic concepts and motivations with EKF.  
+In this note, I intend to provide a brief introduction to EKF, specifying EKF problems, and explaining its relevance to control theories. After reading these notes, readers will understand the basic concepts and motivations with EKF.  
 
 ## Introduction
-The extended Kalman filter(EKF) is a very useful tool in control theory and estimation. It is widely used for nonlinear control systems. As an extension of traditional Kalman filter, EKF addresses the challenges of nonlinearity, making it be more extensively used in control theory. 
+The extended Kalman filter(EKF) is a very useful tool in control theory and estimation. It is widely used for nonlinear control systems. As an extension of the traditional Kalman filter, EKF addresses the challenges of nonlinearity, making it be more extensively used in control theory. 
 
 In real world systems, such as autonomous vehicles and aircrafts, exhibit nonlinear behaviors. The EKF provides a systematic approach to estimate the states of those nonlinear systems with noisy environment. Also, in robotics, for localization and mapping(SLAM), where a robot must estimate its position and orientation within an environment. 
 
@@ -49,7 +49,7 @@ $$ \tilde{\mathbf{y_k}} = \mathbf{z_k}-h(\hat{\mathbf{x_k\mid_{k-1}}})$$
 
 where the residual $\tilde{\mathbf{y_k}}$ is the difference between the actual measurement $\mathbf{z_k}$ and the predicted measurement $h(\hat{\mathbf{x_k\mid_{k-1}}})$
 
-The innovation covariance is 
+The measurement covariance is 
 
 $$ \mathbf{S_k} = \mathbf{{H_k}P_{k\mid{k-1}}{H_{k}}^T}+\mathbf{R_{k}} $$
 
@@ -152,7 +152,7 @@ for z in measurements:
     estimates.append(x)
 
 estimates = np.array(estimates)
-
+# Plot function
 plt.figure(figsize=(10, 8))
 plt.plot(true_states[:, 0], true_states[:, 1], label='True Path')
 plt.scatter(measurements[:, 0], measurements[:, 1], label='Noisy Measurements', c='r', s=10)
@@ -169,7 +169,7 @@ EKF is widely used in various fields such as robotics, aerospace, automotive, an
 
 ## Conclusion
 
-The key takeaways from this note are
+The key takeaways from these notes are
 1. EKF operates on nonlinear models
 2. Using Jacobian to linearize these models
 3. Prediction and updates

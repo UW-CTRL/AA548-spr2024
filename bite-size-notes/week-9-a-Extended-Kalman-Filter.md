@@ -22,10 +22,10 @@ where f() describes how the dynamics propagate forward in time and g() describes
 At each step we will linearize and use the standard kalman filter equations. To linearize we will take the jacobian of both f() and g() w.r.t. the state x, and noise w/v.
 
 $$\begin{align*}
-F_{k}^{x}=\frac{\partial f}{\partial x}|_{x_k,u_k,w_k}\\
-F_{k}^{w}=\frac{\partial f}{\partial w}|_{x_k,u_k,w_k}\\
-G_{k}^{x}=\frac{\partial g}{\partial x}|_{x_k,u_k,v_k}\\
-G_{k}^{v}=\frac{\partial g}{\partial v}|_{x_k,u_k,v_k}
+F_{k}^{x}=\frac{f}{x}|_{x_k,u_k,w_k}\\
+F_{k}^{w}=\frac{f}{w}|_{x_k,u_k,w_k}\\
+G_{k}^{x}=\frac{g}{x}|_{x_k,u_k,v_k}\\
+G_{k}^{v}=\frac{g}{v}|_{x_k,u_k,v_k}
 \end{align*}$$
 
 Here subscript denotes the timestep and the superscript denotes what the jacobian is being taken with respect to. Additionally if T is in the superscript like $G_{k}^{xT}$, then that means it is the transpose of $G_{k}^{x}$

@@ -37,16 +37,17 @@ where $Δt → 0$.
 
 Substituting this into continuous dynamics, we get,
 
-$$\\begin{aligned}
-    \\frac{x\_{t+1}-x_t}{\\Delta t} &= Ax\_{t} + Bu\_{t} + w\\\\
-    x\_{t+1} &= (I+A \\Delta t)x\_{t} + B \\Delta t u\_{t} + \tilde{w}  \\quad \\quad \\tilde{w} \\sim N(0,Q\\Delta t)\\end{aligned}$$
+$$\\frac{x\_{t+1}-x_t}{\\Delta t} &= Ax\_{t} + Bu\_{t} + w$$
+$$x\_{t+1} &= (I+A \\Delta t)x\_{t} + B \\Delta t u\_{t} + \tilde{w}  \\quad \\quad \\tilde{w} \\sim N(0,Q\\Delta t)$$
 Also,
 $$y\_{t} = Cx\_{t} + \\tilde{v} \\quad \\tilde{v} \\sim N(0,\\frac{R}{\\Delta t})$$
 
 The noise $w(t)$ is integrated over $Δt$ The resulting covariance of
 $w$ after integration is as follows:
 
-$$E\[∫∫<sub>t</sub><sup>t + Δt</sup>w(τ)w(τ′)<sup>T</sup> dτ′dτ\] = Q(t)Δt$$
+$$E[\int \int_{t}^{t+\Delta t} w(\tau)w(\tau ')^T \; d\tau ' d\tau]$$
+$$ = Q(t) \Delta t$$
+
 Similarly, integrating measurement noise over the time step,
 $$\\Tilde{v}\_{t} = \\frac{1}{\\Delta t} \\int\_{t}^{t+\\Delta t}v(\\tau)d\\tau$$
 $$E\[\\Tilde{V}\_{t} \\Tilde{V}\_{t}^T\]=\\frac{R(t)}{\\Delta t}=\\frac{R}{\\Delta t}\\ \\text{(as it is not time-varying)}$$

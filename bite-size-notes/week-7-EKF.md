@@ -18,9 +18,13 @@ In EKF, the state transition and observation models do not need to be linear, bu
 
 $$ \mathbf{x_k} = f (\mathbf{x_{k-1}}, \mathbf{u_{k-1}}) + \mathbf{w_k} $$
 
-$$ \mathbf{z_k} = h (\mathbf{x_k}) + \mathbf{v_k} $$
+$$ \mathbf{y_k} = h (\mathbf{x_k}) + \mathbf{v_k} $$
 
-where $\mathbf{w_k}$ and $\mathbf{v_k}$ are the process and observation noises, $\mathbf{x_k}$ is the state, $\mathbf{u_{k-1}}$ is the control input vector of the previous state. $\mathbf{z_k}$ is the measurement vector at time step k, f is a nonlinear function describing state transition, and h is a nonlinear function relating the state to the measurements. 
+where $\mathbf{w_k}$ and $\mathbf{v_k}$ are the process and observation noises, the process and measurement noises are both considered as Gaussian, like
+
+$$ \mathbf{x_{k+1}} = \mathbf{A}\mathbf{x_k} +  \mathbf{B}\mathbf{u_k} $$
+
+$\mathbf{x_k}$ is the state, $\mathbf{u_{k-1}}$ is the control input vector of the previous state. $\mathbf{z_k}$ is the measurement vector at time step k, f is a nonlinear function describing state transition, and h is a nonlinear function relating the state to the measurements. 
 
 We need Jacobian to linearize function f and h
 

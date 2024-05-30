@@ -34,16 +34,14 @@ For generalization it is assumed that the noise is not additive. If the noise is
 
 Predict:
 
-$$
-\begin{align*}
+$$\begin{align*}
 
 \mu_{k+1}^p&=f(\mu_k,u_k)\\
 
 \Sigma_{k+1}^p&=F_k^x\Sigma_k F_k^{xT}+F_k^wQF_k^{wT}\\
 
 y_{k+1}^p&=g(\mu_{k+1}^p)
-\end{align*}
-$$
+\end{align*}$$
 
 Update:
 

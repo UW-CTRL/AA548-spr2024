@@ -37,8 +37,8 @@ where $Δt → 0$.
 
 Substituting this into continuous dynamics, we get,
 
-$$\\frac{x\_{t+1}-x_t}{\\Delta t} &= Ax\_{t} + Bu\_{t} + w$$
-$$x\_{t+1} &= (I+A \\Delta t)x\_{t} + B \\Delta t u\_{t} + \tilde{w}  \\quad \\quad \\tilde{w} \\sim N(0,Q\\Delta t)$$
+$$\\frac{x\_{t+1}-x_t}{\\Delta t} = Ax\_{t} + Bu\_{t} + w$$
+$$x\_{t+1} = (I+A \\Delta t)x\_{t} + B \\Delta t u\_{t} + \tilde{w}  \\quad \\quad \\tilde{w} \\sim N(0,Q\\Delta t)$$
 Also,
 $$y\_{t} = Cx\_{t} + \\tilde{v} \\quad \\tilde{v} \\sim N(0,\\frac{R}{\\Delta t})$$
 

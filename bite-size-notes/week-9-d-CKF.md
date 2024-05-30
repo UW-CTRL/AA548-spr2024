@@ -125,6 +125,7 @@ Indicating how mean changes over time.
 Key takeaways include:
 - Continuous Kalman Filters provide real-time state estimation for continuous-time systems.
 - They extend the principles of discrete Kalman Filters to differential equation models.
+
 Basic equations are summarized as,
 -    $\dot{\Sigma}(t)=A\Sigma(t)+\Sigma(t)A^{T}-\Sigma(t)C^{T}R^{-1}C\Sigma(t)+Q$
 -   $\dot{\mu}(t) = A\mu(t)+Bu(t)+\Sigma(t) C^{T}R^{-1}(y(t)-C\mu(t))$

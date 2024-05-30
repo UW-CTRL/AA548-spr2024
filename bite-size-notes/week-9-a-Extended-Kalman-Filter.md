@@ -43,13 +43,9 @@ y_{k+1}^p&=g(\mu_{k+1}^p)
 Update:
 
 $$\begin{align*}
-
 K_{k+1}&=\Sigma_{k+1}^pG_{k+1}^{xT}(G_{k+1}^{x}\Sigma_{k+1}^p G_{k+1}^{xT}+G_{k+1}^{v}RG_{k+1}^{vT})^{-1}\\
-
 \mu_{k+1}&=\mu_{k+1}^p+K_{k+1}(y_{k+1}-y_{k+1}^p)\\
-
 \Sigma_{k+1}&=\Sigma_{k+1}^p-K_{k+1}(G_{k+1}^x\Sigma_{k+1}^pG_{k+1}^{xT}+G_{k+1}^vRG_{k+1}^{vT})K_{k+1}^T
-
 \end{align*}$$
 
 Notice that we use the full nonlinear system in the mean prediction step but we have to use the linearized system when looking at how the 

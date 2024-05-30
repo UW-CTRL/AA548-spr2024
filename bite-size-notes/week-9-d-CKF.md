@@ -49,12 +49,12 @@ $$E[\int \int_{t}^{t+\Delta t} w(\tau)w(\tau ')^T \; d\tau ' d\tau]$$
 $$ = Q(t) \Delta t$$
 
 Similarly, integrating measurement noise over the time step,
-$$\\Tilde{v}\_{t} = \\frac{1}{\\Delta t} \\int\_{t}^{t+\\Delta t}v(\\tau)d\\tau$$
-$$E\[\\Tilde{V}\_{t} \\Tilde{V}\_{t}^T\]=\\frac{R(t)}{\\Delta t}=\\frac{R}{\\Delta t}\\ \\text{(as it is not time-varying)}$$
+$$\\tilde{v}\_{t} = \\frac{1}{\\Delta t} \\int\_{t}^{t+\\Delta t}v(\\tau)d\\tau$$
+$$E\[\\tilde{V}\_{t} \\tilde{V}\_{t}^T\]=\\frac{R(t)}{\\Delta t}=\\frac{R}{\\Delta t}\\ \\text{(as it is not time-varying)}$$
 With this the continuous time dynamics are turned to discrete time
 dynamics:
-$$x\_{t+1}=(I+A\\Delta t)x\_{t} + B\\Delta t u\_{t} +\\Tilde{w}\_{t} \\quad \\quad \\quad \\Tilde{w} \\sim \\mathcal{N}(0, Q\\Delta t)$$
-$$y\_{t} = Cx\_{t} + \\Tilde{v}\_{t} \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\Tilde{v} \\sim \\mathcal{N}(0, \\frac{R}{dt})$$
+$$x\_{t+1}=(I+A\\Delta t)x\_{t} + B\\Delta t u\_{t} +\\tilde{w}\_{t} \\quad \\quad \\quad \\tilde{w} \\sim \\mathcal{N}(0, Q\\Delta t)$$
+$$y\_{t} = Cx\_{t} + \\tilde{v}\_{t} \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\tilde{v} \\sim \\mathcal{N}(0, \\frac{R}{dt})$$
 
 Just like for discrete systems, we have the predict equations given as:
 $$\mu_{t}^{p}=(I+A\Delta t)\mu_{t-1} + B\Delta t u_{t-1}$$

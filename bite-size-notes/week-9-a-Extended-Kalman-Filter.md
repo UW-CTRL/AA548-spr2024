@@ -21,12 +21,13 @@ where f() describes how the dynamics propagate forward in time and g() describes
 
 At each step we will linearize and use the standard kalman filter equations. To linearize we will take the jacobian of both f() and g() w.r.t. the state x, and noise w/v.
 
-$$\begin{align*}
-F_{k}^{x}=\frac{f}{x}|_{x_k,u_k,w_k}\\
-F_{k}^{w}=\frac{f}{w}|_{x_k,u_k,w_k}\\
-G_{k}^{x}=\frac{g}{x}|_{x_k,u_k,v_k}\\
-G_{k}^{v}=\frac{g}{v}|_{x_k,u_k,v_k}
-\end{align*}$$
+$F_{k}^{x}=\frac{\partial{f}}{\partial{x}}\bigg|_{x_k,u_k,w_k}$
+
+$F_{k}^{w}=\frac{\partial{f}}{\partial{w}}\bigg|_{x_k,u_k,w_k}$
+
+$G_{k}^{x}=\frac{\partial{g}}{\partial{x}}\bigg|_{x_k,u_k,v_k}$
+
+$G_{k}^{v}=\frac{\partial{g}}{\partial{v}}\bigg|_{x_k,u_k,v_k}$
 
 Here subscript denotes the timestep and the superscript denotes what the jacobian is being taken with respect to. Additionally if T is in the superscript like $G_{k}^{xT}$, then that means it is the transpose of $G_{k}^{x}$
 
@@ -55,51 +56,55 @@ Notice that we use the full nonlinear system in the mean prediction step but we 
 Simple example: Problem Setup for Nonlinear Pendulum
 
 The nonlinear dynamics of the pendulum can be written as
-$$
-\begin{align*}
 
-\frac{d}{dt}
-\begin{bmatrix}  
-    x \\ \dot{x}
-\end{bmatrix}
+$$\frac{d}{dt}\begin{bmatrix}
+x\\
+\dot{x}\end{bmatrix}
 =\begin{bmatrix}
-\dot{x} \\ -\sin(x)
+\dot{x} \\
+-\sin(x)
 \end{bmatrix}
 +
 \begin{bmatrix}
-0 \\ u
+0 \\
+u
 \end{bmatrix}
 +
 \begin{bmatrix}
-0 \\ w
-\end{bmatrix}
-\end{align*}
-$$
+0 \\
+w
+\end{bmatrix}$$
+
 Which can be discretized using a zero-order hold to
-$$
-\begin{bmatrix}  
-    x_{k+1} \\ \dot{x}_{k+1}
+
+$$\begin{align*}
+\begin{bmatrix}
+x_{k+1} \\
+\dot{x}_{k+1}
 \end{bmatrix}
-=\begin{bmatrix}  
-    x_k+\dot{x}_k \Delta t \\ \dot{x}_k-\sin(x_k)\Delta t
+&=\begin{bmatrix}  
+x_k+\dot{x}_k\Delta t \\
+\dot{x}_k-\sin(x_k)\Delta t
 \end{bmatrix}
 +\begin{bmatrix}  
-    0 \\ u\Delta t
+0 \\
+u\Delta t
 \end{bmatrix}
-+
-\begin{bmatrix}
-0 \\ w\Delta t
-\end{bmatrix}
-\\
-y_{k+1}=x_{k+1} + v_{k+1}
-$$
++\begin{bmatrix}
+0 \\
+w\Delta t
+\end{bmatrix} \\
+y\_{k+1}&=x\_{k+1}+v\_{k+1}
+\end{align*}$$
 
 Notice that we are only measuring the angle of the pendulum (x)
 
 we can calculate our jacobians as
 
 $$\begin{align*}
-F_k^{x}&=\frac{\partial f}{\partial x} = \begin{bmatrix} 1 & \Delta t \\  -cos(x_k)\Delta t & 1 \end{bmatrix} \\
+F_k^{x}&=\frac{\partial f}{\partial x}=\begin{bmatrix}1&\Delta{t}\\ 
+-cos(x_k)\Delta{t}&{1}
+\end{bmatrix}\\
 F^{w}&=\frac{\partial f}{\partial w} = I\\
 G^{x}&=\frac{\partial g}{\partial x} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}\\
 G^{v}&=\frac{\partial g}{\partial v} = I

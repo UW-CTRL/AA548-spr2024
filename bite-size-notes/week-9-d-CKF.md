@@ -122,8 +122,14 @@ $$\dot{\mu} = A\mu+Bu+\Sigma C^{T}R^{-1}(y-C\mu)$$
 Indicating how mean changes over time.
 
 ### Continuous Time Kalman Filter Summary
-
+Key takeaways include:
+- Continuous Kalman Filters provide real-time state estimation for continuous-time systems.
+- They extend the principles of discrete Kalman Filters to differential equation models.
 Basic equations are summarized as,
 -    $\dot{\Sigma}(t)=A\Sigma(t)+\Sigma(t)A^{T}-\Sigma(t)C^{T}R^{-1}C\Sigma(t)+Q$
 -   $\dot{\mu}(t) = A\mu(t)+Bu(t)+\Sigma(t) C^{T}R^{-1}(y(t)-C\mu(t))$
+
+## References
+
+Lewis, F.L., Xie, L., & Popa, D. (2008). Optimal and Robust Estimation: With an Introduction to Stochastic Control Theory, Second Edition (2nd ed.). CRC Press. [DOI](https://doi.org/10.1201/9781315221656)
 

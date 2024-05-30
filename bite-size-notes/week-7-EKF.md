@@ -47,6 +47,8 @@ In update step, the measurement(innovation) residual is
 
 $$ \tilde{\mathbf{y_k}} = \mathbf{z_k}-h(\hat{\mathbf{x_k\mid_{k-1}}})$$
 
+where the residual $\tilde{\mathbf{y_k}}$ is the difference between the actual measurement $\mathbf{z_k}$ and the predicted measurement $h(\hat{\mathbf{x_k\mid_{k-1}}})$
+
 The innovation covariance is 
 
 $$ \mathbf{S_k} = \mathbf{{H_k}P_{k\mid{k-1}}{H_{k}}^T}+\mathbf{R_{k}} $$

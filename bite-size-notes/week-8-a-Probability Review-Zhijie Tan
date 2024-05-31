@@ -28,10 +28,8 @@ The following notes will explain the meanings of symbols and demonstrate differe
 - $\mathcal{P}$: Probability measure (assigns a probability to each other)
 
 ## Moving forward consider X v P(X) where P(x) is a probability distribution
-- Expectation $\mathbb{E}$， is a fundamental concept in probability and statistics representing the average or mean value of a random variable.
-  -$\mathbb{E}[X]=\Sigma_x x p（x)$
-  -$E[X] = \int_{-\infty}^{\infty} x \cdot f(x) \, dx$
-  ${\mathbb{E} \text{xp} [g(x)]} = \int_x g(x) P(x) \, dx \text{ or } \sum_x g(x) P(x)$
+- Expectation $\mathbb{E}$， is a fundamental concept in probability and statistics   representing the average or mean value of a random variable.
+  - ${\mathbb{E} \text{xp} [g(x)]} = \int_x g(x) P(x) \,dx  \text{(continuous variables)} \text{ or } \sum_x g(x) P(x)\text{(discrete variables)}$
   - mean $\mathcal{u_x}$ = ${\mathbb{E} \text{xp}(x) [g(x)]}$
 
 

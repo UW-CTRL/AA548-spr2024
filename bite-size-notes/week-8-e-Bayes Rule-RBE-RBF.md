@@ -87,3 +87,8 @@ The Recursive Bayesian Filter is a fundamental tool for state estimation and tra
 - **Grid-Based Filters** - Filters that discretize the state space and apply the RBF within said discretized space
 - **BraMBLe (Bayesian Multiple-Blob Tracker)** - A tracker using particle filters to handle multiple targets in tracking scenarios
 - **Importance Sampling** - A technique used within Particle Filters to weight samples according to their likelihood, allowing for efficient estimation of the posterior distribution in high-dimensional spaces.
+
+## References
+[1] Leung, Karen. “Linear Multivariable Control” Lecture, University of Washington, Seattle, 05-13-2024, 05-16-2024.
+
+[2] [Rubinstein, Michael. "Introduction to Recursive Bayesian Filtering", MIT](https://people.csail.mit.edu/mrub/talks/filtering.pdf)

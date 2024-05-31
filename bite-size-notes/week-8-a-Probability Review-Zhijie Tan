@@ -18,7 +18,7 @@ The following notes will explain the meanings of symbols and demonstrate differe
 ### Random Variable
 
 ### Symbol
-- X:random varible(RV). a quantity whose value is unknown/uncertain 
+- X: random variable(RV). a quantity whose value is unknown/uncertain 
 - x: possible value of X or sample of X or realization of X 
 
 
@@ -27,9 +27,10 @@ The following notes will explain the meanings of symbols and demonstrate differe
 - $\mathcal{F}$: Event space (all possible sets of outcomes in $\Omega$)
 - $\mathcal{P}$: Probability measure (assigns a probability to each other)
 
-## Moving forward consider X v P(X) where P(x) is a probabilty distribution
-- Expectation $\mathbb{E}$
-  
+## Moving forward consider X v P(X) where P(x) is a probability distribution
+- Expectation $\mathbb{E}$， is a fundamental concept in probability and statistics representing the average or mean value of a random variable.
+  -$\mathbb{E}[X]=\Sigma_x x p（x)$
+  -$E[X] = \int_{-\infty}^{\infty} x \cdot f(x) \, dx$
   ${\mathbb{E} \text{xp} [g(x)]} = \int_x g(x) P(x) \, dx \text{ or } \sum_x g(x) P(x)$
   - mean $\mathcal{u_x}$ = ${\mathbb{E} \text{xp}(x) [g(x)]}$
 
@@ -39,7 +40,7 @@ The following notes will explain the meanings of symbols and demonstrate differe
 
 The following plot represents the probability mass function (PMF) of a discrete random variable: 
 ![Discrete Random Variable Plot](PMF.png)
-- $S=[1.2.3]$
+- $S={1,2,3}$
 - P($x\in$,$\mathcal{S}$)= $\sum_{x=S}P(x)$
 - $\sum_xP(x)=1$ 
 - $0≤P（x）≤1$
@@ -95,7 +96,7 @@ $P(X|Y)=\frac{P(Y|X)P(X)}{P(Y)} \int_x P(Y|X)P(X) dx$
 
 $P(X|Y) \space \propto \space P(Y|X)P(X)$ ($\propto$: is proportional to)
 
-## Posterior, if Y is a measurement then what is X given Y?
+## Posterior, if Y is a measurement then what is X given Y? $P(X|Y)$
 ## Prior, your belief guess of X before knowing Y?
 ### Likelihood Function
  The joint probability mass (or probability density) of observed data is viewed as a function of the parameters of a statistical model.[2]
@@ -104,8 +105,14 @@ $P(X|Y) \space \propto \space P(Y|X)P(X)$ ($\propto$: is proportional to)
 - $P(x|y,y_2) \space \propto \space P(y_2|x,y_1)P(x|y_1)$
 
 Assume measurements are independent
+
+Since $y_2$ and $y_1$ are independent given $x$,
 - - $\propto \space P(y_2|x)P(x|y_1)$
+
+Since $y_2$ is conditionally independent of $y_1$ given $x$,
 - - $\propto \space P(y_2|x,y_1)P(y_2|x)$   
+
+Since the independence of $y_2$ and $y_1$ given $x$,
 - - $\propto \space P(y_2|x,y_1)P(y_1|x)P(x)$ 
 
 ## Recursive Bayes Estimates
@@ -118,7 +125,7 @@ Recursive Bayes Estimation Example:
 
 $x$ is (static)
 
-$P(x|y_{1：k})=P(y_k|x)P(x|y_{1:k-1})=\int_x P(y_k|x)P(x|y_{1:k-1})dx$
+$P(x|y_{1：k})=P(y_k|x)P(x|y_{1:k+1})=\int_x P(y_k|x)P(x|y_{1:k+1})dx$
 
 Posterior from k-1 is your prior for step k
 
@@ -177,7 +184,9 @@ Assume the system is Markov
 
 ![](Markvo.png)
 
-include control input
+include control input (Markov Decision Process) (MDP)，
+
+MDP is a mathematical framework used to make decision-making in situations where outcomes are partly random and partly under the control of a decision-maker. Also, it can determine the transitions between states based on actions taken by the decision-maker.
 ![](control.png)
 
 $\rhd P(x_k:x_{k-1},u_{k-1})$ 

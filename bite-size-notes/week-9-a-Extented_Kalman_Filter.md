@@ -21,7 +21,7 @@ For Linear Gaussian Systems, with measurements $z_t$ that are governed by dynami
 $$\mathbf{x}_{t+1} = A_t \mathbf{x}_t + B_t u_t + \varepsilon_t$$
 $$z_t = C_t \mathbf{x}_t + \delta_t$$
 
-Understanding that observations are linear functions of the state and the transition between states follows a linear function from the previous state is pivotal in deriving the Kalman Filter. This foundational concept ensures that the belief about the state, represented as $bel(\mathbf{x})$, can be iterated through linear dynamics, maintaining the Gaussian nature of the belief about the next state. 
+Understanding that observations are linear functions of the state and that the transition between states follows a linear function from the previous state is pivotal in deriving the Kalman Filter. This foundational concept ensures that the belief about the state, represented as $bel(\mathbf{x})$, can be iterated through linear dynamics, maintaining the Gaussian nature of the belief about the next state. 
 
 As illustrated in the figures below, this principle fails to hold for systems with nonlinear dynamics. The nonlinear transformation of a Gaussian distribution does not result in a Gaussian distribution, thus necessitating the use of the Extended Kalman Filter.
 
@@ -41,7 +41,7 @@ As illustrated in the figures below, this principle fails to hold for systems wi
 ## Preliminaries
 
 ### Jacobian
-The Jacobian can be viewed as the _first order derivative_ of a vector-valued function. Given a vector-valued function $\mathbf{f}(\mathbf{x})$ where $\mathbf{x} = [x_1, x_2, ..., x_n]^T$ and $\mathbf{f}(\mathbf{x}) = [f_1(\mathbf{x}), f_2(\mathbf{x}), ..., f_m(\mathbf{x})]^T$, the Jacobian matrix $J$ is defined as:
+The Jacobian can be viewed as the _first-order derivative_ of a vector-valued function. Given a vector-valued function $\mathbf{f}(\mathbf{x})$ where $\mathbf{x} = [x_1, x_2, ..., x_n]^T$ and $\mathbf{f}(\mathbf{x}) = [f_1(\mathbf{x}), f_2(\mathbf{x}), ..., f_m(\mathbf{x})]^T$, the Jacobian matrix $J$ is defined as:
 
 $$J = \begin{bmatrix}
 \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots & \frac{\partial f_1}{\partial x_n} \\
@@ -52,7 +52,7 @@ $$J = \begin{bmatrix}
 
 Here, each element $\frac{\partial f_i}{\partial x_j}$ represents the partial derivative of the $i$-th component of $\mathbf{f}$ with respect to the $j$-th variable in $\mathbf{x}$.
 
-The Jacobian matrix provides important information about the rate of change of the vector-valued function with respect to its variables. Within the scope of EKF, it is used for first order Taylor approximtion.
+The Jacobian matrix provides important information about the rate of change of the vector-valued function with respect to its variables. Within the scope of EKF, it is used for first-order Taylor approximation.
 
 ### First Order Taylor Approximation
 The first-order Taylor approximation is a linear approximation of a nonlinear function around a point in vector space. For a vector-valued function $\mathbf{f}(\mathbf{x})$ and a point $\mathbf{a}$ close to $\mathbf{x}$, the first-order Taylor approximation is given by:
@@ -90,7 +90,7 @@ The EKF algorithm and its derivation are in many ways similar to the Kalman filt
 We start with some belief of the state $\mathbf{x}$, which is $\mu_{t-1}$ with covariance $\Sigma_{t-1}$. At time step $t$, control $u_t$ is applied and measurement $z_t$ is taken.
 
 1. Predict:
-    - Use non-linear dynamics function $g$ to predict the mean of the belief of the current state of the system. $$\implies \bar{\mu_t} = g(u_t, \mu_{t-1})$$
+    - Use the non-linear dynamics function $g$ to predict the mean of the belief of the current state of the system. $$\implies \bar{\mu_t} = g(u_t, \mu_{t-1})$$
     - Use the linearized dynamics (_Jacobian_ $G_t$) to predict the covariance of the belief of the current state of the system.
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + g'(u_t, \mu_{t-1}) (x_{t-1} - \mu_{t-1})$$
       $$g(u_t, x_{t-1}) \approx g(u_t, \mu_{t-1}) + G_t (x_{t-1} - \mu_{t-1})$$
@@ -128,37 +128,37 @@ The Algorithm has been summarised below in Figure 4. The derivation of these equ
 
 - The EKF is a very popular tool for state estimation. Its strength lies in its simplicity and computational efficiency, which arise from using a multivariate Gaussian distribution to represent belief.
 
-- The limitation of the Extended Kalman filter is that its performance is dependant of the degree of local nonlinearity in the systems and the degree of uncertainity. Figure 5 and Figure 6 compare the performance of the EKF in systems with different uncertainities.
+- The limitation of the Extended Kalman filter is that its performance is dependant of the degree of local nonlinearity in the systems and the degree of uncertainty. Figure 5 and Figure 6 compare the performance of the EKF in systems with different uncertainties.
 
 <div style="display:flex; justify-content:center;" align="center">
   <div style="margin-right:10px;" align="center">
     <img src="figs/EKF_5.png" alt="Linear Transformation of Gaussian distribution" width="450" height="450"/>
     <p align="center">
-      <em>Figure 5: Linearised Transformation of high uncertainity distribution</em>
+      <em>Figure 5: Linearised Transformation of high uncertainty distribution</em>
     </p>
   </div>
   <div style="margin-left:10px;" align="center">
     <img src="figs/EKF_6.png" alt="Non-Linear Transformation of Gaussian distribution" width="450" height="450"/>
     <p align="center">
-      <em>Figure 6: Linearised Transformation of low uncertainity distribution</em>
+      <em>Figure 6: Linearised Transformation of low uncertainty distribution</em>
     </p>
   </div>
 </div>
 
-- Thus, in practice, when applying EKFs it is important to keep the uncertainity of the state estimate small.
+- Thus, in practice, when applying EKFs it is important to keep the uncertainty of the state estimate small.
 - EKFs have been applied with great success to a number of state estimation problems that violate the underlying assumptions. 
 
 ### EKF-Slam Example
-Simultaneous Localization and Mapping (SLAM) is a process where a robot or autonomous system builds a map of an unknown environment while simultaneously tracking its location within that map. SLAM is essential for autonomous navigation in complex and dynamic environments. Historically the earilest-and perhaps the most influential- SLAM algorithm is based on the extended Kalman filter. The figures attached showcase the implementaion of EKF Slam in a physics simulator with different motion and measurement uncertainities. Notice the drop in performance of the EKF with increase in uncertainities.
+Simultaneous Localization and Mapping (SLAM) is a process where a robot or autonomous system builds a map of an unknown environment while simultaneously tracking its location within that map. SLAM is essential for autonomous navigation in complex and dynamic environments. Historically the earilest-and perhaps the most influential- SLAM algorithm is based on the extended Kalman filter. The figures attached showcase the implementation of EKF Slam in a physics simulator with different motion and measurement uncertainties. The blue line traces the actual path taken by the robot and the red line traces the belief of the robot's position estimated using the EKF. Notice the drop in performance of the EKF with an increase in uncertainties.
 <div style="display:flex; justify-content:center;" align="center">
   <div style="margin-right:10px;" align="center">
-    <img src="figs/EKF_7.png" alt="EKF Slam with low uncertainities" width="450" height="450"/>
+    <img src="figs/EKF_7.png" alt="EKF Slam with low uncertainties" width="450" height="450"/>
     <p align="center">
       <em>Figure 7: EKF Slam with low uncertainities</em>
     </p>
   </div>
   <div style="margin-left:10px;" align="center">
-    <img src="figs/EKF_8.png" alt="EKF Slam with high uncertainities" width="450" height="450"/>
+    <img src="figs/EKF_8.png" alt="EKF Slam with high uncertainties" width="450" height="450"/>
     <p align="center">
       <em>Figure 8: EKF Slam with high uncertainities</em>
     </p>

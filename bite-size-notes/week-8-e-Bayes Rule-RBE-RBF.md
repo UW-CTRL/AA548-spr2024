@@ -1,45 +1,6 @@
 # Bayes Rule, Recursive Bayesian Estimator, and the Recursive Bayesian Filter
 
-## Bayes's Rule
-
-Bayes's rule, named after Reverend Thomas Bayes, is a fundamental principle in probability theory and statistics. It describes how to update the probability of a hypothesis based on new evidence. Mathematically, Bayes's rule is expressed as:
-$$P(X|Y) = \frac{P(Y|X)P(X)}{P(Y)}$$
-
-Each component of the expression is important and has its own name:
-- $P(X|Y)$ is the *posterior*, which asks "if y is a measurement, then what is x given y?"
-- $P(X)$ is the *prior*, a belief/guess of X before knowing Y
-- $P(Y|X)$ is the *likelihood function*, which is what you expect Y to be given X
-- $P(Y)$ (also written as $\int_X P(Y|X)P(X)dX$) is the normalizing factor.
-
-Yet what happens if we have multiple measurements? We can write our multiple measurement expression as the following:
-$$P(X|Y_1, Y_2) \propto P(Y_2|X,Y_1)P(X|Y_1)$$
-
-Keep in mind, we assume our measurements are independent:
-$$\propto P(Y_2|X)P(X|Y_1)$$
-$$\propto P(Y_2|X)P(Y_1|X)P(X)$$
-
-This applies for any number of measurements $P(X|Y_1,Y_2,\cdots, Y_N)$.
-
-## Recursive Bayes's Estimator
-
-We use the recursive Bayes's estimator to update the estimate of an unknown quantity as new data becomes available through the application of Bayes's Rule. It can be written as the following expression:
-$$P(X|Y_{1:K}) = \frac{P(Y_K|X)P(X|Y_{1:K-1})}{\int_{\tilde{X}} P(Y_K|\tilde{X})P(\tilde{X}|Y_{1:K-1})d\tilde{X}}$$
-
-A tilde is added to the integration term in the denominator in our notation for clarity. As well, note that the prior $P(X|Y_{1:K-1})$ for time step $k$ is simply the posterior from the previous time step $k-1$. Using this, we can then build the Recursive Bayesian Filter, but a few properties and mathematical expressions are worth going over first. The LHS of the RBE is proportional to the following expression:
-$$P(X|Y_{1:K}) \propto P(Y_{1:K}|X)P(X)$$
-where $P(Y_{1:K}|X)$ can be expanded via the chain rule to:
-$$P(Y_{1:K}|X) = P(Y_K|X,Y_{1:K-1})P(Y_{1:K-1}|X)$$
-
-Next, measurements with conditional independence w.r.t. x can be written as:
-$$P(Y_K|X)P(Y_{1:K-1}|X)$$
-
-Using this, we can then write the Bayes rule as the following (albeit gross but able to be simplified) expression:
-$$P(X|Y_{1:K})=P(Y_K|X)P(Y_{1:K-1}|X)P(X)$$
-$$P(X|Y_{1:K-1}) \propto P(Y_{1:K-1}|X)P(X)$$
-$$P(X|Y_{1:K}) = \frac{P(Y_K|X)\frac{P(Y_{1:K-1}|X)P(X)}{\int_X P(Y_{1:K-1}|X)P(X)dX}}{\int_X P(Y_K|X) \frac{P(Y_{1:K-1}|X)P(X)}{\int_X P(Y_{1:K-1}|X)P(X)dX} dX}$$
-
-Which can be simplified to:
-$$P(X|Y_{1:K}) = \frac{P(Y_K|X)\frac{P(Y_{1:K-1}|X)P(X)}{P(X|Y_{1:K-1})}}{\int_X P(Y_K|X) \frac{P(Y_{1:K-1}|X)P(X)}{P(X|Y_{1:K-1})} dX}$$
+## Preliminaries
 
 ### Independence
 
@@ -53,7 +14,53 @@ Given measurements $Y_1$ and $Y_2$ which are conditionally independent given $X$
 $$P(Y_1|Y_2,X)=P(Y_1|X)$$
 $$P(Y_2|Y_1,X)=P(Y_2|X)$$
 
+
+## Bayes's Rule
+
+Bayes's rule, named after Reverend Thomas Bayes, is a fundamental principle in probability theory and statistics. It describes how to update the probability of a hypothesis based on new evidence. Mathematically, Bayes's rule is expressed as:
+$$P(X|Y) = \frac{P(Y|X)P(X)}{P(Y)}$$
+
+Each component of the expression is important and has its own name:
+- $P(X|Y)$ is the *posterior*, which asks "if y is a measurement, then what is x given y?"
+- $P(X)$ is the *prior*, a belief/guess of X before knowing Y
+- $P(Y|X)$ is the *likelihood function*, which is what you expect Y to be given X
+- $P(Y)$ , also written as $\int_X P(Y|X)P(X)dX$, is the normalizing factor.
+
+Yet what happens if we have multiple measurements? We can write our multiple measurement expression as the following:
+$$P(X|Y_1, Y_2) \propto P(Y_2|X,Y_1)P(X|Y_1)$$
+
+(Note, we use $\propto$ instead of $=$ since the exact calculation of the posterior term in Baye's rule typically requires the normalization step.)
+
+Keep in mind, we assume our measurements are independent:
+$$\propto P(Y_2|X)P(X|Y_1)$$
+$$\propto P(Y_2|X)P(Y_1|X)P(X)$$
+
+This applies for any number of measurements $P(X|Y_1,Y_2,\cdots, Y_N)$.
+
+## Recursive Bayes's Estimator
+
+We use the recursive Bayes's estimator to update the estimate of an unknown quantity as new data becomes available through the application of Bayes's Rule. It can be written as the following expression:
+$$P(X|Y_{1:K}) = \frac{P(Y_K|X)P(X|Y_{1:K-1})}{\int_{\tilde{X}} P(Y_K|\tilde{X})P(\tilde{X}|Y_{1:K-1})d\tilde{X}}$$
+
+For clarity, a tilde is added above the term that is being integrated in the denominator. As well, note that the prior $P(X|Y_{1:K-1})$ for time step $k$ is simply the posterior from the previous time step $k-1$. Using this, we can then build the Recursive Bayesian Filter, but a few properties and mathematical expressions are worth going over first. The LHS of the RBE is proportional to the following expression:
+$$P(X|Y_{1:K}) \propto P(Y_{1:K}|X)P(X)$$
+where $P(Y_{1:K}|X)$ can be expanded via the chain rule to:
+$$P(Y_{1:K}|X) = P(Y_K|X,Y_{1:K-1})P(Y_{1:K-1}|X)$$
+
+Next, measurements with conditional independence w.r.t. x can be written as:
+$$P(Y_K|X)P(Y_{1:K-1}|X)$$
+
+Using this, we can then write the Bayes rule as the following (albeit gross but able to be simplified) expression:
+$$P(X|Y_{1:K})=P(Y_K|X)P(Y_{1:K-1}|X)P(X)$$
+$$P(X|Y_{1:K-1}) \propto P(Y_{1:K-1}|X)P(X)$$
+$$P(X|Y_{1:K}) = \frac{P(Y_K|X)\frac{P(Y_{1:K-1}|X)P(X)}{\int_\tilde{X} P(Y_{1:K-1}|\tilde{X})P(\tilde{X})d\tilde{X}}}{\int_X P(Y_K|X) \frac{P(Y_{1:K-1}|X)P(X)}{\int_\tilde{X} P(Y_{1:K-1}|\tilde{X})P(\tilde{X})d\tilde{X}} dX}$$
+
+Which can be simplified to:
+$$P(X|Y_{1:K}) = \frac{P(Y_K|X)\frac{P(Y_{1:K-1}|X)P(X)}{P(X|Y_{1:K-1})}}{\int_X P(Y_K|X) \frac{P(Y_{1:K-1}|X)P(X)}{P(X|Y_{1:K-1})} dX}$$
+
 ## Recursive Bayesian Filter
+
+In dynamic systems where a state $X$ which evolves over time, we to consider not only the updating beliefs based on new measurements but also the prediction of future states. This brings us the Recursive Bayesian Filter, which extends the RBE to handle temporal state transitions.
 
 Say we have $X$ which changes over time and assuming the system is *Markov*, meaning "the next state depends on only the current state", we can write this as:
 $$P(X_0,X_1,X_2,\cdots,X_K) = P(X_0)\prod_{i=1}^KP(X_i|X_{i-1})$$
@@ -64,19 +71,27 @@ The core of the Recursive Bayesian Filter is a two-step process: predict and upd
 
 ### Predict
 
+The predict step takes the current state estimate and the system dynamics to predict the state at the next time step. To compute the prior for the update step, $P(X_K|Y_{1:K-1})$, we integrate it over the previous state distribution.
+
 $$P(X_K,X_{K-1}|Y_{1:K-1}) =  P(X_K|X_{K-1},Y_{1:K-1})P(X_{K-1}|Y_{1:K-1})$$
-$$P(X_K|X_{K-1})P(X_{K-1}|Y_{1:K-1})$$
+
+$$ = P(X_K|X_{K-1})P(X_{K-1}|Y_{1:K-1})$$
+
 $$P(X_K|Y_{1:K-1}) = \int_{X_{K-1}} P(X_K, X_{K-1}|Y_{1:K-1})dX_{K-1}$$
 
 ### Update
 
+We now use the prior from the predict step, $P(X_K|Y_{1:K-1})$, while incorporating our new measurement to refine the state estimate. We use Baye's rule to combine the predicted state estimate with the new measurement.
+
 $$P(X_K|Y_{1:K}) = P(X_K|Y_K,Y_{1:K-1})$$
-$$BR \propto P(Y_K|X_K,Y_{1:K-1})P(X_K|Y_{1:K-1})$$
+
+$$\text{Using Baye's Rule:} \propto P(Y_K|X_K,Y_{1:K-1})P(X_K|Y_{1:K-1})$$
+
 $$\propto P(Y_K|X_K)P(X_K|Y_{1:K-1})$$
 
 where $P(X_K|Y_{1:K-1})$ is from the predict step.
 
-## Conclusion: Why this is important
+## Conclusion: Why this is important [2]
 
 The Recursive Bayesian Filter is a fundamental tool for state estimation and tracking due to its ability to handle noise and uncertainty in measurements. It is particularly useful in real-time applications since it continuously updates the probability distribution with new data, making the estimation system robust and accurate. Finally, its importance is highlighted given that several other more complex tools build upon the Recursive Bayesian Filter:
 - **Kalman Filter** - A specific implementation of the RBF for linear Gaussian systems

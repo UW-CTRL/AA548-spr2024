@@ -87,11 +87,13 @@ $$
 \end{equation}
 $$
 
+
 $$
 \begin{equation}\tag{8}
 E\left[\tilde{v}_{t} \tilde{v}_{t}^T\right] = \frac{R(t)}{\Delta t} = \frac{R}{\Delta t} \quad \text{(as it is not time-varying)}
 \end{equation}
 $$
+
 
 With this, the continuous time dynamics are turned to discrete time dynamics:
 

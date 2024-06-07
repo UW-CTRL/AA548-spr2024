@@ -29,7 +29,6 @@ $$
     \dot{x}(t) = Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)
 \end{equation}
 $$
-
 $$
 \begin{equation}\tag{2}
     y(t) = Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)
@@ -47,10 +46,28 @@ where $Δt → 0$.
 
 Substituting this into continuous dynamics, we get,
 
-$$\\frac{x\_{t+1}-x_t}{\\Delta t} = Ax\_{t} + Bu\_{t} + w$$
-$$x\_{t+1} = (I+A \\Delta t)x\_{t} + B \\Delta t u\_{t} + \tilde{w}  \\quad \\quad \\tilde{w} \\sim N(0,Q\\Delta t)$$
+We start with the continuous time dynamical system with Gaussian noise:
+
+$$
+\begin{equation}\tag{3}
+\frac{x_{t+1}-x_t}{\Delta t} = Ax_{t} + Bu_{t} + w
+\end{equation}
+$$
+
+$$
+\begin{equation}\tag{4}
+x_{t+1} = (I+A \Delta t)x_{t} + B \Delta t u_{t} + \tilde{w}  \quad \quad \tilde{w} \sim N(0,Q\Delta t)
+\end{equation}
+$$
+
 Also,
-$$y\_{t} = Cx\_{t} + \\tilde{v} \\quad \\tilde{v} \\sim N(0,\\frac{R}{\\Delta t})$$
+
+$$
+\begin{equation}\tag{5}
+y_{t} = Cx_{t} + \tilde{v} \quad \tilde{v} \sim N(0,\frac{R}{\Delta t})
+\end{equation}
+$$
+
 
 The noise $w(t)$ is integrated over $Δt$ The resulting covariance of
 $w$ after integration is as follows:

@@ -26,8 +26,8 @@ We start with the continuous time dynamical system with Gaussian noise:
 $$
 \begin{equation}\tag{1}
 \begin{aligned}
-\dot{x}(t) = Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)\\
-y(t) = Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)\\
+\dot{x}(t) &= Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)\\
+y(t) &= Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)\\
 \end{aligned}
 \end{equation}
 $$

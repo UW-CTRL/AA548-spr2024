@@ -204,18 +204,42 @@ Differences between LQR and KF.
 
 ### Finite Difference version of *μ*
 
-We can also carry out similar operations to arrive a finite difference equation for $\mu$,
-$$\mu_{t} = \mu_{t}^{p} + K_{t}(y_{t}-C\mu_{t}^{p})$$
-Plugging this into predict equation will give,
-$$\mu_{t}=(I+A\Delta t)\mu_{t-1}+K_{t}(y_{t}-C(I+A\Delta t)\mu_{t-1} + B\Delta tu_{t-1}))$$
+We can also carry out similar operations to arrive at a finite difference equation for $\mu$,
+
+$$
+\begin{equation}\tag{20}
+\mu_{t} = \mu_{t}^{p} + K_{t}(y_{t} - C\mu_{t}^{p})
+\end{equation}
+$$
+
+Plugging this into the predict equation will give,
+
+$$
+\begin{equation}\tag{21}
+\mu_{t} = (I + A\Delta t)\mu_{t-1} + K_{t}(y_{t} - C(I + A\Delta t)\mu_{t-1} + B\Delta t u_{t-1})
+\end{equation}
+$$
+
 Rearranging the terms gives
-$$\\frac{1}{\\Delta t}(\\mu\_{t}-\\mu\_{t-1})=A\\mu\_{t}+Bu\_{t}+\\frac{K\_{t}}{\\Delta t}(y\_{t}-C\\mu\_{t}-C(A\\mu\_{t}+Bu\_{t})\\Delta t)$$
-With limit, $Δt → 0$
+
+$$
+\begin{equation}\tag{22}
+\frac{1}{\Delta t}(\mu_{t} - \mu_{t-1}) = A\mu_{t} + Bu_{t} + \frac{K_{t}}{\Delta t}(y_{t} - C\mu_{t} - C(A\mu_{t} + Bu_{t})\Delta t)
+\end{equation}
+$$
+
+With the limit, $\Delta t \to 0$
 
 We get the finite difference version,
 
-$$\dot{\mu} = A\mu+Bu+\Sigma C^{T}R^{-1}(y-C\mu)$$
-Indicating how mean changes over time.
+$$
+\begin{equation}\tag{23}
+\dot{\mu} = A\mu + Bu + \Sigma C^{T} R^{-1} (y - C\mu)
+\end{equation}
+$$
+
+indicating how the mean changes over time.
+
 
 ### Continuous Time Kalman Filter Summary
 Key takeaways include:

@@ -81,18 +81,10 @@ $$
 
 Similarly, integrating measurement noise over the time step,
 
-$$
-\begin{equation}
-\tilde{v}_{t} = \frac{1}{\Delta t} \int_{t}^{t+\Delta t} v(\tau) \, d\tau
-\end{equation}
-$$
+$$ \tilde{v}_{t} = \frac{1}{\Delta t} \int_{t}^{t+\Delta t} v(\tau)  d\tau $$
 
 
-$$
-\begin{equation}\tag{8}
-E\left[\tilde{v}_{t} \tilde{v}_{t}^T\right] = \frac{R(t)}{\Delta t} = \frac{R}{\Delta t} \quad \text{(as it is not time-varying)}
-\end{equation}
-$$
+$$ E\left[\tilde{v}_{t} \tilde{v}_{t}^T\right] = \frac{R(t)}{\Delta t} = \frac{R}{\Delta t} \quad \text{(as it is not time-varying)} $$
 
 
 With this, the continuous time dynamics are turned to discrete time dynamics:

@@ -23,8 +23,15 @@ state estimates for systems modeled by differential equations.
 ## Continuous-Time Kalman Filter
 
 We start with the continuous time dynamical system with Gaussian noise:
-$$\dot{x}(t) = Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)$$ 
-$$y(t) = Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)$$
+$$
+\begin{equation}\tag{1}
+\begin{aligned}
+\dot{x}(t) = Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)\\
+y(t) = Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)\\
+\end{aligned}
+\end{equation}
+$$
+
 where, $Q$ is Process noise covariance and *R* is measurement noise
 covariance. We also assume that our measurement is not affected by the
 control, so $D = 0$.

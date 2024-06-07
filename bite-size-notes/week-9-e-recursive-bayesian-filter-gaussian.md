@@ -1,4 +1,4 @@
-# Recursive Bayseian Filters for Linear Gaussian Systems
+# Recursive Bayesian Filters for Linear Gaussian Systems
 
 ### Scope
 
@@ -15,7 +15,15 @@ The recursive Bayesian filter (RBF) is the most general possible statement of ho
 If one wishes to estimate the state of an uncertain system, the RBF exactly describes how the probability of each state varies over time.
 This is the math that underlies any state estimation problem, from localizing the position of an aircraft using GPS to determining the orientation of a satellite using a star tracker.
 
-However, the RBF is challenging to use in practice because of the difficulty of computing the normalization factor in Bayes' rule, upon which the RBF is based, for systems with many possible states.
+However, the RBF is challenging to use in practice, as it makes heavy use of Bayes' rule. As a reminder, Bayes' rule states that the probability of an event $X$ given evidence $Y$ is
+$$
+\begin{equation}
+    p(x|y) = \frac{p(y|x) p(x)}{p(y)} = \frac{p(y|x) p(x)}{\int_{\tilde{x}} p(\tilde{x}, y) \, d\tilde{x}}
+\end{equation}
+$$
+If there are lots of possibile values for $X$, then the denominator is extremely hard to compute, as it requires integrating over all of them.
+In general, this makes the RBF expensive to use, as most systems of interest have a large number of possible states, or even infinitely many.
+For instance, a single vehicle might have 12 continuous states that parametrze its position, velocity, attitude, and angular velocity---and numeric integration over 12 continuous states is never fun.
 Due to this difficulty in computation, it is useful to make some simplifying assumptions in order to leverage the power of the RBF.
 In particular, we will assume that
 
@@ -118,7 +126,7 @@ where $\Sigma_x = \Sigma_x^T$, since the covariance of a random variable with it
 We can now compute the mean and covariance of $X|Y$, since we have calculated all of the terms in Eq. (2). Plugging in our expressions for $\Sigma_{y_k}$, $\Sigma_{x_k y_k}$, and $\Sigma_{y_k x_k}$ from Eq. (8) into Eq. (2), we find that
 $$
 \begin{align}
-    \mu_{x_k | y_k} &= \mu_{x_k} + \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} (y - C\mu_{x_k}) \\
+    \mu_{x_k | y_k} &= \mu_{x_k} + \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} (y_k - C\mu_{x_k}) \\
     \Sigma_{x_k | y_k} &= \Sigma_{x_k} - \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} C\Sigma_{x_k} .
 \end{align}
 $$
@@ -139,8 +147,9 @@ $$
 
 These values describe the probability of being in state $x_k$ given the single observation $y_k$. But what we really want to know is the probability of being in $x_k$ given the history of observations $y_{1:k}$. We don't actually have to change much!
 
-- Our prior (before measurement $y_k$) was $p(x_k)$, but is now $p(x_k | y_{1:k - 1})$. Thus, all of the lone $x_k$'s in Eqs. (11-13) get replaced with $x_k | y_{1:k - 1}$.
-- Our posterior (after measurement $y_k$) was $p(x_k | y_k)$, but is now $p(x_k | y_{1:k})$.
+- Assume we have already made the measurements $y_{1:k - 1}$, as of the previous recursive step.
+- Our prior (before measurement $y_k$) is $p(x_k | y_{1:k - 1})$ instead of $p(x_k)$. Thus, all of the lone $x_k$'s in Eqs. (11-13) get replaced with $x_k | y_{1:k - 1}$.
+- Our posterior (after measurement $y_k$) is $p(x_k | y_{1:k})$ instead of $p(x_k | y_k)$.
 
 Making these replacements in Eqs. (11-13), we get
 $$
@@ -151,7 +160,7 @@ $$
 \end{gather}
 $$
 
-This notation has gotten really awful really fast ($\mu_{x_k | y_1:k - 1}\ $ ˙◠˙ ), so let's introduce some shorthand:
+This notation has gotten really awful really fast ($\mu_{x_k | y_{1:k - 1}}\ $ ˙◠˙ ), so let's introduce some shorthand:
 $$
 \begin{equation}
     \begin{aligned}
@@ -209,4 +218,4 @@ Though it was derived in a completely different way, this is exactly identical t
 
 ## Conclusion
 
-From the above derivation, we have proved that the Kalman filter is just a recursive Bayesian filter for the special case of a linear Gaussian system. This is quite profound! The Kalman filter was specifically designed to be optimal per the least-squares error between the predicted mean and actual state. The recursive Bayesian filter, meanwhile, is derived from basic probability, and in this derivation we just used the rules for how Gaussians evolve under linear systems. The recursive Bayseian filter may be hard to compute in general, but in this case it results in the popular and powerful tool that is the Kalman filter.
+From the above derivation, we have proved that the Kalman filter is just a recursive Bayesian filter for the special case of a linear Gaussian system. This is quite profound! The Kalman filter was specifically designed to be optimal per the least-squares error between the predicted mean and actual state. The recursive Bayesian filter, meanwhile, is derived from basic probability, and in this derivation we just used the rules for how Gaussians evolve under linear systems. The recursive Bayesian filter may be hard to compute in general, but in this case it results in the popular and powerful tool that is the Kalman filter.

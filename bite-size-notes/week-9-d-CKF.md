@@ -204,6 +204,7 @@ $$-\dot{P}=A^{T} P+P A-P B R^{-1} B^{T} P+Q$$
 Differences between LQR and KF.
 
 Combining predict and update equation for mean gives,
+
 $$
 \begin{equation}\tag{20}
 \dot{\mu}(t) = A\mu(t) + Bu(t) + \Sigma(t) C^{T}R^{-1}(y(t) - C\mu(t))

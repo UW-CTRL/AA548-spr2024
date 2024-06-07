@@ -18,7 +18,7 @@ This is the math that underlies any state estimation problem, from localizing th
 However, the RBF is challenging to use in practice, as it makes heavy use of Bayes' rule. As a reminder, Bayes' rule states that the probability of an event $X$ given evidence $Y$ is
 
 $$
-\begin{equation}
+\begin{equation}\tag{1}
     p(x|y) = \frac{p(y|x) p(x)}{p(y)} = \frac{p(y|x) p(x)}{\int_{\tilde{x}} p(\tilde{x}, y) \, d\tilde{x}}
 \end{equation}
 $$
@@ -42,7 +42,7 @@ For a random variable $X$, a particular value or sample is represented by the lo
 When we say $X \sim \mathcal{N}(\mu, \Sigma)$, we mean that $X$ is "Gaussian": it follows a Gaussian or normal distribution with mean $\mu \in \mathbb{R}^n$ and covariance $\Sigma \in \mathbb{R}^{n \times n}$:
 
 $$
-\begin{equation}
+\begin{equation}\tag{2}
     p(x) = \mathcal{N}(\mu, \Sigma) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1}(x - \mu) \right)
 \end{equation}
 $$
@@ -58,7 +58,7 @@ If $X$ and $Y$ are both Gaussian random variables, then $X | Y$ ("$X$ given $Y$"
 In particular:
 
 $$
-\begin{equation}
+\begin{equation}\tag{3}
     \begin{aligned}
         p(x | y) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y}) \quad &\text{where} \quad \mu_{x|y} = \mu_x + \Sigma_{xy}\Sigma_y^{-1} (y - \mu_y), \quad \Sigma_{x|y} = \Sigma_x - \Sigma_{xy}\Sigma_y^{-1}\Sigma_{yx} \\
         p(y | x) = \mathcal{N}(\mu_{y|x}, \Sigma_{y|x}) \quad &\text{where} \quad \mu_{y|x} = \mu_y + \Sigma_{yx}\Sigma_x^{-1} (x - \mu_x), \quad \Sigma_{y|x} = \Sigma_y - \Sigma_{yx}\Sigma_x^{-1}\Sigma_{xy} \\
@@ -75,7 +75,7 @@ This is done using a two-step recursive process:
 1. **Predict:**
 
 $$
-\begin{equation}
+\begin{equation}\tag{4}
     p(x_k | y_{1:k - 1}) = \int_{x_{k - 1}} p(x_k | x_{k - 1}) p(x_{k - 1} | y_{1:k - 1}) \, dx_{k - 1}
 \end{equation}
 $$
@@ -83,7 +83,7 @@ $$
 2. **Update:**
 
 $$
-\begin{equation}
+\begin{equation}\tag{5}
     p(x_k | y_{1:k}) \propto p(y_k | x_k) p(x_k | y_{1:k - 1}) \quad \text{(Bayes' rule)}
 \end{equation}
 $$
@@ -97,7 +97,7 @@ However, in the case of a linear Gaussian system, we will be able to determine i
 We wish to derive the estimate found by the recursive Bayesian filter, given the linear time-invariant dynamics
 
 $$
-\begin{equation}
+\begin{equation}\tag{6}
     \begin{aligned}
         x_{k + 1} &= Ax_k + Bu_k + w_k, &&\quad W_k \sim \mathcal{N}(0, Q) \\
         y_k &= Cx_k + v_k, &&\quad V_k \sim \mathcal{N}(0, R)
@@ -111,7 +111,7 @@ We further assume the state is a Gaussian random variable, so that $X \sim \math
 The observation $y_k$ is linear in $x_k$ and $v_k$, so it is Gaussian as well:
 
 $$
-\begin{equation}
+\begin{equation}\tag{7}
     Y_k = CX_k + V_k \  \sim \  \mathcal{N}(\mu_{y_k}, \Sigma_{y_k}) .
 \end{equation}
 $$
@@ -119,7 +119,7 @@ $$
 Let's compute the mean and covariance of $Y_k$. Due to the linearity of the expected value,
 
 $$
-\begin{equation}
+\begin{equation}\tag{8}
     \mu_{y_k} := \mathbb{E}[Y_k] = \mathbb{E}[CX_k + V_k] = C\mathbb{E}[X_k] + \mathbb{E}[V_k] = C\mathbb{E}[X_k] = C\mu_{x_k}
 \end{equation}
 $$
@@ -127,7 +127,7 @@ $$
 since $V_k$ has zero mean and so zero expected value. Furthermore, we have $Cov(X_k, V_k) = 0$; the current state is uncorrelated with the current process noise. Given all of this, and skipping some algebra,
 
 $$
-\begin{equation}
+\begin{equation}\tag{9}
     \begin{aligned}
         \Sigma_{y_k} &= Cov(Y_k) := \mathbb{E}[(Y_k - \mu_{y_k})(Y_k - \mu_{y_k})^T] = ... = C\Sigma_{x_k}C^T + R_k \\
         \Sigma_{x_k y_k} &= Cov(X_k, Y_k) := \mathbb{E}[(X_k - \mu_{x_k})(Y_k - \mu_{y_k})^T] = ... = \Sigma_{x_k} C^T \\
@@ -138,19 +138,19 @@ $$
 
 where $\Sigma_x = \Sigma_x^T$, since the covariance of a random variable with itself is symmetric.
 
-We can now compute the mean and covariance of $X|Y$, since we have calculated all of the terms in Eq. (2). Plugging in our expressions for $\Sigma_{y_k}$, $\Sigma_{x_k y_k}$, and $\Sigma_{y_k x_k}$ from Eq. (8) into Eq. (2), we find that
+We can now compute the mean and covariance of $X|Y$, since we have calculated all of the terms in Eq. (3). Plugging in our expressions for $\Sigma_{y_k}$, $\Sigma_{x_k y_k}$, and $\Sigma_{y_k x_k}$ from Eq. (9) into Eq. (3), we find that
 
 $$
 \begin{align}
-    \mu_{x_k | y_k} &= \mu_{x_k} + \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} (y_k - C\mu_{x_k}) \\
-    \Sigma_{x_k | y_k} &= \Sigma_{x_k} - \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} C\Sigma_{x_k} .
+    \mu_{x_k | y_k} &= \mu_{x_k} + \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} (y_k - C\mu_{x_k}) \tag{10} \\
+    \Sigma_{x_k | y_k} &= \Sigma_{x_k} - \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} C\Sigma_{x_k} . \tag{11}
 \end{align}
 $$
 
 We notice and factor out the common term
 
 $$
-\begin{equation}
+\begin{equation}\tag{12}
     K_k = \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1}
 \end{equation}
 $$
@@ -159,31 +159,31 @@ to obtain
 
 $$
 \begin{gather}
-    \mu_{x_k | y_k} = (I - K_k C) \mu_{x_k} + K_k y \\
-    \Sigma_{x_k | y_k} = (I - K_k C)\Sigma_{x_k} .
+    \mu_{x_k | y_k} = (I - K_k C) \mu_{x_k} + K_k y \tag{13} \\
+    \Sigma_{x_k | y_k} = (I - K_k C)\Sigma_{x_k} . \tag{14}
 \end{gather}
 $$
 
 These values describe the probability of being in state $x_k$ given the single observation $y_k$. But what we really want to know is the probability of being in $x_k$ given the history of observations $y_{1:k}$. We don't actually have to change much!
 
 - Assume we have already made the measurements $y_{1:k - 1}$, as of the previous recursive step.
-- Our prior (before measurement $y_k$) is $p(x_k | y_{1:k - 1})$ instead of $p(x_k)$. Thus, all of the lone $x_k$'s in Eqs. (11-13) get replaced with $x_k | y_{1:k - 1}$.
+- Our prior (before measurement $y_k$) is $p(x_k | y_{1:k - 1})$ instead of $p(x_k)$. Thus, all of the lone $x_k$'s in Eqs. (12-14) get replaced with $x_k | y_{1:k - 1}$.
 - Our posterior (after measurement $y_k$) is $p(x_k | y_{1:k})$ instead of $p(x_k | y_k)$.
 
-Making these replacements in Eqs. (11-13), we get
+Making these replacements in Eqs. (12-14), we get
 
 $$
 \begin{gather}
-    K_k = \Sigma_{x_k | y_{1:k - 1}} C^T (C \Sigma_{x_k | y_{1:k - 1}} C^T + R)^{-1} \\
-    \mu_{x_k | y_{1:k}} = (I - K_k C) \mu_{x_k | y_{1:k - 1}} + K_k y_k \\
-    \Sigma_{x_k | y_{1:k}} = (I - K_k C)\Sigma_{x_k | y_{1:k - 1}} .
+    K_k = \Sigma_{x_k | y_{1:k - 1}} C^T (C \Sigma_{x_k | y_{1:k - 1}} C^T + R)^{-1} \tag{15} \\
+    \mu_{x_k | y_{1:k}} = (I - K_k C) \mu_{x_k | y_{1:k - 1}} + K_k y_k \tag{16} \\
+    \Sigma_{x_k | y_{1:k}} = (I - K_k C)\Sigma_{x_k | y_{1:k - 1}} \tag{17} .
 \end{gather}
 $$
 
 This notation has gotten really awful really fast ($\mu_{x_k | y_{1:k - 1}}\ $ ˙◠˙ ), so let's introduce some shorthand:
 
 $$
-\begin{equation}
+\begin{equation}\tag{18}
     \begin{aligned}
         x_k | y_{1:k} &\quad \to \quad k|k \\
         x_k | y_{1:k-1} &\quad \to \quad k|k - 1
@@ -191,17 +191,17 @@ $$
 \end{equation}
 $$
 
-The left side of the "given" bar always refers to $x$ at a particular timestep. The right side of the bar always refers to a history of $y$ up to a particular timestep. Exchanging this notation in Eqs. (14-16), we find
+The left side of the "given" bar always refers to $x$ at a particular timestep. The right side of the bar always refers to a history of $y$ up to a particular timestep. Exchanging this notation in Eqs. (15-17), we find
 
 $$
 \begin{gather}
-    K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \\
-    \mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \\
-    \Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} .
+    K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \tag{19} \\
+    \mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \tag{20} \\
+    \Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} . \tag{21}
 \end{gather}
 $$
 
-We're now ready to fill in the recursive Bayesian filter from Eq. (3) and (4). We need to determine the distributions
+We're now ready to fill in the recursive Bayesian filter from Eq. (4) and (5). We need to determine the distributions
 
 1. **Predict:** $\quad p(k|k - 1) = \mathcal{N}(\mu_{k|k - 1}, \Sigma_{k|k - 1})$
 
@@ -211,12 +211,12 @@ Thanks to the linear Gaussian assumption, we can calculate $\mu_{k|k - 1}$ and $
 
 $$
 \begin{gather}
-    \mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \\
-    \Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q
+    \mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \tag{22} \\
+    \Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q \tag{23}
 \end{gather}
 $$
 
-Then the update step is just an application of Eqs. (18-20).
+Then the update step is just an application of Eqs. (19-21).
 
 ### Summary
 
@@ -226,8 +226,8 @@ The recursive Bayesian filter for a linear Gaussian system is given by the follo
 
 $$
 \begin{gather}
-    \mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \\
-    \Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q
+    \mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \tag{24} \\
+    \Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q \tag{25}
 \end{gather}
 $$
 
@@ -235,9 +235,9 @@ $$
 
 $$
 \begin{gather}
-    K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \\
-    \mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \\
-    \Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} .
+    K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \tag{26} \\
+    \mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \tag{27} \\
+    \Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} . \tag{28}
 \end{gather}
 $$
 

@@ -29,6 +29,7 @@ $$
     \dot{x}(t) = Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)
 \end{equation}
 $$
+
 $$
 \begin{equation}\tag{2}
     y(t) = Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)
@@ -69,33 +70,86 @@ y_{t} = Cx_{t} + \tilde{v} \quad \tilde{v} \sim N(0,\frac{R}{\Delta t})
 $$
 
 
-The noise $w(t)$ is integrated over $Δt$ The resulting covariance of
+The noise $w(t)$ is integrated over $Δt$. The resulting covariance of
 $w$ after integration is as follows:
 
-$$E[\int \int_{t}^{t+\Delta t} w(\tau)w(\tau ')^T \; d\tau ' d\tau]$$
-$$ = Q(t) \Delta t$$
+$$
+\begin{equation}\tag{6}
+E\left[\int_{t}^{t+\Delta t} \int_{t}^{t+\Delta t} w(\tau)w(\tau ')^T \, d\tau ' d\tau\right] = Q(t) \Delta t
+\end{equation}
+$$
 
 Similarly, integrating measurement noise over the time step,
-$$\\tilde{v}\_{t} = \\frac{1}{\\Delta t} \\int\_{t}^{t+\\Delta t}v(\\tau)d\\tau$$
-$$E\[\\tilde{V}\_{t} \\tilde{V}\_{t}^T\]=\\frac{R(t)}{\\Delta t}=\\frac{R}{\\Delta t}\\ \\text{(as it is not time-varying)}$$
-With this the continuous time dynamics are turned to discrete time
-dynamics:
-$$x\_{t+1}=(I+A\\Delta t)x\_{t} + B\\Delta t u\_{t} +\\tilde{w}\_{t} \\quad \\quad \\quad \\tilde{w} \\sim \\mathcal{N}(0, Q\\Delta t)$$
-$$y\_{t} = Cx\_{t} + \\tilde{v}\_{t} \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\quad \\tilde{v} \\sim \\mathcal{N}(0, \\frac{R}{dt})$$
+
+$$
+\begin{equation}\tag{7}
+\tilde{v}_{t} = \frac{1}{\Delta t} \int_{t}^{t+\Delta t} v(\tau) \, d\tau
+\end{equation}
+$$
+
+$$
+\begin{equation}\tag{8}
+E\left[\tilde{v}_{t} \tilde{v}_{t}^T\right] = \frac{R(t)}{\Delta t} = \frac{R}{\Delta t} \quad \text{(as it is not time-varying)}
+\end{equation}
+$$
+
+With this, the continuous time dynamics are turned to discrete time dynamics:
+
+$$
+\begin{equation}\tag{9}
+x_{t+1} = (I+A\Delta t)x_{t} + B\Delta t u_{t} + \tilde{w}_{t} \quad \quad \tilde{w} \sim \mathcal{N}(0, Q\Delta t)
+\end{equation}
+$$
+
+$$
+\begin{equation}\tag{10}
+y_{t} = Cx_{t} + \tilde{v}_{t} \quad \quad \tilde{v} \sim \mathcal{N}(0, \frac{R}{\Delta t})
+\end{equation}
+$$
 
 Just like for discrete systems, we have the predict equations given as:
-$$\mu_{t}^{p}=(I+A\Delta t)\mu_{t-1} + B\Delta t u_{t-1}$$
-$$\Sigma_{t}^{p}=(I+A\Delta t)\Sigma_{t-1}(I+A\Delta t)^{T}+Q\Delta t$$
+
+$$
+\begin{equation}\tag{11}
+\mu_{t}^{p} = (I+A\Delta t)\mu_{t-1} + B\Delta t u_{t-1}
+\end{equation}
+$$
+
+$$
+\begin{equation}\tag{12}
+\Sigma_{t}^{p} = (I+A\Delta t)\Sigma_{t-1}(I+A\Delta t)^{T} + Q\Delta t
+\end{equation}
+$$
 
 Update equations are as follows:
-$$K\_{t}=\\Sigma\_{t}^p C^{T} (C \\Sigma\_{t}^{p} C^{T} + \\frac{1}{\\Delta t}R)^{-1}$$
-$$\mu_{t}=\mu_{t}^{p}+K_{t}(y_{t}-C\mu_{t}^{p})$$
-$$\Sigma_{t}=(I-K_{t}C)\Sigma_{t}^{p}$$
+
+$$
+\begin{equation}\tag{13}
+K_{t} = \Sigma_{t}^{p} C^{T} (C \Sigma_{t}^{p} C^{T} + \frac{1}{\Delta t} R)^{-1}
+\end{equation}
+$$
+
+$$
+\begin{equation}\tag{14}
+\mu_{t} = \mu_{t}^{p} + K_{t}(y_{t} - C\mu_{t}^{p})
+\end{equation}
+$$
+
+$$
+\begin{equation}\tag{15}
+\Sigma_{t} = (I-K_{t}C)\Sigma_{t}^{p}
+\end{equation}
+$$
 
 Rearranging the gain equation we get,
-$$\\frac{1}{\\Delta t}K\_{t} = \\Sigma\_{t}^{p} C^{T} (C \\Sigma\_{t}^{p} C^{T} \\Delta t +R)^{-1}$$
 
-as $\Delta t$ goes to zero, the term on right goes to a finite value of $\Sigma_{t}^{p} C^{T} R^{-1}$. The only way, left hand side can be finite is when $K_t$ also goes to zero.
+$$
+\begin{equation}\tag{16}
+\frac{1}{\Delta t} K_{t} = \Sigma_{t}^{p} C^{T} (C \Sigma_{t}^{p} C^{T} \Delta t + R)^{-1}
+\end{equation}
+$$
+
+As $\Delta t$ goes to zero, the term on the right goes to a finite value of $\Sigma_{t}^{p} C^{T} R^{-1}$. The only way the left-hand side can be finite is when $K_t$ also goes to zero.
 This suggests that when continuous-time dynamics are approximated by
 discrete-time dynamics using a small sampling time, the Kalman gain
 approaches zero. Consequently, employing a small sampling time in
@@ -103,17 +157,32 @@ discrete-time dynamics may not be viable.
 
 ### Finite difference version of $Σ$
 
-Substituting the update equations into the predict equations for *Σ*, we
-get,
-$$\\Sigma\_{t}^{p}=(I+A\\Delta t)(I-K\_{t-1}C)\\Sigma\_{t-1}^{p}(I+A\\Delta t)^{T}+Q\\Delta t$$
-Rearranging this terms will give
+Substituting the update equations into the predict equations for $\Sigma$, we get,
 
-$$\\frac{1}{\\Delta t}(\\Sigma_t^p-\\Sigma\_{t-1}^p) = -\\frac{k\_{t-1}C\\Sigma\_{t-1}^p}{\\Delta t} + (A\\Sigma\_{t-1}^p+AK\_{k-1}C\\Sigma\_{t-1}^p+\\Sigma\_{t-1}^pA^T-K\_{t-1}C\\Sigma\_{t-1}^pA^T+Q) + O(\\Delta t^2)$$
+$$
+\begin{equation}\tag{17}
+\Sigma_{t}^{p} = (I+A\Delta t)(I-K_{t-1}C)\Sigma_{t-1}^{p}(I+A\Delta t)^{T} + Q\Delta t
+\end{equation}
+$$
 
-With limit, $Δt → 0$
+Rearranging these terms will give
+
+$$
+\begin{equation}\tag{18}
+\frac{1}{\Delta t} (\Sigma_{t}^{p} - \Sigma_{t-1}^{p}) = -\frac{K_{t-1}C\Sigma_{t-1}^{p}}{\Delta t} + (A\Sigma_{t-1}^{p} + AK_{t-1}C\Sigma_{t-1}^{p} + \Sigma_{t-1}^{p}A^{T} - K_{t-1}C\Sigma_{t-1}^{p}A^{T} + Q) + O(\Delta t^{2})
+\end{equation}
+$$
+
+With the limit $\Delta t \to 0$
 
 We get the finite difference version,
-$$\\underbrace{\\dot{\\Sigma}(t)=A\\Sigma(t)+\\Sigma(t)A^{T}-\\Sigma(t)C^{T}R^{-1}C\\Sigma(t)+Q}\_{\\text{Riccati ODE}}$$
+
+$$
+\begin{equation}\tag{19}
+\underbrace{\dot{\Sigma}(t) = A\Sigma(t) + \Sigma(t)A^{T} - \Sigma(t)C^{T}R^{-1}C\Sigma(t) + Q}_{\text{Riccati ODE}}
+\end{equation}
+$$
+
 
 ### Duality in the Riccati Equation
 

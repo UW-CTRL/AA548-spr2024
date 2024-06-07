@@ -23,7 +23,7 @@ $$
 \end{equation}
 $$
 
-If there are lots of possibile values for $X$, then the denominator is extremely hard to compute, as it requires integrating over all of them.
+If there are lots of possibile values for $X$, then the denominator (called the *normalization factor*) is extremely hard to compute, as it requires integrating over all of them.
 In general, this makes the RBF expensive to use, as most systems of interest have a large number of possible states, or even infinitely many.
 For instance, a single vehicle might have 12 continuous states that parametrze its position, velocity, attitude, and angular velocity---and numeric integration over 12 continuous states is never fun.
 Due to this difficulty in computation, it is useful to make some simplifying assumptions in order to leverage the power of the RBF.
@@ -88,9 +88,9 @@ $$
 \end{equation}
 $$
 
-The proportionality constant in the update step is the unique constant that normalizes the posterior probabiity, such that $\int_{x_k} p(x_k|y_{1:k}) \, dx_k = 1$.
-This constant can occasionally be computed explicitly, but often can only be approximated.
-In the case of a linear Gaussian system, we will be able to compute it explicitly.
+The proportionality constant in the update step is the normalization factor of Bayes' rule, which ensures that the posterior probabiity satisfies $\int_{x_k} p(x_k|y_{1:k}) \, dx_k = 1$.
+As stated in the introduction, the normalization factor is very expensive to compute.
+However, in the case of a linear Gaussian system, we will be able to determine it analytically!
 
 ## Derivation
 

@@ -19,7 +19,7 @@ However, the RBF is challenging to use in practice, as it makes heavy use of Bay
 
 $$
 \begin{equation}
-p(x|y) = \frac{p(y|x) p(x)}{p(y)} = \frac{p(y|x) p(x)}{\int_{\tilde{x}} p(\tilde{x}, y) \, d\tilde{x}}
+    p(x|y) = \frac{p(y|x) p(x)}{p(y)} = \frac{p(y|x) p(x)}{\int_{\tilde{x}} p(\tilde{x}, y) \, d\tilde{x}}
 \end{equation}
 $$
 
@@ -43,7 +43,7 @@ When we say $X \sim \mathcal{N}(\mu, \Sigma)$, we mean that $X$ is "Gaussian": i
 
 $$
 \begin{equation}
-p(x) = \mathcal{N}(\mu, \Sigma) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1}(x - \mu) \right)
+    p(x) = \mathcal{N}(\mu, \Sigma) = \frac{1}{(2\pi)^{n/2} \det(\Sigma)^{1/2}} \exp\left( -\frac{1}{2} (x - \mu)^T \Sigma^{-1}(x - \mu) \right)
 \end{equation}
 $$
 
@@ -59,11 +59,11 @@ In particular:
 
 $$
 \begin{equation}
-\begin{aligned}
-p(x | y) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y}) \quad &\text{where} \quad \mu_{x|y} = \mu_x + \Sigma_{xy}\Sigma_y^{-1} (y - \mu_y), \quad \Sigma_{x|y} = \Sigma_x - \Sigma_{xy}\Sigma_y^{-1}\Sigma_{yx} \\
-p(y | x) = \mathcal{N}(\mu_{y|x}, \Sigma_{y|x}) \quad &\text{where} \quad \mu_{y|x} = \mu_y + \Sigma_{yx}\Sigma_x^{-1} (x - \mu_x), \quad \Sigma_{y|x} = \Sigma_y - \Sigma_{yx}\Sigma_x^{-1}\Sigma_{xy} \\
-& \text{where} \quad \Sigma_{xy} = \Sigma{yx}^T = Cov(X, Y) := \mathbb{E} [(X - \mu_x)(Y - \mu_y)^T] .
-\end{aligned}
+    \begin{aligned}
+        p(x | y) = \mathcal{N}(\mu_{x|y}, \Sigma_{x|y}) \quad &\text{where} \quad \mu_{x|y} = \mu_x + \Sigma_{xy}\Sigma_y^{-1} (y - \mu_y), \quad \Sigma_{x|y} = \Sigma_x - \Sigma_{xy}\Sigma_y^{-1}\Sigma_{yx} \\
+        p(y | x) = \mathcal{N}(\mu_{y|x}, \Sigma_{y|x}) \quad &\text{where} \quad \mu_{y|x} = \mu_y + \Sigma_{yx}\Sigma_x^{-1} (x - \mu_x), \quad \Sigma_{y|x} = \Sigma_y - \Sigma_{yx}\Sigma_x^{-1}\Sigma_{xy} \\
+        & \text{where} \quad \Sigma_{xy} = \Sigma{yx}^T = Cov(X, Y) := \mathbb{E} [(X - \mu_x)(Y - \mu_y)^T] .
+    \end{aligned}
 \end{equation}
 $$
 
@@ -76,7 +76,7 @@ This is done using a two-step recursive process:
 
 $$
 \begin{equation}
-p(x_k | y_{1:k - 1}) = \int_{x_{k - 1}} p(x_k | x_{k - 1}) p(x_{k - 1} | y_{1:k - 1}) \, dx_{k - 1}
+    p(x_k | y_{1:k - 1}) = \int_{x_{k - 1}} p(x_k | x_{k - 1}) p(x_{k - 1} | y_{1:k - 1}) \, dx_{k - 1}
 \end{equation}
 $$
 
@@ -84,7 +84,7 @@ $$
 
 $$
 \begin{equation}
-p(x_k | y_{1:k}) \propto p(y_k | x_k) p(x_k | y_{1:k - 1}) \quad \text{(Bayes' rule)}
+    p(x_k | y_{1:k}) \propto p(y_k | x_k) p(x_k | y_{1:k - 1}) \quad \text{(Bayes' rule)}
 \end{equation}
 $$
 
@@ -98,10 +98,10 @@ We wish to derive the estimate found by the recursive Bayesian filter, given the
 
 $$
 \begin{equation}
-\begin{aligned}
-x_{k + 1} &= Ax_k + Bu_k + w_k, &&\quad W_k \sim \mathcal{N}(0, Q) \\
-y_k &= Cx_k + v_k, &&\quad V_k \sim \mathcal{N}(0, R)
-\end{aligned}
+    \begin{aligned}
+        x_{k + 1} &= Ax_k + Bu_k + w_k, &&\quad W_k \sim \mathcal{N}(0, Q) \\
+        y_k &= Cx_k + v_k, &&\quad V_k \sim \mathcal{N}(0, R)
+    \end{aligned}
 \end{equation}
 $$
 
@@ -112,7 +112,7 @@ The observation $y_k$ is linear in $x_k$ and $v_k$, so it is Gaussian as well:
 
 $$
 \begin{equation}
-Y_k = CX_k + V_k \  \sim \  \mathcal{N}(\mu_{y_k}, \Sigma_{y_k}) .
+    Y_k = CX_k + V_k \  \sim \  \mathcal{N}(\mu_{y_k}, \Sigma_{y_k}) .
 \end{equation}
 $$
 
@@ -120,7 +120,7 @@ Let's compute the mean and covariance of $Y_k$. Due to the linearity of the expe
 
 $$
 \begin{equation}
-\mu_{y_k} := \mathbb{E}[Y_k] = \mathbb{E}[CX_k + V_k] = C\mathbb{E}[X_k] + \mathbb{E}[V_k] = C\mathbb{E}[X_k] = C\mu_{x_k}
+    \mu_{y_k} := \mathbb{E}[Y_k] = \mathbb{E}[CX_k + V_k] = C\mathbb{E}[X_k] + \mathbb{E}[V_k] = C\mathbb{E}[X_k] = C\mu_{x_k}
 \end{equation}
 $$
 
@@ -128,11 +128,11 @@ since $V_k$ has zero mean and so zero expected value. Furthermore, we have $Cov(
 
 $$
 \begin{equation}
-\begin{aligned}
-\Sigma_{y_k} &= Cov(Y_k) := \mathbb{E}[(Y_k - \mu_{y_k})(Y_k - \mu_{y_k})^T] = ... = C\Sigma_{x_k}C^T + R_k \\
-\Sigma_{x_k y_k} &= Cov(X_k, Y_k) := \mathbb{E}[(X_k - \mu_{x_k})(Y_k - \mu_{y_k})^T] = ... = \Sigma_{x_k} C^T \\
-\Sigma_{y_k x_k} &= Cov(Y_k, X_k) = \Sigma_{x_k y_k}^T = C \Sigma_{x_k}
-\end{aligned}
+    \begin{aligned}
+        \Sigma_{y_k} &= Cov(Y_k) := \mathbb{E}[(Y_k - \mu_{y_k})(Y_k - \mu_{y_k})^T] = ... = C\Sigma_{x_k}C^T + R_k \\
+        \Sigma_{x_k y_k} &= Cov(X_k, Y_k) := \mathbb{E}[(X_k - \mu_{x_k})(Y_k - \mu_{y_k})^T] = ... = \Sigma_{x_k} C^T \\
+        \Sigma_{y_k x_k} &= Cov(Y_k, X_k) = \Sigma_{x_k y_k}^T = C \Sigma_{x_k}
+    \end{aligned}
 \end{equation}
 $$
 
@@ -142,8 +142,8 @@ We can now compute the mean and covariance of $X|Y$, since we have calculated al
 
 $$
 \begin{align}
-\mu_{x_k | y_k} &= \mu_{x_k} + \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} (y_k - C\mu_{x_k}) \\
-\Sigma_{x_k | y_k} &= \Sigma_{x_k} - \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} C\Sigma_{x_k} .
+    \mu_{x_k | y_k} &= \mu_{x_k} + \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} (y_k - C\mu_{x_k}) \\
+    \Sigma_{x_k | y_k} &= \Sigma_{x_k} - \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1} C\Sigma_{x_k} .
 \end{align}
 $$
 
@@ -151,7 +151,7 @@ We notice and factor out the common term
 
 $$
 \begin{equation}
-K_k = \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1}
+    K_k = \Sigma_{x_k} C^T (C \Sigma_{x_k} C^T + R)^{-1}
 \end{equation}
 $$
 
@@ -159,8 +159,8 @@ to obtain
 
 $$
 \begin{gather}
-\mu_{x_k | y_k} = (I - K_k C) \mu_{x_k} + K_k y \\
-\Sigma_{x_k | y_k} = (I - K_k C)\Sigma_{x_k} .
+    \mu_{x_k | y_k} = (I - K_k C) \mu_{x_k} + K_k y \\
+    \Sigma_{x_k | y_k} = (I - K_k C)\Sigma_{x_k} .
 \end{gather}
 $$
 
@@ -174,9 +174,9 @@ Making these replacements in Eqs. (11-13), we get
 
 $$
 \begin{gather}
-K_k = \Sigma_{x_k | y_{1:k - 1}} C^T (C \Sigma_{x_k | y_{1:k - 1}} C^T + R)^{-1} \\
-\mu_{x_k | y_{1:k}} = (I - K_k C) \mu_{x_k | y_{1:k - 1}} + K_k y_k \\
-\Sigma_{x_k | y_{1:k}} = (I - K_k C)\Sigma_{x_k | y_{1:k - 1}} .
+    K_k = \Sigma_{x_k | y_{1:k - 1}} C^T (C \Sigma_{x_k | y_{1:k - 1}} C^T + R)^{-1} \\
+    \mu_{x_k | y_{1:k}} = (I - K_k C) \mu_{x_k | y_{1:k - 1}} + K_k y_k \\
+    \Sigma_{x_k | y_{1:k}} = (I - K_k C)\Sigma_{x_k | y_{1:k - 1}} .
 \end{gather}
 $$
 
@@ -184,10 +184,10 @@ This notation has gotten really awful really fast ($\mu_{x_k | y_{1:k - 1}}\ $ Ë
 
 $$
 \begin{equation}
-\begin{aligned}
-x_k | y_{1:k} &\quad \to \quad k|k \\
-x_k | y_{1:k-1} &\quad \to \quad k|k - 1
-\end{aligned}
+    \begin{aligned}
+        x_k | y_{1:k} &\quad \to \quad k|k \\
+        x_k | y_{1:k-1} &\quad \to \quad k|k - 1
+    \end{aligned}
 \end{equation}
 $$
 
@@ -195,9 +195,9 @@ The left side of the "given" bar always refers to $x$ at a particular timestep. 
 
 $$
 \begin{gather}
-K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \\
-\mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \\
-\Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} .
+    K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \\
+    \mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \\
+    \Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} .
 \end{gather}
 $$
 
@@ -211,8 +211,8 @@ Thanks to the linear Gaussian assumption, we can calculate $\mu_{k|k - 1}$ and $
 
 $$
 \begin{gather}
-\mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \\
-\Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q
+    \mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \\
+    \Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q
 \end{gather}
 $$
 
@@ -226,8 +226,8 @@ The recursive Bayesian filter for a linear Gaussian system is given by the follo
 
 $$
 \begin{gather}
-\mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \\
-\Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q
+    \mu_{k|k - 1} = A\mu_{k - 1|k - 1} + B u_{k - 1} \\
+    \Sigma_{k|k - 1} = A\Sigma_{k - 1|k - 1} A^T + Q
 \end{gather}
 $$
 
@@ -235,9 +235,9 @@ $$
 
 $$
 \begin{gather}
-K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \\
-\mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \\
-\Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} .
+    K_k = \Sigma_{k|k - 1} C^T (C \Sigma_{k|k - 1} C^T + R)^{-1} \\
+    \mu_{k|k} = (I - K_k C) \mu_{k|k - 1} + K_k y_k \\
+    \Sigma_{k|k} = (I - K_k C)\Sigma_{k|k - 1} .
 \end{gather}
 $$
 

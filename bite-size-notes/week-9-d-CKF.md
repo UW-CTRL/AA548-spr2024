@@ -185,6 +185,7 @@ $$
 
 
 ### Duality in the Riccati Equation
+The Linear Quadratic Regulator (LQR) and the continuous Kalman Filter (KF) are similar in that both are based on the solution of Riccati equations, which are central to their respective optimization problems. In LQR, the Riccati equation determines the optimal feedback gain to minimize a quadratic cost function, balancing state error and control effort. In the continuous Kalman Filter, a similar Riccati equation governs the update of the error covariance matrix to optimally estimate the system state from noisy measurements. Both methods use state-space models and quadratic forms, and their dual nature means techniques and insights from one domain often apply to the other, reflecting their mathematical and conceptual interdependence.
 
 CKF: 
 $$\dot{\Sigma}=A\Sigma+\Sigma A^{T}-\Sigma C^{T}R^{-1}C\Sigma+Q$$
@@ -202,44 +203,12 @@ $$-\dot{P}=A^{T} P+P A-P B R^{-1} B^{T} P+Q$$
 
 Differences between LQR and KF.
 
-### Finite Difference version of *μ*
-
-We can also carry out similar operations to arrive at a finite difference equation for $\mu$,
-
+Combining predict and update equation for mean gives,
 $$
 \begin{equation}\tag{20}
-\mu_{t} = \mu_{t}^{p} + K_{t}(y_{t} - C\mu_{t}^{p})
+\dot{\mu}(t) = A\mu(t) + Bu(t) + \Sigma(t) C^{T}R^{-1}(y(t) - C\mu(t))
 \end{equation}
 $$
-
-Plugging this into the predict equation will give,
-
-$$
-\begin{equation}\tag{21}
-\mu_{t} = (I + A\Delta t)\mu_{t-1} + K_{t}(y_{t} - C(I + A\Delta t)\mu_{t-1} + B\Delta t u_{t-1})
-\end{equation}
-$$
-
-Rearranging the terms gives
-
-$$
-\begin{equation}\tag{22}
-\frac{1}{\Delta t}(\mu_{t} - \mu_{t-1}) = A\mu_{t} + Bu_{t} + \frac{K_{t}}{\Delta t}(y_{t} - C\mu_{t} - C(A\mu_{t} + Bu_{t})\Delta t)
-\end{equation}
-$$
-
-With the limit, $\Delta t \to 0$
-
-We get the finite difference version,
-
-$$
-\begin{equation}\tag{23}
-\dot{\mu} = A\mu + Bu + \Sigma C^{T} R^{-1} (y - C\mu)
-\end{equation}
-$$
-
-indicating how the mean changes over time.
-
 
 ### Continuous Time Kalman Filter Summary
 Key takeaways include:

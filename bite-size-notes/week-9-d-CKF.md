@@ -83,7 +83,7 @@ Similarly, integrating measurement noise over the time step,
 
 $$
 \begin{equation}\tag{25}
-\tilde{v}_{t} = \frac{1}{\Delta t} \int_{t}^{t+\Delta t} v(\tau) \, d\tau
+a\tilde{v}_{t} = \frac{1}{\Delta t} \int_{t}^{t+\Delta t} v(\tau) \, d\tau
 \end{equation}
 $$
 

@@ -25,12 +25,13 @@ state estimates for systems modeled by differential equations.
 We start with the continuous time dynamical system with Gaussian noise:
 $$
 \begin{equation}\tag{1}
-\begin{aligned}
-\dot{x}(t) &= Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)\\
-y(t) &= Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)\\
-\end{aligned}
+    \begin{aligned}
+        \dot{x}(t) &= Ax(t) + Bu(t) + w(t)  \quad\quad\quad\quad w(t) \sim \mathcal{N}(0,Q)\\
+        y(t) &= Cx(t) + Du(t) + v(t) \quad\quad\quad\quad v(t) \sim \mathcal{N}(0,R)\\
+    \end{aligned}
 \end{equation}
 $$
+
 
 where, $Q$ is Process noise covariance and *R* is measurement noise
 covariance. We also assume that our measurement is not affected by the

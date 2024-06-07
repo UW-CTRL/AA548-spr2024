@@ -88,13 +88,13 @@ $$E\[\\tilde{V}\_{t} \\tilde{V}\_{t}^T\]=\\frac{R(t)}{\\Delta t}=\\frac{R}{\\Del
 With this, the continuous time dynamics are turned to discrete time dynamics:
 
 $$
-\begin{equation}\tag{9}
+\begin{equation}\tag{7}
 x_{t+1} = (I+A\Delta t)x_{t} + B\Delta t u_{t} + \tilde{w}_{t} \quad \quad \tilde{w} \sim \mathcal{N}(0, Q\Delta t)
 \end{equation}
 $$
 
 $$
-\begin{equation}\tag{10}
+\begin{equation}\tag{8}
 y_{t} = Cx_{t} + \tilde{v}_{t} \quad \quad \tilde{v} \sim \mathcal{N}(0, \frac{R}{\Delta t})
 \end{equation}
 $$
@@ -102,13 +102,13 @@ $$
 Just like for discrete systems, we have the predict equations given as:
 
 $$
-\begin{equation}\tag{11}
+\begin{equation}\tag{9}
 \mu_{t}^{p} = (I+A\Delta t)\mu_{t-1} + B\Delta t u_{t-1}
 \end{equation}
 $$
 
 $$
-\begin{equation}\tag{12}
+\begin{equation}\tag{10}
 \Sigma_{t}^{p} = (I+A\Delta t)\Sigma_{t-1}(I+A\Delta t)^{T} + Q\Delta t
 \end{equation}
 $$
@@ -116,19 +116,19 @@ $$
 Update equations are as follows:
 
 $$
-\begin{equation}\tag{13}
+\begin{equation}\tag{11}
 K_{t} = \Sigma_{t}^{p} C^{T} (C \Sigma_{t}^{p} C^{T} + \frac{1}{\Delta t} R)^{-1}
 \end{equation}
 $$
 
 $$
-\begin{equation}\tag{14}
+\begin{equation}\tag{12}
 \mu_{t} = \mu_{t}^{p} + K_{t}(y_{t} - C\mu_{t}^{p})
 \end{equation}
 $$
 
 $$
-\begin{equation}\tag{15}
+\begin{equation}\tag{13}
 \Sigma_{t} = (I-K_{t}C)\Sigma_{t}^{p}
 \end{equation}
 $$
@@ -136,7 +136,7 @@ $$
 Rearranging the gain equation we get,
 
 $$
-\begin{equation}\tag{16}
+\begin{equation}\tag{14}
 \frac{1}{\Delta t} K_{t} = \Sigma_{t}^{p} C^{T} (C \Sigma_{t}^{p} C^{T} \Delta t + R)^{-1}
 \end{equation}
 $$
@@ -152,7 +152,7 @@ discrete-time dynamics may not be viable.
 Substituting the update equations into the predict equations for $\Sigma$, we get,
 
 $$
-\begin{equation}\tag{17}
+\begin{equation}\tag{15}
 \Sigma_{t}^{p} = (I+A\Delta t)(I-K_{t-1}C)\Sigma_{t-1}^{p}(I+A\Delta t)^{T} + Q\Delta t
 \end{equation}
 $$
@@ -160,7 +160,7 @@ $$
 Rearranging these terms will give
 
 $$
-\begin{equation}\tag{18}
+\begin{equation}\tag{16}
 \frac{1}{\Delta t} (\Sigma_{t}^{p} - \Sigma_{t-1}^{p}) = -\frac{K_{t-1}C\Sigma_{t-1}^{p}}{\Delta t} + (A\Sigma_{t-1}^{p} + AK_{t-1}C\Sigma_{t-1}^{p} + \Sigma_{t-1}^{p}A^{T} - K_{t-1}C\Sigma_{t-1}^{p}A^{T} + Q) + O(\Delta t^{2})
 \end{equation}
 $$
@@ -170,7 +170,7 @@ With the limit $\Delta t \to 0$
 We get the finite difference version,
 
 $$
-\begin{equation}\tag{19}
+\begin{equation}\tag{17}
 \underbrace{\dot{\Sigma}(t) = A\Sigma(t) + \Sigma(t)A^{T} - \Sigma(t)C^{T}R^{-1}C\Sigma(t) + Q}_{\text{Riccati ODE}}
 \end{equation}
 $$
@@ -198,7 +198,7 @@ Differences between LQR and KF.
 Combining predict and update equation for mean gives,
 
 $$
-\begin{equation}\tag{20}
+\begin{equation}\tag{18}
 \dot{\mu}(t) = A\mu(t) + Bu(t) + \Sigma(t) C^{T}R^{-1}(y(t) - C\mu(t))
 \end{equation}
 $$
